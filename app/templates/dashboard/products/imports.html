@@ -1,0 +1,126 @@
+<!-- templates/index.html -->
+
+{% extends "dashboard/base.html" %}
+
+{% block content %}
+
+<!-- Start block -->
+<section class="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5 antialiased">
+    <div class="">
+        <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
+
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
+                <div class="flex-1 flex items-center space-x-2">
+                    <h5 class="font-semibold dark:text-white">Daten importieren</h5>
+                </div>
+            </div>
+
+            <!-- <div class="grid gap-6 mb-6 md:grid-cols-2"> -->
+            <div class="grid gap-4 mb-5 sm:grid-cols-3">
+
+                <div>
+                    <div class="p-4">
+                        <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kategorie wählen</label>
+                        <select id="category" name="category" class="cursor-pointer bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <option value="autoUpdate">Auto Update</option>
+                            <option value="terpene">Terpene</option>
+                            <option value="products">Produkte</option>
+                            <option value="product_prices">Preise</option>
+                            <option value="faqs">FAQs</option>
+                            <option value="blog">Blog</option>
+                            <option value="lexicon">Lexikon</option>
+                            <option value="cannabis_effects">Wirkungsweisen Templates</option>
+                            <option value="cannabis_indications">Indikationen Templates</option>
+                        </select>
+                        <input class="mt-5 block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="importFile" type="file" accept=".xlsx">
+                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">.xlsx</p>
+                        <button id="updateOrderBtn"  data-modal-target="alert-modal" onclick="saveImport()" type="button" class="mt-5 w-full sm:w-auto justify-center text-white inline-flex bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                            Speichern
+                        </button>
+                        <button data-modal-target="alert-modal" onclick="updateProductImages()" type="button" class="mt-5 w-full sm:w-auto justify-center text-white inline-flex bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                            Produktbilder aktualisieren
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+{% endblock content %}
+
+{% block scripts %}
+<script>
+
+    const saveImport = () => {
+
+        $('.loading-screen').removeClass('hidden')
+
+        let formData = new FormData();
+
+        formData.append('saveImport', 'saveImport')
+        formData.append('category', $('#category').val())
+
+        formData.append('importFile', $('#importFile')[0].files[0]);
+
+        $.ajax({
+            type: 'POST',
+            url: '{% url "dashboard_imports" %}',
+            processData: false,  // Wichtig: Verhindert, dass jQuery die Daten verarbeitet
+            contentType: false,
+            traditional: true,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRFToken': getCookie('csrftoken')
+            },
+            data: formData,
+            success: (data) => {
+
+                $('.loading-screen').addClass('hidden')
+                location.reload()
+        
+            },
+            error: () => {
+                
+                $('.loading-screen').addClass('hidden')
+                toggleModal('alert-modal')
+        
+            }
+        })
+
+    }
+
+    const updateProductImages = () => {
+
+        $('.loading-screen').removeClass('hidden')
+        
+        $.ajax({
+            type: 'POST',
+            url: '{% url "dashboard_imports" %}',
+            traditional: true,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRFToken': getCookie('csrftoken')
+            },
+            data: {
+                'updateProductImages': 'updateProductImages',
+            },
+            success: (data) => {
+
+                $('.loading-screen').addClass('hidden')
+                location.reload()
+        
+            },
+            error: () => {
+                
+                $('.loading-screen').addClass('hidden')
+                toggleModal('alert-modal')
+        
+            }
+        })
+
+    }
+
+</script>
+{% endblock %}

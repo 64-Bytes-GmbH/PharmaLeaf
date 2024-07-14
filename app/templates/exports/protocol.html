@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vereinfachtes Herstellungsprotokoll</title>
+    <style>
+        @page {
+            margin: 30px;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            line-height: 18px;
+        }
+        .container {
+            width: 100%;
+            margin: 0 auto;
+        }
+        .header {
+            text-align: center;
+        }
+        .content table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .content th, .content td {
+            text-align: left;
+        }
+        .content th {
+            background-color: #f2f2f2;
+        }
+        .border-table {
+            border-collapse: collapse;
+            border: 1px solid black;
+            margin-bottom: 1rem;
+        }
+        .border-table th, .border-table td {
+            border: 1px solid white;
+            border-color: white;
+            border-left-color: white;
+            border-right-color: white;
+            border-top-color: white;
+            border-bottom-color: white;
+            border-left-style: hidden;
+            border-right-style: hidden;
+            border-top-style: hidden;
+            border-bottom-style: hidden;
+            border-left-width: 0;
+            border-right-width: 0;
+            border-top-width: 0;
+            border-bottom-width: 0;
+        }
+        .no-border-table, .no-border-table th, .no-border-table td {
+            border: 1px solid white;
+            border-color: white;
+            border-left-color: white;
+            border-right-color: white;
+            border-top-color: white;
+            border-bottom-color: white;
+            border-left-style: hidden;
+            border-right-style: hidden;
+            border-top-style: hidden;
+            border-bottom-style: hidden;
+            border-left-width: 0;
+            border-right-width: 0;
+            border-top-width: 0;
+            border-bottom-width: 0;
+        }
+        .min-height {
+            padding-top: 0;
+            padding-bottom: 0;
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+        p {
+            margin-top: .5rem;
+            margin-bottom: .5rem;
+        }
+        table.border-table th, table.border-table td {
+            padding-top: 3px;
+            padding-bottom: 0px;
+        }
+        .page-break {
+            page-break-after: always;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 style="font-size: 16px; margin-top: 0; padding-bottom: 10px; border-bottom: 1px solid #000">Vereinfachtes Herstellungsprotokoll nach § 7 Abs. 1c ApBetrO</h1>
+        </div>
+        <div class="content">
+            <center>{{ pharmacy.name }}<br>{{pharmacy.street}} {{pharmacy.street_number}}, {{pharmacy.postalcode}} {{pharmacy.city}}</center>
+            
+            <table class="no-border-table" cellspacing="0" cellpadding="0" style="margin-top: .5rem">
+                <tbody>
+                    <tr>
+                        <td class="min-height" style="width: 160px;">Interne Bezeichnung:</td>
+                        <td class="min-height"><strong>{{ product.name }}</strong></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 160px">Bezeichnung auf Etikett:</td>
+                        <td><strong></strong></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 160px">Rezepturherstell-Nr.:</td>
+                        <td><strong>{{ fill_protocol }}</strong></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 160px">Applikationsart:</td>
+                        <td><strong>Inhalativ</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <p>Plausibilitätsprüfung: Die Rezeptur wurde hinsichtlich Therapiekonzept, Art und Dauer der Anwendung sowie Dosierung patientenindividuell unter Berücksichtigung des Alters überprüft und für geeignet befunden.</p>
+            
+            <p>Standard-Herstellungsanweisung: Dokument-Nr. <strong>{{ standard_filling_protocol.id }}</strong> vom <strong>{{ standard_filling_protocol.date }}</strong></p>
+            
+            <table class="no-border-table" cellspacing="0" cellpadding="0" style="margin: .5rem 0 1rem;">
+                <tbody>
+                    <tr>
+                        <td class="min-height" style="width: 160px;">Abgefüllter Ausgangsstoff:</td>
+                        <td class="min-height"><strong>{{ product.name }}</strong></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 140px">Einwaage Soll:</td>
+                        <td><strong>{{ product.amount }},00 g</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="border-table">
+                <thead>
+                    <tr style="border-bottom-style: none;">
+                        <th style="width: 20px"></th>
+                        <th style="width: 150px; padding-top: 3px;">Prüf-Nr./Ch.-B.</th>
+                        <th style="text-align: right; width: 100px; padding-right: 10px; padding-top: 3px;">Einwaage Ist</th>
+                        <th style="width: 50px; padding-top: 3px;padding-right: 10px;">Nz.</th>
+                        <th style="padding-top: 3px;">Patient</th>
+                        <th style="padding-top: 3px;">Verordner</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for package in product.package_data %}
+                    <tr>
+                        <td style="text-align:right; padding-right: 10px;">{{ forloop.counter }}</td>
+                        <td>{{ package.verification_number }}/{{ package.batch_number }}</td>
+                        <td style="text-align:right; padding-right: 10px;">{{ package.fill_amount }},00 g</td>
+                        <td style="padding-right: 10px;">{{ package.packer }}</td>
+                        <td>{{ customer_full_name }}</td>
+                        <td></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            
+            <table class="border-table">
+                <thead>
+                    <tr style="border-bottom-style: none;">
+                        <th style="width: 20px; padding-bottom: 0px"></th>
+                        <th style="width: 300px;">Packmittel</th>
+                        <th style="width: 100px;">Prüf-Nr./Ch.-B.</th>
+                        <th style="text-align:right; padding-right: 5px; width: 100px;">Menge</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for package in product.used_packages %}
+                    <tr style="border-top-style: none;">
+                        <td style="text-align:right; padding-right: 5px;">{{ forloop.counter }}</td>
+                        <td style="width: 300px; padding-right: 5px;">{{ package.name }}</td>
+                        <td style="width: 100px;">{{ package.batch_number }}</td>
+                        <td style="text-align:right; padding-right: 5px; width: 100px;">{{ package.amount }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            
+            <p><strong>Herstellungsparameter/Herstellungsschritte:</strong><br>
+            - Abfüllung nach Gewicht: Abgabegefäß tarieren und Stoff/Zubereitung direkt in das Abgabegefäß einwiegen<br>
+            - Abfüllung nach Volumen: Abgabegefäß bis zum gewünschten Volumen befülen (ggf. unter Verwendung geeigneter Hilfsmittel)<br>
+            - Abfüllung nach Stückzahl: Abgabegefäß mit der abgezählten Stückzahl befüllen<br>
+            Das Abgabegefäß muss für die beabsichtigten Zwecke geeignet sein und den Stoff oder die Zubereitung vor physikalischen, mikrobiologischen oder chemischen Veränderungen schützen.</p>
+            
+            <p><strong>Abgefüllt am: </strong>{{ today_str }} <strong>durch</strong> {{ pharmacy.packer1 }}, beaufsichtigt von {{ pharmacy.packer2 }}</p>
+
+            <p><strong>Entsorgungshinweise/Sonstige Hinweise: </strong>- keine -</p>
+
+            <p><strong>Aufbewahrungshinweise:</strong> Dicht verschlossen aufbewahren. Kühl und trocken aufbewahren.<br>
+            Verschreibungspflichtig. Vor Kindern gesichert aufbewahren</p>
+            
+            <p><strong>Warnhinweise/Besondere Vorsichtsmaßnahmen:</strong> - keine -</p>
+            
+            <p><strong>Organoleptische Prüfung des Endproduktes:</strong> Das Abgabegefäß ist korrekt befüllt, verschlossen und gekennzeichnet.</p>
+            
+            <p>Von einer analytischen Prüfung kann abgesehen werden, da die Qualität des Rezepturarzneimittels durch das Herstellverfahren und das Ergebnis der organoleptischen Prüfung des Endproduktes gewährleistet ist.
+
+            <p><strong>Verwendbar bis:</strong> {{ in_six_months_str }}</p>
+            
+            <p><strong>Art der Anwendung/Gebrauchsanweisung:</strong> Anwendung nach ärztlicher Anweisung. Zum verdampfen und inhalieren.</p>
+            
+            <p><strong>Freigabe:</strong><br>Das angefertigte Arzneimittel entspricht dem angeforderten Rezepturarzneimittel und wurde mit interner <br>
+            Freigabe-Nr. <strong>{{fill_protocol}}</strong> durch Apotheker/in {{pharmacy.responsible_pharmacist}} vor Abgabe des Arzneimittels freigegeben.</p>
+
+
+            <table style="margin-top: 50px;">
+                <tbody>
+                    <tr>
+                        <td style="width: 100px"></td>
+                        <td style="width: 100px; border-top: 1px solid #000000; padding-top: 2px;">Datum</td>
+                        <td style="width: 100px"></td>
+                        <td style="width: 200px; border-top: 1px solid #000000; padding-top: 2px;">Unterschrift Verantwortliche(r) Apotheker(in)<br>{{pharmacy.responsible_pharmacist}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+</body>
+</html>

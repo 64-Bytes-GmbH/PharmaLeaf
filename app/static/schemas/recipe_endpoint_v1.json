@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "customer": {
+      "type": "object",
+      "properties": {
+        "firstname": { "type": "string" },
+        "lastname": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "phone": { "type": "string" },
+        "birthDate": { "type": "string" },
+        "homeAddress": {
+          "type": "object",
+          "properties": {
+            "streetName": { "type": "string" },
+            "houseNr": { "type": "string" },
+            "postalCode": { "type": "string" },
+            "city": { "type": "string" }
+          },
+          "required": ["streetName", "houseNr", "postalCode", "city"]
+        }
+      },
+      "required": ["firstname", "lastname", "email", "birthDate", "phone", "homeAddress"]
+    },
+    "products": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "number": { "type": "string" },
+          "name": { "type": "string" },
+          "quantity": { "type": "integer", "minimum": 0 },
+          "price": { "type": "number", "minimum": 0 },
+          "crushed": { "type": "boolean" }
+        },
+        "required": ["id", "quantity", "crushed"]
+      },
+      "minItems": 1
+    },
+    "pharmacy_id": { "type": "string" },
+    "prescriptionURL": { "type": "string", "format": "uri" },
+    "internalOrderId": { "type": "string" }
+  },
+  "required": [
+    "customer",
+    "products",
+    "pharmacy_id",
+    "prescriptionURL"
+  ]
+}

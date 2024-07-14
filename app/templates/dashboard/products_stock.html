@@ -1,0 +1,1149 @@
+<!-- templates/index.html -->
+
+{% extends "dashboard/base.html" %}
+{% load static extra_tags %}
+
+{% block content %}
+
+
+
+<!-- Start block -->
+<section class="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5 antialiased">
+    <div class="">
+        <div class="flex flex-col bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden" style="height: calc(100vh - 64px - 2.5rem);">
+            <div class="flex flex-col md:items-start md:justify-between space-y-3 p-4">
+                <div class="flex-1 flex items-center space-x-2">
+                    <h5 class="font-semibold dark:text-white">Lagerbestand:</h5>
+                    <div class="font-medium text-gray-500 dark:text-gray-400">
+                        {{ products.paginator.count }} Ergebnisse
+                    </div>
+                </div>
+            
+                <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 dark:text-gray-400">
+                    <li class="me-2">
+                        <a href="{% url 'dashboard_products_stock' %}" class="inline-block px-4 py-3 text-white bg-primary-600 rounded-lg active" aria-current="page">Produkte</a>
+                    </li>
+                    <li class="me-2">
+                        <a href="{% url 'dashboard_packages_stock' %}"  class="inline-block px-4 py-3 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">Verpackungen</a>
+                    </li>
+                </ul>
+
+                {% if request|check_get_parameters_exist:'search;manufacturer;supplier;status' %}
+                <div class="flex-1 flex items-center border-gray-600 w-full filter-parameters">
+                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M5.05 3C3.291 3 2.352 5.024 3.51 6.317l5.422 6.059v4.874c0 .472.227.917.613 1.2l3.069 2.25c1.01.742 2.454.036 2.454-1.2v-7.124l5.422-6.059C21.647 5.024 20.708 3 18.95 3H5.05Z"/>
+                    </svg>
+                    <div class="flex-1 flex flex-wrap divide-x divide-gray-500 dark:divide-gray-400 w-full">
+                        {% if request|get_parameter:'search' %}
+                        <p class="text-gray-500 dark:text-gray-400 px-3 text-xs whitespace-nowrap">Suche: {{ request|get_parameter:'search' }}</p>
+                        {% endif %}
+                        {% if request|get_parameter:'manufacturer' %}
+                        <p class="text-gray-500 dark:text-gray-400 px-3 text-xs whitespace-nowrap">Hersteller: {{ request|get_parameter:'manufacturer' }}</p>
+                        {% endif %}
+                        {% if request|get_parameter:'supplier' %}
+                        <p class="text-gray-500 dark:text-gray-400 px-3 text-xs whitespace-nowrap">Lieferant: {{ request|get_parameter:'supplier' }}</p>
+                        {% endif %}
+                        {% if request|get_parameter:'status' %}
+                        <p class="text-gray-500 dark:text-gray-400 px-3 text-xs whitespace-nowrap">Status: {{ request|get_parameter:'status' }}</p>
+                        {% endif %}
+                    </div>
+                    <button type="button" onclick="resetFilter()" class="flex items-center justify-center focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
+                        <svg class="w-4 h-4 text-gray-800 dark:text-white mr-1.5 -ml-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                            <path fill-rule="evenodd" d="M8.586 2.586A2 2 0 0 1 10 2h4a2 2 0 0 1 2 2v2h3a1 1 0 1 1 0 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8a1 1 0 0 1 0-2h3V4a2 2 0 0 1 .586-1.414ZM10 6h4V4h-4v2Zm1 4a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Zm4 0a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Z" clip-rule="evenodd"/>
+                        </svg>
+                        Filter löschen
+                    </button>
+                </div>
+                {% endif %}
+            </div>
+            <div class="flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-3 md:space-y-0 justify-between mx-4 py-4 border-t dark:border-gray-700">
+                <div class="flex flex-row">
+                    <div class="relative" style="min-width: 300px;">
+                        <div class="absolute inset-y-0 start-0 flex items-center ps-4 pointer-events-none">
+                            <svg class="h-3.5 w-3.5 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                            </svg>
+                        </div>
+                        <input type="text" id="searchInput" class="bg-gray-50 border w-full border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block ps-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Artikelnummer, Bezeichnung, ..." required>
+                    </div>
+                    <button type="button" onclick="searchOrder()" class="flex mr-2 items-center justify-center px-4 py-2 ms-2 text-sm font-medium text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
+                        <svg class="h-3.5 w-3.5 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                        </svg>
+                        Suchen
+                    </button>
+                </div>
+                <div class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
+                    <!-- <button type="button" id="createProductButton" onclick="toggleModal('addBatchNumber')" class="h-full flex items-center justify-center text-white bg-gray-900 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2 bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
+                        <svg class="h-3.5 w-3.5 mr-1.5 -ml-1" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path clip-rule="evenodd" fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
+                        </svg>
+                        Charge hinzufügen
+                    </button> -->
+                    <button id="filterDropdownButton" data-dropdown-toggle="filterDropdown" class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" type="button">
+                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-4 w-4 mr-1.5 -ml-1 text-gray-400" viewbox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z" clip-rule="evenodd" />
+                        </svg>
+                        Filtern
+                        <svg class="-mr-1 ml-1.5 w-5 h-5" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path clip-rule="evenodd" fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+                        </svg>
+                    </button>
+                    <div id="filterDropdown" class="z-10 hidden px-3 pt-1 bg-white rounded-lg shadow w-80 dark:bg-gray-700 right-0">
+                        <div id="accordion-flush" data-accordion="collapse" data-active-classes="text-black dark:text-white" data-inactive-classes="text-gray-500 dark:text-gray-400">
+                            
+                            <!-- Lieferant -->
+                            <h2 id="supplier-heading">
+                                <button type="button" class="flex items-center justify-between w-full py-2 px-1.5 text-sm font-medium text-left text-gray-500 border-b border-gray-200 dark:border-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700" data-accordion-target="#supplier-body" aria-expanded="true" aria-controls="supplier-body">
+                                    <div>
+                                        <span class="mr-2">Lieferant</span>
+                                        {% if request|get_parameter:'supplier' %}
+                                        <span class="inline-flex items-center justify-center w-5 h-5 text-xs text-white bg-primary-700 dark:bg-primary-600 rounded-full">{{ request|get_parameter:'supplier'|tsplit:','|length }}</span>
+                                        {% endif %}
+                                    </div>
+                                    <svg aria-hidden="true" data-accordion-icon="" class="w-5 h-5 rotate-180 shrink-0" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+                                    </svg>
+                                </button>
+                            </h2>
+                            <div id="supplier-body" class="hidden" aria-labelledby="supplier-heading">
+                                <div class="py-2 font-light border-b border-gray-200 dark:border-gray-600">
+                                    <ul class="space-y-2">
+                                        {% for item in suppliers %}
+                                        <li class="flex items-center">
+                                            <input id="supplier-filter-{{ item.id }}" {% check_get_parameter request 'supplier' item.name %} onchange="updateUrlParameters('supplier', '{{ item.name }}')" type="checkbox" value="{{ item.id }}" class="cursor-pointer w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                            <label for="supplier-filter-{{ item.id }}" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100 w-full cursor-pointer">{{ item.name }}</label>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                    <a href="javascript:void(0)" onclick="removeUrlParameters('supplier')" class="mt-2 flex items-center text-sm font-medium text-primary-600 dark:text-primary-500 hover:underline">Filterung aufheben</a>
+                                </div>
+                            </div>
+
+                            <!-- Hersteller -->
+                            <h2 id="manufacturer-heading">
+                                <button type="button" class="flex items-center justify-between w-full py-2 px-1.5 text-sm font-medium text-left text-gray-500 border-b border-gray-200 dark:border-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700" data-accordion-target="#manufacturer-body" aria-expanded="true" aria-controls="manufacturer-body">
+                                    <div>
+                                        <span class="mr-2">Hersteller</span>
+                                        {% if request|get_parameter:'manufacturer' %}
+                                        <span class="inline-flex items-center justify-center w-5 h-5 text-xs text-white bg-primary-700 dark:bg-primary-600 rounded-full">{{ request|get_parameter:'supplier'|tsplit:','|length }}</span>
+                                        {% endif %}
+                                    </div>
+                                    <svg aria-hidden="true" data-accordion-icon="" class="w-5 h-5 rotate-180 shrink-0" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+                                    </svg>
+                                </button>
+                            </h2>
+                            <div id="manufacturer-body" class="hidden" aria-labelledby="manufacturer-heading">
+                                <div class="py-2 font-light border-b border-gray-200 dark:border-gray-600">
+                                    <ul class="space-y-2 overflow-y-auto" style="max-height: 600px;">
+                                        {% for item in manufacturer %}
+                                        <li class="flex items-center">
+                                            <input id="manufacturer-filter-{{ item.id }}" {% check_get_parameter request 'manufacturer' item.name %} onchange="updateUrlParameters('supplier', '{{ item.name }}')" type="checkbox" value="{{ item.id }}" class="cursor-pointer w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                            <label for="manufacturer-filter-{{ item.id }}" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100 w-full cursor-pointer">{{ item.name }}</label>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                    <a href="javascript:void(0)" onclick="removeUrlParameters('manufacturer')" class="mt-2 flex items-center text-sm font-medium text-primary-600 dark:text-primary-500 hover:underline">Filterung aufheben</a>
+                                </div>
+                            </div>
+                            
+                            <!-- Status -->
+                            <h2 id="status-heading">
+                                <button type="button" class="flex items-center justify-between w-full py-2 px-1.5 text-sm font-medium text-left text-gray-500 border-b border-gray-200 dark:border-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700" data-accordion-target="#status-body" aria-expanded="true" aria-controls="status-body">
+                                    <div>
+                                        <span class="mr-2">Status</span>
+                                        {% if request|get_parameter:'status' %}
+                                        <span class="inline-flex items-center justify-center w-5 h-5 text-xs text-white bg-primary-700 dark:bg-primary-600 rounded-full">{{ request|get_parameter:'status'|tsplit:','|length }}</span>
+                                        {% endif %}
+                                    </div>
+                                    <svg aria-hidden="true" data-accordion-icon="" class="w-5 h-5 rotate-180 shrink-0" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+                                    </svg>
+                                </button>
+                            </h2>
+                            <div id="status-body" class="hidden" aria-labelledby="status-heading">
+                                <div class="py-2 font-light border-b border-gray-200 dark:border-gray-600">
+                                    <ul class="space-y-2">
+                                        {% get_choices "StockStatusChoices" as StockStatusChoices %}
+                                        {% for item in StockStatusChoices %}
+                                        <li class="flex items-center">
+                                            <input id="status-{{ item.0 }}" {% check_get_parameter request 'status' item.1 %} onchange="updateUrlParameters('status', '{{ item.1 }}')" type="checkbox" value="{{ item.0 }}" class="cursor-pointer w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                            <label for="status-{{ item.0 }}" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100 w-full cursor-pointer">{{ item.1 }}</label>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                    <a href="javascript:void(0)" onclick="removeUrlParameters('status')" class="mt-2 flex items-center text-sm font-medium text-primary-600 dark:text-primary-500 hover:underline">Filterung aufheben</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- Actions -->
+                    <div class="flex items-center space-x-3 w-full md:w-auto">
+                        <button disabled id="actionsDropdownButton" data-dropdown-toggle="actionsDropdown" class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" type="button">
+                            Actions
+                            <svg class="-mr-1 ml-1.5 w-5 h-5" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <path clip-rule="evenodd" fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+                            </svg>
+                        </button>
+                        <div id="actionsDropdown" class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
+                            <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="actionsDropdownButton">
+                                <li>
+                                    <a href="javascript:void()" onclick="exportAllToExcel()" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Excel Export</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="table-container" style="flex: 1" class="overflow-x-auto">
+                <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400" style="position: -webkit-sticky;position: sticky;top: 0;z-index: 1;">
+                        <tr>
+                            <th scope="col" class="p-4">
+                                <div class="flex items-center">
+                                    <input id="checkbox-all" type="checkbox" class="w-4 h-4 text-primary-600 bg-gray-100 rounded border-gray-300 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                    <label for="checkbox-all" class="sr-only">checkbox</label>
+                                </div>
+                            </th>
+                            <th scope="col" class="p-4">Produkt</th>
+                            <th scope="col" class="p-4 w-36">ID</th>
+                            <th scope="col" class="p-4">Lieferant</th>
+                            <th scope="col" class="p-4">Kultivar</th>
+                            <th scope="col" class="p-4">Hersteller</th>
+                            <th scope="col" class="p-4">Form</th>
+                            <th scope="col" class="p-4 w-28">Lagermenge</th>
+                            <th scope="col" class="p-4 w-28">Grenzwert</th>
+                            <th scope="col" class="p-4 w-28">
+                                <span class="whitespace-nowrap">Reserviert für</span>
+                                <span>Bestellungen</span>
+                            </th>
+                            <!-- <th scope="col" class="p-4 w-28">Bestellte Menge</th> -->
+                            <th scope="col" class="p-4">Status</th>
+                            <th scope="col" class="p-4">Bearbeiten</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for product in products %}
+                        {% comment %} <tr id="product-{{ product.id }}" data-product-id="{{ product.id }}" class="products {% if product.product|get_product_ordered_amount:product.pharmacy > product.total_amount or product.threshold > product.total_amount %}dark:bg-red-900{% endif %} *:hover:bg-gray-100 *:dark:hover:bg-gray-600 border-t dark:border-gray-600"> {% endcomment %}
+                        <tr id="product-{{ product.id }}" data-product-id="{{ product.id }}" class="products *:hover:bg-gray-100 *:dark:hover:bg-gray-600 border-t dark:border-gray-600">
+                            <!-- Checkbox -->
+                            <td class="pl-4 pr-2 py-3 w-4">
+                                <div class="flex items-center">
+                                    <input id="checkbox-table-search-1" type="checkbox" onclick="event.stopPropagation()" class="w-4 h-4 text-primary-600 bg-gray-100 rounded border-gray-300 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                    <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
+                                </div>
+                            </td>
+                            <!-- Artikelbezeichnung -->
+                            <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"><a href="javascript:void(0)" class="text-primary-600 dark:text-primary-500" onclick="showLiveStockDetails('{{ product.id }}', this)">{{ product.product.name }}</a></td>
+                            <!-- Artikelnummer -->
+                            <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ product.product.number }}</td>
+                            <!-- Hersteller -->
+                            <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ product.product.manufacturer.name }}</td>
+                            <!-- Kultivar -->
+                            <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ product.product.cultivar.name }}</td>
+                            <!-- Lieferant -->
+                            <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ product.product.supplier.name }}</td>
+                            <!-- Form -->
+                            <td class="px-4 py-3 font-medium whitespace-nowrap">
+                                <span
+                                class="text-xs font-medium px-2 py-0.5 rounded
+                                {% if product.product.form == 'flower' %}
+                                bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300
+                                {% elif product.product.form == 'extract' %}
+                                bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300
+                                {% endif %}
+                                "
+                                value="{{ product.product.form }}">
+                                    {{ product.product.get_form_display }}
+                                </span>
+                            </td>
+                            <!-- Menge -->
+                            <td class="px-4 py-3 font-medium text-right whitespace-nowrap text-gray-900 dark:text-white">
+                                {{ product.total_amount }}
+                            </td>
+                            <!-- Grenzwert -->
+                            <td class="
+                                px-4 py-3 font-medium whitespace-nowrap text-right text-gray-300 dark:text-gray-500
+                                {% if product.threshold != 'null' and product.threshold > product.total_amount %}
+                                bg-red-500 dark:bg-red-900 text-gray-900 dark:text-white
+                                {% elif product.threshold != 'null' and product.threshold <= product.total_amount %}
+                                text-gray-900 dark:text-white 
+                                {% endif %}
+                            ">
+                                <span id="threshold-{{ product.product.id }}">
+                                {% if product.threshold != 'null' %}
+                                    {{ product.threshold }}
+                                {% else %}
+                                    --
+                                {% endif %}
+                                </span>
+                                
+                            </td>
+                            <!-- Reservierte Menge -->
+                            <td class="
+                                px-4 py-3 font-medium whitespace-nowrap text-right text-gray-300 dark:text-gray-500
+                                {% if product.ordered_amount and product.ordered_amount > product.total_amount %}
+                                text-gray-900 dark:text-white bg-red-500 dark:bg-red-900
+                                {% elif product.ordered_amount != 0 %}
+                                text-gray-900 dark:text-white
+                                {% endif %}
+                            ">
+                                {% if product.ordered_amount != 0 %}
+                                    {{ product.ordered_amount }}
+                                {% else %}
+                                    --
+                                {% endif %}
+                            </td>
+                            <!-- Status -->
+                            <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <!-- <button id="status{{ product.id }}" data-dropdown-toggle="dorpdownProductStatus{{ product.id }}" class="stock-product-status flex justify-between items-center py-2 pr-4 pl-3 w-full font-medium text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-primary-700 md:p-0 md:w-auto dark:text-gray-400 dark:hover:text-white dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent"> -->
+                                <!-- <div class="flex justify-between">
+                                    <div class="h-3 w-3 rounded-full mr-2 status-circle border-2" value="{{ product.status }}"></div>
+                                    <span>{{ product.status_display }}</span>
+                                </div> -->
+                                <span class="flex items-center text-sm font-medium text-gray-900 dark:text-white me-3 stock-product-status">
+                                    <span class="flex w-3 h-3 rounded-full me-1.5 flex-shrink-0 status-circle" value="{{ product.status }}"></span>
+                                    {{ product.status_display }}
+                                </span>
+                                <!-- <svg class="ml-1 w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg> -->
+                                
+                            <!-- </button>
+                                <div id="dorpdownProductStatus{{ product.id }}" class="stock-product-status z-20 w-44 font-normal bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600 hidden"  bis_skin_checked="1" data-popper-placement="top">
+                                    <ul class="py-1 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
+                                        {% get_choices "StockStatusChoices" as StockStatusChoices %}
+                                        {% for item in StockStatusChoices %}
+                                        <li>
+                                            <a href="javascript:void(0)" name="status" value="{{ item.0 }}" onclick="changeStatus(this, '{{ product.id }}')" class="flex py-2 px-3 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                                <div class="h-3 w-3 mt-1 rounded-full mr-2 status-circle border-2" value="{{ item.0 }}"></div>{{ item.1 }} 
+                                            </a>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div> -->
+                            </td>
+                            <!-- Edit -->
+                            <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <button type="button" id="createProductButton" onclick="openBatchNumberModal(0, '{{product.product.id}}', '{{product.product.name}}', null, null, null)" class="mt-3 flex items-center justify-center text-white bg-gray-900 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2 bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
+                                    <svg class="h-3.5 w-3.5 mr-1.5 -ml-1" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                        <path clip-rule="evenodd" fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
+                                    </svg>
+                                    Charge hinzufügen
+                                </button>
+                            </td>
+                        </tr>
+                        <tr class="hidden livestock-details" id="livestock-detail-{{ product.id }}">
+                            <td colspan="1" class="px-4 py-3"></td>
+                            <td colspan="16" class="px-4 py-3">
+                                <div>
+                                    <table class="products">
+                                        <tr>
+                                            <th class="pr-4 py-1 text-left">Chargennummer</th>
+                                            <th class="pr-4 py-1 text-left">Prüfnummer</th>
+                                            <th class="px-4 py-1 text-right">Menge</th>
+                                            <th class="px-4 py-1 text-left">Status</th>
+                                            <th class="px-4 py-1 text-left">Mengenstatus</th>
+                                            <th class="px-4 py-1 text-left">Erstellt am</th>
+                                            <th class="px-4 py-1 text-left"></th>
+                                        </tr>
+                                        {% for livestock_entry in product.product|get_all_livestock_entries:request %}
+                                        <tr>
+                                            <td class="pr-4 py-1 text-left">{% if livestock_entry.batch_number %}{{livestock_entry.batch_number}}{% else %}--{% endif %}</td>
+                                            <td class="pr-4 py-1 text-left">{% if livestock_entry.verification_number %}{{livestock_entry.verification_number}}{% else %}--{% endif %}</td>
+                                            <td class="px-4 py-1 text-right">{{livestock_entry.amount}}</td>
+                                            <td class="px-4 py-1 text-left">{{livestock_entry.status}}</td>
+                                            <td class="px-4 py-1 text-left">{{livestock_entry.amount_status}}</td>
+                                            <td class="px-4 py-1 text-left">{{livestock_entry.created_at}}</td>
+                                            <td class="px-4 py-1 text-left">
+                                                <button type="button" onclick="openBatchNumberModal('{{livestock_entry.id}}','{{product.product.id}}', '{{product.product.name}}', '{{livestock_entry.batch_number}}', '{{livestock_entry.amount}}', '{{livestock_entry.verification_number}}')" id="updateBatchNumberBtn" class="flex items-center justify-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 -ml-0.5" viewbox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                        <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
+                                                        <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" />
+                                                    </svg>
+                                                    Update
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </table>
+                                    <button type="button" id="createProductButton" onclick="openBatchNumberModal(0, '{{product.product.id}}', '{{product.product.name}}', null, null, null)" class="mt-3 flex items-center justify-center text-white bg-gray-900 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2 bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
+                                        <svg class="h-3.5 w-3.5 mr-1.5 -ml-1" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                            <path clip-rule="evenodd" fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
+                                        </svg>
+                                        Charge hinzufügen
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <nav class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4 border-gray-600 dark:border-gray-600 border-t" aria-label="Table navigation">
+                <ul class="inline-flex items-stretch -space-x-px">
+                    {% with products.paginator.page_range|first as first_page %}
+                    {% with 'page:'|concat_string:first_page as page_string %}
+                    {% with updated_params=request.GET|add_get_parameter:page_string %}
+                    <li>
+                        <a href="?{{ updated_params }}" class="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                            <span class="sr-only">Erste Seite</span>
+                            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" viewBox="0 0 12 10">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M5 1 1 5l4 4m6-8L7 5l4 4"/>
+                            </svg>
+                        </a>
+                    </li>
+                    {% endwith %}
+                    {% endwith %}
+                    {% endwith %}
+                    {% for page_num in products.paginator.page_range|get_page_range:products.number %}
+                    {% if products.number == page_num %}
+                    <li>
+                        <a href="?{{ updated_params }}" aria-current="page" class="flex items-center justify-center text-sm z-10 py-2 px-3 leading-tight text-primary-600 bg-primary-50 border border-primary-300 hover:bg-primary-100 hover:text-primary-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">{{ page_num }}</a>
+                    </li>
+                    {% else %}
+                    {% with 'page:'|concat_string:page_num as page_string %}
+                    {% with updated_params=request.GET|add_get_parameter:page_string %}
+                    <li>
+                        <a href="?{{ updated_params }}" class="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{ page_num }}</a>
+                    </li>
+                    {% endwith %}
+                    {% endwith %}
+                    {% endif %}
+                    {% endfor %}
+                    {% with products.paginator.page_range|last as last_page %}
+                    {% with 'page:'|concat_string:last_page as page_string %}
+                    {% with updated_params=request.GET|add_get_parameter:page_string %}
+                    <li>
+                        <a href="?{{ updated_params }}" class="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                            <span class="sr-only">Letzte Seite</span>
+                            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" viewBox="0 0 12 10">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="m7 9 4-4-4-4M1 9l4-4-4-4"/>
+                            </svg>
+                        </a>
+                    </li>
+                    {% endwith %}
+                    {% endwith %}
+                    {% endwith %}
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<div id="updateThreshold" tabindex="-1" aria-hidden="true" class="modal-parent-div hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] md:h-full">
+    <div class="relative w-full h-full md:h-auto" style="max-width: 75vw;max-height: 80vh;overflow-y: auto;">
+        <!-- Modal content -->
+        <div class="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
+            <!-- Modal header -->
+            <div class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600">
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Grenzwert aktualisieren</h3>
+                <button type="button" onclick="hideModal('updateThreshold')" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white">
+                    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+            <!-- Modal body -->
+            <div id="update-product-accordion-collapse-body-1-customer" aria-labelledby="update-product-accordion-collapse-heading-2">
+                <div class="py-4 border-gray-200 sm:py-5 dark:border-gray-700">
+                    <form id="updateThresholdForm">
+                        <!-- Inputs -->
+                        <!-- Column -->
+                        <div class="grid gap-4 mb-4 sm:grid-cols-2">
+                            <div class="hidden">
+                                <label for="productId" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Produkt-ID</label>
+                                <input type="text" name="productId" id="productId" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Produkt-ID" required="">
+                            </div>
+                            <div>
+                                <label for="productName" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Produkt</label>
+                                <input type="text" name="productName" id="productName" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Produkt" required="" readonly>
+                            </div>
+                            <div>
+                                <label for="threshold" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Grenzwert</label>
+                                <input type="text" name="threshold" id="threshold" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Grenzwert" required="">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="d-flex justify-between pt-4 sm:flex sm:space-y-0 sm:space-x-4">
+                <div class="mb-4 sm:mb-0 items-center d-flex space-y-4 sm:flex sm:space-y-0 sm:space-x-4">
+                    <button id="saveThresholdBtn" type="button" onclick="saveThreshold()" data-toast-name="orderUpdatedToast" type="submit" class="w-full sm:w-auto justify-center text-white inline-flex bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                        Speichern
+                    </button>
+                    <button id="deleteThreshold" type="button" onclick="deleteThreshold()" data-toast-name="orderUpdatedToast" type="submit" class="w-full sm:w-auto justify-center text-white inline-flex bg-primary-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
+                        Löschen
+                    </button>
+                    <button onclick="hideModal('updateThreshold')" type="button" class="w-full justify-center sm:w-auto text-gray-500 inline-flex items-center bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+                        <svg class="mr-1 -ml-1 w-5 h-5" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
+                        Abbrechen
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="addBatchNumber" tabindex="-1" aria-hidden="true" class="modal-parent-div hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] md:h-full">
+    <div class="relative w-full h-full md:h-auto" style="max-width: 75vw;max-height: 80vh;overflow-y: auto;">
+        <!-- Modal content -->
+        <div class="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
+            <!-- Modal header -->
+            <div class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600">
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Produktcharge hinzufügen</h3>
+                <button type="button" onclick="hideModal('addBatchNumber')" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white">
+                    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+            <!-- Modal body -->
+            <div id="update-product-accordion-collapse-body-1-customer" aria-labelledby="update-product-accordion-collapse-heading-2">
+                <div class="py-4 border-gray-200 sm:py-5 dark:border-gray-700">
+                    <form id="addBatchNumberForm">
+                        <!-- Inputs -->
+                        <!-- Column -->
+                        <div class="">
+                            <div class="grid gap-4 mb-4 sm:grid-cols-2">
+                                <input hidden type="text" name="productId" id="productId">
+                                <input hidden type="text" name="stockId" id="stockId">
+                                <div>
+                                    <label for="productName" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Produkt</label>
+                                    <input type="text" name="productName" id="productName" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Produkt" required="" readonly>
+                                </div>
+                            </div>
+                            <div class="grid gap-4 mb-4 sm:grid-cols-2">
+                                <!-- Chargennummer -->
+                                <div>
+                                    <label for="batchNumber" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Chargennummer</label>
+                                    <input type="text" name="batchNumber" id="batchNumber" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Chargennummer" required="">
+                                </div>
+                                <!-- Prüfnummer -->
+                                <div>
+                                    <label for="verificationNumber" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Prüfnummer</label>
+                                    <input type="text" name="verificationNumber" id="verificationNumber" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Prüfnummer" required="">
+                                </div>
+                            </div>
+                            <div class="grid gap-4 mb-4 sm:grid-cols-2">
+                                <!-- Menge -->
+                                <div>
+                                    <label for="amount" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Menge</label>
+                                    <input type="number" name="amount" id="amount" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Menge" required="">
+                                </div>
+                                <!-- Status -->
+                                <div>
+                                    <label for="stockStatusChoices" class="inline-flex items-center mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                        Status
+                                    </label>
+                                    <select id="stockStatusChoices" name="stockStatusChoices" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                        {% get_choices "StockStatusChoices" as StockStatusChoices %}
+                                        {% for item in StockStatusChoices %}
+                                        <option value="{{ item.0 }}">{{ item.1 }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="d-flex justify-between pt-4 sm:flex sm:space-y-0 sm:space-x-4">
+                <div class="mb-4 sm:mb-0 items-center d-flex space-y-4 sm:flex sm:space-y-0 sm:space-x-4">
+                    <button id="saveBatchNumberBtn" type="button" onclick="saveBatchNumber()" data-toast-name="orderUpdatedToast" type="submit" class="w-full sm:w-auto justify-center text-white inline-flex bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                        Speichern
+                    </button>
+                    <button onclick="hideModal('addBatchNumber')" type="button" class="w-full justify-center sm:w-auto text-gray-500 inline-flex items-center bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+                        <svg class="mr-1 -ml-1 w-5 h-5" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
+                        Abbrechen
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Pop up modal  -->
+<div id="new-order-modal" data-modal-target="new-order-modal" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative w-full max-w-md max-h-full">
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <button type="button" onclick="hideModal('new-order-modal')" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
+                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                </svg>
+                <span class="sr-only">Close modal</span>
+            </button>
+            <div class="pt-6 px-6 text-center">
+                <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12.268 6A2 2 0 0 0 14 9h1v1a2 2 0 0 0 3.04 1.708l-.311 1.496a1 1 0 0 1-.979.796H8.605l.208 1H16a3 3 0 1 1-2.83 2h-2.34a3 3 0 1 1-4.009-1.76L4.686 5H4a1 1 0 0 1 0-2h1.5a1 1 0 0 1 .979.796L6.939 6h5.329Z"/>
+                    <path d="M18 4a1 1 0 1 0-2 0v2h-2a1 1 0 1 0 0 2h2v2a1 1 0 1 0 2 0V8h2a1 1 0 1 0 0-2h-2V4Z"/>
+                </svg>                  
+                <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Neue Bestellung für Produkte anlegen</h3>
+            </div>
+            <form id="createProductOrderForm">
+                <!-- Oder Id -->
+                <input type="text" name="productId" hidden>
+                <div class="px-6 mb-6 text-start w-100">
+                    <div class="ml-auto flex flex-col">
+                        <label for="searchProduct" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Produkt</label>
+                        <div class="relative w-full">
+                            <div class="absolute inset-y-0 start-0 flex items-center ps-4 pointer-events-none">
+                                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12.013 6.175 7.006 9.369l5.007 3.194-5.007 3.193L2 12.545l5.006-3.193L2 6.175l5.006-3.194 5.007 3.194ZM6.981 17.806l5.006-3.193 5.006 3.193L11.987 21l-5.006-3.194Z"/>
+                                    <path d="m12.013 12.545 5.006-3.194-5.006-3.176 4.98-3.194L22 6.175l-5.007 3.194L22 12.562l-5.007 3.194-4.98-3.211Z"/>
+                                </svg>
+                            </div>
+                            <input type="text" id="searchProduct" name="product" class="bg-gray-50 border w-full border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block ps-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Nach Produkt suchen">
+                            <!-- Dropdown menu -->
+                            <div id="dropdownProductList" style="max-height: 600px;" class="hidden z-20 w-full overflow-y-auto absolute bg-white divide-y divide-gray-100 rounded-lg shadow-xl dark:bg-gray-800 dark:divide-gray-700" aria-labelledby="dropdownNotificationButton">
+                                <div class="divide-y divide-gray-100 dark:divide-gray-700">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4 mb-4 mt-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 hidden" name="productOrderNameAlert" role="alert">
+                        Bitte Produkt auswählen.
+                    </div>
+
+                    <div class="ml-auto flex flex-col mt-3">
+                        <label for="orderAmount" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Menge</label>
+                        <input type="number" name="amount" id="orderAmount" class="bg-gray-50 border w-full border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                    </div>
+                    <div class="p-4 mb-4 mt-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 hidden" name="productOrderAmountAlert" role="alert">
+                        Bitte die Bestellmenge angeben.
+                    </div>
+                </div>
+
+                <div class="pb-6 px-6 flex justify-between">
+                    <button onclick="saveProductOrder()" type="button" class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
+                        Bestellung speichern
+                    </button>
+                    <button onclick="hideModal('new-order-modal')" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+                        Abbrechen
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+
+{% block scripts %}
+
+<!-- Update Batch Numbers -->
+<script>
+    const openBatchNumberModal = (stockId=null, productId, productName, batchNumber, amount, verificationNumber) => {
+
+        $('input[name=stockId]', '#addBatchNumberForm').val(stockId)
+        $('input[name=productId]', '#addBatchNumberForm').val(productId)
+        $('input[name=productName]', '#addBatchNumberForm').val(productName)
+
+        if (amount) {
+            $('input[name=amount]', '#addBatchNumberForm').val(amount)
+        } else {
+            $('input[name=amount]', '#addBatchNumberForm').val('')
+        }
+
+        if (batchNumber) {
+            $('input[name=batchNumber]', '#addBatchNumberForm').val(batchNumber)
+        } else {
+            $('input[name=batchNumber]', '#addBatchNumberForm').val('')
+        }
+
+        if (verificationNumber) {
+            $('input[name=verificationNumber]', '#addBatchNumberForm').val(verificationNumber)
+        } else {
+            $('input[name=verificationNumber]', '#addBatchNumberForm').val('')
+        }
+
+        checkFormValidity()
+        toggleModal('addBatchNumber')   
+    }
+
+    const saveBatchNumber = () => {
+        
+            const productId = $('input[name=productId]', '#addBatchNumberForm').val()
+            const stockId = $('input[name=stockId]', '#addBatchNumberForm').val()
+            const batchNumber = $('input[name=batchNumber]', '#addBatchNumberForm').val()
+            const amount = $('input[name=amount]', '#addBatchNumberForm').val()
+            const stockStatus = $('#stockStatusChoices', '#addBatchNumberForm').val()
+            const verificationNumber = $('#verificationNumber', '#addBatchNumberForm').val()
+    
+            $.ajax({
+                url: "{% url 'request_products_stock' %}",
+                type: 'POST',
+                data: {
+                    saveBatchNumber: 'saveBatchNumber',
+                    productId: productId,
+                    stockId: stockId,
+                    batchNumber: batchNumber,
+                    amount: amount,
+                    stockStatus: stockStatus,
+                    verificationNumber: verificationNumber,
+                },
+                success: function(data) {
+    
+                    showToast('stockUpdatedToast')
+    
+                    hideModal('addBatchNumber')
+    
+                },
+                error: function(data) {
+    
+                    toggleModal('alert-modal')
+    
+                }
+            });
+    }
+
+    
+    const form = document.getElementById('updateThresholdForm')
+    const saveButton = document.getElementById('saveThresholdBtn')
+
+    const checkThresholdFormValidity = () => {
+        const isValid = Array.from(form.elements).every(input => 
+        input.value.trim() !== '')
+
+        saveButton.disabled = !isValid
+    };
+    
+    // Disable Save button of form as long as not all fields are set
+    document.addEventListener('DOMContentLoaded', (event) => {
+
+        form.addEventListener('input', checkThresholdFormValidity)
+
+        // Initial check to set the button state on page load
+        checkThresholdFormValidity()
+    });
+</script>
+
+<!-- Update threshold -->
+<script>
+    const openThresholdModal = (productId, productName, threshold) => {
+
+        $('input[name=productId]', '#updateThresholdForm').val(productId)
+        $('input[name=productName]', '#updateThresholdForm').val(productName)
+
+        if (threshold && threshold != 'null') {
+            $('input[name=threshold]', '#updateThresholdForm').val(threshold)
+        } else {
+            $('input[name=threshold]', '#updateThresholdForm').val('')
+        }
+
+        checkThresholdFormValidity()
+        toggleModal('updateThreshold')   
+    }
+
+    const saveThreshold = () => {
+        
+            const productId = $('input[name=productId]', '#updateThresholdForm').val()
+            const threshold = $('input[name=threshold]', '#updateThresholdForm').val()
+    
+            $.ajax({
+                url: "{% url 'request_products_stock' %}",
+                type: 'POST',
+                data: {
+                    saveThreshold: 'saveThreshold',
+                    productId: productId,
+                    threshold: threshold,
+                },
+                success: function(data) {
+
+                    const livestockAmount = data.livestock_amount
+                    
+                    // Elements to update
+                    const elem = $('#threshold-' + productId)
+                    const parentElem = elem.closest('td')
+                    
+                    // Update threshold                        
+                    elem.html(threshold)
+
+                    // Update classes
+                    if (livestockAmount <= threshold) {
+                        parentElem.addClass('text-gray-900 dark:text-white bg-red-500 dark:bg-red-900')
+                        parentElem.removeClass('text-gray-300 dark:text-gray-500')
+                    } else {
+                        parentElem.addClass('text-gray-900 dark:text-white')
+                        parentElem.removeClass('text-gray-900 dark:text-white bg-red-500 dark:bg-red-900')
+
+                    }
+
+                    showToast('stockUpdatedToast')
+    
+                    hideModal('updateThreshold')
+    
+                },
+                error: function(data) {
+    
+                    toggleModal('alert-modal')
+    
+                }
+            });
+    }
+
+    const deleteThreshold = () => {
+        
+            const productId = $('input[name=productId]', '#updateThresholdForm').val()
+    
+            $.ajax({
+                url: "{% url 'request_products_stock' %}",
+                type: 'POST',
+                data: {
+                    deleteThreshold: 'deleteThreshold',
+                    productId: productId,
+                },
+                success: function(data) {
+
+                    // Elements to update
+                    const elem = $('#threshold-' + productId)
+                    const parentElem = elem.closest('td')
+                    
+                    // Update threshold                        
+
+                    // Update classes
+                    if (data.status === 'deleted') {
+                        elem.html('--')
+                        parentElem.removeClass('text-gray-300 dark:text-gray-500')
+                        parentElem.removeClass('text-gray-900 dark:text-white bg-red-500 dark:bg-red-900')
+                    } else {
+                        toggleModal('alert-modal')
+                    }
+
+                    showToast('stockUpdatedToast')
+    
+                    hideModal('updateThreshold')
+    
+                },
+                error: function(data) {
+    
+                    toggleModal('alert-modal')
+    
+                }
+            });
+    }
+
+    const thresholdForm = document.getElementById('addBatchNumberForm')
+    const saveThresholdButton = document.getElementById('saveBatchNumberBtn')
+
+    const checkFormValidity = () => {
+        const isValid = Array.from(thresholdForm.elements).every(input => 
+        input.value.trim() !== '')
+
+        saveThresholdButton.disabled = !isValid
+    };
+    
+    // Disable Save button of form as long as not all fields are set
+    document.addEventListener('DOMContentLoaded', (event) => {
+
+        thresholdForm.addEventListener('input', checkFormValidity)
+
+        // Initial check to set the button state on page load
+        checkFormValidity()
+    });
+</script>
+
+<!-- Update stock products -->
+<script>
+
+    const changeStatus = (element, productId) => {
+
+        const status = $(element).attr('value');
+
+        $.ajax({
+            url: "{% url 'request_products_stock' %}",
+            type: 'POST',
+            data: {
+                changeStatus: 'changeStatus',
+                status: status,
+                productId: productId,
+            },
+            success: function(data) {
+
+                $('#status' + productId + ' .status-circle').attr('value', data.status)
+                $('#status' + productId + ' > span').html(data.statusDisplay)
+                showToast('success', 'Status wurde erfolgreich geändert')
+
+            },
+            error: function(data) {
+
+                toggleModal('alert-modal')
+
+            }
+        });
+
+    }
+</script>
+
+<!-- Filter Functions -->
+<script data-baseUrl="{{ baseUrl }}">
+
+    const filterDatas = document.currentScript.dataset
+
+    // Get Filters from URL
+    const queryString = window.location.search
+    var urlParams = new URLSearchParams(queryString)
+
+    const customFilter = (filterCriterias, filterButton=null) => {
+
+        // Show all
+        if (!filterCriterias || filterCriterias == '') {
+            window.location.href = filterDatas.baseurl + '?page=1'
+        // Show by filter
+        } else {
+
+            if (filterButton) {
+                window.location.href = filterDatas.baseurl + '?page=1&filterButton=' + $(filterButton).attr('id') + '&' + filterCriterias
+            } else {
+                window.location.href = filterDatas.baseurl + '?page=1&' + filterCriterias
+            }
+        }
+
+    }
+
+    // Search Order
+    const searchOrder = () => {
+        const searchValue = $('#searchInput').val()
+        updateUrlParameters('search', searchValue)
+    }
+
+    $('#searchInput').on('keyup', function (e) {
+        if (e.key === 'Enter' || e.keyCode === 13) {
+            searchOrder()
+        }
+    })
+
+    // Update url parameters by class_name and value
+    const updateUrlParameters = (class_name, value) => {
+
+        if (value) {
+
+            if (urlParams.get(class_name) === undefined || urlParams.get(class_name) === '' || urlParams.get(class_name) === null || class_name=='search') {
+                urlParams.set(class_name, value)
+            } else {
+
+                let temp_values = urlParams.get(class_name).split(',')
+
+                if (temp_values.includes(value)) {
+                    temp_values = temp_values.filter(item => item !== value)
+                } else {
+                    temp_values.push(value)
+                }
+
+                if (temp_values.length === 0 || temp_values === undefined) {
+                    urlParams.delete(class_name)
+                } else {
+                    urlParams.set(class_name, temp_values.join(','))
+                }
+
+            }
+        } else {
+            urlParams.delete(class_name)
+        }
+
+        urlParams.set('page', 1)
+
+        let newUrlParams = new URLSearchParams(urlParams).toString()
+
+        window.location.href = (filterDatas.baseurl + '?' + newUrlParams.replace(/%2C/g, ','))
+
+    }
+
+    // Remove url parameters by class_name
+    const removeUrlParameters = (class_name) => {
+
+        urlParams.delete(class_name)
+        urlParams.set('page', 1)
+
+        let newUrlParams = new URLSearchParams(urlParams).toString()
+
+        window.location.href = (filterDatas.baseurl + '?' + newUrlParams.replace(/%2C/g, ','))
+
+    }
+
+    // Remove all filters
+    const resetFilter = () => {
+        window.location.href = filterDatas.baseurl + '?page=1'
+    }
+
+</script>
+
+<!-- Product Orders -->
+<script>
+
+    const productIdInput = $('input[name="productId"]', '#createProductOrderForm');
+    const productInput = $('[name="product"]', '#createProductOrderForm');
+    const amountInput = $('input[name="amount"]', '#createProductOrderForm');
+
+    const createProductOrder = (productName, productId) => {
+
+        productIdInput.val(productId)
+        productInput.val(productName)
+        toggleModal('new-order-modal', {'backdrop': 'static'})
+    }
+
+    const selectProduct = (productName, productId) => {
+        productIdInput.val(productId)
+        productInput.val(productName)
+    }
+
+    const saveProductOrder = () => {
+
+        const product = productInput.val()
+        const amount = amountInput.val()
+
+        if (product == '') {
+            $('[name="productOrderNameAlert"]').removeClass('hidden')
+            return
+        } else {
+            $('[name="productOrderNameAlert"]').addClass('hidden')
+        }
+
+        if (amount == '') {
+            $('[name="productOrderAmountAlert"]').removeClass('hidden')
+            return
+        } else {
+            $('[name="productOrderAmountAlert"]').addClass('hidden')
+        }
+
+        $.ajax({
+            url: "{% url 'request_products_stock' %}",
+            type: 'POST',
+            data: {
+                createProductOrder: 'createProductOrder',
+                productId: productId,
+                amount: amount,
+            },
+            success: function(data) {
+
+                $('#product-' + data.product.id)
+
+                showToast('success', 'Bestellung wurde erfolgreich angelegt')
+
+            },
+            error: function(data) {
+
+                toggleModal('alert-modal')
+
+            }
+        });
+
+    }
+
+</script>
+
+<!-- Search product -->
+<script>
+    // Search product
+    $('#searchProduct').on('input', function() {
+        
+        var $parentDiv = $('#new-order-modal > div');
+        var $innerDiv = $('#dropdownProductList');
+
+        searchWord = $(this).val()
+
+        $('#dropdownProductList > div').empty()
+
+        $.ajax({
+            type: 'POST',
+            url: '{% url "product" %}',
+            traditional: true,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRFToken': getCookie('csrftoken')
+            },
+            data: {
+                'searchWord': 'searchWord',
+                'search': searchWord
+            },
+            success: (data) => {
+
+                var parentBottom = $parentDiv.offset().top + $parentDiv.outerHeight();
+                var innerTop = $innerDiv.offset().top;
+                var maxInnerHeight = parentBottom - innerTop;
+
+                $innerDiv.css('max-height', maxInnerHeight - 5 + 'px');
+
+                for (item of data.items) {
+
+                    let status_class = ''
+
+                    if (item.status == '3' || item.status == '2') {
+                        status_class = 'text-green-500'
+                    }
+                    if (item.status == '1') {
+                        status_class = 'text-yellow-500'
+                    }
+                    if (item.status == '0') {
+                        status_class = 'text-red-700 dark:text-red-500'
+                    }
+                    
+                    let template = '<a href="javascript:void(0)" onclick="selectProduct(\'' + item.name + '\', \'' + item.id + '\')" class="flex px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700">\
+                                        <div class="w-full ps-3">\
+                                            <div class="flex flex-row mb-1">\
+                                                <div class="text-sm font-semibold text-gray-900 dark:text-white">\
+                                                    ' + item.name + '\
+                                                </div>\
+                                            </div>\
+                                            <div class="text-sm text-blue-600 dark:text-blue-400">\
+                                                ' + item.cultivar + ' | THC: ' + item.thc_value + ' | CBD ' + item.cbd_value + '\
+                                            </div>\
+                                        </div>\
+                                    </a>'
+
+                    $('#dropdownProductList > div').append(template)
+
+                }
+                
+            },
+            error: () => {
+
+                toggleModal('alert-modal')
+
+            }
+        })
+
+    })
+
+    $('#searchProduct').on('focus', function() {
+        $('#dropdownProductList').removeClass('hidden')
+    })
+
+    $('#searchProduct .product-item').on('focus', function() {
+        $('#dropdownProductList').removeClass('hidden')
+    })
+
+    $('#searchProduct').on('blur', function(event) {
+
+        setTimeout(function() {
+            $('#dropdownProductList').addClass('hidden');
+        }, 200);
+    })
+</script>
+
+<script>
+
+    const showLiveStockDetails = (id, element) => {
+        
+        if ($('#livestock-detail-' + id).hasClass('hidden')) {
+            $('.orders .show-products').removeClass('open')
+            $('.livestock-details').addClass('hidden')
+            $('#livestock-detail-' + id).removeClass('hidden')
+        } else {
+            $('#livestock-detail-' + id).addClass('hidden')
+        }
+
+    }
+
+</script>
+
+{% endblock %}

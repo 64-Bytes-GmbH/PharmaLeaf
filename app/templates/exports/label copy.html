@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>PDF Template</title>
+    <style>
+        @page {
+            size: 89mm 29mm;
+            margin: 0;
+        }
+        @font-face {
+            font-family: 'AntonioBold'; /*a name to be used later*/
+            src: {% static '/dashboard/Antonio-Bold.ttf' %}; /*URL to font*/
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            font-size: 5px;
+            font-family: 'AntonioBold', Helvetica, sans-serif;
+            /* display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            width: 100%; */
+        }
+        .bold {
+            font-weight: bold;
+        }
+        .page-break {
+            page-break-after: always;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="left-container">
+
+    </div>
+    <div class="right-container">
+        <div><span class="bold">NAME:</span> TOLGA TAS</div>
+            <div><span class="bold">SORTE:</span> 420 EVOLUTION</div>
+            <div><span class="bold">THC / CBD:</span> 30 / 1</div>
+            <div><span class="bold">KULTIVAR:</span> PEACH CLEMENTINE</div>
+            <div><span class="bold">MENGE:</span> 15 G</div>
+            <div><span class="bold">HERGESTELLT AM:</span> 16.04.2024</div>
+            <div><span class="bold">VERWENDBAR BIS:</span> 31.10.2024</div><br>
+            <div><span class="bold" style="font-size: 5px; font-family: 'Arial'">KLEEBLATT APOTHEKE AM OSTWALL / OSTWALL 165, 47798 KREFELD / 02151-6544150</span></div>
+    </div>
+    <!-- <div class="container">
+        <div class="left-section">
+            <div class="side-text">
+                Anwendung nach ärztlicher<br>
+                Anweisung. Zum Verdampfen<br>
+                und Inhalieren. Dicht verschlos<br>
+                sen aufbewahren. Vor Kindern<br>
+                sichern. Verschreibungspflichtig.
+            </div>
+        </div>
+        <div class="content">
+            <div><span class="bold">NAME:</span> TOLGA TAS</div>
+            <div><span class="bold">SORTE:</span> 420 EVOLUTION</div>
+            <div><span class="bold">THC / CBD:</span> 30 / 1</div>
+            <div><span class="bold">KULTIVAR:</span> PEACH CLEMENTINE</div>
+            <div><span class="bold">MENGE:</span> 15 G</div>
+            <div><span class="bold">HERGESTELLT AM:</span> 16.04.2024</div>
+            <div><span class="bold">VERWENDBAR BIS:</span> 31.10.2024</div><br>
+            <div><span class="bold" style="font-size: 10px; font-family: 'Arial'">KLEEBLATT APOTHEKE AM OSTWALL / OSTWALL 165, 47798 KREFELD / 02151-6544150</span></div>
+        </div>
+    </div> -->
+    <div class="page-break"></div>
+</body>
+</html>

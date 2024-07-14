@@ -1,0 +1,1125 @@
+<!-- templates/index.html -->
+
+{% extends "dashboard/base.html" %}
+{% load static extra_tags %}
+{% block content %}
+
+
+
+<div class="p-3 sm:p-5">
+
+	<div class="grid grid-cols-2 xl:grid-cols-4 gap-4 mb-4">
+		<div class="border-gray-300 rounded-lg dark:border-gray-600">
+			<div class="flex flex-col w-full h-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
+				<p class="text-base font-normal text-gray-500 dark:text-gray-400">Bestellungen nach Status (diese Woche)</p>
+				<div style="margin: auto 0;" id="kpi-chart-1"></div>
+			</div>
+		</div>
+		<div class="border-gray-300 rounded-lg dark:border-gray-600">
+			<div class="flex flex-col w-full h-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
+				<p class="text-base font-normal text-gray-500 dark:text-gray-400">Heute</p>
+				<div style="margin: auto 0;" id="kpi-chart-2"></div>
+				<div style="margin: auto 0;" id="kpi-chart-3"></div>
+				<div style="margin: auto 0;" id="kpi-chart-4"></div>
+			</div>
+		</div>
+		<div class="border-gray-300 rounded-lg dark:border-gray-600">
+			<div class="w-full h-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
+				<div class="relative overflow-x-auto">
+					<table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+						<thead class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
+							<tr>
+								<th scope="col" class="px-6 py-3 rounded-s-lg">
+									Umsatzzahlen
+								</th>
+								<th scope="col" class="px-6 py-3 rounded-e-lg">
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="bg-white dark:bg-gray-800">
+								<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+									Heute
+								</th>
+								<td class="px-6 py-4">
+									{{ subtotal_table.today|to_euro_decimal }} EUR
+								</td>
+							</tr>
+							<tr class="bg-white dark:bg-gray-800">
+								<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+									Gestern
+								</th>
+								<td class="px-6 py-4">
+									{{ subtotal_table.yesterday|to_euro_decimal }} EUR
+								</td>
+							</tr>
+							<tr class="bg-white dark:bg-gray-800">
+								<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+									Monat
+								</th>
+								<td class="px-6 py-4">
+									{{ subtotal_table.this_month|to_euro_decimal }} EUR
+								</td>
+							</tr>
+							<tr class="bg-white dark:bg-gray-800">
+								<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+									Vormonat
+								</th>
+								<td class="px-6 py-4">
+									{{ subtotal_table.last_month|to_euro_decimal }} EUR
+								</td>
+							</tr>
+							<tr class="bg-white dark:bg-gray-800">
+								<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+									Jahr
+								</th>
+								<td class="px-6 py-4">
+									{{ subtotal_table.year|to_euro_decimal }} EUR
+								</td>
+							</tr>
+						</tbody>
+						<tfoot>
+							<tr class="font-semibold text-gray-900 dark:text-white">
+								<th scope="row" class="px-6 py-3 text-base">Insgesamt</th>
+								<td class="px-6 py-3">{{total_revenue|to_euro_decimal}} EUR</td>
+							</tr>
+						</tfoot>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="border-gray-300 rounded-lg dark:border-gray-600">
+			<div class="w-full h-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
+				<div class="relative overflow-x-auto">
+					<table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+						<thead class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
+							<tr>
+								<th scope="col" class="px-6 py-3 rounded-s-lg">
+									Verkaufte Menge
+								</th>
+								<th scope="col" class="px-6 py-3 rounded-e-lg">
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="bg-white dark:bg-gray-800">
+								<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+									Heute
+								</th>
+								<td class="px-6 py-4">
+									{{ amount_table.today }} kg
+								</td>
+							</tr>
+							<tr class="bg-white dark:bg-gray-800">
+								<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+									Gestern
+								</th>
+								<td class="px-6 py-4">
+									{{ amount_table.yesterday }} kg
+								</td>
+							</tr>
+							<tr class="bg-white dark:bg-gray-800">
+								<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+									Monat
+								</th>
+								<td class="px-6 py-4">
+									{{ subtamount_tableotal_table.this_month }} kg
+								</td>
+							</tr>
+							<tr class="bg-white dark:bg-gray-800">
+								<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+									Vormonat
+								</th>
+								<td class="px-6 py-4">
+									{{ amount_table.last_month }} kg
+								</td>
+							</tr>
+							<tr class="bg-white dark:bg-gray-800">
+								<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+									Jahr
+								</th>
+								<td class="px-6 py-4">
+									{{ amount_table.year }} kg
+								</td>
+							</tr>
+						</tbody>
+						<tfoot>
+							<tr class="font-semibold text-gray-900 dark:text-white">
+								<th scope="row" class="px-6 py-3 text-base">Insgesamt</th>
+								<td class="px-6 py-3">{{total_amount_sold}} kg</td>
+							</tr>
+						</tfoot>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<div class="grid grid-cols-1 xl:grid-cols-2 gap-4 mb-4">
+		<div class="border-gray-300 rounded-lg dark:border-gray-600">
+			<div class="w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
+				<div class="flex justify-between">
+					<div>
+						<h5 class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">
+							{{completed_orders}}</h5>
+						<p class="text-base font-normal text-gray-500 dark:text-gray-400">Anzahl der Bestellungen</p>
+					</div>
+					<div
+						class="flex items-center px-2.5 py-0.5 text-base font-semibold text-primary-500 dark:text-primary-500 text-center">
+						<span id="completed_orders_comparison">12%</span>
+						<svg class="w-3 h-3 ml-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+							viewBox="0 0 10 14">
+							<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+								d="M5 13V1m0 0L1 5m4-4 4 4" />
+						</svg>
+					</div>
+				</div>
+				<div id="bestellungen-chart"></div>
+				<div
+					class="grid grid-cols-1 items-center border-gray-200 border-t dark:border-gray-700 justify-between">
+					<div class="flex justify-between items-center pt-5">
+						<!-- Button -->
+						<button id="dropdownDefaultButton" data-dropdown-toggle="ordersDropdown"
+							data-dropdown-placement="bottom"
+							class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 text-center inline-flex items-center dark:hover:text-white"
+							type="button">
+							Zeitraum
+							<svg class="w-2.5 m-2.5 ml-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+								fill="none" viewBox="0 0 10 6">
+								<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+									stroke-width="2" d="m1 1 4 4 4-4" />
+							</svg>
+						</button>
+						<!-- Dropdown menu -->
+						<div id="ordersDropdown"
+							class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+							<ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
+								aria-labelledby="dropdownDefaultButton">
+								<li>
+									<a href="#"
+										class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+										onclick="updateChartData('bestellungen-chart', 'per_week', this)">Nach KW</a>
+								</li>
+								<li>
+									<a href="#"
+										class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+										onclick="updateChartData('bestellungen-chart', 'per_month', this)">Nach Monat</a>
+								</li>
+							</ul>
+						</div>
+						<a href="{% url 'dashboard_orders' %}"
+							class="inline-flex items-center p-2 text-xs font-medium uppercase rounded-lg text-primary-700 sm:text-sm hover:bg-gray-100 dark:text-primary-500 dark:hover:bg-gray-700">
+							Alle Bestellungen
+							<svg class="w-2.5 h-2.5 ml-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+								fill="none" viewBox="0 0 6 10">
+								<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+									stroke-width="2" d="m1 9 4-4-4-4" />
+							</svg>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="border-gray-300 rounded-lg dark:border-gray-600">
+			<div class="w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
+				<div class="flex justify-between">
+					<div>
+						<h5 class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">{{total_revenue|to_euro_decimal}} EUR</h5>
+						<p class="text-base font-normal text-gray-500 dark:text-gray-400">Umsatz</p>
+					</div>
+					<div
+						class="flex items-center px-2.5 py-0.5 text-base font-semibold text-primary-500 dark:text-primary-500 text-center">
+						<span id="total_revenue_comparison">12%</span>
+						<svg class="w-3 h-3 ml-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+							viewBox="0 0 10 14">
+							<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+								d="M5 13V1m0 0L1 5m4-4 4 4" />
+						</svg>
+					</div>
+				</div>
+				<div id="umsatz-chart"></div>
+				<div
+					class="grid grid-cols-1 items-center border-gray-200 border-t dark:border-gray-700 justify-between">
+					<div class="flex justify-between items-center pt-5">
+						<!-- Button -->
+						<button id="dropdownDefaultButton" data-dropdown-toggle="revenueDropdown"
+							data-dropdown-placement="bottom"
+							class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 text-center inline-flex items-center dark:hover:text-white"
+							type="button">
+							Zeitraum
+							<svg class="w-2.5 m-2.5 ml-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+								fill="none" viewBox="0 0 10 6">
+								<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+									stroke-width="2" d="m1 1 4 4 4-4" />
+							</svg>
+						</button>
+						<!-- Dropdown menu -->
+						<div id="revenueDropdown"
+							class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+							<ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
+								aria-labelledby="dropdownDefaultButton">
+								<li>
+									<a href="#"
+										class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+										onclick="updateChartData('umsatz-chart', 'per_week', this)">Nach KW</a>
+								</li>
+								<li>
+									<a href="#"
+										class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+										onclick="updateChartData('umsatz-chart', 'per_month', this)">Nach Monat</a>
+								</li>
+							</ul>
+						</div>
+						<a href="{% url 'dashboard_orders' %}"
+							class="inline-flex items-center p-2 text-xs font-medium uppercase rounded-lg text-primary-700 sm:text-sm hover:bg-gray-100 dark:text-primary-500 dark:hover:bg-gray-700">
+							Alle Bestellungen
+							<svg class="w-2.5 h-2.5 ml-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+								fill="none" viewBox="0 0 6 10">
+								<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+									stroke-width="2" d="m1 9 4-4-4-4" />
+							</svg>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="grid grid-cols-1 xl:grid-cols-2 gap-4 mb-4">
+		<div class="border-gray-300 rounded-lg dark:border-gray-600">
+			<div class="w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
+				<div class="flex justify-between">
+					<div>
+						<h5 class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">{{average_revenue_per_order}}</h5>
+						<p class="text-base font-normal text-gray-500 dark:text-gray-400">Ø Bestellwert und Ø €/Gramm</p>
+					</div>
+					<div
+						class="flex items-center px-2.5 py-0.5 text-base font-semibold text-primary-500 dark:text-primary-500 text-center">
+						12%
+						<svg class="w-3 h-3 ml-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+							viewBox="0 0 10 14">
+							<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+								d="M5 13V1m0 0L1 5m4-4 4 4" />
+						</svg>
+					</div>
+				</div>
+				<div id="durchschnitte-chart"></div>
+				<div
+					class="grid grid-cols-1 items-center border-gray-200 border-t dark:border-gray-700 justify-between">
+					<div class="flex justify-between items-center pt-5">
+						<!-- Button -->
+						<button id="dropdownDefaultButton" data-dropdown-toggle="averageDropdown"
+							data-dropdown-placement="bottom"
+							class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 text-center inline-flex items-center dark:hover:text-white"
+							type="button">
+								Zeitraum
+							<svg class="w-2.5 m-2.5 ml-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+								fill="none" viewBox="0 0 10 6">
+								<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+									stroke-width="2" d="m1 1 4 4 4-4" />
+							</svg>
+						</button>
+						<!-- Dropdown menu -->
+						<div id="averageDropdown"
+							class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+							<ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
+								aria-labelledby="dropdownDefaultButton">
+								<li>
+									<a href="#"
+										class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+										onclick="updateChartData('durchschnitte-chart', 'per_week', this)">Nach KW</a>
+								</li>
+								<li>
+									<a href="#"
+										class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+										onclick="updateChartData('durchschnitte-chart', 'per_month', this)">Nach Monat</a>
+								</li>
+							</ul>
+						</div>
+						<a href="{% url 'dashboard_orders' %}"
+							class="inline-flex items-center p-2 text-xs font-medium uppercase rounded-lg text-primary-700 sm:text-sm hover:bg-gray-100 dark:text-primary-500 dark:hover:bg-gray-700">
+							Alle Bestellungen
+							<svg class="w-2.5 h-2.5 ml-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+								fill="none" viewBox="0 0 6 10">
+								<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+									stroke-width="2" d="m1 9 4-4-4-4" />
+							</svg>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="border-gray-300 rounded-lg dark:border-gray-600">
+			<div class="w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
+				<div class="flex justify-between">
+					<div>
+						<h5 class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">{{total_amount_sold}} kg</h5>
+						<p class="text-base font-normal text-gray-500 dark:text-gray-400">Gesamte verkaufte Menge</p>
+					</div>
+					<div
+						class="flex items-center px-2.5 py-0.5 text-base font-semibold text-primary-500 dark:text-primary-500 text-center">
+						12%
+						<svg class="w-3 h-3 ml-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+							viewBox="0 0 10 14">
+							<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+								d="M5 13V1m0 0L1 5m4-4 4 4" />
+						</svg>
+					</div>
+				</div>
+				<div id="amounts-chart"></div>
+				<div
+					class="grid grid-cols-1 items-center border-gray-200 border-t dark:border-gray-700 justify-between">
+					<div class="flex justify-between items-center pt-5">
+						<!-- Button -->
+						<button id="dropdownDefaultButton" data-dropdown-toggle="amountDropdown"
+							data-dropdown-placement="bottom"
+							class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 text-center inline-flex items-center dark:hover:text-white"
+							type="button">
+							Zeitraum
+							<svg class="w-2.5 m-2.5 ml-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+								fill="none" viewBox="0 0 10 6">
+								<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+									stroke-width="2" d="m1 1 4 4 4-4" />
+							</svg>
+						</button>
+						<!-- Dropdown menu -->
+						<div id="amountDropdown"
+							class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+							<ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
+								aria-labelledby="dropdownDefaultButton">
+								<li>
+									<a href="#"
+										class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+										onclick="updateChartData('amounts-chart', 'per_week', this)">Nach KW</a>
+								</li>
+								<li>
+									<a href="#"
+										class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+										onclick="updateChartData('amounts-chart', 'per_month', this)">Nach Monat</a>
+								</li>
+							</ul>
+						</div>
+						<a href="#"
+							class="inline-flex items-center p-2 text-xs font-medium uppercase rounded-lg text-primary-700 sm:text-sm hover:bg-gray-100 dark:text-primary-500 dark:hover:bg-gray-700">
+							Alle Bestellungen
+							<svg class="w-2.5 h-2.5 ml-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+								fill="none" viewBox="0 0 6 10">
+								<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+									stroke-width="2" d="m1 9 4-4-4-4" />
+							</svg>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="rounded-lg mb-4">
+		<div class="p-4 bg-white rounded-lg shadow-sm sm:p-6 dark:bg-gray-800" bis_skin_checked="1">
+			<!-- Card header -->
+			<div class="items-center justify-between lg:flex" bis_skin_checked="1">
+				<div class="mb-4 lg:mb-0" bis_skin_checked="1">
+					<h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Top 10 Produkte</h3>
+				</div>
+			</div>
+			<!-- Table -->
+			<div class="flex flex-col mt-6" bis_skin_checked="1">
+				<div class="overflow-x-auto rounded-lg" bis_skin_checked="1">
+					<div class="inline-block min-w-full align-middle" bis_skin_checked="1">
+						<div class="overflow-hidden shadow sm:rounded-lg" bis_skin_checked="1">
+							<table class="min-w-full divide-y divide-gray-200 dark:divide-gray-600">
+								<thead class="bg-gray-50 dark:bg-gray-700">
+									<tr>
+										<th scope="col"
+											class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+											Produkt
+										</th>
+										<th scope="col"
+											class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+											Kultivar
+										</th>
+										<th scope="col"
+											class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+											Aktueller Preis
+										</th>
+										<th scope="col"
+											class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+											Hersteller
+										</th>
+										<th scope="col"
+											class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+											Umsatz Netto
+										</th>
+										<th scope="col"
+											class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+											Verkaufte Menge
+										</th>
+									</tr>
+								</thead>
+								<tbody class="bg-white dark:bg-gray-800">
+									{% for product in top_products %}
+									<tr>
+										<td
+											class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap dark:text-white">
+											{{product.product__name}}
+										</td>
+										<td
+											class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+											{{product.product__cultivar__name}}
+										</td>
+										<td
+											class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+											{{product.product__pirce_per_unit|to_euro_decimal}} EUR
+										</td>
+										<td
+											class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+											{{product.product__manufacturer__name}}
+										</td>
+										<td
+											class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+											{{product.top_total_revenue}} EUR
+										</td>
+										<td
+											class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+											{{product.top_total_amount}} g
+										</td>
+									</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock content %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+<script>
+	const dataUrl = '{% url "dashboard_get_data" %}'
+
+	let amountOfOrdersChart = undefined
+	let revenueChart = undefined
+
+	let data = {}
+
+	const standardTimeLineOptions = {
+		chart: {
+			height: "100%",
+			maxWidth: "100%",
+			type: "area",
+			fontFamily: "Inter, sans-serif",
+			dropShadow: {
+				enabled: false,
+			},
+			toolbar: {
+				show: false,
+			},
+		},
+		tooltip: {
+			enabled: true,
+			x: {
+				show: false,
+			},
+		},
+		fill: {
+			type: "gradient",
+			gradient: {
+				opacityFrom: .9,
+				opacityTo: 0.2,
+				shade: "#84cc16",
+				gradientToColors: ["#84cc16"],
+			},
+		},
+		dataLabels: {
+			enabled: false,
+			style: {
+				colors: ['#FFFFFF']
+			}
+		},
+		stroke: {
+			width: 3,
+		},
+		grid: {
+			strokeDashArray: 2,
+			padding: {
+				left: 2,
+				right: 2,
+				top: 0
+			},
+		},
+		series: [
+		],
+		xaxis: {
+			type: 'category',
+			labels: {
+				style: {
+					colors: '#F0F0F0',
+				},
+				offsetY: 5,
+			},
+			axisBorder: {
+			},
+			axisTicks: {
+			},
+			
+		},
+		yaxis: [
+			{
+				labels: {
+					formatter: function(val) {
+						return val.toFixed(0)
+					},
+					style: {
+						colors: '#F0F0F0',
+						margin: 20,
+					},
+					offsetX: -10,
+				}
+			}
+		],
+		colors: ['#84cc16', '#564e58', '#e6b363', '#aa33ff', '#4baad6'],
+		noData: {
+			text: 'Daten werden geladen',
+			color: '#84cc16'
+		},
+	}
+
+	function getAllXValues(series) {
+		let allXValues = new Set()
+
+		series.forEach(serie => {
+			serie.data?.forEach(data => {
+				allXValues.add(data.x)
+			})
+		})
+
+		return allXValues
+	}
+
+	function completeDataset(dataset, allXValues) {
+		let completeData = []
+
+		allXValues.forEach(xValue => {
+			let dataPoint = dataset?.find(data => data.x === xValue)
+
+			if (dataPoint) {
+				completeData.push(dataPoint)
+			} else {
+				completeData.push({ x: xValue, y: "0" })
+			}
+		})
+
+		return completeData
+	}
+
+	// Get Data from API
+	async function getDataSet(dataUrl) {
+		try {
+			let response = await $.getJSON(dataUrl);
+			return response;
+		} catch (error) {
+			console.error('Failed to fetch data:', error);
+			return {};
+		}
+	}
+
+	// Event Listener for DOMContentLoaded
+	document.addEventListener("DOMContentLoaded", function () {
+		initializeCharts();
+	});
+
+	async function initializeCharts() {
+		data = await getDataSet(dataUrl)
+
+		if (data) {
+			setupOrderChart(data)
+			setupRevenueChart(data)
+			setupMeansChart(data)
+			setupAmountChart(data)
+			setupKPIChart1(data)
+			setupKPIChart2(data)
+			setupKPIChart3(data)
+			setupKPIChart4(data)
+		}
+	}
+
+	function setupOrderChart(data, period='per_week') {
+
+		let orderSeries = [
+			{ name: 'Insgesamt', data: data.total_orders_per_week || [] },
+			{ name: 'Bezahlt', data: data.payed_orders_per_week || [] },
+			{ name: 'Offen', data: data.open_orders_per_week || [] },
+			{ name: 'Storniert', data: data.cancelled_orders_per_week || [] },
+			{ name: 'Gefordert', data: data.demanded_orders_per_week || [] }
+		]
+		
+		let allXValues = getAllXValues(orderSeries)
+		
+		let completeOrderSeries = orderSeries.map(serie => {
+			return {
+				name: serie.name,
+				data: completeDataset(serie.data, allXValues)
+			}
+		})
+
+		let d = data.total_orders_per_week || []
+		let comparisonValuePercent = d.length > 1 ? ((d[d.length - 1] - d[d.length - 2]) / d[d.length - 2] * 100).toFixed(2) + '%' : 'N/A'
+		let comparisonValueAbsolute = d.length > 1 ? ((d[d.length - 1] - d[d.length - 2])).toFixed(0) : 'N/A'
+
+		$('#completed_orders_comparison').text(`${comparisonValuePercent} (${comparisonValueAbsolute})`)
+
+		if ( comparisonValueAbsolute > 0) {
+			console.log($('#completed_orders_comparison').parent())
+			$('#completed_orders_comparison').parent().removeClass('dark:text-primary-500')
+		} else if (comparisonValueAbsolute <= 0) {
+			console.log(comparisonValueAbsolute, 'false')
+			//$('#completed_orders_comparison').parent().addClass('text-primary-500 dark:text-primary-500')
+		}
+
+		if (document.getElementById("bestellungen-chart")) {
+			const amountOfOrdersChart = new ApexCharts(document.getElementById("bestellungen-chart"), standardTimeLineOptions)
+			amountOfOrdersChart.render()
+			amountOfOrdersChart.updateSeries(completeOrderSeries)
+		}
+	}
+
+	function setupRevenueChart(data) {
+		let orderSeries = [
+			{ name: 'Insgesamt', data: data.total_revenue_per_week || [] },
+			{ name: 'Bezahlt', data: data.payed_revenue_per_week || [] },
+			{ name: 'Offen', data: data.open_revenue_per_week || [] },
+			{ name: 'Storniert', data: data.cancelled_revenue_per_week || [] },
+			{ name: 'Gefordert', data: data.demanded_revenue_per_week || [] }
+		]
+
+		let allXValues = getAllXValues(orderSeries)
+
+		let completeOrderSeries = orderSeries.map(serie => {
+			return {
+				name: serie.name,
+				data: completeDataset(serie.data, allXValues)
+			}
+		})
+
+		if (document.getElementById("umsatz-chart")) {
+			const revenueChart = new ApexCharts(document.getElementById("umsatz-chart"), standardTimeLineOptions)
+			revenueChart.render()
+			revenueChart.updateSeries(completeOrderSeries)
+		}
+	}
+
+	function setupMeansChart(data) {
+		let orderSeries = [
+			{ name: 'Ø Bestellwert', data: data.average_revenue_per_week || [] },
+			{ name: 'Ø €/Gramm', data: data.average_price_per_gram_per_week || []}
+		]
+
+		let allXValues = getAllXValues(orderSeries)
+
+		let completeOrderSeries = orderSeries.map(serie => {
+			return {
+				name: serie.name,
+				data: completeDataset(serie.data, allXValues)
+			}
+		})
+
+		if (document.getElementById("durchschnitte-chart")) {
+			const meansChart = new ApexCharts(document.getElementById("durchschnitte-chart"), standardTimeLineOptions)
+			meansChart.render()
+			meansChart.updateSeries(completeOrderSeries)
+		}
+	}
+
+	function setupAmountChart(data) {
+		let orderSeries = [
+			{ name: 'Versandt', data: data.amount_gramm_per_week || []},
+		]
+
+		let allXValues = getAllXValues(orderSeries)
+
+		let completeOrderSeries = orderSeries.map(serie => {
+			return {
+				name: serie.name,
+				data: completeDataset(serie.data, allXValues)
+			}
+		})
+
+		if (document.getElementById("amounts-chart")) {
+			const amountChart = new ApexCharts(document.getElementById("amounts-chart"), standardTimeLineOptions)
+			amountChart.render()
+			amountChart.updateSeries(completeOrderSeries)
+		}
+	}
+
+	function setupKPIChart1(data) {
+
+		let dataSeries = data.current_week_orders || []
+
+		var options = {
+			series:	dataSeries,
+			chart: {
+				type: 'donut',
+			},
+			labels: ['Offen', 'In Bearbeitung', 'Versandt', 'Storniert'],
+			legend: {
+				position: 'bottom',
+			},
+			responsive: [{
+				breakpoint: 480,
+				options: {
+					chart: {
+						// width: 200
+					},
+					legend: {
+						position: 'bottom'
+					}
+				}
+			}],
+			stroke: {
+				show: true,
+				curve: 'straight',
+				lineCap: 'butt',
+				width: 3,
+				colors: '#1f2937',
+			}
+        }
+
+		var chart = new ApexCharts(document.querySelector("#kpi-chart-1"), options);
+		chart.render();
+	}
+
+	function setupKPIChart2(data) {
+
+		var revenueData = data.revenue_stats || []
+
+		var options = {
+			series: [
+			{
+				name: 'Heute',
+				data: [
+					{
+						x: 'Umsatz',
+						y: revenueData.TodayRevenue,
+						goals: [
+							{
+								name: 'Minimum',
+								value: revenueData.MinRevenue,
+								strokeWidth: 2,
+								strokeDashArray: 2,
+								strokeColor: '#fd00ff'
+							},
+							{
+								name: 'Maximum',
+								value: revenueData.MaxRevenue,
+								strokeWidth: 2,
+								strokeDashArray: 2,
+								strokeColor: '#fd00ff'
+							},
+							{
+								name: 'Durchschnitt',
+								value: revenueData.AvgRevenue,
+								strokeWidth: 10,
+								strokeHeight: 0,
+								strokeLineCap: 'round',
+								strokeColor: '#fd00ff'
+							}
+						]
+					},
+				]
+			}
+			],
+			chart: {
+				height: 130,
+				type: 'bar'
+			},
+			plotOptions: {
+				bar: {
+					horizontal: true,
+					distributed: true,
+					// barHeight: '30%',
+				}
+			},
+			colors: ['#00E396'],
+			dataLabels: {
+				// formatter: function(val, opt) {
+				// 	const goals =
+				// 	opt.w.config.series[opt.seriesIndex].data[opt.dataPointIndex]
+				// 		.goals
+				
+				// 	if (goals && goals.length) {
+				// 	return `${val} / ${goals[0].value}`
+				// 	}
+				// 	return val
+				// }
+			},
+			legend: {
+				show: false,
+				showForSingleSeries: true,
+				customLegendItems: ['Heute', 'Min/Max/Avg'],
+				markers: {
+					fillColors: ['#00E396', '#fd00ff']
+				}
+			},
+			yaxis: [
+				{
+					labels: {
+						style: {
+							colors: '#F0F0F0',
+							margin: 20,
+						},
+					}
+				}
+			],
+        };
+
+		// Creating the chart
+		var chart = new ApexCharts(document.querySelector("#kpi-chart-2"), options);
+		chart.render();
+	}
+
+	function setupKPIChart3(data) {
+
+		var amountData = data.amount_stats || []
+
+		var options = {
+			series: [
+			{
+				name: 'Heute',
+				data: [
+					{
+						x: 'Menge',
+						y: amountData.TodayAmount,
+						goals: [
+							{
+								name: 'Minimum',
+								value: amountData.MinAmount,
+								strokeWidth: 2,
+								strokeDashArray: 2,
+								strokeColor: '#fd00ff'
+							},
+							{
+								name: 'Maximum',
+								value: amountData.MaxAmount,
+								strokeWidth: 2,
+								strokeDashArray: 2,
+								strokeColor: '#fd00ff'
+							},
+							{
+								name: 'Durchschnitt',
+								value: amountData.AvgAmount,
+								strokeWidth: 10,
+								strokeHeight: 0,
+								strokeLineCap: 'round',
+								strokeColor: '#fd00ff'
+							}
+						]
+					},
+				]
+			}
+			],
+			chart: {
+				height: 130,
+				type: 'bar'
+			},
+			plotOptions: {
+				bar: {
+					horizontal: true,
+					distributed: true,
+				}
+			},
+			colors: ['#00E396'],
+			dataLabels: {
+				// formatter: function(val, opt) {
+				// 	const goals =
+				// 	opt.w.config.series[opt.seriesIndex].data[opt.dataPointIndex]
+				// 		.goals
+				
+				// 	if (goals && goals.length) {
+				// 	return `${val} / ${goals[0].value}`
+				// 	}
+				// 	return val
+				// }
+			},
+			legend: {
+				show: false,
+				showForSingleSeries: true,
+				customLegendItems: ['Heute', 'Min/Max/Avg'],
+				markers: {
+					fillColors: ['#00E396', '#fd00ff']
+				}
+			},
+			yaxis: [
+				{
+					labels: {
+						style: {
+							colors: '#F0F0F0',
+							margin: 20,
+						},
+					}
+				}
+			],
+		};
+
+		// Creating the chart
+		var chart = new ApexCharts(document.querySelector("#kpi-chart-2"), options);
+		chart.render();
+}
+
+function setupKPIChart4(data) {
+
+	var order_stats = data.order_stats || []
+
+	var options = {
+		series: [
+		{
+			name: 'Heute',
+			data: [
+				{
+					x: 'Orders',
+					y: order_stats.TodayOrders,
+					goals: [
+						{
+							name: 'Minimum',
+							value: order_stats.MinOrders,
+							strokeWidth: 2,
+							strokeDashArray: 2,
+							strokeColor: '#fd00ff'
+						},
+						{
+							name: 'Maximum',
+							value: order_stats.MaxOrders,
+							strokeWidth: 2,
+							strokeDashArray: 2,
+							strokeColor: '#fd00ff'
+						},
+						{
+							name: 'Durchschnitt',
+							value: order_stats.AvgOrders,
+							strokeWidth: 10,
+							strokeHeight: 0,
+							strokeLineCap: 'round',
+							strokeColor: '#fd00ff'
+						}
+					]
+				},
+			]
+		}
+		],
+		chart: {
+			height: 150,
+			type: 'bar'
+		},
+		plotOptions: {
+			bar: {
+				horizontal: true,
+				distributed: true,
+			}
+		},
+		colors: ['#00E396'],
+		dataLabels: {
+			// formatter: function(val, opt) {
+			// 	const goals =
+			// 	opt.w.config.series[opt.seriesIndex].data[opt.dataPointIndex]
+			// 		.goals
+			
+			// 	if (goals && goals.length) {
+			// 	return `${val} / ${goals[0].value}`
+			// 	}
+			// 	return val
+			// }
+		},
+		legend: {
+			show: true,
+			showForSingleSeries: true,
+			customLegendItems: ['Heute', 'Min/Max/Avg'],
+			markers: {
+				fillColors: ['#00E396', '#fd00ff']
+			}
+		},
+		yaxis: [
+			{
+				labels: {
+					style: {
+						colors: '#F0F0F0',
+						margin: 20,
+					},
+				}
+			}
+		],
+	};
+
+	// Creating the chart
+	var chart = new ApexCharts(document.querySelector("#kpi-chart-2"), options);
+	chart.render();
+}
+
+	function getSeriesData(dataset, dataType, type) {
+		const baseKey = `${type}_${dataType}_${dataset}`
+		return data[baseKey] || []
+	}
+
+	const updateChartData = (chartId, dataset, elem) => {
+
+		let orderSeries = []
+
+		if (chartId === 'durchschnitte-chart' && dataset === 'per_week') {
+			orderSeries = [
+				{ name: 'Ø Bestellwert', data: data.average_revenue_per_week || [] },
+				{ name: 'Ø €/Gramm', data: data.average_price_per_gram_per_week || []}
+			]
+		} else if (chartId === 'durchschnitte-chart' && dataset === 'per_month') {
+			orderSeries = [
+				{ name: 'Ø Bestellwert', data: data.average_revenue_per_month || [] },
+			]
+		} else if (chartId === 'amounts-chart' && dataset === 'per_week') {
+			orderSeries = [
+				{ name: 'Ø Bestellwert', data: data.amount_gramm_per_week || [] },
+			]
+		} else if (chartId === 'amounts-chart' && dataset === 'per_month') {
+			orderSeries = [
+				{ name: 'Ø Bestellwert', data: data.amount_gramm_per_month || [] },
+			]
+		} 
+		
+		else {
+			const type = chartId === 'bestellungen-chart' ? 'orders' : 'revenue'
+
+			orderSeries = [
+				{ name: 'Insgesamt', data: getSeriesData(dataset, type, 'total') },
+				{ name: 'Bezahlt', data: getSeriesData(dataset, type, 'payed') },
+				{ name: 'Offen', data: getSeriesData(dataset, type, 'open') },
+				{ name: 'Storniert', data: getSeriesData(dataset, type, 'cancelled') },
+				{ name: 'Gefordert', data: getSeriesData(dataset, type, 'demanded') }
+			]
+		}
+
+		
+		
+		let allXValues = getAllXValues(orderSeries)
+		
+		let completeOrderSeries = orderSeries.map(serie => {
+			return {
+				name: serie.name,
+				data: completeDataset(serie.data, allXValues)
+			}
+		})
+
+		if (document.getElementById(chartId)) {
+			const chart = new ApexCharts(document.getElementById(chartId), standardTimeLineOptions)
+
+			chart.render()
+			chart.updateSeries(completeOrderSeries)
+		}
+	}
+
+</script>
+
+{% endblock %}

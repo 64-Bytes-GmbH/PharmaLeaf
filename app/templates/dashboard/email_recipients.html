@@ -1,0 +1,505 @@
+<!-- templates/index.html -->
+
+{% extends "dashboard/base.html" %}
+{% load static extra_tags %}
+
+{% block content %}
+<section class="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5 antialiased">
+    <div class="">
+        <div class="flex flex-col bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden" style="height: calc(100vh - 64px - 2.5rem);">
+            <div class="px-4 divide-y dark:divide-gray-700">
+                <div class="flex flex-col py-3 space-y-3 md:flex-row md:items-center md:justify-between md:space-y-0 md:space-x-4">
+                    <div class="flex items-center flex-1 space-x-4">
+                        <h5>
+                            <span class="text-gray-500">E-Mail Empfänger:</span>
+                            <span class="dark:text-white">{{ recipients.paginator.count }}</span>
+                        </h5>
+                    </div>
+                    
+                    <button type="button" onclick="createRecipient()" class="flex mr-2 items-center justify-center px-4 py-2 text-sm font-medium text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
+                        <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path clip-rule="evenodd" fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
+                        </svg>
+                        Neuen Empfänger anlegen
+                    </button>
+
+                    <button type="button" id="deleteButton" onclick="deleteRecipient()" disabled class="flex items-center justify-center focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
+                        <svg class="w-4 h-4 text-gray-800 dark:text-white mr-1.5 -ml-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                            <path fill-rule="evenodd" d="M8.586 2.586A2 2 0 0 1 10 2h4a2 2 0 0 1 2 2v2h3a1 1 0 1 1 0 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8a1 1 0 0 1 0-2h3V4a2 2 0 0 1 .586-1.414ZM10 6h4V4h-4v2Zm1 4a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Zm4 0a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Z" clip-rule="evenodd"/>
+                        </svg>
+                        Empfänger löschen
+                    </button>
+                </div>
+                {% if request|check_get_parameters_exist:'search;category' %}
+                <div class="flex-1 flex items-center border-gray-600 w-full filter-parameters">
+                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M5.05 3C3.291 3 2.352 5.024 3.51 6.317l5.422 6.059v4.874c0 .472.227.917.613 1.2l3.069 2.25c1.01.742 2.454.036 2.454-1.2v-7.124l5.422-6.059C21.647 5.024 20.708 3 18.95 3H5.05Z"/>
+                    </svg>
+                    <div class="flex-1 flex flex-wrap divide-x divide-gray-500 dark:divide-gray-400 w-full">
+                        {% if request|get_parameter:'search' %}
+                        <p class="text-gray-500 dark:text-gray-400 px-3 text-xs whitespace-nowrap">Suche: {{ request|get_parameter:'search' }}</p>
+                        {% endif %}
+                        {% if request|get_parameter:'category' %}
+                        <p class="text-gray-500 dark:text-gray-400 px-3 text-xs whitespace-nowrap">Kategorien: {{ request|get_parameter:'category' }}</p>
+                        {% endif %}
+                    </div>
+                    <button type="button" onclick="resetFilter()" class="my-2 flex items-center justify-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
+                        <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                            <path d="M3.9 22.9C10.5 8.9 24.5 0 40 0H472c15.5 0 29.5 8.9 36.1 22.9s4.6 30.5-5.2 42.5L396.4 195.6C316.2 212.1 256 283 256 368c0 27.4 6.3 53.4 17.5 76.5c-1.6-.8-3.2-1.8-4.7-2.9l-64-48c-8.1-6-12.8-15.5-12.8-25.6V288.9L9 65.3C-.7 53.4-2.8 36.8 3.9 22.9zM432 224a144 144 0 1 1 0 288 144 144 0 1 1 0-288zm59.3 107.3c6.2-6.2 6.2-16.4 0-22.6s-16.4-6.2-22.6 0L432 345.4l-36.7-36.7c-6.2-6.2-16.4-6.2-22.6 0s-6.2 16.4 0 22.6L409.4 368l-36.7 36.7c-6.2 6.2-6.2 16.4 0 22.6s16.4 6.2 22.6 0L432 390.6l36.7 36.7c6.2 6.2 16.4 6.2 22.6 0s6.2-16.4 0-22.6L454.6 368l36.7-36.7z"/>
+                        </svg>
+                        Filter löschen
+                    </button>
+                </div>
+                {% endif %}
+                
+                <div class="flex flex-col items-stretch justify-between py-4 space-y-3 md:flex-row md:items-center md:space-y-0">
+                    
+                    <div class="flex flex-row">
+                        <div class="relative" style="min-width: 300px;">
+                            <div class="absolute inset-y-0 start-0 flex items-center ps-4 pointer-events-none">
+                                <svg class="h-3.5 w-3.5 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                                </svg>
+                            </div>
+                            <input type="text" id="searchRecipient" class="bg-gray-50 border w-full border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block ps-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Apotheke, Name, E-Mail" required>
+                        </div>
+                        <button type="button" onclick="searchRecipient()" class="flex mr-2 items-center justify-center px-4 py-2 ms-2 text-sm font-medium text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
+                            <svg class="h-3.5 w-3.5 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                            </svg>
+                            Suchen
+                        </button>
+                    </div>
+
+                    <button id="filterDropdownButton" data-dropdown-toggle="filterDropdown" class="h-full w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" type="button">
+                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-4 w-4 mr-1.5 -ml-1 text-gray-400" viewbox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z" clip-rule="evenodd" />
+                        </svg>
+                        Filtern
+                        <svg class="-mr-1 ml-1.5 w-5 h-5" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path clip-rule="evenodd" fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+                        </svg>
+                    </button>
+                    <div id="filterDropdown" class="z-10 hidden px-3 pt-1 bg-white rounded-lg shadow w-80 dark:bg-gray-700 right-0">
+                        <div id="accordion-flush" data-accordion="collapse" data-active-classes="text-black dark:text-white" data-inactive-classes="text-gray-500 dark:text-gray-400">
+                            <!-- Kategorie -->
+                            <h2 id="category-heading">
+                                <button type="button" class="flex items-center justify-between w-full py-2 px-1.5 text-sm font-medium text-left text-gray-500 border-b border-gray-200 dark:border-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700" data-accordion-target="#category-body" aria-expanded="true" aria-controls="category-body">
+                                    <div>
+                                        <span class="mr-2">Kategorie</span>
+                                        {% if request|get_parameter:'category' %}
+                                        <span class="inline-flex items-center justify-center w-5 h-5 text-xs text-white bg-primary-700 dark:bg-primary-600 rounded-full">{{ request|get_parameter:'category'|tsplit:','|length }}</span>
+                                        {% endif %}
+                                    </div>
+                                    <svg aria-hidden="true" data-accordion-icon="" class="w-5 h-5 rotate-180 shrink-0" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+                                    </svg>
+                                </button>
+                            </h2>
+                            <div id="category-body" class="hidden" aria-labelledby="category-heading">
+                                <div class="py-2 font-light border-b border-gray-200 dark:border-gray-600">
+                                    <ul class="space-y-2">
+                                        {% get_choices "EmailRecipientCategories" as EmailRecipientCategories %}
+                                        {% for item in EmailRecipientCategories %}
+                                        <li class="flex items-center">
+                                            <input id="category-{{ item.0 }}" {% check_get_parameter request 'category' item.1 %} onchange="updateUrlParameters('category', '{{ item.1 }}')" type="checkbox" value="{{ item.0 }}" class="cursor-pointer w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                            <label for="category-{{ item.0 }}" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100 w-full cursor-pointer">{{ item.1 }}</label>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                    <a href="javascript:void(0)" onclick="removeUrlParameters('category')" class="mt-2 flex items-center text-sm font-medium text-primary-600 dark:text-primary-500 hover:underline">Filterung aufheben</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="table-container" class="overflow-x-auto">
+                <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                            <th scope="col" class="p-4">
+                                <div class="flex items-center">
+                                    <input id="checkbox-all" type="checkbox" class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                    <label for="checkbox-all" class="sr-only">checkbox</label>
+                                </div>
+                            </th>
+                            <th scope="col" class="px-4 py-3">Apotheke</th>
+                            <th scope="col" class="px-4 py-3">Kategorie</th>
+                            <th scope="col" class="px-4 py-3">Name</th>
+                            <th scope="col" class="px-4 py-3">E-Mail</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for recipient in recipients %}
+                        <tr id="recipient-{{ recipient.id }}" class="border-t dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <!-- Checkbox -->
+                            <td class="w-4 px-4 py-3">
+                                <div class="flex items-center">
+                                    <input data-recipient-id="{{ recipient.id }}" type="checkbox" onclick="event.stopPropagation()" class="recipient-checkbox w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                </div>
+                            </td>
+                            <!-- Apotheke -->
+                            <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{ recipient.pharmacy.name }}<br>
+                                <span class="text-gray-400 dark:text-gray-500">
+                                    {{ recipient.pharmacy.street }} {{ recipient.pharmacy.street_number }} - {{ recipient.pharmacy.postalcode }} {{ recipient.pharmacy.city }}
+                                </span>
+                            </td>
+                            <!-- Kategorie -->
+                            <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{ recipient.get_category_display }}
+                            </td>
+                            <!-- Name -->
+                            <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{ recipient.name }}
+                            </td>
+                            <!-- Name -->
+                            <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{ recipient.email }}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            
+            <nav class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4 border-gray-600 dark:border-gray-600 border-t" aria-label="Table navigation">
+                <ul class="inline-flex items-stretch -space-x-px">
+                    {% with recipients.paginator.page_range|first as first_page %}
+                    {% with 'page:'|concat_string:first_page as page_string %}
+                    {% with updated_params=request.GET|add_get_parameter:page_string %}
+                    <li>
+                        <a href="?{{ updated_params }}" class="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                            <span class="sr-only">Erste Seite</span>
+                            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" viewBox="0 0 12 10">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M5 1 1 5l4 4m6-8L7 5l4 4"/>
+                            </svg>
+                        </a>
+                    </li>
+                    {% endwith %}
+                    {% endwith %}
+                    {% endwith %}
+                    {% for page_num in recipients.paginator.page_range|get_page_range:recipients.number %}
+                    {% if recipients.number == page_num %}
+                    <li>
+                        <a href="?{{ updated_params }}" aria-current="page" class="flex items-center justify-center text-sm z-10 py-2 px-3 leading-tight text-primary-600 bg-primary-50 border border-primary-300 hover:bg-primary-100 hover:text-primary-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">{{ page_num }}</a>
+                    </li>
+                    {% else %}
+                    {% with 'page:'|concat_string:page_num as page_string %}
+                    {% with updated_params=request.GET|add_get_parameter:page_string %}
+                    <li>
+                        <a href="?{{ updated_params }}" class="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{ page_num }}</a>
+                    </li>
+                    {% endwith %}
+                    {% endwith %}
+                    {% endif %}
+                    {% endfor %}
+                    {% with recipients.paginator.page_range|last as last_page %}
+                    {% with 'page:'|concat_string:last_page as page_string %}
+                    {% with updated_params=request.GET|add_get_parameter:page_string %}
+                    <li>
+                        <a href="?{{ updated_params }}" class="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                            <span class="sr-only">Letzte Seite</span>
+                            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" viewBox="0 0 12 10">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="m7 9 4-4-4-4M1 9l4-4-4-4"/>
+                            </svg>
+                        </a>
+                    </li>
+                    {% endwith %}
+                    {% endwith %}
+                    {% endwith %}
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<!-- Pop Up Modal to create recipient -->
+<div id="recipient-creation-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative w-full max-w-md max-h-full">
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <form id="recipientCreationForm">
+                <!-- Modal header -->
+                <div class="flex items-center justify-between pt-6 px-6 rounded-t">
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                        Neuen Empfänger anlegen
+                    </h3>
+                </div>
+                <!-- Modal body -->
+                <div class="p-6 space-y-4">
+                        <!-- Apotheke -->
+                        <div class="mb-5">
+                            <label for="pharmacy" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Apotheke</label>
+                            <select id="pharmacy" name="pharmacy" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                                <option value="" selected disabled>Apotheke auswählen</option>
+                                {% for pharmacy in pharmacies %}
+                                <option value="{{ pharmacy.id }}">{{ pharmacy.name }} - {{ pharmacy.city }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <!-- Kategorie -->
+                        <div class="mb-5">
+                            <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kategorie</label>
+                            <select id="category" name="category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                                <option value="" selected disabled>Kategorie auswählen</option>
+                                {% get_choices "EmailRecipientCategories" as EmailRecipientCategories %}
+                                {% for item in EmailRecipientCategories %}
+                                <option value="{{ item.0 }}">{{ item.1 }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <!-- Name -->
+                        <div class="mb-5">
+                            <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                            <input type="text" id="name" name="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Max Mustermann" required />
+                        </div>
+                        <!-- E-Mail/Benutername -->
+                        <div class="mb-5">
+                            <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">E-Mail</label>
+                            <input type="email" id="email" name="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="max@mustermann.de" required />
+                        </div>
+
+                        <div class="hidden py-2 px-3 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert" name="recipientExistAlert">
+                            Dieser Empfänger existiert bereits für die Apotheke und Kategorie.
+                        </div>
+                </div>
+                <!-- Modal footer -->
+                <div class="pb-6 px-6 flex justify-between">
+                    <button onclick="saveCreateRecipient()" type="button" class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
+                        Speichern
+                    </button>
+                    <button onclick="hideModal('recipient-creation-modal')" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+                        Abbrechen
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+
+<!-- Create recipient -->
+<script>
+    
+    const $recipientExistAlert = $('div[name="recipientExistAlert"]', '#recipientCreationForm')
+    const $pharmacyInput = $('select[name="pharmacy"]', '#recipientCreationForm')
+    const $categoryInput = $('select[name="category"]', '#recipientCreationForm')
+    const $nameInput = $('input[name="name"]', '#recipientCreationForm')
+    const $emailInput = $('input[name="email"]', '#recipientCreationForm')
+
+    const regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,8})+$/
+
+    const createRecipient = () => {
+
+        // Clear input forms
+        $pharmacyInput.val('')
+        $categoryInput.val('')
+        $nameInput.val('')
+        $emailInput.val('')
+
+        // Remove input error class in all inputs and selects in recipientCreationForm
+        $('input', '#recipientCreationForm').removeClass('input-error')
+        $('select', '#recipientCreationForm').removeClass('input-error')
+
+        $recipientExistAlert.addClass('hidden')
+
+        toggleModal('recipient-creation-modal', {'backdrop': 'static'})
+    }
+
+    const saveCreateRecipient = () => {
+
+        $('input', '#recipientCreationForm').removeClass('input-error')
+        $('select', '#recipientCreationForm').removeClass('input-error')
+        $recipientExistAlert.addClass('hidden')
+
+        console.log($pharmacyInput.val())
+
+        // Validate input
+        if ($pharmacyInput.val() === '' || $pharmacyInput.val() === null) {
+            $pharmacyInput.addClass('input-error')
+            return
+        }
+
+        if ($categoryInput.val() === '' || $categoryInput.val() === null) {
+            $categoryInput.addClass('input-error')
+            return
+        }
+
+        if ($nameInput.val() === '') {
+            $nameInput.addClass('input-error')
+            return
+        }
+
+        if ($emailInput.val() === '' || regexEmail.test($emailInput.val()) === false) {
+            $emailInput.addClass('input-error')
+            return
+        }
+
+        $('.loading-screen').removeClass('hidden')
+
+        $.ajax({
+            type: 'POST',
+            url: '{% url "dashboard_email_recipients" %}',
+            data: {
+                'createRecipient': 'createRecipient',
+                'pharmacyId': $pharmacyInput.val(),
+                'category': $categoryInput.val(),
+                'name': $nameInput.val(),
+                'email': $emailInput.val(),
+            },
+            success: (data) => {
+
+                $('.loading-screen').addClass('hidden')
+
+                if (data.recipientExist) {
+                    $recipientExistAlert.removeClass('hidden')
+                    $emailInput.addClass('input-error')
+                    return
+                }
+                
+                location.reload()
+
+            },
+            error: () => {
+
+                $('.loading-screen').addClass('hidden')
+                toggleModal('alert-modal')
+        
+            }
+        })
+
+    }
+
+</script>
+
+<!-- Filter recipients -->
+<script data-baseUrl="{{ baseUrl }}">
+    const filterDatas = document.currentScript.dataset
+
+    // Get Filters from URL
+    const queryString = window.location.search
+    var urlParams = new URLSearchParams(queryString)
+
+    // Search Order
+    const searchRecipient = () => {
+
+        const searchValue = $('#searchRecipient').val()
+
+        updateUrlParameters('search', searchValue)
+    }
+
+    $('#searchRecipient').on('keyup', function (e) {
+        if (e.key === 'Enter' || e.keyCode === 13) {
+            searchRecipient()
+        }
+    })
+
+    // Update url parameters by class_name and value
+    const updateUrlParameters = (class_name, value) => {
+
+        if (value) {
+
+            if (urlParams.get(class_name) === undefined || urlParams.get(class_name) === '' || urlParams.get(class_name) === null || class_name=='search') {
+                urlParams.set(class_name, value)
+            } else {
+
+                let temp_values = urlParams.get(class_name).split(',')
+
+                if (temp_values.includes(value)) {
+                    temp_values = temp_values.filter(item => item !== value)
+                } else {
+                    temp_values.push(value)
+                }
+
+                if (temp_values.length === 0 || temp_values === undefined) {
+                    urlParams.delete(class_name)
+                } else {
+                    urlParams.set(class_name, temp_values.join(','))
+                }
+
+            }
+        } else {
+            urlParams.delete(class_name)
+        }
+
+        urlParams.set('page', 1)
+
+        let newUrlParams = new URLSearchParams(urlParams).toString()
+
+        window.location.href = (filterDatas.baseurl + '?' + newUrlParams.replace(/%2C/g, ','))
+
+    }
+
+    // Remove url parameters by class_name
+    const removeUrlParameters = (class_name) => {
+
+        urlParams.delete(class_name)
+        urlParams.set('page', 1)
+
+        let newUrlParams = new URLSearchParams(urlParams).toString()
+
+        window.location.href = (filterDatas.baseurl + '?' + newUrlParams.replace(/%2C/g, ','))
+
+    }
+
+    // Remove all filters
+    const resetFilter = () => {
+        window.location.href = filterDatas.baseurl + '?page=1'
+    }
+
+</script>
+
+<!-- Delete Recipient -->
+<script>
+
+    // Enable or disable the delete button
+    $('.recipient-checkbox').change(function() {
+        const checked = $('.recipient-checkbox:checked').length
+        $('#deleteButton').prop('disabled', checked === 0)
+    })
+
+    const deleteRecipient = () => {
+            
+        const recipientIds = []
+
+        $('.recipient-checkbox:checked').each(function() {
+            recipientIds.push($(this).data('recipient-id'))
+        })
+
+        if (recipientIds.length === 0) {
+            return
+        }
+
+        $('.loading-screen').removeClass('hidden')
+
+        $.ajax({
+            type: 'POST',
+            url: '{% url "dashboard_email_recipients" %}',
+            data: {
+                'deleteRecipient': 'deleteRecipient',
+                'recipientIds[]': JSON.stringify(recipientIds),
+            },
+            success: (data) => {
+
+                $('.loading-screen').addClass('hidden')
+
+                location.reload()
+
+            },
+            error: () => {
+
+                $('.loading-screen').addClass('hidden')
+                toggleModal('alert-modal')
+        
+            }
+        })
+    }
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,226 @@
+.recipe_status .status-circle[value="incorrect"],
+.dropdownRezeptsstatus .status-circle[value="incorrect"],
+.online_recipe_status .status-circle[value="incorrect"],
+.dropdownOnlineRezeptsstatus .status-circle[value="incorrect"],
+.status .status-circle[value="cancelled"],
+.dropdownSendungsstatus .status-circle[value="cancelled"],
+.payment_status .status-circle[value="invoice_reminder"],
+.dropdownZahlungsstatus .status-circle[value="invoice_reminder"],
+.payment_status .status-circle[value="last_reminder"],
+.dropdownZahlungsstatus .status-circle[value="last_reminder"],
+.payment_status .status-circle[value="debt_collection"],
+.dropdownZahlungsstatus .status-circle[value="debt_collection"],
+.stock-product-status .status-circle[value="0"],
+.productRequestStatus .status-circle[value="rejected"] {
+    border-color: #EF4444;
+    background-color: #EF4444;
+}
+.status .status-circle[value="acceptance_refused"],
+.dropdownSendungsstatus .status-circle[value="acceptance_refused"],
+.status .status-circle[value="delivery_not_possible"],
+.dropdownSendungsstatus .status-circle[value="delivery_not_possible"],
+.status .status-circle[value="payment_change"],
+.dropdownSendungsstatus .status-circle[value="payment_change"] {
+    border-color: #EF4444;
+    background-color: transparent;
+}
+.recipe_status .status-circle[value="online_checked"],
+.dropdownRezeptsstatus .status-circle[value="online_checked"],
+.productRequestStatus .status-circle[value="open"] {
+    border-color: #FDE68A;
+    background-color: #FDE68A;
+}
+.status .status-circle[value="process"],
+.dropdownSendungsstatus .status-circle[value="process"],
+.status .status-circle[value="process_waiting"],
+.dropdownSendungsstatus .status-circle[value="process_waiting"] {
+    border-color: #F59E0B;
+    background-color: transparent;
+}
+.payment_status .status-circle[value="pending"],
+.dropdownZahlungsstatus .status-circle[value="pending"],
+.recipe_status .status-circle[value="received"],
+.dropdownRezeptsstatus .status-circle[value="received"],
+.status .status-circle[value="ready_to_ship"],
+.dropdownSendungsstatus .status-circle[value="ready_to_ship"],
+.status .status-circle[value="ready_for_pickup"],
+.stock-product-status .status-circle[value="1"],
+.dropdownSendungsstatus .status-circle[value="ready_for_pickup"] {
+    border-color: #F59E0B;
+    background-color: #F59E0B;
+}
+.recipe_status .status-circle[value="not_received"],
+.dropdownRezeptsstatus .status-circle[value="not_received"],
+.online_recipe_status .status-circle[value="open"],
+.dropdownOnlineRezeptsstatus .status-circle[value="open"],
+.status .status-circle[value="open"],
+.dropdownSendungsstatus .status-circle[value="open"],
+.status .status-circle[value="ordered"],
+.dropdownSendungsstatus .status-circle[value="ordered"] {
+    border-color: #6B7280;
+    background-color: #6B7280;
+}
+.status .status-circle[value="shipped"],
+.stock-product-status .status-circle[value="2"],
+.dropdownSendungsstatus .status-circle[value="shipped"] {
+    border-color: #10B981;
+    background-color: transparent;
+}
+.payment_status .status-circle[value="received"],
+.dropdownZahlungsstatus .status-circle[value="received"],
+.recipe_status .status-circle[value="checked"],
+.dropdownRezeptsstatus .status-circle[value="checked"],
+.online_recipe_status .status-circle[value="checked"],
+.dropdownOnlineRezeptsstatus .status-circle[value="checked"],
+.status .status-circle[value="picked_up"],
+.dropdownSendungsstatus .status-circle[value="picked_up"],
+.status .status-circle[value="delivered"],
+.dropdownSendungsstatus .status-circle[value="delivered"],
+.stock-product-status .status-circle[value="3"],
+.productRequestStatus .status-circle[value="approved"]  {
+    border-color: #10B981;
+    background-color: #10B981;
+}
+.status .status-circle[value="queries"],
+.dropdownSendungsstatus .status-circle[value="queries"] {
+    border-color: #3B82F6;
+    background-color: transparent;
+}
+.status .status-circle[value="clarified"],
+.dropdownSendungsstatus .status-circle[value="clarified"],
+.payment_status .status-circle[value="at_pickup"],
+.dropdownZahlungsstatus .status-circle[value="at_pickup"],
+.productRequestStatus .status-circle[value="in_review"] {
+    border-color: #3B82F6;
+    background-color: #3B82F6;
+}
+.status .status-circle[value="product_changed"] {
+    border-color: #e232d6;
+    background-color: #e232d6;
+}
+.status .status-circle[value="started"] {
+    border-color: #833bf6;
+    background-color: #833bf6;
+}
+button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+.input-error {
+    border-color: #991B1B!important;
+    background-color: #991b1b1c!important;
+}
+.button-error {
+    background-color: #ef444456!important;
+}
+#identCheckImg, #identCheckImg2 {
+    display: block;
+    width: 100%; 
+    height: 100%; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+    background-size: cover;
+    overflow: hidden;
+}
+.status-display[value='approved'] .rejected,
+.status-display[value='approved'] .expired {
+    display: none;
+}
+.status-display[value='rejected'] .approved,
+.status-display[value='rejected'] .expired {
+    display: none;
+}
+.status-display[value='expired'] .approved,
+.status-display[value='expired'] .rejected {
+    display: none;
+}
+.left-container {
+    display: flex;
+    flex: 1 1 0%;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.ident-check-images {
+    display: flex;
+}
+
+    .ident-check-images > a {
+        flex: 1;
+        background-size: cover;
+        background-position: center;
+    }
+
+.order.overdue td {
+    background-color: #dc26264d;
+}
+.order.order-started td {
+    background-color: #5f2cf947;
+}
+.orders .show-products svg {
+    transition: all 150ms linear;
+}
+.orders .show-products.open svg {
+    transform: rotate(-180deg);
+}
+
+#table-container table tr th:last-child > div,
+#table-container table tr.orders td:last-child > div {
+    -webkit-box-shadow: -5px -3px 12px -5px rgba(17,24,39,1);
+    -moz-box-shadow: -5px -3px 12px -5px rgba(17,24,39,1);
+    box-shadow: -5px -3px 12px -5px rgba(17,24,39,1);
+}
+
+#table-container [name="can_trigger_order"][data-can-trigger-order="False"] > svg:last-child {
+    display: none;
+}
+#table-container [name="can_trigger_order"][data-can-trigger-order="True"] > svg:first-child {
+    display: none;
+}
+
+.product-amount[data-amount-status="0"] {
+    color: #EF4444!important;
+}
+.product-amount[data-amount-status="1"] {
+    color: #F59E0B!important;
+}
+/* .product-amount-input[data-amount-status="2"] {
+    color: #10B981;
+} */
+
+.table-overflow::-webkit-scrollbar {
+  /* width: 8px; */
+  /* margin: 5px; */
+  height: 8px;
+  width: 8px;
+  border: solid 3px transparent;
+}
+
+.table-overflow::-webkit-scrollbar-track {
+  /* -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);  */
+  border-radius: 0px;
+  background-color: #424242;
+  border-top: solid 3px transparent;
+  background-clip: content-box;
+}
+
+.table-overflow::-webkit-scrollbar-thumb {
+  background-color: #65a30d;
+  border-top: solid 3px transparent;
+  background-clip: content-box;
+  /* border-radius: 10px; */
+  /* -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);  */
+}
+
+.staff-flag {
+    content: '';
+    content: '';
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 0 20px 20px;
+    border-color: transparent transparent transparent #833bf6;
+}
+.warning-border {
+    border: 2px solid #ff0000 !important;
+}

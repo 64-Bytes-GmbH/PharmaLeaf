@@ -1,0 +1,299 @@
+<!-- templates/_base.html -->
+
+{% load compress %}
+{% load static extra_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>higreen! Dashboard</title>
+
+    {% compress css %}
+    <link rel="stylesheet" href="{% static 'dashboard/style.css' %}">
+    <link rel="stylesheet" href="{% static 'dashboard/output.css' %}">
+    {% endcompress %}
+
+
+    
+</head>
+
+<body class="bg-white dark:bg-gray-800 min-h-screen">
+
+    <section class="bg-gray-50 dark:bg-gray-900 h-screen">
+        <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+            <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
+                <img src="{% static '/dashboard/Higreen-logo-white.png' %}" class="px-2 mr-3 h-10 lg:h-16 hidden dark:block" alt="Kineo Campus Logo" />
+                <img src="{% static '/dashboard/Higreen-logo.png' %}" class="px-2 mr-3 h-10 lg:h-16 block dark:hidden " alt="Kineo Campus Logo" />
+            </a>
+            <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+                <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+                    {% if not 'reset_password_confirmed' in request.session and not request.session.reset_password_confirmed %}
+                    <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                        Einloggen
+                    </h1>
+                    <form class="space-y-4 md:space-y-6" id="loginForm">
+                        {% csrf_token %}
+                        <div>
+                            <label for="username" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">E-Mail Adresse</label>
+                            <input type="test" name="username" id="username" autocomplete="username" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required="">
+                        </div>
+                        <div>
+                            <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Passwort</label>
+                            <input type="password" name="password" id="password" placeholder="••••••••" autocomplete="current-password" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="">
+                        </div>
+                        <div name="alert" class="hidden p-4 mb-4 text-sm text-red-800 border rounded-lg bg-red-50 border-red-800 dark:bg-gray-800 dark:text-red-400 dark:border-red-400" role="alert">
+                        </div>
+                        <button type="submit" class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Sign in</button>
+                        <!-- <p class="text-sm font-light text-gray-500 dark:text-gray-400">
+                            Don’t have an account yet? <a href="#" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up</a>
+                        </p> -->
+                    </form>
+                    {% endif %}
+                    {% if 'reset_password_confirmed' in request.session and request.session.reset_password_confirmed %}
+                    <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                        Neues Passwort setzen
+                    </h1>
+                    <form class="space-y-4 md:space-y-6" id="newPasswordForm">
+                        {% csrf_token %}
+                        <div>
+                            <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Passwort</label>
+                            <input type="password" name="password" id="password" placeholder="••••••••" autocomplete="current-password" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="">
+                        </div>
+                        <div>
+                            <label for="password_confirm" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Passwort Wiederholen</label>
+                            <input type="password" name="passwordConfirm" id="password_confirm" placeholder="••••••••" autocomplete="current-password" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="">
+                        </div>
+                        <div name="alert" class="hidden p-4 mb-4 text-sm text-red-800 border rounded-lg bg-red-50 border-red-800 dark:bg-gray-800 dark:text-red-400 dark:border-red-400" role="alert">
+                        </div>
+                        <button type="submit" class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Speichern</button>
+                    </form>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Alert Modal1 -->
+   <div id="alert-modal" aria-hidden="true" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full bg-gray-900 bg-opacity-60">
+        <div class="relative w-full max-w-md max-h-full">
+            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                <div class="p-6 text-center">
+                    <svg class="mx-auto mb-4 text-red-500 w-12 h-12 dark:text-red-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                    </svg>
+                    <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+                        Es ist ein <strong>Fehler</strong> aufgetreten!<br />
+                        Bitte versuchen Sie es zu einem späteren Zeitpunkt erneut.
+                    </h3>
+                    <button onclick="hideModal('alert-modal')" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Verstanden</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="{% static '/app/js/jquery-3.7.0.min.js' %}"></script>
+    <!-- Darkmode Toggler -->
+    <script>
+        // On page load or when changing themes, best to add inline in `head` to avoid FOUC
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark')
+        }
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>
+
+    <!-- Toggle Modal -->
+    <script>
+
+        const modalCenterOptions = {
+            placement: 'bottom-right',
+            backdrop: false,
+            // backdropClasses: 'bg-gray-900 bg-opacity-50 dark:bg-opacity-80 fixed inset-0 z-40',
+            closable: true,
+        };
+
+        const toggleModal = (modalId) => {
+            const modal = new Modal(document.getElementById(modalId), null);
+            modal.show();
+        }
+
+        const hideModal = (modalId) => {
+            const modal = new Modal(document.getElementById(modalId), null);
+            modal.hide();
+            
+            $('[modal-backdrop]').remove();
+        }
+    </script>
+    
+    <!-- CSRF Cookie -->
+    <script>
+                
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== "") {
+                const cookies = document.cookie.split(";");
+                for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + "=")) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+                }
+            }
+            return cookieValue;
+        }
+
+    </script>
+
+    <!-- Submit login -->
+    <script>
+
+        // Submit verhindern
+        $(document).on('submit', '#loginForm', function (event) {
+            event.preventDefault(); // Damit Seite nicht neu geladen wird
+            loginUser();
+        });
+
+        const $email = $('input[name=username]', '#loginForm')
+        const $password = $('input[name=password]', '#loginForm')
+        const $alertField = $('[name=alert]', '#loginForm')
+
+        const loginUser = () => {
+            
+            $alertField.addClass('hidden')
+
+            const emailValue = $email.val()
+            const passwordValue = $password.val()
+
+            if (emailValue === undefined || emailValue === '') {
+                $email.addClass('input-error')
+                return false
+            }
+
+            if (passwordValue === undefined || passwordValue === '') {
+                $password.addClass('input-error')
+                return false
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: '{% url "dashboard_login" %}',
+                traditional: true,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRFToken': getCookie('csrftoken')
+                },
+                data: {
+                    'loginUser': 'loginUser',
+                    'username': emailValue,
+                    'password': passwordValue,
+                },
+                success: (data) => {
+            
+                    if (data.wrong_username) {
+                        $alertField.html('Benutzername ist falsch oder existiert nicht.')
+                        $alertField.removeClass('hidden')
+                        return false;
+                    }
+            
+                    if (data.wrong_password) {
+                        $alertField.html('Passwort ist falsch.')
+                        $alertField.removeClass('hidden')
+                        return false;
+                    }
+            
+                    if (data.no_premission) {
+                        $alertField.html('Sie haben keine Berechtigungen.')
+                        $alertField.removeClass('hidden')
+                        return false;
+                    }
+
+                    window.open(data.url, '_parent')
+
+                },
+                error: () => {
+            
+                    toggleModal('alert-modal')
+            
+                }
+            })
+
+        }
+
+    </script>
+
+    <!-- Set new password -->
+    <script>
+        $(document).on('submit', '#newPasswordForm', function (event) {
+            event.preventDefault(); // Damit Seite nicht neu geladen wird
+            saveNewPassword();
+        });
+
+        const $newPassword = $('input[name=password]', '#newPasswordForm')
+        const $passwordConfirm = $('input[name=passwordConfirm]', '#newPasswordForm')
+        const $alertFieldPassword = $('[name=alert]', '#newPasswordForm')
+
+        const saveNewPassword = () => {
+            
+            $alertFieldPassword.addClass('hidden')
+
+            const passwordValue = $newPassword.val()
+            const passwordConfirmValue = $passwordConfirm.val()
+
+            console.log(passwordValue, passwordConfirmValue)
+
+            if (passwordValue === undefined || passwordValue === '') {
+                $newPassword.addClass('input-error')
+                return false
+            }
+
+            if (passwordConfirmValue === undefined || passwordConfirmValue === '') {
+                $passwordConfirm.addClass('input-error')
+                return false
+            }
+
+            if (passwordValue !== passwordConfirmValue) {
+                $alertFieldPassword.html('Passwörter stimmen nicht überein.')
+                $alertFieldPassword.removeClass('hidden')
+                return false;
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: '{% url "dashboard_login" %}',
+                traditional: true,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRFToken': getCookie('csrftoken')
+                },
+                data: {
+                    'setNewPassword': 'setNewPassword',
+                    'newPassword': passwordValue,
+                },
+                success: (data) => {
+
+                    window.open(data.url, '_parent')
+
+                },
+                error: () => {
+            
+                    toggleModal('alert-modal')
+            
+                }
+            })
+
+        }
+
+    </script>
+
+</body>
+
+</html>
