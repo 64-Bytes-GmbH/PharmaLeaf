@@ -3,14 +3,17 @@
 import json
 import re
 import os
+import base64
 
+from io import BytesIO
 from django.conf import settings
 from weasyprint import HTML
 from xhtml2pdf.files import pisaFileObject
 from datetime import datetime, timezone, timedelta
 from django.db.models import Q, Sum
 from django.template.loader import render_to_string
-from django.http import HttpResponse, JsonResponse
+from django.shortcuts import redirect
+from django.http import HttpResponse, JsonResponse, FileResponse
 from app.models import MainSettings, Products, ProductImages, ProductPrices,\
                         Pharmacies, StockProducts, OrderProducts,\
                         Orders, OrderRecipes, OrderInsuranceConfirmation,\
@@ -18,14 +21,17 @@ from app.models import MainSettings, Products, ProductImages, ProductPrices,\
                         OrderRecipes, OrderInsuranceConfirmation, IdentificationFiles,\
                         CancellationReasons, Invoices, Customers, User, StaffUser,\
                         PharmacyEmployees, PackedOrderedProducts, Packages, StandardFillingProtocolIds,\
-                        FillProtocols, ProductThresholds, PackageManufacturers
+                        FillProtocols, ProductThresholds, PackageManufacturers, UserPremissions,\
+                        EmailRecipients
 from db_logger.utils import create_log
 from django.urls import reverse
 from app.utils import sum_product_ordered_amount, custom_currency_format, check_status_for_mail,\
                         get_order_details, send_order_status_shipped, create_new_invoice,\
                         send_new_order_created, get_order_package_data, shorten_string,\
                         create_stock_product_log, create_package_log, import_products,\
-                        import_terpene, import_product_prices, import_product_images
+                        import_terpene, import_product_prices, import_product_images, add_product_to_cart,\
+                        send_activate_staff_user, generate_invoice_customer, generate_invoice_insurance,\
+                        export_order_products
 from app.api.dhl import dhl_create_label, dhl_cancel_label, dhl_check_status, order_shipment_pick_up
 from app.api.go_express import go_express_create_label, go_express_cancel_label, go_express_check_status, go_express_update_label, go_express_update_status
 from app.tasks import task_update_delivery_status
@@ -1464,5 +1470,492 @@ def import_functions_v1(request):
 
     return HttpResponse(json.dumps(data), content_type='application/json')
 
+def customer_functions_v1(request):
+    """ Customer functions """
 
+    data = {}
+
+    try:
+        staff_user = StaffUser.objects.get(user=request.user)
+    except StaffUser.DoesNotExist:
+        create_log(
+            reference='customer_functions',
+            message='StaffUser not found',
+            user=f'({ request.user.id }) { request.user.username }',
+            category='error',
+        )
+
+    if request.method == 'POST':
+
+        if 'getCustomerDetails' in request.POST:
+
+            customer_id = request.POST.get('customerId')
+
+            customer = Customers.objects.get(id=customer_id)
+
+            data['customer'] = {
+                'id': customer.id,
+                'salutation': customer.salutation,
+                'firstName': customer.user.first_name,
+                'lastName': customer.user.last_name,
+                'birthDate': customer.birth_date.strftime('%d.%m.%Y'),
+                'email': customer.user.email,
+                'phonenumber': customer.phone,
+                'street': customer.street,
+                'streetNumber': customer.street_number,
+                'postalcode': customer.postcode,
+                'city': customer.city,
+                'country': customer.country,
+                'customerType': customer.customer_type,
+                'paymentType': customer.payment_type,
+                'deliveryType': customer.delivery_type,
+                'canTriggerOrder': customer.can_trigger_order,
+            }
+
+        if 'saveCustomer' in request.POST:
+
+            customer_id = request.POST.get('customerId')
+            order_settings = json.loads(request.POST.get('orderSettings'))
+            invoice_data = json.loads(request.POST.get('invoiceData'))
+
+            if customer_id:
+
+                customer = Customers.objects.get(id=customer_id)
+
+                user = customer.user
+                user.first_name = invoice_data.get('firstName')
+                user.last_name = invoice_data.get('lastName')
+                user.email = invoice_data.get('email')
+                user.username = invoice_data.get('email')
+                user.save()
+                
+            else:
+
+                try:
+                    user = User.objects.get(username=invoice_data.get('email'))
+                    customer = Customers.objects.get(user=user)
+
+                    user = customer.user
+                    user.first_name = invoice_data.get('firstName')
+                    user.last_name = invoice_data.get('lastName')
+                    user.save()
+
+                except User.DoesNotExist:
+
+                    user = User.objects.create_user(
+                        username=invoice_data.get('email'),
+                        email=invoice_data.get('email'),
+                        first_name=invoice_data.get('firstName'),
+                        last_name=invoice_data.get('lastName')
+                    )
+
+                    customer = Customers.objects.create(user=user)
+                    
+                    customer.can_trigger_order = True
+
+            customer.pharmacies.add(staff_user.selected_pharmacy)
+            customer.customer_type = order_settings.get('customerType')
+            customer.payment_type = order_settings.get('paymentType')
+            customer.delivery_type = order_settings.get('deliveryType')
+
+            customer.salutation = invoice_data.get('salutation')
+            customer.birth_date = datetime.strptime(invoice_data.get('birthDate'), '%d.%m.%Y')
+            customer.phone = invoice_data.get('phonenumber')
+            customer.street = invoice_data.get('street')
+            customer.street_number = invoice_data.get('streetNumber')
+            customer.postcode = invoice_data.get('postalcode')
+            customer.city = invoice_data.get('city')
+            customer.country = invoice_data.get('country')
+
+            customer.save()
+
+        if 'createOrder' in request.POST:
+
+            customer = Customers.objects.get(id=request.POST.get('customerId'))
+            
+            data['premission'] = customer.can_trigger_order
+
+            if customer.can_trigger_order:
+
+                order = Orders.objects.create(customer=customer, created_by=request.user, pharmacy=staff_user.selected_pharmacy)
+                
+                data['orderId'] = order.id
+
+                data['customer'] = {
+                    'id': customer.id,
+                    'salutation': customer.salutation,
+                    'firstName': customer.user.first_name,
+                    'lastName': customer.user.last_name,
+                    'birthDate': customer.birth_date.strftime('%d.%m.%Y'),
+                    'email': customer.user.email,
+                    'phone': customer.phone,
+                    'street': customer.street,
+                    'streetNumber': customer.street_number,
+                    'postcode': customer.postcode,
+                    'city': customer.city,
+                    'country': customer.country,
+                    'customerType': customer.customer_type,
+                    'paymentType': customer.payment_type,
+                    'deliveryType': customer.delivery_type,
+                }
+
+        if 'uploadRecipeFile' in request.POST:
+
+            order_id = request.POST.get('orderId')
+            recipe_file = request.FILES.get('recipeFile')
+            recipe_number = request.POST.get('recipeNumber')
+            e_recipe = json.loads(request.POST.get('eRecipe'))
+
+            # Hochladen des Rezepts
+            if recipe_file:
+
+                order = Orders.objects.get(id=order_id)
+                order_recipe = OrderRecipes.objects.create(order=order, file=recipe_file, number=recipe_number, e_recipe=e_recipe)
+
+                data['recipeId'] = order_recipe.id
+                data['recipeNumber'] = order_recipe.number
+                data['recipeName'] = os.path.basename(order_recipe.file.name)
+                data['recipeUrl'] = order_recipe.file.url
+
+        if 'addProduct' in request.POST:
+
+            order_id = request.POST.get('orderId')
+            order = Orders.objects.get(id=order_id)
+            recipe_files = OrderRecipes.objects.filter(order=order)
+
+            product_exist = True
+
+            product = Products.objects.get(id=request.POST.get('productId'))
+
+            #Verfügbare Menge berechnen
+            total_stock_amount = StockProducts.objects.filter(product=product, pharmacy=order.pharmacy).aggregate(total=Sum('amount'))['total'] or 0
+            total_booked_amount = sum_product_ordered_amount(product, order.pharmacy)
+
+            available_amount = 0 if total_stock_amount - total_booked_amount < 0 else total_stock_amount - total_booked_amount
+
+            add_product_response = add_product_to_cart(order, request.POST.get('productId'), 1, False, True)
+
+            if not add_product_response['object_not_exist']:
+
+                data['product'] = add_product_to_cart(order, request.POST.get('productId'), 1, False, True)
+                data['recipeFiles'] = [{'id': recipe.id, 'number': recipe.number} for recipe in recipe_files]
+                data['products'] = [{
+                    'id': product.id,
+                    'name': product.name,
+                    'genetic': product.genetics.name if product.genetics else 'Unbekannt',
+                    'thc': round(product.thc_value, 2),
+                } for product in Products.objects.all().order_by('name')]
+                data['preparedChoices'] = [{'value': False, 'name': 'unverändert'}, {'value': True, 'name': 'Zerkleinert'}]
+                data['available_amount'] = available_amount
+
+            else:
+                product_exist = False
+
+            data['productExist'] = product_exist
+            data['total'] = custom_currency_format(order.total)
+
+        if 'deleteOrderProduct' in request.POST:
+                
+            order_product_id = request.POST.get('productId')
+
+            try:
+                order_product = OrderProducts.objects.get(id=order_product_id)
+                order_product.delete()
+
+                data['total'] = custom_currency_format(order_product.order.total)
+
+            except OrderProducts.DoesNotExist:
+                pass
+
+            return HttpResponse(json.dumps(data), content_type='application/json')
+
+        if 'changeProductDetails' in request.POST:
+
+            order_product_id = request.POST.get('orderProductId')
+            amount = int(request.POST.get('amount'))
+            prepared = request.POST.get('prepared')
+            # recipe_id = request.POST.get('recipeId')
+
+            try:
+                order_product = OrderProducts.objects.get(id=order_product_id)
+
+                # if recipe_id:
+                #     order_recipe = OrderRecipes.objects.get(id=recipe_id)
+                #     order_product.recipe_file = order_recipe
+
+                order_product.amount = amount
+                order_product.prepared = prepared == '1'
+                order_product.save()
+
+                #Verfügbare Menge berechnen
+                total_stock_amount = StockProducts.objects.filter(product=order_product.product, pharmacy=order_product.order.pharmacy).aggregate(total=Sum('amount'))['total'] or 0
+                total_booked_amount = OrderProducts.objects.filter(
+                    product=order_product.product,
+                    calculated_in_stock=False,
+                    order__ordered=True,
+                    order__pharmacy=order_product.order.pharmacy,
+                ).aggregate(total=Sum('amount'))['total'] or 0
+                
+                available_amount = 0 if total_stock_amount - total_booked_amount < 0 else total_stock_amount - total_booked_amount
+
+                data['available_amount'] = available_amount
+                data['product_total'] = custom_currency_format(order_product.total)
+                data['total'] = custom_currency_format(order_product.order.total)
+
+            except OrderProducts.DoesNotExist:
+                pass
+
+        if 'saveOrder' in request.POST:
+
+            order_id = request.POST.get('orderId')
+            order_settings = json.loads(request.POST.get('orderSettings'))
+            invoice_data = json.loads(request.POST.get('invoiceData'))
+            deliver_data = json.loads(request.POST.get('deliverData'))
+
+            order = Orders.objects.get(id=order_id)
+
+            order.delivery_type = order_settings.get('deliveryType')
+            order.payment_type = order_settings.get('paymentType')
+            order.customer_type = order_settings.get('customerType')
+            order.recipe_status = order_settings.get('recipeStatus')
+
+            if order.recipe_status in ['received', 'checked']:
+                order.online_recipe_status = 'checked'
+
+            # Invoicedatas
+            order.salutation = invoice_data.get('salutation')
+            order.first_name = invoice_data.get('firstName')
+            order.last_name = invoice_data.get('lastName')
+            order.birth_date = datetime.strptime(invoice_data.get('birthDate'), '%d.%m.%Y')
+            order.street = invoice_data.get('street')
+            order.street_number = invoice_data.get('streetNumber')
+            order.postalcode = invoice_data.get('postalcode')
+            order.city = invoice_data.get('city')
+            order.country = invoice_data.get('country')
+            order.comment = invoice_data.get('comment') if invoice_data.get('comment') else ''
+            order.phone_number = invoice_data.get('phonenumber')
+            order.email_address = invoice_data.get('email')
+
+            # Deliveryadress
+            order.del_first_name = deliver_data.get('delFirstName')
+            order.del_last_name = deliver_data.get('delLastName')
+            order.del_street = deliver_data.get('delStreet')
+            order.del_street_number = deliver_data.get('delStreetNumber')
+            order.del_postalcode = deliver_data.get('delPostalcode')
+            order.del_city = deliver_data.get('delCity')
+            order.del_country = deliver_data.get('delCountry')
+            order.del_comment = deliver_data.get('delComment') if deliver_data.get('delComment') else ''
+
+            # Order created_by
+            order.created_by = request.user
+
+            # Order status
+            order.status = 'started'
+            order.save()
+
+            send_new_order_created(order.id, request)
+
+        if 'activateForOrder' in request.POST:
+
+            customer_id = request.POST.get('customerId')
+            customer = Customers.objects.get(id=customer_id)
+
+            customer.can_trigger_order = True
+            customer.save()
+
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+def staff_user_functions_v1(request):
+    """ Staff user functions """
+
+    data = {}
+
+    try:
+        staff_user = StaffUser.objects.get(user=request.user)
+    except StaffUser.DoesNotExist:
+        create_log(
+            reference='staff_user_functions',
+            message='StaffUser not found',
+            user=f'({ request.user.id }) { request.user.username }',
+            category='error',
+        )
+
+    if request.method == 'POST':
+
+
+        if 'createUser' in request.POST:
+
+            email = request.POST.get('email')
+            first_name = request.POST.get('firstName')
+            last_name = request.POST.get('lastName')
+
+            try:
+                user = User.objects.get(username=email)
+                data['userExist'] = True
+
+            except User.DoesNotExist:
+
+                user = User.objects.create_user(
+                    username=email,
+                    email=email,
+                    first_name=first_name,
+                    last_name=last_name,
+                    is_staff=True,
+                    is_active=False
+                )
+                data['userExist'] = False
+
+                send_activate_staff_user(user, request)
+
+        if 'getUserRights' in request.POST:
+
+            user_id = request.POST.get('userId')
+
+            user = User.objects.get(id=user_id)
+            user_premissions = UserPremissions.objects.filter(user=user)
+            
+            user_rights = {}
+
+            pharmacies = Pharmacies.objects.all()
+
+            for pharmacy in pharmacies:
+
+                if not pharmacy.id in user_rights:
+                    user_rights[pharmacy.id] = {}
+
+                    for user_premission in user_premissions.filter(pharmacy=pharmacy):
+
+                        user_rights[pharmacy.id][user_premission.view] = {
+                            'read': user_premission.read_premission,
+                            'write': user_premission.write_premission,
+                        }
+
+            data['userRights'] = user_rights
+        
+        if 'saveUserRights' in request.POST:
+
+            user_id = request.POST.get('userId')
+            user_rights = json.loads(request.POST.get('userRights'))
+
+            user = User.objects.get(id=user_id)
+
+            # Delete all user rights
+            for user_premission in UserPremissions.objects.filter(user=user):
+                # Check if not user_premission pharmacy is in user_rights
+                if not user_premission.pharmacy.id in user_rights:
+                    user_premission.delete()
+
+            # Create user rights
+            for pharmacy_id, pharmacy_rights in user_rights.items():
+
+                pharmacy = Pharmacies.objects.get(id=pharmacy_id)
+
+                for view, rights in pharmacy_rights.items():
+
+                    user_premission, created = UserPremissions.objects.get_or_create(user=user, pharmacy=pharmacy, view=view)
+
+                    user_premission.read_premission = rights.get('read')
+                    user_premission.write_premission = rights.get('write')
+
+                    user_premission.save()
+
+            user_rights_array = []
+
+            data['userRights'] = user_rights_array
+
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+def email_recipient_functions_v1(request):
+    """ E-Mail Emfänger Funktionen für das Dashboard """
+
+    data = {}
+
+    try:
+        staff_user = StaffUser.objects.get(user=request.user)
+    except StaffUser.DoesNotExist:
+        create_log(
+            reference='staff_user_functions',
+            message='StaffUser not found',
+            user=f'({ request.user.id }) { request.user.username }',
+            category='error',
+        )
+
+    if request.method == 'POST':
+
+        if 'createRecipient' in request.POST:
+
+            pharmacy_id = request.POST.get('pharmacyId')
+            category = request.POST.get('category')
+            email = request.POST.get('email')
+            name = request.POST.get('name')
+
+            pharmacy = Pharmacies.objects.get(id=pharmacy_id)
+
+            recipient, created = EmailRecipients.objects.get_or_create(pharmacy=pharmacy, category=category, email=email, defaults={'name': name})
+
+            data['recipientExist'] = not created
+            data['recipient'] = {
+                'id': recipient.id,
+                'pharmacy': recipient.pharmacy.name,
+                'category': recipient.category,
+                'email': recipient.email,
+                'name': recipient.name,
+            }
+
+        if 'deleteRecipient' in request.POST:
+
+            recipient_ids = json.loads(request.POST.get('recipientIds[]'))
+
+            EmailRecipients.objects.filter(id__in=recipient_ids).delete()
+
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+#pylint: disable=unused-argument
+def download_invoice_v1(request, invoice_id, invoice_type, datetime_now):
+    """ Download invoice """
+    response = None
+
+    if invoice_type == 'customer':
+
+        invoice = Invoices.objects.get(id=invoice_id)
+
+        is_staff = request.user.is_staff or request.user.is_superuser
+
+        if request.user != invoice.order.customer and not is_staff:
+            return redirect('home')
+
+        response = generate_invoice_customer(invoice_id, 'http')
+
+    if invoice_type == 'insurance':
+        response = generate_invoice_insurance(invoice_id)
+
+    return response
+
+#pylint: disable=unused-argument
+def download_order_products_v1(request, datetime_now):
+    """ Download order products """
+
+    ids = list(OrderProducts.objects.filter(order__ordered=True).values_list('id', flat=True))
+
+    response = export_order_products(ids)
+
+    return response
+
+#pylint: disable=unused-argument
+def create_shipping_label_v1(request, order_id, datetime_now):
+    """ Create shipping label response """
+
+    order = Orders.objects.get(id=order_id)
+
+    # Dekodieren des base64-Strings
+    pdf_bytes = base64.b64decode(order.shipment_label_b64_string)
+
+    # Erstellen eines BytesIO-Objekts aus den dekodierten Daten
+    pdf_io = BytesIO(pdf_bytes)
+
+    # Erstellen einer FileResponse, um die PDF-Datei zurückzugeben
+    response = FileResponse(pdf_io, content_type='application/pdf')
+    response['Content-Disposition'] = 'inline; filename="DHL_Label_' + order.number + '.pdf"'
+
+    return response
 

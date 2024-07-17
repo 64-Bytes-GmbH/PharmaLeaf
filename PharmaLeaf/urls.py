@@ -55,11 +55,6 @@ urlpatterns = [
     path('dashboard/settings/users', views.dashboard_users, name='dashboard_users'),
     path('dashboard/settings/email_recipients', views.dashboard_email_recipients, name='dashboard_email_recipients'),
 
-    # Downloads
-    path('invoice/<int:invoice_id>/<str:invoice_type>/<str:datetime_now>', views.download_invoice, name='download_invoice'),
-    path('export/orders/products/<str:datetime_now>', views.download_order_products, name='download_order_products'),
-    path('invoice/<int:order_id>/<str:datetime_now>', views.create_shipping_label, name='create_shipping_label'),
-
     # API Endpioints
     path('orders/create/v1/prescription', recipe_endpoint_v1, name='recipe_endpint_v1'),
     path('retrieve/products/v1', get_all_products_v1, name='get_all_products_v1'),

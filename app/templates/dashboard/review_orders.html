@@ -1992,7 +1992,7 @@
         
         $.ajax({
             type: 'POST',
-            url: '{% url "dashboard_customers" %}',
+            url: '{% url "request_customer_functions" %}',
             traditional: true,
             headers: {
                 'X-Requested-With': 'XMLHttpRequest',
@@ -2080,7 +2080,7 @@
         
         $.ajax({
             type: 'POST',
-            url: '{% url "dashboard_customers" %}',
+            url: '{% url "request_customer_functions" %}',
             traditional: true,
             data: {
                 'changeProductDetails': 'changeProductDetails',
@@ -2112,7 +2112,7 @@
 
         $.ajax({
             type: 'POST',
-            url: '{% url "dashboard_customers" %}',
+            url: '{% url "request_customer_functions" %}',
             traditional: true,
             data: {
                 'deleteOrderProduct': 'deleteOrderProduct',
@@ -2163,7 +2163,7 @@
         
         $.ajax({
             type: 'POST',
-            url: '{% url "dashboard_customers" %}',
+            url: '{% url "request_customer_functions" %}',
             processData: false,  // Wichtig: Verhindert, dass jQuery die Daten verarbeitet
             contentType: false,
             traditional: true,
@@ -2479,7 +2479,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: '{% url "dashboard_customers" %}',
+                url: '{% url "request_customer_functions" %}',
                 processData: false,  // Wichtig: Verhindert, dass jQuery die Daten verarbeitet
                 contentType: false,
                 traditional: true,

@@ -601,7 +601,6 @@ def dashboard_review_orders(request):
 
     return render(request, 'dashboard/review_orders.html', context)
 
-
 @check_staff_user
 def dashboard_products_stock(request):
     """ Lagerbestand (Produkte) """
@@ -645,7 +644,6 @@ def dashboard_products_stock(request):
         context['active_pharmacy'] = active_pharmacy
 
     return render(request, 'dashboard/products_stock.html', context)
-
 
 @check_staff_user
 def dashboard_packages_stock(request):
@@ -692,7 +690,6 @@ def dashboard_packages_stock(request):
 
     return render(request, 'dashboard/packages_stock.html', context)
 
-
 @check_staff_user
 def dashboard_imports(request):
     """ Dashboard Bestellungen """
@@ -712,7 +709,6 @@ def dashboard_imports(request):
         return redirect(home)
 
     return render(request, 'dashboard/products/imports.html', context)
-
 
 @check_staff_user
 def dashboard_products_all(request):
@@ -1128,3 +1124,108 @@ def dashboard_get_data(request):
 
     return JsonResponse(data)
 
+@check_staff_user
+def dashboard_customers(request):
+    """ Kunden """
+
+    try:
+        staff_user = StaffUser.objects.get(user=request.user)
+    except ObjectDoesNotExist:
+
+        create_log(
+            reference='dashboard_review_orders',
+            message='StaffUser not found',
+            user=f'({ request.user.id }) { request.user.username }',
+            category='error',
+        )
+
+        return redirect(home)
+    
+    context = {}
+
+    customers = Customers.objects.all()
+
+    if request.method == 'GET':
+        
+        # Seite
+        page_number = request.GET.get('page', 1)
+
+        customers = dashboard_filter_customers(request.GET, staff_user.selected_pharmacy)
+        
+        paginator = Paginator(customers, 20)
+        page_customers = paginator.get_page(page_number)
+        
+        context['page'] = page_number
+        context['customers'] = page_customers
+
+    context['selected_pharmacy_id'] = staff_user.selected_pharmacy.id
+
+    return render(request, 'dashboard/customers.html', context)
+
+@check_staff_user
+def dashboard_users(request):
+    """ Benutzer """
+
+    if request.method == 'GET':
+
+        # Get pharmacy premissons if not superuser
+        if not request.user.is_superuser:
+            pharmacy_premissions = UserPremissions.objects.filter(user=request.user, view='dashboard_users').values_list('pharmacy', flat=True).distinct()
+            pharmacy_users = UserPremissions.objects.filter(pharmacy__in=pharmacy_premissions, user__is_superuser=False).values_list('user', flat=True).distinct()
+        else:
+            pharmacy_users = UserPremissions.objects.all().values_list('user', flat=True).distinct()
+
+        context = {}
+
+        users = User.objects.filter(id__in=pharmacy_users, is_staff=True).order_by('-date_joined')
+        
+        # Seite
+        page_number = request.GET.get('page', 1)
+
+        # users = dashboard_filter_users(request.GET)
+        
+        paginator = Paginator(users, 20)
+        page_users = paginator.get_page(page_number)
+        
+        context['page'] = page_number
+        context['users'] = page_users
+
+    return render(request, 'dashboard/users.html', context)
+
+@check_staff_user
+def dashboard_email_recipients(request):
+    """ E-Mail Empfänger """
+
+    try:
+        staff_user = StaffUser.objects.get(user=request.user)
+    except ObjectDoesNotExist:
+
+        create_log(
+            reference='dashboard_orders',
+            message='StaffUser not found',
+            user=f'({ request.user.id }) { request.user.username }',
+            category='error',
+        )
+
+        return redirect(home)
+
+    context = {}
+
+    recipients = EmailRecipients.objects.all()
+    pharmacies = Pharmacies.objects.all()
+
+    if request.method == 'GET':
+            
+        # Seite
+        page_number = request.GET.get('page', 1)
+
+        recipients = dashboard_filter_email_recipients(request.GET, staff_user.selected_pharmacy)
+        
+        paginator = Paginator(recipients, 20)
+        page_recipients = paginator.get_page(page_number)
+        
+        context['page'] = page_number
+        context['recipients'] = page_recipients
+        context['pharmacies'] = pharmacies
+
+    return render(request, 'dashboard/email_recipients.html', context)

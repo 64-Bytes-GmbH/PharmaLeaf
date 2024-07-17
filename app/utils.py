@@ -1517,10 +1517,6 @@ def add_product_to_cart(order, product_id, amount, prepared=False, user_is_authe
 
     except Products.DoesNotExist:
 
-        data['product_not_found'] = True
-
-    except ObjectDoesNotExist:
-
         data['object_not_exist'] = True
 
     return data

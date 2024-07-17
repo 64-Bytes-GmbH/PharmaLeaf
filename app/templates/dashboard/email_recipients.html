@@ -344,7 +344,7 @@
 
         $.ajax({
             type: 'POST',
-            url: '{% url "dashboard_email_recipients" %}',
+            url: '{% url "request_email_recipient_functions" %}',
             data: {
                 'createRecipient': 'createRecipient',
                 'pharmacyId': $pharmacyInput.val(),
@@ -479,7 +479,7 @@
 
         $.ajax({
             type: 'POST',
-            url: '{% url "dashboard_email_recipients" %}',
+            url: '{% url "request_email_recipient_functions" %}',
             data: {
                 'deleteRecipient': 'deleteRecipient',
                 'recipientIds[]': JSON.stringify(recipientIds),
