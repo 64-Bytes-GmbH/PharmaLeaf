@@ -16,5 +16,5 @@ npx tailwindcss init
 
 ```python
 # To update tailwind css using watcher
-npx tailwindcss -i ./app/static/dashboard/input.css -o ./app/static/dashboard/output.css --watch
+npx tailwindcss -i ./app/static/css/dashboard/input.css -o ./app/static/css/dashboard/output.css --watch
 ```
