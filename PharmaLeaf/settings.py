@@ -11,22 +11,47 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import environ
+import socket
+
+env = environ.Env(
+    DEBUG=(bool, False)
+)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+APP_DIR = BASE_DIR / 'app'
+STATIC_DIR = APP_DIR / 'static'
+APP_STATIC_DIR = STATIC_DIR / 'app'
+FONTS_DIR = APP_STATIC_DIR / 'fonts'
+MEDIA_DIR = BASE_DIR / 'media'
+COMPRESS_ROOT = APP_DIR / 'static'
+SCHMEA_DIR = APP_STATIC_DIR / 'schemas'
 
+environ.Env.read_env(BASE_DIR / '.env')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-jo39e95=u9bj0$9v5r&!$9&w(761$n&9u+8m1@krxy%in+^pwq'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost']
+ALLOWED_HOSTS.extend(
+    filter(
+        None,
+        env('ALLOWED_HOSTS').split(',')
+    )
+)
 
+# ADD LOCAL IP ADDRESS TO ALLOWED HOSTS IF DEBUG = TRUE
+if DEBUG:
+    HOSTNAME = socket.gethostname()
+    LOCAL_IP = str(socket.gethostbyname(HOSTNAME))
+    ALLOWED_HOSTS.extend([LOCAL_IP])
 
 # Application definition
 
@@ -37,7 +62,49 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'compressor',
+    'mathfilters',
+    'admin_extra_buttons',
+    'django_crontab',
+    'rangefilter',
+    'admin_honeypot',
+    'rest_framework',
+    'app',
+    'db_logger',
 ]
+
+# Logging
+if not DEBUG:
+    LOGGING = {
+        'version': 1,
+        'disable_existing_loggers': False,
+        'formatters': {
+            'verbose': {
+                'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+            },
+            'simple': {
+                'format': '%(levelname)s %(asctime)s %(message)s'
+            },
+        },
+        'handlers': {
+            'db_log': {
+                'level': 'DEBUG',
+                'class': 'db_logger.db_log_handler.DatabaseLogHandler'
+            },
+        },
+        'loggers': {
+            'db': {
+                'handlers': ['db_log'],
+                'level': 'DEBUG'
+            },
+            'django.request': { # logging 500 errors to database
+                'handlers': ['db_log'],
+                'level': 'ERROR',
+                'propagate': False,
+            }
+        }
+    }
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -47,7 +114,18 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
+    'app.middlewares.SelectFirstPharmacyMiddleware',
 ]
+
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_HSTS_SECONDS = 30
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+X_FRAME_OPTIONS = 'DENY'
+#SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https') #Für GCP Load Balancer
+#CSRF_COOKIE_HTTPONLY = True # Benötigt Änderugen für AJAX Requests
+#SESSION_COOKIE_HTTPONLY = True
 
 ROOT_URLCONF = 'PharmaLeaf.urls'
 
@@ -62,6 +140,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'app.context_processors.base_css_version',
             ],
         },
     },
@@ -69,17 +148,39 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'PharmaLeaf.wsgi.application'
 
+# Cronjobs
+CRONJOBS = [
+    ('0 6 * * *', 'app.cron_jobs.cj_send_payment_reminder'),
+    ('0 6 * * *', 'app.cron_jobs.cj_send_last_payment_reminder'),
+    ('0 6 * * *', 'app.cron_jobs.cj_check_overdue'),
+    ('0 14,20 * * *', 'app.cron_jobs.cj_check_delivery_status'),
+]
+
+SERIALIZATION_MODULES = {
+    'csv': 'export.serializers.csv_serializer'
+}
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
-
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'HOST': env('DB_HOST'),
+            'NAME': env('DB_NAME'),
+            'USER': env('DB_USER'),
+            'PASSWORD': env('DB_PASS'),
+            'CONN_MAX_AGE': 600,
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -99,13 +200,23 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Rest Framework
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+    ],
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'de-DE'
+DECIMAL_SEPARATOR = ','
+DATE_FORMAT = 'd.m.Y'
+DATETIME_FORMAT = 'd.m.Y H:M:S'
+DEFAULT_CHARSET = 'utf-8'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Berlin'
 
 USE_I18N = True
 
@@ -118,8 +229,50 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'static'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+SECURE_CROSS_ORIGIN_OPENER_POLICY='same-origin-allow-popups'
+SESSION_EXPIRE_AT_BROWSER_CLOSE=True
+
+LOGOUT_REDIRECT_URL = "/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+BASE_CSS_VERSION = '1.1.6'
+
+COMPRESS_ENABLED = False
+# COMPRESS_OFFLINE = True
+
+# Cookie Einstellunge
+CSRF_COOKIE_SAMESITE = 'Lax'
+SESSION_COOKIE_SAMESITE = 'Lax'
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
+)
+
+# COMPRESS_CSS_FILTERS = [
+#     'compressor.filters.css_default.CssAbsoluteFilter',
+#     'compressor.filters.cssmin.CSSMinFilter'
+# ]
+
+COMPRESS_FILTERS = {
+    'css': ['compressor.filters.css_default.CssAbsoluteFilter', 'compressor.filters.cssmin.rCSSMinFilter'],
+    'js': ['compressor.filters.jsmin.JSMinFilter']
+}
+
+# Celery Configuration Options
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'Europe/Berlin'
