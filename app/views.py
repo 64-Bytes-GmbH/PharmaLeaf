@@ -119,7 +119,7 @@ def home(request): #!
     context['effects_content'] = CannabisEffects.objects.filter(main_page=True).order_by('position')
     context['is_staff'] = request.user.is_staff
 
-    response = render(request, 'app/index_portal.html', context)
+    response = render(request, 'dashboard/index.html', context)
 
     ###### Cookies #######
     if request.method == 'POST':
@@ -738,6 +738,116 @@ def dashboard_products_all(request):
         context['products'] = page_products
 
     return render(request, 'dashboard/products/index.html', context)
+
+@check_staff_user
+def dashboard_product_requests(request):
+    """ Dashboard Produktanfragen """
+
+    context = {}
+
+    product_requests = ProductRequest.objects.all().order_by('-id')
+
+    if request.method == 'POST':
+
+        data = {}
+
+        if 'changeStatus' in request. POST:
+
+            product_request_id = request.POST.get('productRequestId')
+            status_name = request.POST.get('statusName')
+            new_status = request.POST.get('newStatus')
+            closingReason = request.POST.get('cancellationReasonValue')
+
+            # Get order by id
+            product_request = ProductRequest.objects.get(id=product_request_id)
+
+            # Old status for comparison
+            old_status = getattr(product_request, status_name)
+
+            # Set status by status name
+            if old_status not in ['approved', 'rejected']:
+                
+                setattr(product_request, status_name, new_status)
+                product_request.save()
+                
+                # Create log entry
+                log_entry = {
+                    'reference': f'Produktanfrage ID: { product_request_id }',
+                    'message': f'Produktanfrage aktualisiert. {old_status}: {new_status}',
+                    'user': f'({ request.user.id }) { request.user.username }'
+                }
+                create_log(**log_entry)
+            
+            data['newStatusDisplay'] = getattr(product_request, f'get_{status_name}_display')()
+            data['newStatus'] = getattr(product_request, status_name)
+
+            return HttpResponse(json.dumps(data), content_type='application/json')
+
+        if 'approveProductRequest' in request.POST:
+
+            product_request_id = request.POST.get('productRequestId')
+            available_until_date = request.POST.get('availableUntilDate')
+            available_until_date = datetime.strptime(available_until_date, '%d.%m.%Y')
+
+            # Get order by id
+            product_request = ProductRequest.objects.get(id=product_request_id)
+
+            # Set new status
+            product_request.status = 'approved'
+            product_request.available_until = available_until_date
+            product_request.save()
+
+            # Send mail
+            send_product_request_approval(request, product_request)
+
+            # Create log entry
+            log_entry = {
+                'reference': f'Produktanfrage ID: { product_request_id }',
+                'message': 'Produktanfrage bestätigt.',
+                'user': f'({ request.user.id }) { request.user.username }'
+            }
+            create_log(**log_entry)
+
+            data['statusDisplay'] = product_request.get_status_display()
+            data['status'] = product_request.status
+            data['availableUntil'] = available_until_date.strftime('%d.%m.%Y')
+
+            return HttpResponse(json.dumps(data), content_type='application/json')
+
+        if 'rejectProductRequest' in request.POST:
+
+            product_request_id = request.POST.get('productRequestId')
+            reject_reason = request.POST.get('rejectReason')
+
+            # Get order by id
+            product_request = ProductRequest.objects.get(id=product_request_id)
+
+            # Set new status
+            product_request.status = 'rejected'
+            product_request.reject_reason = reject_reason
+            product_request.save()
+
+            # Send mail
+            send_product_request_rejection(product_request)
+
+            # Create log entry
+            log_entry = {
+                'reference': f'Produktanfrage ID: { product_request_id }',
+                'message': 'Produktanfrage abgelehnt.',
+                'user': f'({ request.user.id }) { request.user.username }'
+            }
+            create_log(**log_entry)
+
+            data['statusDisplay'] = product_request.get_status_display()
+            data['status'] = product_request.status
+            data['rejectReasonDisplay'] = product_request.get_reject_reason_display()
+
+            return HttpResponse(json.dumps(data), content_type='application/json')
+
+    context['product_requests'] = product_requests
+    context['product_requests_dic'] = [product_request.id for product_request in product_requests]
+
+    return render(request, 'dashboard/product_requests.html', context)
 
 @check_staff_user
 def dashboard_get_data(request):
