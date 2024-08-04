@@ -10,24 +10,24 @@
 
 	<div class="grid grid-cols-2 xl:grid-cols-4 gap-4 mb-4">
 		<div class="border-gray-300 rounded-lg dark:border-gray-600">
-			<div class="flex flex-col w-full h-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
+			<div class="flex flex-col w-full h-full bg-white rounded-lg shadow p-4 md:p-6">
 				<p class="text-base font-normal text-gray-500 dark:text-gray-400">Bestellungen nach Status (diese Woche)</p>
 				<div style="margin: auto 0;" id="kpi-chart-1"></div>
 			</div>
 		</div>
 		<div class="border-gray-300 rounded-lg dark:border-gray-600">
-			<div class="flex flex-col w-full h-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
+			<div class="flex flex-col w-full h-full bg-white rounded-lg shadow p-4 md:p-6">
 				<p class="text-base font-normal text-gray-500 dark:text-gray-400">Heute</p>
 				<div style="margin: auto 0;" id="kpi-chart-2"></div>
 				<div style="margin: auto 0;" id="kpi-chart-3"></div>
 				<div style="margin: auto 0;" id="kpi-chart-4"></div>
 			</div>
 		</div>
-		<div class="border-gray-300 rounded-lg dark:border-gray-600">
-			<div class="w-full h-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
+		<div class="border-gray-300 rounded-lg dark:border-gray-600 w-full h-full bg-white rounded-lg shadow p-4 md:p-6">
+			<div class="">
 				<div class="relative overflow-x-auto">
-					<table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-						<thead class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
+					<table class="w-full text-sm text-left rtl:text-right text-gray-500">
+						<thead class="text-xs text-gray-700 uppercase bg-gray-100">
 							<tr>
 								<th scope="col" class="px-6 py-3 rounded-s-lg">
 									Umsatzzahlen
@@ -37,40 +37,40 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr class="bg-white dark:bg-gray-800">
-								<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+							<tr class="bg-white">
+								<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
 									Heute
 								</th>
 								<td class="px-6 py-4">
 									{{ subtotal_table.today|to_euro_decimal }} EUR
 								</td>
 							</tr>
-							<tr class="bg-white dark:bg-gray-800">
-								<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+							<tr class="bg-white">
+								<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
 									Gestern
 								</th>
 								<td class="px-6 py-4">
 									{{ subtotal_table.yesterday|to_euro_decimal }} EUR
 								</td>
 							</tr>
-							<tr class="bg-white dark:bg-gray-800">
-								<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+							<tr class="bg-white">
+								<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
 									Monat
 								</th>
 								<td class="px-6 py-4">
 									{{ subtotal_table.this_month|to_euro_decimal }} EUR
 								</td>
 							</tr>
-							<tr class="bg-white dark:bg-gray-800">
-								<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+							<tr class="bg-white">
+								<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
 									Vormonat
 								</th>
 								<td class="px-6 py-4">
 									{{ subtotal_table.last_month|to_euro_decimal }} EUR
 								</td>
 							</tr>
-							<tr class="bg-white dark:bg-gray-800">
-								<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+							<tr class="bg-white">
+								<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
 									Jahr
 								</th>
 								<td class="px-6 py-4">
@@ -79,7 +79,7 @@
 							</tr>
 						</tbody>
 						<tfoot>
-							<tr class="font-semibold text-gray-900 dark:text-white">
+							<tr class="font-semibold text-gray-900">
 								<th scope="row" class="px-6 py-3 text-base">Insgesamt</th>
 								<td class="px-6 py-3">{{total_revenue|to_euro_decimal}} EUR</td>
 							</tr>
@@ -89,10 +89,10 @@
 			</div>
 		</div>
 		<div class="border-gray-300 rounded-lg dark:border-gray-600">
-			<div class="w-full h-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
+			<div class="w-full h-full bg-white rounded-lg shadow p-4 md:p-6">
 				<div class="relative overflow-x-auto">
 					<table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-						<thead class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
+						<thead class="text-xs text-gray-700 uppercase bg-gray-100">
 							<tr>
 								<th scope="col" class="px-6 py-3 rounded-s-lg">
 									Verkaufte Menge
@@ -102,40 +102,40 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr class="bg-white dark:bg-gray-800">
-								<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+							<tr class="bg-white">
+								<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
 									Heute
 								</th>
 								<td class="px-6 py-4">
 									{{ amount_table.today }} kg
 								</td>
 							</tr>
-							<tr class="bg-white dark:bg-gray-800">
-								<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+							<tr class="bg-white">
+								<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
 									Gestern
 								</th>
 								<td class="px-6 py-4">
 									{{ amount_table.yesterday }} kg
 								</td>
 							</tr>
-							<tr class="bg-white dark:bg-gray-800">
-								<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+							<tr class="bg-white">
+								<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
 									Monat
 								</th>
 								<td class="px-6 py-4">
 									{{ subtamount_tableotal_table.this_month }} kg
 								</td>
 							</tr>
-							<tr class="bg-white dark:bg-gray-800">
-								<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+							<tr class="bg-white">
+								<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
 									Vormonat
 								</th>
 								<td class="px-6 py-4">
 									{{ amount_table.last_month }} kg
 								</td>
 							</tr>
-							<tr class="bg-white dark:bg-gray-800">
-								<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+							<tr class="bg-white">
+								<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
 									Jahr
 								</th>
 								<td class="px-6 py-4">
@@ -144,7 +144,7 @@
 							</tr>
 						</tbody>
 						<tfoot>
-							<tr class="font-semibold text-gray-900 dark:text-white">
+							<tr class="font-semibold text-gray-900">
 								<th scope="row" class="px-6 py-3 text-base">Insgesamt</th>
 								<td class="px-6 py-3">{{total_amount_sold}} kg</td>
 							</tr>
@@ -159,10 +159,10 @@
 
 	<div class="grid grid-cols-1 xl:grid-cols-2 gap-4 mb-4">
 		<div class="border-gray-300 rounded-lg dark:border-gray-600">
-			<div class="w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
+			<div class="w-full bg-white rounded-lg shadow p-4 md:p-6">
 				<div class="flex justify-between">
 					<div>
-						<h5 class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">
+						<h5 class="leading-none text-3xl font-bold text-gray-900 pb-2">
 							{{completed_orders}}</h5>
 						<p class="text-base font-normal text-gray-500 dark:text-gray-400">Anzahl der Bestellungen</p>
 					</div>
@@ -223,10 +223,10 @@
 			</div>
 		</div>
 		<div class="border-gray-300 rounded-lg dark:border-gray-600">
-			<div class="w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
+			<div class="w-full bg-white rounded-lg shadow p-4 md:p-6">
 				<div class="flex justify-between">
 					<div>
-						<h5 class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">{{total_revenue|to_euro_decimal}} EUR</h5>
+						<h5 class="leading-none text-3xl font-bold text-gray-900 pb-2">{{total_revenue|to_euro_decimal}} EUR</h5>
 						<p class="text-base font-normal text-gray-500 dark:text-gray-400">Umsatz</p>
 					</div>
 					<div
@@ -289,10 +289,10 @@
 
 	<div class="grid grid-cols-1 xl:grid-cols-2 gap-4 mb-4">
 		<div class="border-gray-300 rounded-lg dark:border-gray-600">
-			<div class="w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
+			<div class="w-full bg-white rounded-lg shadow p-4 md:p-6">
 				<div class="flex justify-between">
 					<div>
-						<h5 class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">{{average_revenue_per_order}}</h5>
+						<h5 class="leading-none text-3xl font-bold text-gray-900 pb-2">{{average_revenue_per_order}}</h5>
 						<p class="text-base font-normal text-gray-500 dark:text-gray-400">Ø Bestellwert und Ø €/Gramm</p>
 					</div>
 					<div
@@ -352,10 +352,10 @@
 			</div>
 		</div>
 		<div class="border-gray-300 rounded-lg dark:border-gray-600">
-			<div class="w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
+			<div class="w-full bg-white rounded-lg shadow p-4 md:p-6">
 				<div class="flex justify-between">
 					<div>
-						<h5 class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">{{total_amount_sold}} kg</h5>
+						<h5 class="leading-none text-3xl font-bold text-gray-900 pb-2">{{total_amount_sold}} kg</h5>
 						<p class="text-base font-normal text-gray-500 dark:text-gray-400">Gesamte verkaufte Menge</p>
 					</div>
 					<div
@@ -417,11 +417,11 @@
 	</div>
 
 	<div class="rounded-lg mb-4">
-		<div class="p-4 bg-white rounded-lg shadow-sm sm:p-6 dark:bg-gray-800" bis_skin_checked="1">
+		<div class="p-4 bg-white rounded-lg shadow-sm sm:p-6" bis_skin_checked="1">
 			<!-- Card header -->
 			<div class="items-center justify-between lg:flex" bis_skin_checked="1">
 				<div class="mb-4 lg:mb-0" bis_skin_checked="1">
-					<h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Top 10 Produkte</h3>
+					<h3 class="mb-2 text-xl font-bold text-gray-900">Top 10 Produkte</h3>
 				</div>
 			</div>
 			<!-- Table -->
@@ -430,39 +430,39 @@
 					<div class="inline-block min-w-full align-middle" bis_skin_checked="1">
 						<div class="overflow-hidden shadow sm:rounded-lg" bis_skin_checked="1">
 							<table class="min-w-full divide-y divide-gray-200 dark:divide-gray-600">
-								<thead class="bg-gray-50 dark:bg-gray-700">
+								<thead class="bg-gray-50">
 									<tr>
 										<th scope="col"
-											class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+											class="p-4 text-xs font-medium tracking-wider text-left uppercase">
 											Produkt
 										</th>
 										<th scope="col"
-											class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+											class="p-4 text-xs font-medium tracking-wider text-left uppercase">
 											Kultivar
 										</th>
 										<th scope="col"
-											class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+											class="p-4 text-xs font-medium tracking-wider text-left uppercase">
 											Aktueller Preis
 										</th>
 										<th scope="col"
-											class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+											class="p-4 text-xs font-medium tracking-wider text-left uppercase">
 											Hersteller
 										</th>
 										<th scope="col"
-											class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+											class="p-4 text-xs font-medium tracking-wider text-left uppercase">
 											Umsatz Netto
 										</th>
 										<th scope="col"
-											class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+											class="p-4 text-xs font-medium tracking-wider text-left uppercase">
 											Verkaufte Menge
 										</th>
 									</tr>
 								</thead>
-								<tbody class="bg-white dark:bg-gray-800">
+								<tbody class="bg-white">
 									{% for product in top_products %}
 									<tr>
 										<td
-											class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap dark:text-white">
+											class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap">
 											{{product.product__name}}
 										</td>
 										<td
