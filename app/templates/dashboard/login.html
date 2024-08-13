@@ -21,15 +21,15 @@
     
 </head>
 
-<body class="bg-white dark:bg-gray-800 min-h-screen">
+<body class="bg-white min-h-screen">
 
-    <section class="bg-gray-50 dark:bg-gray-900 h-screen">
+    <section class="bg-gray-50 h-screen">
         <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
             <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
                 <img src="{% static '/dashboard/Higreen-logo-white.png' %}" class="px-2 mr-3 h-10 lg:h-16 hidden dark:block" alt="Kineo Campus Logo" />
                 <img src="{% static '/dashboard/Higreen-logo.png' %}" class="px-2 mr-3 h-10 lg:h-16 block dark:hidden " alt="Kineo Campus Logo" />
             </a>
-            <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+            <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:border-gray-700">
                 <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
                     {% if not 'reset_password_confirmed' in request.session and not request.session.reset_password_confirmed %}
                     <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
@@ -39,17 +39,17 @@
                         {% csrf_token %}
                         <div>
                             <label for="username" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">E-Mail Adresse</label>
-                            <input type="test" name="username" id="username" autocomplete="username" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required="">
+                            <input type="test" name="username" id="username" autocomplete="username" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5 dark:placeholder-gray-400 dark:text-white dark:focus:ring-emerald-500 dark:focus:border-emerald-500" placeholder="name@company.com" required="">
                         </div>
                         <div>
                             <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Passwort</label>
-                            <input type="password" name="password" id="password" placeholder="••••••••" autocomplete="current-password" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="">
+                            <input type="password" name="password" id="password" placeholder="••••••••" autocomplete="current-password" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5 dark:placeholder-gray-400 dark:text-white dark:focus:ring-emerald-500 dark:focus:border-emerald-500" required="">
                         </div>
-                        <div name="alert" class="hidden p-4 mb-4 text-sm text-red-800 border rounded-lg bg-red-50 border-red-800 dark:bg-gray-800 dark:text-red-400 dark:border-red-400" role="alert">
+                        <div name="alert" class="hidden p-4 mb-4 text-sm text-red-800 border rounded-lg bg-red-50 border-red-800 dark:text-red-400 dark:border-red-400" role="alert">
                         </div>
-                        <button type="submit" class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Sign in</button>
+                        <button type="submit" class="w-full text-white bg-emerald-600 hover:bg-emerald-700 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800">Sign in</button>
                         <!-- <p class="text-sm font-light text-gray-500 dark:text-gray-400">
-                            Don’t have an account yet? <a href="#" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up</a>
+                            Don’t have an account yet? <a href="#" class="font-medium text-emerald-600 hover:underline dark:text-emerald-500">Sign up</a>
                         </p> -->
                     </form>
                     {% endif %}
@@ -61,15 +61,15 @@
                         {% csrf_token %}
                         <div>
                             <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Passwort</label>
-                            <input type="password" name="password" id="password" placeholder="••••••••" autocomplete="current-password" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="">
+                            <input type="password" name="password" id="password" placeholder="••••••••" autocomplete="current-password" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5 dark:placeholder-gray-400 dark:text-white dark:focus:ring-emerald-500 dark:focus:border-emerald-500" required="">
                         </div>
                         <div>
                             <label for="password_confirm" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Passwort Wiederholen</label>
-                            <input type="password" name="passwordConfirm" id="password_confirm" placeholder="••••••••" autocomplete="current-password" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="">
+                            <input type="password" name="passwordConfirm" id="password_confirm" placeholder="••••••••" autocomplete="current-password" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5 dark:placeholder-gray-400 dark:text-white dark:focus:ring-emerald-500 dark:focus:border-emerald-500" required="">
                         </div>
-                        <div name="alert" class="hidden p-4 mb-4 text-sm text-red-800 border rounded-lg bg-red-50 border-red-800 dark:bg-gray-800 dark:text-red-400 dark:border-red-400" role="alert">
+                        <div name="alert" class="hidden p-4 mb-4 text-sm text-red-800 border rounded-lg bg-red-50 border-red-800 dark:text-red-400 dark:border-red-400" role="alert">
                         </div>
-                        <button type="submit" class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Speichern</button>
+                        <button type="submit" class="w-full text-white bg-emerald-600 hover:bg-emerald-700 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800">Speichern</button>
                     </form>
                     {% endif %}
                 </div>
@@ -89,7 +89,7 @@
                         Es ist ein <strong>Fehler</strong> aufgetreten!<br />
                         Bitte versuchen Sie es zu einem späteren Zeitpunkt erneut.
                     </h3>
-                    <button onclick="hideModal('alert-modal')" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Verstanden</button>
+                    <button onclick="hideModal('alert-modal')" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Verstanden</button>
                 </div>
             </div>
         </div>

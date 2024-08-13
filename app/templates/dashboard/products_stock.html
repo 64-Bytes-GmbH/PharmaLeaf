@@ -8,9 +8,9 @@
 
 
 <!-- Start block -->
-<section class="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5 antialiased">
+<section class="bg-gray-50 p-3 sm:p-5 antialiased">
     <div class="">
-        <div class="flex flex-col bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden" style="height: calc(100vh - 64px - 2.5rem);">
+        <div class="flex flex-col bg-white relative shadow-md sm:rounded-lg overflow-hidden" style="height: calc(100vh - 64px - 2.5rem);">
             <div class="flex flex-col md:items-start md:justify-between space-y-3 p-4">
                 <div class="flex-1 flex items-center space-x-2">
                     <h5 class="font-semibold dark:text-white">Lagerbestand:</h5>
@@ -21,10 +21,10 @@
             
                 <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 dark:text-gray-400">
                     <li class="me-2">
-                        <a href="{% url 'dashboard_products_stock' %}" class="inline-block px-4 py-3 text-white bg-primary-600 rounded-lg active" aria-current="page">Produkte</a>
+                        <a href="{% url 'dashboard_products_stock' %}" class="inline-block px-4 py-3 text-white bg-emerald-600 rounded-full active" aria-current="page">Produkte</a>
                     </li>
                     <li class="me-2">
-                        <a href="{% url 'dashboard_packages_stock' %}"  class="inline-block px-4 py-3 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">Verpackungen</a>
+                        <a href="{% url 'dashboard_packages_stock' %}"  class="inline-block px-4 py-3 rounded-full hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">Verpackungen</a>
                     </li>
                 </ul>
 
@@ -64,9 +64,9 @@
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                             </svg>
                         </div>
-                        <input type="text" id="searchInput" class="bg-gray-50 border w-full border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block ps-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Artikelnummer, Bezeichnung, ..." required>
+                        <input type="text" id="searchInput" class="bg-gray-50 border w-full border-gray-300 text-gray-900 text-sm rounded-full focus:ring-emerald-500 focus:border-emerald-500 block ps-10 p-2 dark:placeholder-gray-400 dark:text-white dark:focus:ring-emerald-500 dark:focus:border-emerald-500" placeholder="Artikelnummer, Bezeichnung, ..." required>
                     </div>
-                    <button type="button" onclick="searchOrder()" class="flex mr-2 items-center justify-center px-4 py-2 ms-2 text-sm font-medium text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
+                    <button type="button" onclick="searchOrder()" class="flex mr-2 items-center justify-center px-4 py-2 ms-2 text-sm font-medium text-white rounded-full bg-emerald-600 hover:bg-emerald-700 focus:ring-4 focus:ring-emerald-300 dark:bg-emerald-600 dark:hover:bg-emerald-700 focus:outline-none dark:focus:ring-emerald-800">
                         <svg class="h-3.5 w-3.5 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                         </svg>
@@ -74,13 +74,13 @@
                     </button>
                 </div>
                 <div class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
-                    <!-- <button type="button" id="createProductButton" onclick="toggleModal('addBatchNumber')" class="h-full flex items-center justify-center text-white bg-gray-900 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2 bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
+                    <!-- <button type="button" id="createProductButton" onclick="toggleModal('addBatchNumber')" class="h-full flex items-center justify-center text-white bg-gray-900 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2 bg-emerald-700 hover:bg-emerald-700 focus:ring-4 focus:ring-emerald-300 dark:bg-emerald-600 dark:hover:bg-emerald-700 focus:outline-none dark:focus:ring-emerald-800">
                         <svg class="h-3.5 w-3.5 mr-1.5 -ml-1" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                             <path clip-rule="evenodd" fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
                         </svg>
                         Charge hinzufügen
                     </button> -->
-                    <button id="filterDropdownButton" data-dropdown-toggle="filterDropdown" class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" type="button">
+                    <button id="filterDropdownButton" data-dropdown-toggle="filterDropdown" class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-emerald-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700" type="button">
                         <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-4 w-4 mr-1.5 -ml-1 text-gray-400" viewbox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z" clip-rule="evenodd" />
                         </svg>
@@ -89,16 +89,16 @@
                             <path clip-rule="evenodd" fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
                         </svg>
                     </button>
-                    <div id="filterDropdown" class="z-10 hidden px-3 pt-1 bg-white rounded-lg shadow w-80 dark:bg-gray-700 right-0">
+                    <div id="filterDropdown" class="z-10 hidden px-3 pt-1 bg-white rounded-lg shadow w-80 right-0">
                         <div id="accordion-flush" data-accordion="collapse" data-active-classes="text-black dark:text-white" data-inactive-classes="text-gray-500 dark:text-gray-400">
                             
                             <!-- Lieferant -->
                             <h2 id="supplier-heading">
-                                <button type="button" class="flex items-center justify-between w-full py-2 px-1.5 text-sm font-medium text-left text-gray-500 border-b border-gray-200 dark:border-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700" data-accordion-target="#supplier-body" aria-expanded="true" aria-controls="supplier-body">
+                                <button type="button" class="flex items-center justify-between w-full py-2 px-1.5 text-sm font-medium text-left text-gray-500 border-b border-gray-200 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700" data-accordion-target="#supplier-body" aria-expanded="true" aria-controls="supplier-body">
                                     <div>
                                         <span class="mr-2">Lieferant</span>
                                         {% if request|get_parameter:'supplier' %}
-                                        <span class="inline-flex items-center justify-center w-5 h-5 text-xs text-white bg-primary-700 dark:bg-primary-600 rounded-full">{{ request|get_parameter:'supplier'|tsplit:','|length }}</span>
+                                        <span class="inline-flex items-center justify-center w-5 h-5 text-xs text-white bg-emerald-700 dark:bg-emerald-600 rounded-full">{{ request|get_parameter:'supplier'|tsplit:','|length }}</span>
                                         {% endif %}
                                     </div>
                                     <svg aria-hidden="true" data-accordion-icon="" class="w-5 h-5 rotate-180 shrink-0" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -111,22 +111,22 @@
                                     <ul class="space-y-2">
                                         {% for item in suppliers %}
                                         <li class="flex items-center">
-                                            <input id="supplier-filter-{{ item.id }}" {% check_get_parameter request 'supplier' item.name %} onchange="updateUrlParameters('supplier', '{{ item.name }}')" type="checkbox" value="{{ item.id }}" class="cursor-pointer w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                            <input id="supplier-filter-{{ item.id }}" {% check_get_parameter request 'supplier' item.name %} onchange="updateUrlParameters('supplier', '{{ item.name }}')" type="checkbox" value="{{ item.id }}" class="cursor-pointer w-4 h-4 bg-gray-100 border-gray-300 rounded text-emerald-600 focus:ring-emerald-500 dark:focus:ring-emerald-600 dark:ring-offset-gray-700 focus:ring-2 dark:border-gray-500">
                                             <label for="supplier-filter-{{ item.id }}" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100 w-full cursor-pointer">{{ item.name }}</label>
                                         </li>
                                         {% endfor %}
                                     </ul>
-                                    <a href="javascript:void(0)" onclick="removeUrlParameters('supplier')" class="mt-2 flex items-center text-sm font-medium text-primary-600 dark:text-primary-500 hover:underline">Filterung aufheben</a>
+                                    <a href="javascript:void(0)" onclick="removeUrlParameters('supplier')" class="mt-2 flex items-center text-sm font-medium text-emerald-600 dark:text-emerald-500 hover:underline">Filterung aufheben</a>
                                 </div>
                             </div>
 
                             <!-- Hersteller -->
                             <h2 id="manufacturer-heading">
-                                <button type="button" class="flex items-center justify-between w-full py-2 px-1.5 text-sm font-medium text-left text-gray-500 border-b border-gray-200 dark:border-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700" data-accordion-target="#manufacturer-body" aria-expanded="true" aria-controls="manufacturer-body">
+                                <button type="button" class="flex items-center justify-between w-full py-2 px-1.5 text-sm font-medium text-left text-gray-500 border-b border-gray-200 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700" data-accordion-target="#manufacturer-body" aria-expanded="true" aria-controls="manufacturer-body">
                                     <div>
                                         <span class="mr-2">Hersteller</span>
                                         {% if request|get_parameter:'manufacturer' %}
-                                        <span class="inline-flex items-center justify-center w-5 h-5 text-xs text-white bg-primary-700 dark:bg-primary-600 rounded-full">{{ request|get_parameter:'supplier'|tsplit:','|length }}</span>
+                                        <span class="inline-flex items-center justify-center w-5 h-5 text-xs text-white bg-emerald-700 dark:bg-emerald-600 rounded-full">{{ request|get_parameter:'supplier'|tsplit:','|length }}</span>
                                         {% endif %}
                                     </div>
                                     <svg aria-hidden="true" data-accordion-icon="" class="w-5 h-5 rotate-180 shrink-0" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -139,22 +139,22 @@
                                     <ul class="space-y-2 overflow-y-auto" style="max-height: 600px;">
                                         {% for item in manufacturer %}
                                         <li class="flex items-center">
-                                            <input id="manufacturer-filter-{{ item.id }}" {% check_get_parameter request 'manufacturer' item.name %} onchange="updateUrlParameters('supplier', '{{ item.name }}')" type="checkbox" value="{{ item.id }}" class="cursor-pointer w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                            <input id="manufacturer-filter-{{ item.id }}" {% check_get_parameter request 'manufacturer' item.name %} onchange="updateUrlParameters('supplier', '{{ item.name }}')" type="checkbox" value="{{ item.id }}" class="cursor-pointer w-4 h-4 bg-gray-100 border-gray-300 rounded text-emerald-600 focus:ring-emerald-500 dark:focus:ring-emerald-600 dark:ring-offset-gray-700 focus:ring-2 dark:border-gray-500">
                                             <label for="manufacturer-filter-{{ item.id }}" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100 w-full cursor-pointer">{{ item.name }}</label>
                                         </li>
                                         {% endfor %}
                                     </ul>
-                                    <a href="javascript:void(0)" onclick="removeUrlParameters('manufacturer')" class="mt-2 flex items-center text-sm font-medium text-primary-600 dark:text-primary-500 hover:underline">Filterung aufheben</a>
+                                    <a href="javascript:void(0)" onclick="removeUrlParameters('manufacturer')" class="mt-2 flex items-center text-sm font-medium text-emerald-600 dark:text-emerald-500 hover:underline">Filterung aufheben</a>
                                 </div>
                             </div>
                             
                             <!-- Status -->
                             <h2 id="status-heading">
-                                <button type="button" class="flex items-center justify-between w-full py-2 px-1.5 text-sm font-medium text-left text-gray-500 border-b border-gray-200 dark:border-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700" data-accordion-target="#status-body" aria-expanded="true" aria-controls="status-body">
+                                <button type="button" class="flex items-center justify-between w-full py-2 px-1.5 text-sm font-medium text-left text-gray-500 border-b border-gray-200 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700" data-accordion-target="#status-body" aria-expanded="true" aria-controls="status-body">
                                     <div>
                                         <span class="mr-2">Status</span>
                                         {% if request|get_parameter:'status' %}
-                                        <span class="inline-flex items-center justify-center w-5 h-5 text-xs text-white bg-primary-700 dark:bg-primary-600 rounded-full">{{ request|get_parameter:'status'|tsplit:','|length }}</span>
+                                        <span class="inline-flex items-center justify-center w-5 h-5 text-xs text-white bg-emerald-700 dark:bg-emerald-600 rounded-full">{{ request|get_parameter:'status'|tsplit:','|length }}</span>
                                         {% endif %}
                                     </div>
                                     <svg aria-hidden="true" data-accordion-icon="" class="w-5 h-5 rotate-180 shrink-0" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -168,12 +168,12 @@
                                         {% get_choices "StockStatusChoices" as StockStatusChoices %}
                                         {% for item in StockStatusChoices %}
                                         <li class="flex items-center">
-                                            <input id="status-{{ item.0 }}" {% check_get_parameter request 'status' item.1 %} onchange="updateUrlParameters('status', '{{ item.1 }}')" type="checkbox" value="{{ item.0 }}" class="cursor-pointer w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                            <input id="status-{{ item.0 }}" {% check_get_parameter request 'status' item.1 %} onchange="updateUrlParameters('status', '{{ item.1 }}')" type="checkbox" value="{{ item.0 }}" class="cursor-pointer w-4 h-4 bg-gray-100 border-gray-300 rounded text-emerald-600 focus:ring-emerald-500 dark:focus:ring-emerald-600 dark:ring-offset-gray-700 focus:ring-2 dark:border-gray-500">
                                             <label for="status-{{ item.0 }}" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100 w-full cursor-pointer">{{ item.1 }}</label>
                                         </li>
                                         {% endfor %}
                                     </ul>
-                                    <a href="javascript:void(0)" onclick="removeUrlParameters('status')" class="mt-2 flex items-center text-sm font-medium text-primary-600 dark:text-primary-500 hover:underline">Filterung aufheben</a>
+                                    <a href="javascript:void(0)" onclick="removeUrlParameters('status')" class="mt-2 flex items-center text-sm font-medium text-emerald-600 dark:text-emerald-500 hover:underline">Filterung aufheben</a>
                                 </div>
                             </div>
 
@@ -181,13 +181,13 @@
                     </div>
                     <!-- Actions -->
                     <div class="flex items-center space-x-3 w-full md:w-auto">
-                        <button disabled id="actionsDropdownButton" data-dropdown-toggle="actionsDropdown" class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" type="button">
+                        <button disabled id="actionsDropdownButton" data-dropdown-toggle="actionsDropdown" class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-emerald-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700" type="button">
                             Actions
                             <svg class="-mr-1 ml-1.5 w-5 h-5" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                 <path clip-rule="evenodd" fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
                             </svg>
                         </button>
-                        <div id="actionsDropdown" class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
+                        <div id="actionsDropdown" class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:divide-gray-600">
                             <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="actionsDropdownButton">
                                 <li>
                                     <a href="javascript:void()" onclick="exportAllToExcel()" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Excel Export</a>
@@ -199,11 +199,11 @@
             </div>
             <div id="table-container" style="flex: 1" class="overflow-x-auto">
                 <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400" style="position: -webkit-sticky;position: sticky;top: 0;z-index: 1;">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:text-gray-400" style="position: -webkit-sticky;position: sticky;top: 0;z-index: 1;">
                         <tr>
                             <th scope="col" class="p-4">
                                 <div class="flex items-center">
-                                    <input id="checkbox-all" type="checkbox" class="w-4 h-4 text-primary-600 bg-gray-100 rounded border-gray-300 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                    <input id="checkbox-all" type="checkbox" class="w-4 h-4 text-emerald-600 bg-gray-100 rounded border-gray-300 focus:ring-emerald-500 dark:focus:ring-emerald-600 dark:ring-offset-gray-800 focus:ring-2 dark:border-gray-600">
                                     <label for="checkbox-all" class="sr-only">checkbox</label>
                                 </div>
                             </th>
@@ -231,12 +231,12 @@
                             <!-- Checkbox -->
                             <td class="pl-4 pr-2 py-3 w-4">
                                 <div class="flex items-center">
-                                    <input id="checkbox-table-search-1" type="checkbox" onclick="event.stopPropagation()" class="w-4 h-4 text-primary-600 bg-gray-100 rounded border-gray-300 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                    <input id="checkbox-table-search-1" type="checkbox" onclick="event.stopPropagation()" class="w-4 h-4 text-emerald-600 bg-gray-100 rounded border-gray-300 focus:ring-emerald-500 dark:focus:ring-emerald-600 dark:ring-offset-gray-800 focus:ring-2 dark:border-gray-600">
                                     <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
                                 </div>
                             </td>
                             <!-- Artikelbezeichnung -->
-                            <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"><a href="javascript:void(0)" class="text-primary-600 dark:text-primary-500" onclick="showLiveStockDetails('{{ product.id }}', this)">{{ product.product.name }}</a></td>
+                            <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"><a href="javascript:void(0)" class="text-emerald-600 dark:text-emerald-500" onclick="showLiveStockDetails('{{ product.id }}', this)">{{ product.product.name }}</a></td>
                             <!-- Artikelnummer -->
                             <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ product.product.number }}</td>
                             <!-- Hersteller -->
@@ -298,7 +298,7 @@
                             </td>
                             <!-- Status -->
                             <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                <!-- <button id="status{{ product.id }}" data-dropdown-toggle="dorpdownProductStatus{{ product.id }}" class="stock-product-status flex justify-between items-center py-2 pr-4 pl-3 w-full font-medium text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-primary-700 md:p-0 md:w-auto dark:text-gray-400 dark:hover:text-white dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent"> -->
+                                <!-- <button id="status{{ product.id }}" data-dropdown-toggle="dorpdownProductStatus{{ product.id }}" class="stock-product-status flex justify-between items-center py-2 pr-4 pl-3 w-full font-medium text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-emerald-700 md:p-0 md:w-auto dark:text-gray-400 dark:hover:text-white dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent"> -->
                                 <!-- <div class="flex justify-between">
                                     <div class="h-3 w-3 rounded-full mr-2 status-circle border-2" value="{{ product.status }}"></div>
                                     <span>{{ product.status_display }}</span>
@@ -310,7 +310,7 @@
                                 <!-- <svg class="ml-1 w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg> -->
                                 
                             <!-- </button>
-                                <div id="dorpdownProductStatus{{ product.id }}" class="stock-product-status z-20 w-44 font-normal bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600 hidden"  bis_skin_checked="1" data-popper-placement="top">
+                                <div id="dorpdownProductStatus{{ product.id }}" class="stock-product-status z-20 w-44 font-normal bg-white rounded divide-y divide-gray-100 shadow dark:divide-gray-600 hidden"  bis_skin_checked="1" data-popper-placement="top">
                                     <ul class="py-1 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
                                         {% get_choices "StockStatusChoices" as StockStatusChoices %}
                                         {% for item in StockStatusChoices %}
@@ -325,7 +325,7 @@
                             </td>
                             <!-- Edit -->
                             <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                <button type="button" id="createProductButton" onclick="openBatchNumberModal(0, '{{product.product.id}}', '{{product.product.name}}', null, null, null)" class="mt-3 flex items-center justify-center text-white bg-gray-900 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2 bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
+                                <button type="button" id="createProductButton" onclick="openBatchNumberModal(0, '{{product.product.id}}', '{{product.product.name}}', null, null, null)" class="mt-3 flex items-center justify-center text-white bg-gray-900 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2 bg-emerald-700 hover:bg-emerald-700 focus:ring-4 focus:ring-emerald-300 dark:bg-emerald-600 dark:hover:bg-emerald-700 focus:outline-none dark:focus:ring-emerald-800">
                                     <svg class="h-3.5 w-3.5 mr-1.5 -ml-1" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                         <path clip-rule="evenodd" fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
                                     </svg>
@@ -356,7 +356,7 @@
                                             <td class="px-4 py-1 text-left">{{livestock_entry.amount_status}}</td>
                                             <td class="px-4 py-1 text-left">{{livestock_entry.created_at}}</td>
                                             <td class="px-4 py-1 text-left">
-                                                <button type="button" onclick="openBatchNumberModal('{{livestock_entry.id}}','{{product.product.id}}', '{{product.product.name}}', '{{livestock_entry.batch_number}}', '{{livestock_entry.amount}}', '{{livestock_entry.verification_number}}')" id="updateBatchNumberBtn" class="flex items-center justify-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
+                                                <button type="button" onclick="openBatchNumberModal('{{livestock_entry.id}}','{{product.product.id}}', '{{product.product.name}}', '{{livestock_entry.batch_number}}', '{{livestock_entry.amount}}', '{{livestock_entry.verification_number}}')" id="updateBatchNumberBtn" class="flex items-center justify-center text-white bg-emerald-700 hover:bg-emerald-700 focus:ring-4 focus:ring-emerald-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-emerald-600 dark:hover:bg-emerald-700 focus:outline-none dark:focus:ring-emerald-800">
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 -ml-0.5" viewbox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                                         <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
                                                         <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" />
@@ -367,7 +367,7 @@
                                         </tr>
                                         {% endfor %}
                                     </table>
-                                    <button type="button" id="createProductButton" onclick="openBatchNumberModal(0, '{{product.product.id}}', '{{product.product.name}}', null, null, null)" class="mt-3 flex items-center justify-center text-white bg-gray-900 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2 bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
+                                    <button type="button" id="createProductButton" onclick="openBatchNumberModal(0, '{{product.product.id}}', '{{product.product.name}}', null, null, null)" class="mt-3 flex items-center justify-center text-white bg-gray-900 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2 bg-emerald-700 hover:bg-emerald-700 focus:ring-4 focus:ring-emerald-300 dark:bg-emerald-600 dark:hover:bg-emerald-700 focus:outline-none dark:focus:ring-emerald-800">
                                         <svg class="h-3.5 w-3.5 mr-1.5 -ml-1" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                             <path clip-rule="evenodd" fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
                                         </svg>
@@ -380,13 +380,13 @@
                     </tbody>
                 </table>
             </div>
-            <nav class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4 border-gray-600 dark:border-gray-600 border-t" aria-label="Table navigation">
+            <nav class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4 border-gray-600 border-t" aria-label="Table navigation">
                 <ul class="inline-flex items-stretch -space-x-px">
                     {% with products.paginator.page_range|first as first_page %}
                     {% with 'page:'|concat_string:first_page as page_string %}
                     {% with updated_params=request.GET|add_get_parameter:page_string %}
                     <li>
-                        <a href="?{{ updated_params }}" class="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                        <a href="?{{ updated_params }}" class="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
                             <span class="sr-only">Erste Seite</span>
                             <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" viewBox="0 0 12 10">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M5 1 1 5l4 4m6-8L7 5l4 4"/>
@@ -399,13 +399,13 @@
                     {% for page_num in products.paginator.page_range|get_page_range:products.number %}
                     {% if products.number == page_num %}
                     <li>
-                        <a href="?{{ updated_params }}" aria-current="page" class="flex items-center justify-center text-sm z-10 py-2 px-3 leading-tight text-primary-600 bg-primary-50 border border-primary-300 hover:bg-primary-100 hover:text-primary-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">{{ page_num }}</a>
+                        <a href="?{{ updated_params }}" aria-current="page" class="flex items-center justify-center text-sm z-10 py-2 px-3 leading-tight text-emerald-600 bg-emerald-50 border border-emerald-300 hover:bg-emerald-100 hover:text-emerald-700 dark:border-gray-700 dark:text-white">{{ page_num }}</a>
                     </li>
                     {% else %}
                     {% with 'page:'|concat_string:page_num as page_string %}
                     {% with updated_params=request.GET|add_get_parameter:page_string %}
                     <li>
-                        <a href="?{{ updated_params }}" class="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{ page_num }}</a>
+                        <a href="?{{ updated_params }}" class="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{ page_num }}</a>
                     </li>
                     {% endwith %}
                     {% endwith %}
@@ -415,7 +415,7 @@
                     {% with 'page:'|concat_string:last_page as page_string %}
                     {% with updated_params=request.GET|add_get_parameter:page_string %}
                     <li>
-                        <a href="?{{ updated_params }}" class="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                        <a href="?{{ updated_params }}" class="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
                             <span class="sr-only">Letzte Seite</span>
                             <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" viewBox="0 0 12 10">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="m7 9 4-4-4-4M1 9l4-4-4-4"/>
@@ -434,7 +434,7 @@
 <div id="updateThreshold" tabindex="-1" aria-hidden="true" class="modal-parent-div hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] md:h-full">
     <div class="relative w-full h-full md:h-auto" style="max-width: 75vw;max-height: 80vh;overflow-y: auto;">
         <!-- Modal content -->
-        <div class="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
+        <div class="relative p-4 bg-white rounded-lg shadow sm:p-5">
             <!-- Modal header -->
             <div class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600">
                 <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Grenzwert aktualisieren</h3>
@@ -454,15 +454,15 @@
                         <div class="grid gap-4 mb-4 sm:grid-cols-2">
                             <div class="hidden">
                                 <label for="productId" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Produkt-ID</label>
-                                <input type="text" name="productId" id="productId" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Produkt-ID" required="">
+                                <input type="text" name="productId" id="productId" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5 dark:placeholder-gray-400 dark:text-white dark:focus:ring-emerald-500 dark:focus:border-emerald-500" placeholder="Produkt-ID" required="">
                             </div>
                             <div>
                                 <label for="productName" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Produkt</label>
-                                <input type="text" name="productName" id="productName" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Produkt" required="" readonly>
+                                <input type="text" name="productName" id="productName" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5 dark:placeholder-gray-400 dark:text-white dark:focus:ring-emerald-500 dark:focus:border-emerald-500" placeholder="Produkt" required="" readonly>
                             </div>
                             <div>
                                 <label for="threshold" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Grenzwert</label>
-                                <input type="text" name="threshold" id="threshold" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Grenzwert" required="">
+                                <input type="text" name="threshold" id="threshold" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5 dark:placeholder-gray-400 dark:text-white dark:focus:ring-emerald-500 dark:focus:border-emerald-500" placeholder="Grenzwert" required="">
                             </div>
                         </div>
                     </form>
@@ -471,13 +471,13 @@
 
             <div class="d-flex justify-between pt-4 sm:flex sm:space-y-0 sm:space-x-4">
                 <div class="mb-4 sm:mb-0 items-center d-flex space-y-4 sm:flex sm:space-y-0 sm:space-x-4">
-                    <button id="saveThresholdBtn" type="button" onclick="saveThreshold()" data-toast-name="orderUpdatedToast" type="submit" class="w-full sm:w-auto justify-center text-white inline-flex bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                    <button id="saveThresholdBtn" type="button" onclick="saveThreshold()" data-toast-name="orderUpdatedToast" type="submit" class="w-full sm:w-auto justify-center text-white inline-flex bg-emerald-700 hover:bg-emerald-700 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800">
                         Speichern
                     </button>
-                    <button id="deleteThreshold" type="button" onclick="deleteThreshold()" data-toast-name="orderUpdatedToast" type="submit" class="w-full sm:w-auto justify-center text-white inline-flex bg-primary-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
+                    <button id="deleteThreshold" type="button" onclick="deleteThreshold()" data-toast-name="orderUpdatedToast" type="submit" class="w-full sm:w-auto justify-center text-white inline-flex bg-emerald-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
                         Löschen
                     </button>
-                    <button onclick="hideModal('updateThreshold')" type="button" class="w-full justify-center sm:w-auto text-gray-500 inline-flex items-center bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+                    <button onclick="hideModal('updateThreshold')" type="button" class="w-full justify-center sm:w-auto text-gray-500 inline-flex items-center bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-emerald-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
                         <svg class="mr-1 -ml-1 w-5 h-5" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
                         </svg>
@@ -492,7 +492,7 @@
 <div id="addBatchNumber" tabindex="-1" aria-hidden="true" class="modal-parent-div hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] md:h-full">
     <div class="relative w-full h-full md:h-auto" style="max-width: 75vw;max-height: 80vh;overflow-y: auto;">
         <!-- Modal content -->
-        <div class="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
+        <div class="relative p-4 bg-white rounded-lg shadow sm:p-5">
             <!-- Modal header -->
             <div class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600">
                 <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Produktcharge hinzufügen</h3>
@@ -515,33 +515,33 @@
                                 <input hidden type="text" name="stockId" id="stockId">
                                 <div>
                                     <label for="productName" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Produkt</label>
-                                    <input type="text" name="productName" id="productName" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Produkt" required="" readonly>
+                                    <input type="text" name="productName" id="productName" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5 dark:placeholder-gray-400 dark:text-white dark:focus:ring-emerald-500 dark:focus:border-emerald-500" placeholder="Produkt" required="" readonly>
                                 </div>
                             </div>
                             <div class="grid gap-4 mb-4 sm:grid-cols-2">
                                 <!-- Chargennummer -->
                                 <div>
                                     <label for="batchNumber" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Chargennummer</label>
-                                    <input type="text" name="batchNumber" id="batchNumber" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Chargennummer" required="">
+                                    <input type="text" name="batchNumber" id="batchNumber" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5 dark:placeholder-gray-400 dark:text-white dark:focus:ring-emerald-500 dark:focus:border-emerald-500" placeholder="Chargennummer" required="">
                                 </div>
                                 <!-- Prüfnummer -->
                                 <div>
                                     <label for="verificationNumber" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Prüfnummer</label>
-                                    <input type="text" name="verificationNumber" id="verificationNumber" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Prüfnummer" required="">
+                                    <input type="text" name="verificationNumber" id="verificationNumber" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5 dark:placeholder-gray-400 dark:text-white dark:focus:ring-emerald-500 dark:focus:border-emerald-500" placeholder="Prüfnummer" required="">
                                 </div>
                             </div>
                             <div class="grid gap-4 mb-4 sm:grid-cols-2">
                                 <!-- Menge -->
                                 <div>
                                     <label for="amount" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Menge</label>
-                                    <input type="number" name="amount" id="amount" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Menge" required="">
+                                    <input type="number" name="amount" id="amount" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5 dark:placeholder-gray-400 dark:text-white dark:focus:ring-emerald-500 dark:focus:border-emerald-500" placeholder="Menge" required="">
                                 </div>
                                 <!-- Status -->
                                 <div>
                                     <label for="stockStatusChoices" class="inline-flex items-center mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                         Status
                                     </label>
-                                    <select id="stockStatusChoices" name="stockStatusChoices" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                    <select id="stockStatusChoices" name="stockStatusChoices" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5 dark:placeholder-gray-400 dark:text-white dark:focus:ring-emerald-500 dark:focus:border-emerald-500">
                                         {% get_choices "StockStatusChoices" as StockStatusChoices %}
                                         {% for item in StockStatusChoices %}
                                         <option value="{{ item.0 }}">{{ item.1 }}</option>
@@ -556,10 +556,10 @@
 
             <div class="d-flex justify-between pt-4 sm:flex sm:space-y-0 sm:space-x-4">
                 <div class="mb-4 sm:mb-0 items-center d-flex space-y-4 sm:flex sm:space-y-0 sm:space-x-4">
-                    <button id="saveBatchNumberBtn" type="button" onclick="saveBatchNumber()" data-toast-name="orderUpdatedToast" type="submit" class="w-full sm:w-auto justify-center text-white inline-flex bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                    <button id="saveBatchNumberBtn" type="button" onclick="saveBatchNumber()" data-toast-name="orderUpdatedToast" type="submit" class="w-full sm:w-auto justify-center text-white inline-flex bg-emerald-700 hover:bg-emerald-700 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800">
                         Speichern
                     </button>
-                    <button onclick="hideModal('addBatchNumber')" type="button" class="w-full justify-center sm:w-auto text-gray-500 inline-flex items-center bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+                    <button onclick="hideModal('addBatchNumber')" type="button" class="w-full justify-center sm:w-auto text-gray-500 inline-flex items-center bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-emerald-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
                         <svg class="mr-1 -ml-1 w-5 h-5" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
                         </svg>
@@ -602,32 +602,32 @@
                                     <path d="m12.013 12.545 5.006-3.194-5.006-3.176 4.98-3.194L22 6.175l-5.007 3.194L22 12.562l-5.007 3.194-4.98-3.211Z"/>
                                 </svg>
                             </div>
-                            <input type="text" id="searchProduct" name="product" class="bg-gray-50 border w-full border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block ps-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Nach Produkt suchen">
+                            <input type="text" id="searchProduct" name="product" class="bg-gray-50 border w-full border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block ps-10 p-2 dark:placeholder-gray-400 dark:text-white dark:focus:ring-emerald-500 dark:focus:border-emerald-500" placeholder="Nach Produkt suchen">
                             <!-- Dropdown menu -->
-                            <div id="dropdownProductList" style="max-height: 600px;" class="hidden z-20 w-full overflow-y-auto absolute bg-white divide-y divide-gray-100 rounded-lg shadow-xl dark:bg-gray-800 dark:divide-gray-700" aria-labelledby="dropdownNotificationButton">
+                            <div id="dropdownProductList" style="max-height: 600px;" class="hidden z-20 w-full overflow-y-auto absolute bg-white divide-y divide-gray-100 rounded-lg shadow-xl dark:divide-gray-700" aria-labelledby="dropdownNotificationButton">
                                 <div class="divide-y divide-gray-100 dark:divide-gray-700">
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="p-4 mb-4 mt-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 hidden" name="productOrderNameAlert" role="alert">
+                    <div class="p-4 mb-4 mt-4 text-sm text-red-800 rounded-lg bg-red-50 dark:text-red-400 hidden" name="productOrderNameAlert" role="alert">
                         Bitte Produkt auswählen.
                     </div>
 
                     <div class="ml-auto flex flex-col mt-3">
                         <label for="orderAmount" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Menge</label>
-                        <input type="number" name="amount" id="orderAmount" class="bg-gray-50 border w-full border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                        <input type="number" name="amount" id="orderAmount" class="bg-gray-50 border w-full border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block p-2 dark:placeholder-gray-400 dark:text-white dark:focus:ring-emerald-500 dark:focus:border-emerald-500"/>
                     </div>
-                    <div class="p-4 mb-4 mt-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 hidden" name="productOrderAmountAlert" role="alert">
+                    <div class="p-4 mb-4 mt-4 text-sm text-red-800 rounded-lg bg-red-50 dark:text-red-400 hidden" name="productOrderAmountAlert" role="alert">
                         Bitte die Bestellmenge angeben.
                     </div>
                 </div>
 
                 <div class="pb-6 px-6 flex justify-between">
-                    <button onclick="saveProductOrder()" type="button" class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
+                    <button onclick="saveProductOrder()" type="button" class="text-white bg-emerald-600 hover:bg-emerald-700 focus:ring-4 focus:outline-none focus:ring-emerald-300 dark:focus:ring-emerald-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
                         Bestellung speichern
                     </button>
-                    <button onclick="hideModal('new-order-modal')" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+                    <button onclick="hideModal('new-order-modal')" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
                         Abbrechen
                     </button>
                 </div>
@@ -1055,7 +1055,7 @@
 
         $.ajax({
             type: 'POST',
-            url: '{% url "product" %}',
+            url: '{% url "request_product_datas" %}',
             traditional: true,
             headers: {
                 'X-Requested-With': 'XMLHttpRequest',
@@ -1094,7 +1094,7 @@
                                                     ' + item.name + '\
                                                 </div>\
                                             </div>\
-                                            <div class="text-sm text-blue-600 dark:text-blue-400">\
+                                            <div class="text-sm text-emerald-600 dark:text-emerald-400">\
                                                 ' + item.cultivar + ' | THC: ' + item.thc_value + ' | CBD ' + item.cbd_value + '\
                                             </div>\
                                         </div>\

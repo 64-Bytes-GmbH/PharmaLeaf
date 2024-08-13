@@ -36,13 +36,13 @@ const createCartTemplate = (product, editable=true) => {
 
 const dashBoardProducts = (product, orderNumber=null) => {
     
-    let template = '<div id="orderProduct-' + product.id + '" product-id="' + product.id + '" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">\
+    let template = '<div id="orderProduct-' + product.id + '" product-id="' + product.id + '" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">\
                         <div class="grid gap-4 sm:col-span-2 md:gap-6 sm:grid-cols-2 mb-3">\
                             <div>\
                                 <label for="product' + product.id + '" class="inline-flex items-center mb-2 text-sm font-medium text-gray-900 dark:text-white">\
                                     Produkt\
                                 </label>\
-                                <select id="product' + product.id + '" name="product" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">\
+                                <select id="product' + product.id + '" name="product" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">\
                                 </select>\
                             </div>\
                             <div class="ml-auto flex flex-row gap-4">\
@@ -62,20 +62,20 @@ const dashBoardProducts = (product, orderNumber=null) => {
                                 <label for="prepared' + product.id + '" class="inline-flex items-center mb-2 text-sm font-medium text-gray-900 dark:text-white">\
                                     Abgabeform\
                                 </label>\
-                                <select id="prepared' + product.id + '" name="prepared" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">\
+                                <select id="prepared' + product.id + '" name="prepared" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">\
                                 </select>\
                             </div>\
                             <div>\
                                 <label for="productAmount' + product.id + '" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" name="productAmountLabel">' + product.amountLabel + '</label>\
-                                <input type="number" name="productAmount" id="productAmount' + product.id + '" value="' + product.amount + '" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Beispiel: 12">\
+                                <input type="number" name="productAmount" id="productAmount' + product.id + '" value="' + product.amount + '" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Beispiel: 12">\
                             </div>\
                             <div>\
                                 <label for="form' + product.id + '" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Form</label>\
-                                <input type="text" name="form" id="form' + product.id + '" value="' + product.form + '" disabled class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="">\
+                                <input type="text" name="form" id="form' + product.id + '" value="' + product.form + '" disabled class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="">\
                             </div>\
                             <div>\
                                 <label for="supplier' + product.id + '" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" name="productAmountLabel">Lieferant</label>\
-                                <input type="text" name="supplier" id="supplier' + product.id + '" value="' + product.supplier + '" disabled class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Beispiel: 12">\
+                                <input type="text" name="supplier" id="supplier' + product.id + '" value="' + product.supplier + '" disabled class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Beispiel: 12">\
                             </div>\
                         </div>\
                     </div>'

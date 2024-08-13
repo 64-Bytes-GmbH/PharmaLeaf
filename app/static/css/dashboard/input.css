@@ -128,9 +128,8 @@
 .modal-accordion-button[aria-expanded="true"] {
     background-color: #4b5563 !important;
 }
-
 #statusFilterButtons button.active {
-    background-color: #65a30d;
+    background-color: #059669;
 }
 .higreen-toast {
     transition: all 250ms ease-in-out;

@@ -2232,6 +2232,8 @@ def dashboard_filter_products(parameters):
 
         products = products.filter(q_objects).distinct()
 
+    return products.distinct()
+
 def dashboard_filter_stock_products(parameters, pharmacy):
     """ Filter stock products by parameters"""
 

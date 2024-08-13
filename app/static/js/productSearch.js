@@ -57,7 +57,7 @@ function performSearch($input, searchType) {
             // Create dropdown div element if not exists else use existing element and empty it and set styles
             if ($('.dropdownProductList').length == 0) {
                 $dropdownDiv = $('<div>', {
-                    'class': 'dropdownProductList overflow-y-auto absolute bg-white divide-y divide-gray-100 rounded-lg shadow-xl dark:bg-gray-800 dark:divide-gray-700',
+                    'class': 'dropdownProductList overflow-y-auto absolute bg-white divide-y divide-gray-100 rounded-lg shadow-xl dark:divide-gray-700',
                     'aria-labelledby': 'dropdownNotificationButton',
                     'style': `top: ${top}px; left: ${left}px; width: ${width}px; max-height: ${maxInnerHeight}px; z-index: 1000;`
                 });
@@ -135,7 +135,7 @@ $(document).on('click', '[data-import-order-search-product]', function() {
     const productListContainer = document.getElementById('extractedOrderedProductList');
 
     const productDiv = document.createElement('div')
-    productDiv.className = "imported-product-container bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+    productDiv.className = "imported-product-container bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
     productDiv.id = `orderProduct-${index}`
 
     // Inhalt für das Produkt-Div
@@ -145,11 +145,11 @@ $(document).on('click', '[data-import-order-search-product]', function() {
                 <label for="product-${index}" class="inline-flex items-center mb-2 text-sm font-medium text-gray-900 dark:text-white">
                     Produkt
                 </label>
-                <input id="product-${index}" name="product" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" value="${product}">
+                <input id="product-${index}" name="product" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" value="${product}">
             </div>
             <div class="mt-2" style="flex: 2">
                 <label for="productAmount-${index}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Menge</label>
-                <input type="number" name="productAmount" id="productAmount-${index}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" value="10">
+                <input type="number" name="productAmount" id="productAmount-${index}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" value="10">
             </div>
             <div class="inline-flex rounded-md shadow-sm" role="group" style="flex: 1; height: 42px; margin-top: auto;">
                 <a href="javascript:void(0)" onclick="reduceAmountImportedProduct(${index})" type="button" class="inline-flex items-center px-4 py-2.5 text-sm font-medium text-gray-300 bg-transparent border border-gray-900 rounded-s-lg hover:bg-gray-900 hover:text-white focus:z-10 focus:ring-2 focus:ring-gray-500 focus:bg-gray-900 focus:text-white dark:border-white dark:text-white dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:bg-gray-700">

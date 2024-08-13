@@ -4,9 +4,9 @@
 {% load static extra_tags %}
 
 {% block content %}
-<section class="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5 antialiased">
+<section class="bg-gray-50 p-3 sm:p-5 antialiased">
     <div class="">
-        <div class="flex flex-col bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden" style="height: calc(100vh - 64px - 2.5rem);">
+        <div class="flex flex-col bg-white relative shadow-md sm:rounded-lg overflow-hidden" style="height: calc(100vh - 64px - 2.5rem);">
             <div class="px-4 divide-y dark:divide-gray-700">
                 <div class="flex flex-col py-3 space-y-3 md:flex-row md:items-center md:justify-between md:space-y-0 md:space-x-4">
                     <div class="flex items-center flex-1 space-x-4">
@@ -16,7 +16,7 @@
                         </h5>
                     </div>
                     
-                    <button type="button" onclick="createRecipient()" class="flex mr-2 items-center justify-center px-4 py-2 text-sm font-medium text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
+                    <button type="button" onclick="createRecipient()" class="flex mr-2 items-center justify-center px-4 py-2 text-sm font-medium text-white rounded-lg bg-emerald-700 hover:bg-emerald-700 focus:ring-4 focus:ring-emerald-300 dark:bg-emerald-600 dark:hover:bg-emerald-700 focus:outline-none dark:focus:ring-emerald-800">
                         <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                             <path clip-rule="evenodd" fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
                         </svg>
@@ -43,7 +43,7 @@
                         <p class="text-gray-500 dark:text-gray-400 px-3 text-xs whitespace-nowrap">Kategorien: {{ request|get_parameter:'category' }}</p>
                         {% endif %}
                     </div>
-                    <button type="button" onclick="resetFilter()" class="my-2 flex items-center justify-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
+                    <button type="button" onclick="resetFilter()" class="my-2 flex items-center justify-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm dark:text-white dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
                         <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
                             <path d="M3.9 22.9C10.5 8.9 24.5 0 40 0H472c15.5 0 29.5 8.9 36.1 22.9s4.6 30.5-5.2 42.5L396.4 195.6C316.2 212.1 256 283 256 368c0 27.4 6.3 53.4 17.5 76.5c-1.6-.8-3.2-1.8-4.7-2.9l-64-48c-8.1-6-12.8-15.5-12.8-25.6V288.9L9 65.3C-.7 53.4-2.8 36.8 3.9 22.9zM432 224a144 144 0 1 1 0 288 144 144 0 1 1 0-288zm59.3 107.3c6.2-6.2 6.2-16.4 0-22.6s-16.4-6.2-22.6 0L432 345.4l-36.7-36.7c-6.2-6.2-16.4-6.2-22.6 0s-6.2 16.4 0 22.6L409.4 368l-36.7 36.7c-6.2 6.2-6.2 16.4 0 22.6s16.4 6.2 22.6 0L432 390.6l36.7 36.7c6.2 6.2 16.4 6.2 22.6 0s6.2-16.4 0-22.6L454.6 368l36.7-36.7z"/>
                         </svg>
@@ -61,9 +61,9 @@
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                                 </svg>
                             </div>
-                            <input type="text" id="searchRecipient" class="bg-gray-50 border w-full border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block ps-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Apotheke, Name, E-Mail" required>
+                            <input type="text" id="searchRecipient" class="bg-gray-50 border w-full border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block ps-10 p-2 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Apotheke, Name, E-Mail" required>
                         </div>
-                        <button type="button" onclick="searchRecipient()" class="flex mr-2 items-center justify-center px-4 py-2 ms-2 text-sm font-medium text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
+                        <button type="button" onclick="searchRecipient()" class="flex mr-2 items-center justify-center px-4 py-2 ms-2 text-sm font-medium text-white rounded-lg bg-emerald-700 hover:bg-emerald-700 focus:ring-4 focus:ring-emerald-300 dark:bg-emerald-600 dark:hover:bg-emerald-700 focus:outline-none dark:focus:ring-emerald-800">
                             <svg class="h-3.5 w-3.5 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                             </svg>
@@ -71,7 +71,7 @@
                         </button>
                     </div>
 
-                    <button id="filterDropdownButton" data-dropdown-toggle="filterDropdown" class="h-full w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" type="button">
+                    <button id="filterDropdownButton" data-dropdown-toggle="filterDropdown" class="h-full w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-emerald-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700" type="button">
                         <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-4 w-4 mr-1.5 -ml-1 text-gray-400" viewbox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z" clip-rule="evenodd" />
                         </svg>
@@ -80,15 +80,15 @@
                             <path clip-rule="evenodd" fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
                         </svg>
                     </button>
-                    <div id="filterDropdown" class="z-10 hidden px-3 pt-1 bg-white rounded-lg shadow w-80 dark:bg-gray-700 right-0">
+                    <div id="filterDropdown" class="z-10 hidden px-3 pt-1 bg-white rounded-lg shadow w-80 right-0">
                         <div id="accordion-flush" data-accordion="collapse" data-active-classes="text-black dark:text-white" data-inactive-classes="text-gray-500 dark:text-gray-400">
                             <!-- Kategorie -->
                             <h2 id="category-heading">
-                                <button type="button" class="flex items-center justify-between w-full py-2 px-1.5 text-sm font-medium text-left text-gray-500 border-b border-gray-200 dark:border-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700" data-accordion-target="#category-body" aria-expanded="true" aria-controls="category-body">
+                                <button type="button" class="flex items-center justify-between w-full py-2 px-1.5 text-sm font-medium text-left text-gray-500 border-b border-gray-200 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700" data-accordion-target="#category-body" aria-expanded="true" aria-controls="category-body">
                                     <div>
                                         <span class="mr-2">Kategorie</span>
                                         {% if request|get_parameter:'category' %}
-                                        <span class="inline-flex items-center justify-center w-5 h-5 text-xs text-white bg-primary-700 dark:bg-primary-600 rounded-full">{{ request|get_parameter:'category'|tsplit:','|length }}</span>
+                                        <span class="inline-flex items-center justify-center w-5 h-5 text-xs text-white bg-emerald-700 dark:bg-emerald-600 rounded-full">{{ request|get_parameter:'category'|tsplit:','|length }}</span>
                                         {% endif %}
                                     </div>
                                     <svg aria-hidden="true" data-accordion-icon="" class="w-5 h-5 rotate-180 shrink-0" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -102,12 +102,12 @@
                                         {% get_choices "EmailRecipientCategories" as EmailRecipientCategories %}
                                         {% for item in EmailRecipientCategories %}
                                         <li class="flex items-center">
-                                            <input id="category-{{ item.0 }}" {% check_get_parameter request 'category' item.1 %} onchange="updateUrlParameters('category', '{{ item.1 }}')" type="checkbox" value="{{ item.0 }}" class="cursor-pointer w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                            <input id="category-{{ item.0 }}" {% check_get_parameter request 'category' item.1 %} onchange="updateUrlParameters('category', '{{ item.1 }}')" type="checkbox" value="{{ item.0 }}" class="cursor-pointer w-4 h-4 bg-gray-100 border-gray-300 rounded text-emerald-600 focus:ring-emerald-500 dark:focus:ring-emerald-600 dark:ring-offset-gray-700 focus:ring-2 dark:border-gray-500">
                                             <label for="category-{{ item.0 }}" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100 w-full cursor-pointer">{{ item.1 }}</label>
                                         </li>
                                         {% endfor %}
                                     </ul>
-                                    <a href="javascript:void(0)" onclick="removeUrlParameters('category')" class="mt-2 flex items-center text-sm font-medium text-primary-600 dark:text-primary-500 hover:underline">Filterung aufheben</a>
+                                    <a href="javascript:void(0)" onclick="removeUrlParameters('category')" class="mt-2 flex items-center text-sm font-medium text-emerald-600 dark:text-emerald-500 hover:underline">Filterung aufheben</a>
                                 </div>
                             </div>
                         </div>
@@ -116,11 +116,11 @@
             </div>
             <div id="table-container" class="overflow-x-auto">
                 <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:text-gray-400">
                         <tr>
                             <th scope="col" class="p-4">
                                 <div class="flex items-center">
-                                    <input id="checkbox-all" type="checkbox" class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                    <input id="checkbox-all" type="checkbox" class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-emerald-600 focus:ring-emerald-500 dark:focus:ring-emerald-600 dark:ring-offset-gray-800 focus:ring-2 dark:border-gray-600">
                                     <label for="checkbox-all" class="sr-only">checkbox</label>
                                 </div>
                             </th>
@@ -132,11 +132,11 @@
                     </thead>
                     <tbody>
                         {% for recipient in recipients %}
-                        <tr id="recipient-{{ recipient.id }}" class="border-t dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <tr id="recipient-{{ recipient.id }}" class="border-t hover:bg-gray-100 dark:hover:bg-gray-700">
                             <!-- Checkbox -->
                             <td class="w-4 px-4 py-3">
                                 <div class="flex items-center">
-                                    <input data-recipient-id="{{ recipient.id }}" type="checkbox" onclick="event.stopPropagation()" class="recipient-checkbox w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                    <input data-recipient-id="{{ recipient.id }}" type="checkbox" onclick="event.stopPropagation()" class="recipient-checkbox w-4 h-4 bg-gray-100 border-gray-300 rounded text-emerald-600 focus:ring-emerald-500 dark:focus:ring-emerald-600 dark:ring-offset-gray-800 focus:ring-2 dark:border-gray-600">
                                 </div>
                             </td>
                             <!-- Apotheke -->
@@ -164,13 +164,13 @@
                 </table>
             </div>
             
-            <nav class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4 border-gray-600 dark:border-gray-600 border-t" aria-label="Table navigation">
+            <nav class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4 border-gray-600 border-t" aria-label="Table navigation">
                 <ul class="inline-flex items-stretch -space-x-px">
                     {% with recipients.paginator.page_range|first as first_page %}
                     {% with 'page:'|concat_string:first_page as page_string %}
                     {% with updated_params=request.GET|add_get_parameter:page_string %}
                     <li>
-                        <a href="?{{ updated_params }}" class="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                        <a href="?{{ updated_params }}" class="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
                             <span class="sr-only">Erste Seite</span>
                             <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" viewBox="0 0 12 10">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M5 1 1 5l4 4m6-8L7 5l4 4"/>
@@ -183,13 +183,13 @@
                     {% for page_num in recipients.paginator.page_range|get_page_range:recipients.number %}
                     {% if recipients.number == page_num %}
                     <li>
-                        <a href="?{{ updated_params }}" aria-current="page" class="flex items-center justify-center text-sm z-10 py-2 px-3 leading-tight text-primary-600 bg-primary-50 border border-primary-300 hover:bg-primary-100 hover:text-primary-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">{{ page_num }}</a>
+                        <a href="?{{ updated_params }}" aria-current="page" class="flex items-center justify-center text-sm z-10 py-2 px-3 leading-tight text-emerald-600 bg-emerald-50 border border-emerald-300 hover:bg-emerald-100 hover:text-emerald-700 dark:border-gray-700 dark:text-white">{{ page_num }}</a>
                     </li>
                     {% else %}
                     {% with 'page:'|concat_string:page_num as page_string %}
                     {% with updated_params=request.GET|add_get_parameter:page_string %}
                     <li>
-                        <a href="?{{ updated_params }}" class="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{ page_num }}</a>
+                        <a href="?{{ updated_params }}" class="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{ page_num }}</a>
                     </li>
                     {% endwith %}
                     {% endwith %}
@@ -199,7 +199,7 @@
                     {% with 'page:'|concat_string:last_page as page_string %}
                     {% with updated_params=request.GET|add_get_parameter:page_string %}
                     <li>
-                        <a href="?{{ updated_params }}" class="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                        <a href="?{{ updated_params }}" class="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
                             <span class="sr-only">Letzte Seite</span>
                             <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" viewBox="0 0 12 10">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="m7 9 4-4-4-4M1 9l4-4-4-4"/>
@@ -232,7 +232,7 @@
                         <!-- Apotheke -->
                         <div class="mb-5">
                             <label for="pharmacy" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Apotheke</label>
-                            <select id="pharmacy" name="pharmacy" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                            <select id="pharmacy" name="pharmacy" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                                 <option value="" selected disabled>Apotheke auswählen</option>
                                 {% for pharmacy in pharmacies %}
                                 <option value="{{ pharmacy.id }}">{{ pharmacy.name }} - {{ pharmacy.city }}</option>
@@ -242,7 +242,7 @@
                         <!-- Kategorie -->
                         <div class="mb-5">
                             <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kategorie</label>
-                            <select id="category" name="category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                            <select id="category" name="category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                                 <option value="" selected disabled>Kategorie auswählen</option>
                                 {% get_choices "EmailRecipientCategories" as EmailRecipientCategories %}
                                 {% for item in EmailRecipientCategories %}
@@ -253,15 +253,15 @@
                         <!-- Name -->
                         <div class="mb-5">
                             <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
-                            <input type="text" id="name" name="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Max Mustermann" required />
+                            <input type="text" id="name" name="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Max Mustermann" required />
                         </div>
                         <!-- E-Mail/Benutername -->
                         <div class="mb-5">
                             <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">E-Mail</label>
-                            <input type="email" id="email" name="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="max@mustermann.de" required />
+                            <input type="email" id="email" name="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="max@mustermann.de" required />
                         </div>
 
-                        <div class="hidden py-2 px-3 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert" name="recipientExistAlert">
+                        <div class="hidden py-2 px-3 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:text-red-400" role="alert" name="recipientExistAlert">
                             Dieser Empfänger existiert bereits für die Apotheke und Kategorie.
                         </div>
                 </div>
@@ -270,7 +270,7 @@
                     <button onclick="saveCreateRecipient()" type="button" class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
                         Speichern
                     </button>
-                    <button onclick="hideModal('recipient-creation-modal')" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+                    <button onclick="hideModal('recipient-creation-modal')" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
                         Abbrechen
                     </button>
                 </div>

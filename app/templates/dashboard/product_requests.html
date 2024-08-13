@@ -6,12 +6,12 @@
 {% block content %}
 
 
-<section class="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5 antialiased">
+<section class="bg-gray-50 p-3 sm:p-5 antialiased">
     <div class="">
-        <div class="flex flex-col bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden" style="height: calc(100vh - 64px - 2.5rem);">
+        <div class="flex flex-col bg-white relative shadow-md sm:rounded-lg overflow-hidden" style="height: calc(100vh - 64px - 2.5rem);">
             <div class="flex flex-col md:flex-row md:items-center md:justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
                 <div class="flex-1 flex items-center space-x-2">
-                    <h5 class="font-semibold dark:text-white">Produktanfragen</h5>
+                    <h5 class="font-semibold">Produktanfragen</h5>
                     <div class="font-medium text-gray-500 dark:text-gray-400">
                         {{ product_requests.count }} Ergebnisse
                     </div>
@@ -25,34 +25,30 @@
                 <div class="items-center block space-y-2 sm:space-y-0 sm:flex">
                     <div class="flex items-center">
                         <div id="statusFilterButtons" class="hidden w-full rounded-md shadow-sm md:w-auto lg:inline-flex md:flex-row" role="group">
-                            <button type="button"
-                                    class="active px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-t-lg md:rounded-tr-none md:rounded-l-lg hover:bg-gray-100 hover:text-primary-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-primary-500 dark:focus:text-white">
+                            <button type="button" class="active px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-t-lg md:rounded-tr-none md:rounded-l-lg hover:bg-gray-100 hover:text-emerald-700">
                                 Alle
                             </button>
-                            <button type="button"
-                                    class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border-gray-200 border-x md:border-x-0 md:border-t md:border-b hover:bg-gray-100 hover:text-primary-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-primary-500 dark:focus:text-white">
+                            <button type="button" class="px-4 py-2 text-sm font-medium text-gray-400 bg-white border-gray-200 border-x md:border-x-0 md:border-t md:border-b hover:bg-gray-100 hover:text-emerald-700">
                                 Offen
                             </button>
-                            <button type="button"
-                                    class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-gray-200 border-x md:border-x-0 md:border-l md:border-b hover:bg-gray-100 hover:text-primary-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-primary-500 dark:focus:text-white">
+                            <button type="button" class="px-4 py-2 text-sm font-medium text-gray-400 bg-white border-t border-gray-200 border-x md:border-x-0 md:border-l md:border-b hover:bg-gray-100 hover:text-emerald-700">
                                 In Bearbeitung
                             </button>
-                            <button type="button"
-                                    class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-b-lg md:rounded-bl-none md:rounded-r-lg hover:bg-gray-100 hover:text-primary-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-primary-500 dark:focus:text-white">
+                            <button type="button" class="px-4 py-2 text-sm font-medium text-gray-400 bg-white border border-gray-200 rounded-b-lg md:rounded-bl-none md:rounded-r-lg hover:bg-gray-100 hover:text-emerald-700">
                                 Beendet
                             </button>
                         </div>
                     </div>
                 </div>
                 <div class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
-                    <button type="button" id="createProductButton" class="flex items-center justify-center text-white bg-gray-900 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-gray-600 focus:outline-none dark:focus:ring-gray-800" disabled>
-                    <!-- <button type="button" id="createProductButton" data-modal-toggle="orderModal" class="flex items-center justify-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800" disabled> -->
+                    <button type="button" id="createProductButton" class="flex items-center justify-center text-white bg-gray-900 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2 focus:outline-none dark:focus:ring-gray-800" disabled>
+                    <!-- <button type="button" id="createProductButton" data-modal-toggle="orderModal" class="flex items-center justify-center text-white bg-emerald-700 hover:bg-emerald-700 focus:ring-4 focus:ring-emerald-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-emerald-600 dark:hover:bg-emerald-700 focus:outline-none dark:focus:ring-emerald-800" disabled> -->
                         <svg class="h-3.5 w-3.5 mr-1.5 -ml-1" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                             <path clip-rule="evenodd" fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
                         </svg>
                         Hinzufügen
                     </button>
-                    <button id="filterDropdownButton" data-dropdown-toggle="filterDropdown" class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" type="button">
+                    <button id="filterDropdownButton" data-dropdown-toggle="filterDropdown" class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-emerald-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:hover:bg-gray-700" type="button">
                         <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-4 w-4 mr-1.5 -ml-1 text-gray-400" viewbox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z" clip-rule="evenodd" />
                         </svg>
@@ -61,12 +57,12 @@
                             <path clip-rule="evenodd" fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
                         </svg>
                     </button>
-                    <div id="filterDropdown" class="z-10 hidden px-3 pt-1 bg-white rounded-lg shadow w-80 dark:bg-gray-700 right-0">
+                    <div id="filterDropdown" class="z-10 hidden px-3 pt-1 bg-white rounded-lg shadow w-80 right-0">
                         <div class="flex items-center justify-between pt-2">
-                            <h6 class="text-sm font-medium text-black dark:text-white">Filters</h6>
+                            <h6 class="text-sm font-medium text-black">Filters</h6>
                             <div class="flex items-center space-x-3">
-                                <a href="#" class="flex items-center text-sm font-medium text-primary-600 dark:text-primary-500 hover:underline">Save view</a>
-                                <a href="#" class="flex items-center text-sm font-medium text-primary-600 dark:text-primary-500 hover:underline">Clear all</a>
+                                <a href="#" class="flex items-center text-sm font-medium text-emerald-600 dark:text-emerald-500 hover:underline">Save view</a>
+                                <a href="#" class="flex items-center text-sm font-medium text-emerald-600 dark:text-emerald-500 hover:underline">Clear all</a>
                             </div>
                         </div>
                         <div class="pt-3 pb-2">
@@ -77,13 +73,13 @@
                                         <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
                                     </svg>
                                 </div>
-                                <input type="text" id="input-group-search" class="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Search keywords...">
+                                <input type="text" id="input-group-search" class="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-emerald-500 focus:border-emerald-500 dark:border-gray-500 dark:placeholder-gray-400 dark:focus:border-emerald-500" placeholder="Search keywords...">
                             </div>
                         </div>
-                        <div id="accordion-flush" data-accordion="collapse" data-active-classes="text-black dark:text-white" data-inactive-classes="text-gray-500 dark:text-gray-400">
+                        <div id="accordion-flush" data-accordion="collapse" data-active-classes="text-black" data-inactive-classes="text-gray-500 dark:text-gray-400">
                             <!-- Category -->
                             <h2 id="category-heading">
-                                <button type="button" class="flex items-center justify-between w-full py-2 px-1.5 text-sm font-medium text-left text-gray-500 border-b border-gray-200 dark:border-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700" data-accordion-target="#category-body" aria-expanded="true" aria-controls="category-body">
+                                <button type="button" class="flex items-center justify-between w-full py-2 px-1.5 text-sm font-medium text-left text-gray-500 border-b border-gray-200 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700" data-accordion-target="#category-body" aria-expanded="true" aria-controls="category-body">
                                     <span>Category</span>
                                     <svg aria-hidden="true" data-accordion-icon="" class="w-5 h-5 rotate-180 shrink-0" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" clip-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
@@ -94,16 +90,16 @@
                                 <div class="py-2 font-light border-b border-gray-200 dark:border-gray-600">
                                     <ul class="space-y-2">
                                         <li class="flex items-center">
-                                            <input id="apple" type="checkbox" value="" class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                            <input id="apple" type="checkbox" value="" class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-emerald-600 focus:ring-emerald-500 dark:focus:ring-emerald-600 dark:ring-offset-gray-700 focus:ring-2 dark:border-gray-500">
                                             <label for="apple" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">Beispiel (56)</label>
                                         </li>
-                                        <a href="#" class="flex items-center text-sm font-medium text-primary-600 dark:text-primary-500 hover:underline">View all</a>
+                                        <a href="#" class="flex items-center text-sm font-medium text-emerald-600 dark:text-emerald-500 hover:underline">View all</a>
                                     </ul>
                                 </div>
                             </div>
                             <!-- Price -->
                             <h2 id="price-heading">
-                                <button type="button" class="flex items-center justify-between w-full py-2 px-1.5 text-sm font-medium text-left text-gray-500 border-b border-gray-200 dark:border-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700" data-accordion-target="#price-body" aria-expanded="true" aria-controls="price-body">
+                                <button type="button" class="flex items-center justify-between w-full py-2 px-1.5 text-sm font-medium text-left text-gray-500 border-b border-gray-200 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700" data-accordion-target="#price-body" aria-expanded="true" aria-controls="price-body">
                                     <span>Price</span>
                                     <svg aria-hidden="true" data-accordion-icon="" class="w-5 h-5 rotate-180 shrink-0" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" clip-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
@@ -111,11 +107,11 @@
                                 </button>
                             </h2>
                             <div id="price-body" class="hidden" aria-labelledby="price-heading">
-                                <div class="flex items-center py-2 space-x-3 font-light border-b border-gray-200 dark:border-gray-600"><select id="price-from" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"><option disabled="" selected="">From</option><option>$500</option><option>$2500</option><option>$5000</option></select><select id="price-to" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"><option disabled="" selected="">To</option><option>$500</option><option>$2500</option><option>$5000</option></select></div>
+                                <div class="flex items-center py-2 space-x-3 font-light border-b border-gray-200 dark:border-gray-600"><select id="price-from" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:border-emerald-500"><option disabled="" selected="">From</option><option>$500</option><option>$2500</option><option>$5000</option></select><select id="price-to" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:border-emerald-500"><option disabled="" selected="">To</option><option>$500</option><option>$2500</option><option>$5000</option></select></div>
                             </div>
                             <!-- Worldwide Shipping -->
                             <h2 id="worldwide-shipping-heading">
-                                <button type="button" class="flex items-center justify-between w-full py-2 px-1.5 text-sm font-medium text-left text-gray-500 border-b border-gray-200 dark:border-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700" data-accordion-target="#worldwide-shipping-body" aria-expanded="true" aria-controls="worldwide-shipping-body">
+                                <button type="button" class="flex items-center justify-between w-full py-2 px-1.5 text-sm font-medium text-left text-gray-500 border-b border-gray-200 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700" data-accordion-target="#worldwide-shipping-body" aria-expanded="true" aria-controls="worldwide-shipping-body">
                                     <span>Worldwide Shipping</span>
                                     <svg aria-hidden="true" data-accordion-icon="" class="w-5 h-5 rotate-180 shrink-0" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" clip-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
@@ -126,7 +122,7 @@
                                 <div class="py-2 space-y-2 font-light border-b border-gray-200 dark:border-gray-600">
                                     <label class="relative flex items-center cursor-pointer">
                                         <input type="checkbox" value="" class="sr-only peer" name="shipping" checked="">
-                                        <div class="w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-300 dark:peer-focus:ring-primary-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-primary-600"></div>
+                                        <div class="w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-emerald-300 dark:peer-focus:ring-emerald-800 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-emerald-600"></div>
                                         <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">North America</span>
                                     </label>
                                 </div>
@@ -143,7 +139,7 @@
                             <div id="rating-body" class="hidden" aria-labelledby="rating-heading">
                                 <div class="py-2 space-y-2 font-light border-b border-gray-200 dark:border-gray-600">
                                     <div class="flex items-center">
-                                        <input id="five-stars" type="radio" value="" name="rating" class="w-4 h-4 bg-gray-100 border-gray-300 text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                        <input id="five-stars" type="radio" value="" name="rating" class="w-4 h-4 bg-gray-100 border-gray-300 text-emerald-600 focus:ring-emerald-500 dark:focus:ring-emerald-600 dark:ring-offset-gray-700 focus:ring-2 dark:border-gray-600">
                                         <label for="five-stars" class="flex items-center ml-2">
                                             <svg aria-hidden="true" class="w-5 h-5 text-yellow-400" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                                 <title>First star</title>
@@ -172,16 +168,16 @@
                         </div>
                     </div>
                     <div class="flex items-center space-x-3 w-full md:w-auto">
-                        <button id="actionsDropdownButton" data-dropdown-toggle="actionsDropdown" class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" type="button">
+                        <button id="actionsDropdownButton" data-dropdown-toggle="actionsDropdown" class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-emerald-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:text-gray-400 dark:hover:bg-gray-700" type="button">
                             Actions
                             <svg class="-mr-1 ml-1.5 w-5 h-5" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                 <path clip-rule="evenodd" fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
                             </svg>
                         </button>
-                        <div id="actionsDropdown" class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
+                        <div id="actionsDropdown" class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:divide-gray-600">
                             <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="actionsDropdownButton">
                                 <li>
-                                    <a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">CSV Export</a>
+                                    <a href="#" class="block py-2 px-4 hover:bg-gray-100">CSV Export</a>
                                 </li>
                             </ul>
                         </div>
@@ -190,11 +186,11 @@
             </div>
             <div id="table-container" style="flex: 1" class="overflow-x-auto">
                 <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400" style="position: -webkit-sticky;position: sticky;top: 0;z-index: 1;">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:text-gray-400" style="position: -webkit-sticky;position: sticky;top: 0;z-index: 1;">
                         <tr>
                             <th scope="col" class="p-4">
                                 <div class="flex items-center">
-                                    <input id="checkbox-all" type="checkbox" class="w-4 h-4 text-primary-600 bg-gray-100 rounded border-gray-300 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                    <input id="checkbox-all" type="checkbox" class="w-4 h-4 text-emerald-600 bg-gray-100 rounded border-gray-300 focus:ring-emerald-500 dark:focus:ring-emerald-600 dark:ring-offset-gray-800 focus:ring-2 dark:border-gray-600">
                                     <label for="checkbox-all" class="sr-only">checkbox</label>
                                 </div>
                             </th>
@@ -213,16 +209,16 @@
                     </thead>
                     <tbody>
                         {% for product_request in product_requests %}
-                        <tr class="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600" id="productRequest-{{ product_request.id }}">
+                        <tr class="border-b hover:bg-gray-100" id="productRequest-{{ product_request.id }}">
                             <!-- Checkbox -->
                             <td class="p-4 w-4">
                                 <div class="flex items-center">
-                                    <input id="checkbox-table-search-1" type="checkbox" onclick="event.stopPropagation()" class="w-4 h-4 text-primary-600 bg-gray-100 rounded border-gray-300 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                    <input id="checkbox-table-search-1" type="checkbox" onclick="event.stopPropagation()" class="w-4 h-4 text-emerald-600 bg-gray-100 rounded border-gray-300 focus:ring-emerald-500 dark:focus:ring-emerald-600 dark:ring-offset-gray-800 focus:ring-2 dark:border-gray-600">
                                     <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
                                 </div>
                             </td>
                             <!-- Kundenname -->
-                            <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">
                                 <div hidden >
                                     <div data-name="popover-content-{{ product_request.id }}">
                                         <p class="text-gray-500 dark:text-gray-400" name="customerId">Kunden-Nr.: {{ product_request.customer.id }}</p>
@@ -241,30 +237,30 @@
                                 </a>
                             </td>
                             <!-- E-Mail Adresse -->
-                            <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ product_request.email }}</td>
+                            <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">{{ product_request.email }}</td>
                             <!-- Produkt -->
-                            <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ product_request.product }}</td>
-                            <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ product_request.product.cultivar }}</td>
+                            <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">{{ product_request.product }}</td>
+                            <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">{{ product_request.product.cultivar }}</td>
                             <!-- Menge -->
-                            <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ product_request.amount }}</td>
+                            <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">{{ product_request.amount }}</td>
                             <!-- Anfragezeit -->
-                            <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white" name="requestDate">{{ product_request.datetime|date:'d.m.Y - h:i' }} Uhr</td>
+                            <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap" name="requestDate">{{ product_request.datetime|date:'d.m.Y - h:i' }} Uhr</td>
                             <!-- Verfügbar bis -->
-                            <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white" name="availableUntil">{{ product_request.available_until|date:'d.m.Y' }}</td>
+                            <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap" name="availableUntil">{{ product_request.available_until|date:'d.m.Y' }}</td>
                             <!-- Status -->
-                            <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white" name="statusColumn">
+                            <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap" name="statusColumn">
                                 <div class="{% if product_request.status in 'approved,rejected,expired' %}hidden{% endif %}">
-                                    <button id="status{{ product_request.id }}" data-dropdown-toggle="dropdownProductRequestStatus{{ product_request.id }}" class="productRequestStatus flex justify-between items-center py-2 pr-4 pl-3 w-full font-medium text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-primary-700 md:p-0 md:w-auto dark:text-gray-400 dark:hover:text-white dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent" {% if product_request.status == 'closed' %}disabled{% endif %}>
+                                    <button id="status{{ product_request.id }}" data-dropdown-toggle="dropdownProductRequestStatus{{ product_request.id }}" class="productRequestStatus flex justify-between items-center py-2 pr-4 pl-3 w-full font-medium text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-emerald-700 md:p-0 md:w-auto dark:text-gray-400 dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent" {% if product_request.status == 'closed' %}disabled{% endif %}>
                                         <div class="h-3 w-3 rounded-full mr-2 status-circle" value="{{ product_request.status }}"></div><span>{{ product_request.get_status_display }}</span>
                                         <svg class="ml-1 w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
                                     </button>
-                                    <div id="dropdownProductRequestStatus{{ product_request.id }}" class="productRequestStatus z-20 w-44 font-normal bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600 hidden"  bis_skin_checked="1" data-popper-placement="top">
+                                    <div id="dropdownProductRequestStatus{{ product_request.id }}" class="productRequestStatus z-20 w-44 font-normal bg-white rounded divide-y divide-gray-100 shadow dark:divide-gray-600 hidden"  bis_skin_checked="1" data-popper-placement="top">
                                         <ul class="py-1 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
                                             {% get_choices "ProductRequestChoices" as ProductRequestChoices %}
                                             {% for item in ProductRequestChoices %}
                                             {% if item.0 not in 'approved,rejected,expired' %}
                                             <li>
-                                                <a href="javascript:void(0)" name="status" value="{{ item.0 }}" onclick="changeStatus(this, '{{ product_request.id }}')" class="flex py-2 px-3 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                                <a href="javascript:void(0)" name="status" value="{{ item.0 }}" onclick="changeStatus(this, '{{ product_request.id }}')" class="flex py-2 px-3 hover:bg-gray-100">
                                                     <div class="h-3 w-3 mt-1 rounded-full mr-2 status-circle" value="{{ item.0 }}"></div>{{ item.1 }} 
                                                 </a>
                                             </li>
@@ -298,15 +294,15 @@
                                 {% endif %}
                             </td>
                             <!-- Ablehnungsgrund -->
-                            <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white" name="rejectReason">
+                            <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap" name="rejectReason">
                                 {% if product_request.reject_reason %}{{ product_request.get_reject_reason_display }}{% else %}--{% endif %}
                             </td>
                             <!-- Action Buttons -->
-                            <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white" name="updateButtons">
+                            <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap" name="updateButtons">
                                 <div class="flex flex-row items-center space-x-2 {% if product_request.status in 'approved,rejected,expired' %}hidden{% endif %}">
 
                                     <!-- Ablehnen -->
-                                    <button data-tooltip-target="tooltip-rejected" onclick="openRejectionModal('{{ product_request.id }}')" type="button" class="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm p-2 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900">
+                                    <button data-tooltip-target="tooltip-rejected" onclick="openRejectionModal('{{ product_request.id }}')" type="button" class="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm p-2 text-center dark:border-red-500 dark:text-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900">
                                         <svg class="h-3 w-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                                         </svg>
@@ -317,7 +313,7 @@
                                     </div>
 
                                     <!-- Freigeben -->
-                                    <button data-tooltip-target="tooltip-approved" onclick="openApprovalModal('{{ product_request.id }}')" type="button" class="text-green-700 hover:text-white border border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm p-2 text-center dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800">
+                                    <button data-tooltip-target="tooltip-approved" onclick="openApprovalModal('{{ product_request.id }}')" type="button" class="text-green-700 hover:text-white border border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm p-2 text-center dark:border-green-500 dark:text-green-500 dark:hover:bg-green-600 dark:focus:ring-green-800">
                                         <svg class="h-3 w-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12">
                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5.917 5.724 10.5 15 1.5"/>
                                         </svg>
@@ -328,8 +324,8 @@
                                     </div>
                                 </div>
                                 <div class="flex flex-col items-start space-y-2 {% if product_request.status not in 'approved,rejected,expired' %}hidden{% endif %}">
-                                    <span class="inline-flex items-center bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300 text-xs font-medium px-2.5 py-0.5 rounded-full">
-                                        <span class="w-2 h-2 me-1 bg-blue-500 rounded-full"></span>
+                                    <span class="inline-flex items-center bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-300 text-xs font-medium px-2.5 py-0.5 rounded-full">
+                                        <span class="w-2 h-2 me-1 bg-emerald-500 rounded-full"></span>
                                         Erledigt
                                     </span>
                                 </div>
@@ -339,16 +335,16 @@
                     </tbody>
                 </table>
             </div>
-            <nav class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4 border-gray-600 dark:border-gray-600 border-t" aria-label="Table navigation">
+            <nav class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4 border-gray-600 border-t" aria-label="Table navigation">
                 <span class="text-sm font-normal text-gray-500 dark:text-gray-400">
                     Showing
-                    <span class="font-semibold text-gray-900 dark:text-white">1-100</span>
+                    <span class="font-semibold text-gray-900">1-100</span>
                     of
-                    <span class="font-semibold text-gray-900 dark:text-white">{{ orders.count }}</span>
+                    <span class="font-semibold text-gray-900">{{ orders.count }}</span>
                 </span>
                 <ul class="inline-flex items-stretch -space-x-px">
                     <li>
-                        <a href="#" class="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                        <a href="#" class="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700">
                             <span class="sr-only">Previous</span>
                             <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
@@ -356,22 +352,22 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">1</a>
+                        <a href="#" class="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700">1</a>
                     </li>
                     <li>
-                        <a href="#" class="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">2</a>
+                        <a href="#" class="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700">2</a>
                     </li>
                     <li>
-                        <a href="#" aria-current="page" class="flex items-center justify-center text-sm z-10 py-2 px-3 leading-tight text-primary-600 bg-primary-50 border border-primary-300 hover:bg-primary-100 hover:text-primary-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">3</a>
+                        <a href="#" aria-current="page" class="flex items-center justify-center text-sm z-10 py-2 px-3 leading-tight text-emerald-600 bg-emerald-50 border border-emerald-300 hover:bg-emerald-100 hover:text-emerald-700 dark:border-gray-700">3</a>
                     </li>
                     <li>
-                        <a href="#" class="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">...</a>
+                        <a href="#" class="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700">...</a>
                     </li>
                     <li>
-                        <a href="#" class="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">100</a>
+                        <a href="#" class="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700">100</a>
                     </li>
                     <li>
-                        <a href="#" class="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                        <a href="#" class="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700">
                             <span class="sr-only">Next</span>
                             <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
@@ -393,7 +389,7 @@
                 <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m7 10 2 2 4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
                 </svg>
-                <h3 class="mb-5 text-xl font-bold text-black dark:text-white">
+                <h3 class="mb-5 text-xl font-bold text-black">
                     Freigabe
                 </h3>
                 <p class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
@@ -403,20 +399,20 @@
             </div>
             <form id="approvalForm" class="pb-6 px-6 ">
                 <input type="text" name="productRequestId" hidden>
-                <label for="approvalDatepicker" class="block mb-2 font-medium text-base text-gray-900 dark:text-white">Verfügbar bis:</label>
+                <label for="approvalDatepicker" class="block mb-2 font-medium text-base text-gray-900">Verfügbar bis:</label>
                 <div class="relative max-w-sm mb-6">
                     <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
                       <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
                       </svg>
                     </div>
-                    <input datepicker type="text" id="approvalDatepicker" name="approvalDatepicker" datepicker-autohide="true" datepicker-format="d.m.y" datepicker-orientation="bottom left" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Datum wählen">
+                    <input datepicker type="text" id="approvalDatepicker" name="approvalDatepicker" datepicker-autohide="true" datepicker-format="d.m.y" datepicker-orientation="bottom left" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block w-full ps-10 p-2.5 dark:placeholder-gray-400 dark:focus:border-emerald-500" placeholder="Datum wählen">
                 </div>
                 <div class="flex justify-between">
                     <button onclick="approveProductRequest()" type="button" class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
                         Freigeben
                     </button>
-                    <button onclick="hideModal('request-approval-modal')" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+                    <button onclick="hideModal('request-approval-modal')" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:text-gray-300 dark:border-gray-500 dark:focus:ring-gray-600">
                         Abbrechen
                     </button>
                 </div>
@@ -433,7 +429,7 @@
                 <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m13 7-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
                 </svg>
-                <h3 class="mb-5 text-xl font-bold text-black dark:text-white">
+                <h3 class="mb-5 text-xl font-bold text-black">
                     Ablehnen
                 </h3>
                 <p class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
@@ -445,15 +441,15 @@
                 <input type="text" name="productRequestId" hidden>
                 <div class="px-6 mb-6 text-start w-100">
                     <div>
-                        <label for="rejectReason" class="block mb-2 font-medium text-base text-gray-900 dark:text-white">Ablehnungsgrund:</label>
-                        <select id="rejectReason" name="rejectReason" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <label for="rejectReason" class="block mb-2 font-medium text-base text-gray-900">Ablehnungsgrund:</label>
+                        <select id="rejectReason" name="rejectReason" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:border-emerald-500">
                             {% get_choices "ProductRequestRejectChoices" as ProductRequestRejectChoices %}
                             {% for item in ProductRequestRejectChoices %}
                             <option value="{{ item.0 }}">{{ item.1 }}</option>
                             {% endfor %}
                         </select>
                     </div>
-                    <div class="p-4 mb-4 mt-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 hidden" name="cancellationAlert" role="alert">
+                    <div class="p-4 mb-4 mt-4 text-sm text-red-800 rounded-lg bg-red-50 dark:text-red-400 hidden" name="cancellationAlert" role="alert">
                         Bitte den Ablehnungsgrund wählen.
                     </div>
                 </div>
@@ -462,7 +458,7 @@
                     <button onclick="rejectProductRequest()" type="button" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
                         Ablehnen
                     </button>
-                    <button onclick="hideModal('request-rejection-modal')" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+                    <button onclick="hideModal('request-rejection-modal')" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:text-gray-300 dark:border-gray-500 dark:focus:ring-gray-600">
                         Abbrechen
                     </button>
                 </div>

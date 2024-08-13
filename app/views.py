@@ -717,10 +717,11 @@ def dashboard_products_all(request):
     
     context = {}
 
-    products = Products.objects.all()
+    products = Products.objects.filter()
 
     if request.method == 'GET':
         
+
         # Seite
         page_number = request.GET.get('page', 1)
 
