@@ -11,16 +11,14 @@
             <div class="w-full mx-auto">
                 <!-- Start coding here -->
                 <div class="relative overflow-hidden">
-                    <div class="px-4">
-                        <div
-                            class="flex flex-col py-3 space-y-3 md:flex-row md:items-center md:justify-between md:space-y-0 md:space-x-4">
-                            <h4 class="font-mono text-xl font-bold ">Bestellungen</h4>
+                    <div class="flex flex-col px-4" style="height: calc(100vh);">
+                        <div class="flex flex-col py-3 space-y-3 md:flex-row md:items-center md:justify-between md:space-y-0 md:space-x-4">
+                            <h4 class="font-mono text-xl font-bold ">Kunden</h4>
                         </div>
                         <div class="flex flex-col py-3 space-y-3 md:flex-row md:items-center md:justify-between md:space-y-0 md:space-x-4">
                             <div class="flex items-center flex-1 space-x-4">
                                 <h5>
-                                    <span class="text-gray-500">Alle Kunden:</span>
-                                    <span class="">{{ customers.paginator.count }}</span>
+                                    <span>{{ customers.paginator.count }} </span><span>{% if customers.paginator.count == 1 %}Kunde{% else %}Kunden{% endif %}</span>
                                 </h5>
                             </div>
                             
@@ -30,7 +28,7 @@
                                 </svg>
                                 Neuen Kunden anlegen
                             </button>
-                            <button type="button" id="addOrderButton" onclick="createOrderChecked()" disabled class="disabled flex mr-2 items-center justify-center px-4 py-2 text-sm font-medium text-white rounded-full bg-emerald-600 focus:ring-4 focus:ring-emerald-300 focus:outline-none">
+                            <button type="button" id="addOrderButton" onclick="createOrderChecked()" disabled class="disabled flex mr-2 items-center justify-center px-4 py-2 text-sm font-medium text-white rounded-full bg-gray-300 focus:ring-4 focus:ring-emerald-300 focus:outline-none">
                                 <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                     <path clip-rule="evenodd" fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
                                 </svg>
@@ -57,7 +55,7 @@
                             </div>
         
                             <div class="flex flex-row">
-                                <button type="button" onclick="resetFilter()" class="flex items-center justify-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm  ">
+                                <button type="button" onclick="resetFilter()" class="flex items-center justify-center px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm">
                                     <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
                                         <path d="M3.9 22.9C10.5 8.9 24.5 0 40 0H472c15.5 0 29.5 8.9 36.1 22.9s4.6 30.5-5.2 42.5L396.4 195.6C316.2 212.1 256 283 256 368c0 27.4 6.3 53.4 17.5 76.5c-1.6-.8-3.2-1.8-4.7-2.9l-64-48c-8.1-6-12.8-15.5-12.8-25.6V288.9L9 65.3C-.7 53.4-2.8 36.8 3.9 22.9zM432 224a144 144 0 1 1 0 288 144 144 0 1 1 0-288zm59.3 107.3c6.2-6.2 6.2-16.4 0-22.6s-16.4-6.2-22.6 0L432 345.4l-36.7-36.7c-6.2-6.2-16.4-6.2-22.6 0s-6.2 16.4 0 22.6L409.4 368l-36.7 36.7c-6.2 6.2-6.2 16.4 0 22.6s16.4 6.2 22.6 0L432 390.6l36.7 36.7c6.2 6.2 16.4 6.2 22.6 0s6.2-16.4 0-22.6L454.6 368l36.7-36.7z"/>
                                     </svg>
@@ -65,7 +63,7 @@
                                 </button>
                             </div>
                         </div>
-                        <div id="table-container" class="overflow-x-auto">
+                        <div id="table-container" style="flex: 1" class="overflow-x-auto">
                             <table class="w-full text-sm text-left text-gray-500 ">
                                 <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                                     <tr>
@@ -118,9 +116,9 @@
                                         <!-- Patiententtyp -->
                                         <td class="px-4 py-2">
                                             <span
-                                            class="text-xs font-medium px-2 py-0.5 rounded
+                                            class="text-xs font-medium px-2 py-0.5 rounded-full
                                             {% if customer.customer_type == 'self_payer' %}
-                                            bg-emerald-100 text-emerald-800
+                                            bg-emerald-600 text-white
                                             {% elif customer.customer_type == 'insurance_patient' %}
                                             bg-purple-100 text-purple-800
                                             {% elif customer.customer_type == 'insurance_patient_with_supplement' %}
@@ -394,12 +392,12 @@
                                         <!-- Vorname -->
                                         <div>
                                             <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900">Vorname</label>
-                                            <input type="text" name="firstName" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5   " placeholder="Vorname" required="">
+                                            <input type="text" name="firstName" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5   " placeholder="Vorname" required="">
                                         </div>
                                         <!-- Nachname -->
                                         <div>
                                             <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900">Nachname</label>
-                                            <input type="text" name="lastName" id="last_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5   " placeholder="Nachname" required="">
+                                            <input type="text" name="lastName" id="last_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5   " placeholder="Nachname" required="">
                                         </div>
                                         <!-- Geburtsdatum -->
                                         <div class="relative max-w-sm">
@@ -418,24 +416,24 @@
                                         <!-- Straße -->
                                         <div>
                                             <label for="street" class="block mb-2 text-sm font-medium text-gray-900">Straße</label>
-                                            <input type="text" name="street" id="street" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5   " placeholder="Straße" required="">
+                                            <input type="text" name="street" id="street" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5   " placeholder="Straße" required="">
                                         </div>
                                         <!-- Hausnummer -->
                                         <div>
                                             <label for="street_number" class="block mb-2 text-sm font-medium text-gray-900">Hausnummer</label>
-                                            <input type="text" name="streetNumber" id="street_number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5   " placeholder="Hausnummer" required="">
+                                            <input type="text" name="streetNumber" id="street_number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5   " placeholder="Hausnummer" required="">
                                         </div>
                                         <!-- PLZ -->
                                         <div>
                                             <label for="postalcode" class="block mb-2 text-sm font-medium text-gray-900">Postleitzahl</label>
-                                            <input type="text" name="postalcode" id="postalcode" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5   " placeholder="Postleitzahl" required="">
+                                            <input type="text" name="postalcode" id="postalcode" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5   " placeholder="Postleitzahl" required="">
                                         </div>
                                     </div>
                                     <div class="grid gap-4 mb-4 sm:grid-cols-2">
                                         <!-- Stadt -->
                                         <div>
                                             <label for="city" class="block mb-2 text-sm font-medium text-gray-900">Stadt</label>
-                                            <input type="text" name="city" id="city" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5   " placeholder="Stadt" required="">
+                                            <input type="text" name="city" id="city" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5   " placeholder="Stadt" required="">
                                         </div>
                                         <!-- Land -->
                                         <div>
@@ -450,17 +448,17 @@
                                         <!-- Telefonnummer -->
                                         <div>
                                             <label for="phone_number" class="block mb-2 text-sm font-medium text-gray-900">Telefonnummer</label>
-                                            <input type="text" name="phonenumber" id="phone_number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5   " placeholder="Telefonnummer" required="">
+                                            <input type="text" name="phonenumber" id="phone_number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5   " placeholder="Telefonnummer" required="">
                                         </div>
                                         <!-- E-Mail -->
                                         <div>
                                             <label for="email_address" class="block mb-2 text-sm font-medium text-gray-900">E-Mail Adresse</label>
-                                            <input type="email" name="email" id="email_address" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5   " placeholder="E-Mail Adresse" required="">
+                                            <input type="email" name="email" id="email_address" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5   " placeholder="E-Mail Adresse" required="">
                                         </div>
                                         <!-- Kommentar -->
                                         <div class="sm:col-span-2">
                                             <label for="comment" class="block mb-2 text-sm font-medium text-gray-900">Kommentar</label>
-                                            <textarea id="comment" name="comment" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 border border-gray-300 focus:ring-emerald-500 focus:border-emerald-500   " placeholder="Kommentar"></textarea>
+                                            <textarea id="comment" name="comment" rows="4" class="block p-2.5 w-full text-sm rounded-lg text-gray-900 bg-gray-50 border border-gray-300 focus:ring-emerald-500 focus:border-emerald-500" placeholder="Kommentar"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -481,31 +479,31 @@
                                     <div class="grid gap-4 mb-4 sm:grid-cols-3">
                                         <div>
                                             <label for="del_first_name" class="block mb-2 text-sm font-medium text-gray-900">Vorname</label>
-                                            <input type="text" name="delFirstName" id="del_first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5   " placeholder="Vorname" required="">
+                                            <input type="text" name="delFirstName" id="del_first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5   " placeholder="Vorname" required="">
                                         </div>
                                         <div>
                                             <label for="del_last_name" class="block mb-2 text-sm font-medium text-gray-900">Nachname</label>
-                                            <input type="text" name="delLastName" id="del_last_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5   " placeholder="Nachname" required="">
+                                            <input type="text" name="delLastName" id="del_last_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5   " placeholder="Nachname" required="">
                                         </div>
                                     </div>
                                     <div class="grid gap-4 mb-4 sm:grid-cols-3">
                                         <div>
                                             <label for="del_street" class="block mb-2 text-sm font-medium text-gray-900">Straße</label>
-                                            <input type="text" name="delStreet" id="del_street" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5   " placeholder="Straße" required="">
+                                            <input type="text" name="delStreet" id="del_street" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5   " placeholder="Straße" required="">
                                         </div>
                                         <div>
                                             <label for="del_street_number" class="block mb-2 text-sm font-medium text-gray-900">Hausnummer</label>
-                                            <input type="text" name="delStreetNumber" id="del_street_number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5   " placeholder="Hausnummer" required="">
+                                            <input type="text" name="delStreetNumber" id="del_street_number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5   " placeholder="Hausnummer" required="">
                                         </div>
                                         <div>
                                             <label for="del_postalcode" class="block mb-2 text-sm font-medium text-gray-900">Postleitzahl</label>
-                                            <input type="text" name="delPostalcode" id="del_postalcode" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5   " placeholder="Postleitzahl" required="">
+                                            <input type="text" name="delPostalcode" id="del_postalcode" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5   " placeholder="Postleitzahl" required="">
                                         </div>
                                     </div>
                                     <div class="grid gap-4 mb-4 sm:grid-cols-2">
                                         <div>
                                             <label for="del_city" class="block mb-2 text-sm font-medium text-gray-900">Stadt</label>
-                                            <input type="text" name="delCity" id="del_city" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5   " placeholder="Stadt" required="">
+                                            <input type="text" name="delCity" id="del_city" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5   " placeholder="Stadt" required="">
                                         </div>
                                         <div>
                                             <label for="del_country" class="block mb-2 text-sm font-medium text-gray-900">Land</label>
@@ -518,7 +516,7 @@
                                         </div>
                                         <div class="sm:col-span-2">
                                             <label for="del_comment" class="block mb-2 text-sm font-medium text-gray-900">Kommentar</label>
-                                            <textarea id="del_comment" name="delComment" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-full border border-gray-300 focus:ring-emerald-500 focus:border-emerald-500   " placeholder="Kommentar"></textarea>
+                                            <textarea id="del_comment" name="delComment" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-emerald-500 focus:border-emerald-500" placeholder="Kommentar"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -725,12 +723,12 @@
                                         <!-- Vorname -->
                                         <div>
                                             <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900">Vorname</label>
-                                            <input type="text" name="firstName" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5   " placeholder="Vorname" required="">
+                                            <input type="text" name="firstName" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5   " placeholder="Vorname" required="">
                                         </div>
                                         <!-- Nachname -->
                                         <div>
                                             <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900">Nachname</label>
-                                            <input type="text" name="lastName" id="last_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5   " placeholder="Nachname" required="">
+                                            <input type="text" name="lastName" id="last_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5   " placeholder="Nachname" required="">
                                         </div>
                                         <!-- Geburtsdatum -->
                                         <div class="relative max-w-sm">
@@ -749,24 +747,24 @@
                                         <!-- Straße -->
                                         <div>
                                             <label for="street" class="block mb-2 text-sm font-medium text-gray-900">Straße</label>
-                                            <input type="text" name="street" id="street" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5   " placeholder="Straße" required="">
+                                            <input type="text" name="street" id="street" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5   " placeholder="Straße" required="">
                                         </div>
                                         <!-- Hausnummer -->
                                         <div>
                                             <label for="street_number" class="block mb-2 text-sm font-medium text-gray-900">Hausnummer</label>
-                                            <input type="text" name="streetNumber" id="street_number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5   " placeholder="Hausnummer" required="">
+                                            <input type="text" name="streetNumber" id="street_number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5   " placeholder="Hausnummer" required="">
                                         </div>
                                         <!-- PLZ -->
                                         <div>
                                             <label for="postalcode" class="block mb-2 text-sm font-medium text-gray-900">Postleitzahl</label>
-                                            <input type="text" name="postalcode" id="postalcode" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5   " placeholder="Postleitzahl" required="">
+                                            <input type="text" name="postalcode" id="postalcode" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5   " placeholder="Postleitzahl" required="">
                                         </div>
                                     </div>
                                     <div class="grid gap-4 mb-4 sm:grid-cols-2">
                                         <!-- Stadt -->
                                         <div>
                                             <label for="city" class="block mb-2 text-sm font-medium text-gray-900">Stadt</label>
-                                            <input type="text" name="city" id="city" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5   " placeholder="Stadt" required="">
+                                            <input type="text" name="city" id="city" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5   " placeholder="Stadt" required="">
                                         </div>
                                         <!-- Land -->
                                         <div>
@@ -781,17 +779,17 @@
                                         <!-- Telefonnummer -->
                                         <div>
                                             <label for="phone_number" class="block mb-2 text-sm font-medium text-gray-900">Telefonnummer</label>
-                                            <input type="text" name="phonenumber" id="phone_number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5   " placeholder="Telefonnummer" required="">
+                                            <input type="text" name="phonenumber" id="phone_number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5   " placeholder="Telefonnummer" required="">
                                         </div>
                                         <!-- E-Mail -->
                                         <div>
                                             <label for="email_address" class="block mb-2 text-sm font-medium text-gray-900">E-Mail Adresse</label>
-                                            <input type="email" name="email" id="email_address" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5   " placeholder="E-Mail Adresse" required="">
+                                            <input type="email" name="email" id="email_address" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5   " placeholder="E-Mail Adresse" required="">
                                         </div>
                                         <!-- Kommentar -->
                                         <div class="sm:col-span-2">
                                             <label for="comment" class="block mb-2 text-sm font-medium text-gray-900">Kommentar</label>
-                                            <textarea id="comment" name="comment" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-full border border-gray-300 focus:ring-emerald-500 focus:border-emerald-500   " placeholder="Kommentar"></textarea>
+                                            <textarea id="comment" name="comment" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-emerald-500 focus:border-emerald-500" placeholder="Kommentar"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -1529,7 +1527,7 @@
                                         </div>\
                                         <div>\
                                             <label for="productAmount" class="block mb-2 text-sm font-medium text-gray-900" name="productAmountLabel">Menge (<span id="availableAmountLabel-' + data.product.id +'">' + data.available_amount + '</span> verfügbar)</label>\
-                                            <input type="number" name="productAmount" onchange="changeProductDetails(' + data.product.id + ')" id="productAmount" value="1" min="1" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5   " placeholder="">\
+                                            <input type="number" name="productAmount" onchange="changeProductDetails(' + data.product.id + ')" id="productAmount" value="1" min="1" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5   " placeholder="">\
                                         </div>\
                                         <div>\
                                             <label for="form" class="block mb-2 text-sm font-medium text-gray-900">Form</label>\
@@ -1589,10 +1587,13 @@
                                 
                 if (data.available_amount >= amount) {
                     amountInput.removeClass('border-red-500')
-                    amountInput.removeClass('')-(.removeClass('border-gray-300')
+                    amountInput.removeClass('')
+                    amountInput.removeClass('border-gray-300')
                     amountInput.removeClass('')
                     amountInput.addClass('border-red-500')
-                    amountInput.addClass('') )addClass('hidden')
+                    amountInput.addClass('')
+                    amountInput.addClass('hidden')
+                }
                 toggleModal('alert-modal')
         
             }
@@ -2014,6 +2015,6 @@
 </script>
 
 <!-- Search product -->
-<script src="{% static '/app/js/productSearch.js' %}?version=1.1" data-product-url="{% url 'request_product_datas' %}" data-pharmacy-id="{{ selected_pharmacy_id }}"></script>
+<script src="{% static '/js/productSearch.js' %}?version=1.1" data-product-url="{% url 'request_product_datas' %}" data-pharmacy-id="{{ selected_pharmacy_id }}"></script>
 
 {% endblock %}

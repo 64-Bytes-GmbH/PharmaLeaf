@@ -1278,6 +1278,8 @@ def dashboard_customers(request):
 def dashboard_users(request):
     """ Benutzer """
 
+    context = {}
+    
     if request.method == 'GET':
 
         # Get pharmacy premissons if not superuser
@@ -1287,7 +1289,6 @@ def dashboard_users(request):
         else:
             pharmacy_users = UserPremissions.objects.all().values_list('user', flat=True).distinct()
 
-        context = {}
 
         users = User.objects.filter(id__in=pharmacy_users, is_staff=True).order_by('-date_joined')
         

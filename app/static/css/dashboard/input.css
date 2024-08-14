@@ -119,7 +119,7 @@
 #orderModal > div::-webkit-scrollbar-thumb,
 #dropdownProductList::-webkit-scrollbar-thumb,
 #table-container::-webkit-scrollbar-thumb {
-    background-color: #65a30d;
+    background-color: #0E9F6E;
     border-top: solid 3px transparent;
     background-clip: content-box;
     /* border-radius: 10px; */

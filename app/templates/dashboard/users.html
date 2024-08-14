@@ -4,249 +4,247 @@
 {% load static extra_tags %}
 
 {% block content %}
-<section class="bg-gray-50 p-3 sm:p-5 antialiased">
-    <div class="">
-        <div class="flex flex-col bg-white relative shadow-md sm:rounded-lg overflow-hidden" style="height: calc(100vh - 64px - 2.5rem);">
-            <div class="px-4 divide-y dark:divide-gray-700">
-                <div class="flex flex-col py-3 space-y-3 md:flex-row md:items-center md:justify-between md:space-y-0 md:space-x-4">
-                    <div class="flex items-center flex-1 space-x-4">
-                        <h5>
-                            <span class="text-gray-500">Benutzer des Dashboards:</span>
-                            <span class="dark:text-white">{{ users.paginator.count }}</span>
-                        </h5>
-                    </div>
-                    
-                    <button type="button" onclick="createUser()" class="flex mr-2 items-center justify-center px-4 py-2 text-sm font-medium text-white rounded-lg bg-emerald-700 hover:bg-emerald-700 focus:ring-4 focus:ring-emerald-300 dark:bg-emerald-600 dark:hover:bg-emerald-700 focus:outline-none dark:focus:ring-emerald-800">
-                        <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                            <path clip-rule="evenodd" fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
-                        </svg>
-                        Neuen Benutzer anlegen
-                    </button>
+<section class="bg-gray-50 antialiased">
+    <div class="flex flex-col bg-white relative shadow-md sm:rounded-lg overflow-hidden" style="height: 100vh;">
+        <div class="px-4 divide-y dark:divide-gray-700">
+            <div class="flex flex-col py-3 space-y-3 md:flex-row md:items-center md:justify-between md:space-y-0 md:space-x-4">
+                <div class="flex items-center flex-1 space-x-4">
+                    <h5>
+                        <span class="text-gray-500">Benutzer des Dashboards:</span>
+                        <span class="dark:text-white">{{ users.paginator.count }}</span>
+                    </h5>
                 </div>
                 
-                <div class="flex flex-col items-stretch justify-between py-4 space-y-3 md:flex-row md:items-center md:space-y-0">
-                    
-                    <div class="flex flex-row">
-                        <div class="relative" style="min-width: 300px;">
-                            <div class="absolute inset-y-0 start-0 flex items-center ps-4 pointer-events-none">
-                                <svg class="h-3.5 w-3.5 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                                </svg>
-                            </div>
-                            <input type="text" id="searchCustomer" class="bg-gray-50 border w-full border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block ps-10 p-2 dark:placeholder-gray-400 dark:text-white dark:focus:ring-emerald-500 dark:focus:border-emerald-500" placeholder="Vorname, Nachname, E-Mail" required>
-                        </div>
-                        <button type="button" onclick="searchCustomer()" class="flex mr-2 items-center justify-center px-4 py-2 ms-2 text-sm font-medium text-white rounded-lg bg-emerald-700 hover:bg-emerald-700 focus:ring-4 focus:ring-emerald-300 dark:bg-emerald-600 dark:hover:bg-emerald-700 focus:outline-none dark:focus:ring-emerald-800">
-                            <svg class="h-3.5 w-3.5 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                            </svg>
-                            Suchen
-                        </button>
-                    </div>
-
-                    <div class="flex flex-row">
-                        <button type="button" onclick="resetFilter()" class="flex items-center justify-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm dark:text-white dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
-                            <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
-                                <path d="M3.9 22.9C10.5 8.9 24.5 0 40 0H472c15.5 0 29.5 8.9 36.1 22.9s4.6 30.5-5.2 42.5L396.4 195.6C316.2 212.1 256 283 256 368c0 27.4 6.3 53.4 17.5 76.5c-1.6-.8-3.2-1.8-4.7-2.9l-64-48c-8.1-6-12.8-15.5-12.8-25.6V288.9L9 65.3C-.7 53.4-2.8 36.8 3.9 22.9zM432 224a144 144 0 1 1 0 288 144 144 0 1 1 0-288zm59.3 107.3c6.2-6.2 6.2-16.4 0-22.6s-16.4-6.2-22.6 0L432 345.4l-36.7-36.7c-6.2-6.2-16.4-6.2-22.6 0s-6.2 16.4 0 22.6L409.4 368l-36.7 36.7c-6.2 6.2-6.2 16.4 0 22.6s16.4 6.2 22.6 0L432 390.6l36.7 36.7c6.2 6.2 16.4 6.2 22.6 0s6.2-16.4 0-22.6L454.6 368l36.7-36.7z"/>
-                            </svg>
-                            Filter löschen
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div id="table-container" class="overflow-x-auto">
-                <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:text-gray-400">
-                        <tr>
-                            <th scope="col" class="p-4">
-                                <div class="flex items-center">
-                                    <input id="checkbox-all" type="checkbox" class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-emerald-600 focus:ring-emerald-500 dark:focus:ring-emerald-600 dark:ring-offset-gray-800 focus:ring-2 dark:border-gray-600">
-                                    <label for="checkbox-all" class="sr-only">checkbox</label>
-                                </div>
-                            </th>
-                            <th scope="col" class="px-4 py-3">Benutzername</th>
-                            <th scope="col" class="px-4 py-3">Name</th>
-                            <th scope="col" class="px-4 py-3">Erstellt am</th>
-                            <th scope="col" class="px-4 py-3">Letzter Login</th>
-                            <th scope="col" class="px-4 py-3">Benutzerart</th>
-                            <th scope="col" class="px-4 py-3 text-center">Aktiviert</th>
-                            <th scope="col" class="px-4 py-3"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for user in users %}
-                        <tr id="user-{{ user.id }}" class="border-t hover:bg-gray-100 dark:hover:bg-gray-700">
-                            <!-- Checkbox -->
-                            <td class="w-4 px-4 py-3">
-                                <div class="flex items-center">
-                                    <input data-user-id="{{ user.id }}" type="checkbox" onclick="event.stopPropagation()" class="user-checkbox w-4 h-4 bg-gray-100 border-gray-300 rounded text-emerald-600 focus:ring-emerald-500 dark:focus:ring-emerald-600 dark:ring-offset-gray-800 focus:ring-2 dark:border-gray-600">
-                                </div>
-                            </td>
-                            <!-- Benutzername -->
-                            <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                <a href="javascript:void(0)" class="text-emerald-600 dark:text-emerald-500" onclick="showUserRights('{{ user.id }}', this)">{{ user.username }}</a>
-                            </td>
-                            <!-- Name -->
-                            <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                {{ user.get_full_name }}
-                            </td>
-                            <!-- Erstellt am -->
-                            <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                {{ user.date_joined|date:'d.m.Y - H:i' }} Uhr
-                            </td>
-                            <!-- Letzter login -->
-                            <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                {% if user.last_login %}
-                                {{ user.last_login|date:'d.m.Y - H:i' }} Uhr
-                                {% else %}
-                                --
-                                {% endif %}
-                            </td>
-                            <!-- Benutzerart -->
-                            <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                {% if user.is_superuser %}
-                                <span class="text-xs font-medium px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-300">Admin</span>
-                                {% else %}
-                                <span class="text-xs font-medium px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-300">Mitarbeiter</span>
-                                {% endif %}
-                            </td>
-                            <!-- Aktiv -->
-                            <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-w">
-                                <div class="flex justify-center">
-                                    {% if user.is_active %}
-                                    <svg class="w-4 h-4 text-green-500 dark:text-green-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                                        <path fill-rule="evenodd" d="M2 12a10 10 0 1 1 20 0 10 10 0 0 1-20 0Zm13.7-1.3a1 1 0 0 0-1.4-1.4L11 12.6l-1.8-1.8a1 1 0 0 0-1.4 1.4l2.5 2.5c.4.4 1 .4 1.4 0l4-4Z" clip-rule="evenodd"/>
-                                    </svg>
-                                    {% else %}
-                                    <svg class="w-4 h-4 text-red-600 dark:text-red-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                                        <path fill-rule="evenodd" d="M2 12a10 10 0 1 1 20 0 10 10 0 0 1-20 0Zm7.7-3.7a1 1 0 0 0-1.4 1.4l2.3 2.3-2.3 2.3a1 1 0 1 0 1.4 1.4l2.3-2.3 2.3 2.3a1 1 0 0 0 1.4-1.4L13.4 12l2.3-2.3a1 1 0 0 0-1.4-1.4L12 10.6 9.7 8.3Z" clip-rule="evenodd"/>
-                                    </svg>
-                                    {% endif %}
-                                </div>
-                            </td>
-                            <!-- Edit -->
-                            <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                <button id="dropdown-menu-button-{{ user.id }}" data-dropdown-toggle="dropdown-menu-{{ user.id }}" class="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100" type="button">
-                                    <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" />
-                                    </svg>
-                                </button>
-                                <div id="dropdown-menu-{{ user.id }}" class="hidden z-10 w-52 bg-white rounded divide-y divide-gray-100 shadow dark:divide-gray-600">
-                                    <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdown-menu-{{ user.id }}-button">
-                                        <li>
-                                            <a href="javascript:void(0)" onclick="editUser('{{ user.id }}')" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Bearbeiten</a>
-                                        </li>
-                                        {% if not user.is_superuser %}
-                                        <li>
-                                            <a href="javascript:void(0)" onclick="editUserRights('{{ user.id }}')" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Nutzerrechte</a>
-                                        </li>
-                                        {% endif %}
-                                        <li>
-                                            <a href="javascript:void(0)" onclick="sendPasswordResetLink('{{ user.id }}')" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Passwort vergessen Link</a>
-                                        </li>
-                                    </ul>
-                                    <div class="py-1">
-                                        <a href="javascript:void(0)" onclick="deleteUser('{{ user.id }}')" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Löschen</a>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="hidden user-rights" id="user-rights-{{ user.id }}">
-                            <td colspan="1" class="px-4 py-3"></td>
-                            <td colspan="8" class="px-4 py-3">
-                                {% if user.is_superuser %}
-                                <span class="">Alle Rechte</span>
-                                {% else %}
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th class="py-1 px-2"></th>
-                                            {% for pharmacy in user|get_pharmacyrights:request.user %}
-                                            <th class="py-1 px-4 text-left">{{ pharmacy.name }}</th>
-                                            {% endfor %}
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {% for userpremission in user|get_userrights %}
-                                        <tr>
-                                            <td class="py-1 px-2">{{ userpremission.view_display }}</td>
-                                            {% for pharmacy in user|get_pharmacyrights:request.user %}
-                                            <td class="py-1 px-4">
-                                                <div class="flex justify-start gap-2">
-                                                    {% get_read_premission user userpremission.view pharmacy as read_permission %}
-                                                    {% if read_permission %}
-                                                    <span class="text-xs font-medium px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-300">
-                                                        Lesen
-                                                    </span>
-                                                    {% endif %}
-                                                    {% get_write_premission user userpremission.view pharmacy as write_permission %}
-                                                    {% if write_permission %}
-                                                    <span class="text-xs font-medium px-2 py-0.5 rounded bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300">
-                                                        Schreiben
-                                                    </span>
-                                                    {% endif %}
-                                                </div>
-                                            </td>
-                                            {% endfor %}
-                                        </tr>
-                                        {% endfor %}
-                                    </tbody>
-                                </table>
-                                {% endif %}
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+                <button type="button" onclick="createUser()" class="flex mr-2 items-center justify-center px-4 py-2 text-sm font-medium text-white rounded-full bg-emerald-700 hover:bg-emerald-700 focus:ring-4 focus:ring-emerald-300 dark:bg-emerald-600 dark:hover:bg-emerald-700 focus:outline-none dark:focus:ring-emerald-800">
+                    <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path clip-rule="evenodd" fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
+                    </svg>
+                    Neuen Benutzer anlegen
+                </button>
             </div>
             
-            <nav class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4 border-gray-600 border-t" aria-label="Table navigation">
-                <ul class="inline-flex items-stretch -space-x-px">
-                    {% with users.paginator.page_range|first as first_page %}
-                    {% with 'page:'|concat_string:first_page as page_string %}
-                    {% with updated_params=request.GET|add_get_parameter:page_string %}
-                    <li>
-                        <a href="?{{ updated_params }}" class="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                            <span class="sr-only">Erste Seite</span>
-                            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" viewBox="0 0 12 10">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M5 1 1 5l4 4m6-8L7 5l4 4"/>
+            <div class="flex flex-col items-stretch justify-between py-4 space-y-3 md:flex-row md:items-center md:space-y-0">
+                
+                <div class="flex flex-row">
+                    <div class="relative" style="min-width: 300px;">
+                        <div class="absolute inset-y-0 start-0 flex items-center ps-4 pointer-events-none">
+                            <svg class="h-3.5 w-3.5 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                             </svg>
-                        </a>
-                    </li>
-                    {% endwith %}
-                    {% endwith %}
-                    {% endwith %}
-                    {% for page_num in users.paginator.page_range|get_page_range:users.number %}
-                    {% if users.number == page_num %}
-                    <li>
-                        <a href="?{{ updated_params }}" aria-current="page" class="flex items-center justify-center text-sm z-10 py-2 px-3 leading-tight text-emerald-600 bg-emerald-50 border border-emerald-300 hover:bg-emerald-100 hover:text-emerald-700 dark:border-gray-700 dark:text-white">{{ page_num }}</a>
-                    </li>
-                    {% else %}
-                    {% with 'page:'|concat_string:page_num as page_string %}
-                    {% with updated_params=request.GET|add_get_parameter:page_string %}
-                    <li>
-                        <a href="?{{ updated_params }}" class="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{ page_num }}</a>
-                    </li>
-                    {% endwith %}
-                    {% endwith %}
-                    {% endif %}
-                    {% endfor %}
-                    {% with users.paginator.page_range|last as last_page %}
-                    {% with 'page:'|concat_string:last_page as page_string %}
-                    {% with updated_params=request.GET|add_get_parameter:page_string %}
-                    <li>
-                        <a href="?{{ updated_params }}" class="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                            <span class="sr-only">Letzte Seite</span>
-                            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" viewBox="0 0 12 10">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="m7 9 4-4-4-4M1 9l4-4-4-4"/>
-                            </svg>
-                        </a>
-                    </li>
-                    {% endwith %}
-                    {% endwith %}
-                    {% endwith %}
-                </ul>
-            </nav>
+                        </div>
+                        <input type="text" id="searchCustomer" class="bg-gray-50 border w-full border-gray-300 text-gray-900 text-sm rounded-full focus:ring-emerald-500 focus:border-emerald-500 block ps-10 p-2 dark:placeholder-gray-400 dark:text-white dark:focus:ring-emerald-500 dark:focus:border-emerald-500" placeholder="Vorname, Nachname, E-Mail" required>
+                    </div>
+                    <button type="button" onclick="searchCustomer()" class="flex mr-2 items-center justify-center px-4 py-2 ms-2 text-sm font-medium text-white rounded-full bg-emerald-700 hover:bg-emerald-700 focus:ring-4 focus:ring-emerald-300 dark:bg-emerald-600 dark:hover:bg-emerald-700 focus:outline-none dark:focus:ring-emerald-800">
+                        <svg class="h-3.5 w-3.5 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                        </svg>
+                        Suchen
+                    </button>
+                </div>
+
+                <div class="flex flex-row">
+                    <button type="button" onclick="resetFilter()" class="flex items-center justify-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm dark:text-white dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
+                        <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                            <path d="M3.9 22.9C10.5 8.9 24.5 0 40 0H472c15.5 0 29.5 8.9 36.1 22.9s4.6 30.5-5.2 42.5L396.4 195.6C316.2 212.1 256 283 256 368c0 27.4 6.3 53.4 17.5 76.5c-1.6-.8-3.2-1.8-4.7-2.9l-64-48c-8.1-6-12.8-15.5-12.8-25.6V288.9L9 65.3C-.7 53.4-2.8 36.8 3.9 22.9zM432 224a144 144 0 1 1 0 288 144 144 0 1 1 0-288zm59.3 107.3c6.2-6.2 6.2-16.4 0-22.6s-16.4-6.2-22.6 0L432 345.4l-36.7-36.7c-6.2-6.2-16.4-6.2-22.6 0s-6.2 16.4 0 22.6L409.4 368l-36.7 36.7c-6.2 6.2-6.2 16.4 0 22.6s16.4 6.2 22.6 0L432 390.6l36.7 36.7c6.2 6.2 16.4 6.2 22.6 0s6.2-16.4 0-22.6L454.6 368l36.7-36.7z"/>
+                        </svg>
+                        Filter löschen
+                    </button>
+                </div>
+            </div>
         </div>
+        <div id="table-container" class="overflow-x-auto">
+            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:text-gray-400">
+                    <tr>
+                        <th scope="col" class="p-4">
+                            <div class="flex items-center">
+                                <input id="checkbox-all" type="checkbox" class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-emerald-600 focus:ring-emerald-500 dark:focus:ring-emerald-600 dark:ring-offset-gray-800 focus:ring-2 dark:border-gray-600">
+                                <label for="checkbox-all" class="sr-only">checkbox</label>
+                            </div>
+                        </th>
+                        <th scope="col" class="px-4 py-3">Benutzername</th>
+                        <th scope="col" class="px-4 py-3">Name</th>
+                        <th scope="col" class="px-4 py-3">Erstellt am</th>
+                        <th scope="col" class="px-4 py-3">Letzter Login</th>
+                        <th scope="col" class="px-4 py-3">Benutzerart</th>
+                        <th scope="col" class="px-4 py-3 text-center">Aktiviert</th>
+                        <th scope="col" class="px-4 py-3"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                    <tr id="user-{{ user.id }}" class="border-t hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <!-- Checkbox -->
+                        <td class="w-4 px-4 py-3">
+                            <div class="flex items-center">
+                                <input data-user-id="{{ user.id }}" type="checkbox" onclick="event.stopPropagation()" class="user-checkbox w-4 h-4 bg-gray-100 border-gray-300 rounded text-emerald-600 focus:ring-emerald-500 dark:focus:ring-emerald-600 dark:ring-offset-gray-800 focus:ring-2 dark:border-gray-600">
+                            </div>
+                        </td>
+                        <!-- Benutzername -->
+                        <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <a href="javascript:void(0)" class="text-emerald-600 dark:text-emerald-500" onclick="showUserRights('{{ user.id }}', this)">{{ user.username }}</a>
+                        </td>
+                        <!-- Name -->
+                        <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            {{ user.get_full_name }}
+                        </td>
+                        <!-- Erstellt am -->
+                        <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            {{ user.date_joined|date:'d.m.Y - H:i' }} Uhr
+                        </td>
+                        <!-- Letzter login -->
+                        <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            {% if user.last_login %}
+                            {{ user.last_login|date:'d.m.Y - H:i' }} Uhr
+                            {% else %}
+                            --
+                            {% endif %}
+                        </td>
+                        <!-- Benutzerart -->
+                        <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            {% if user.is_superuser %}
+                            <span class="text-xs font-medium px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-300">Admin</span>
+                            {% else %}
+                            <span class="text-xs font-medium px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-300">Mitarbeiter</span>
+                            {% endif %}
+                        </td>
+                        <!-- Aktiv -->
+                        <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-w">
+                            <div class="flex justify-center">
+                                {% if user.is_active %}
+                                <svg class="w-4 h-4 text-green-500 dark:text-green-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                    <path fill-rule="evenodd" d="M2 12a10 10 0 1 1 20 0 10 10 0 0 1-20 0Zm13.7-1.3a1 1 0 0 0-1.4-1.4L11 12.6l-1.8-1.8a1 1 0 0 0-1.4 1.4l2.5 2.5c.4.4 1 .4 1.4 0l4-4Z" clip-rule="evenodd"/>
+                                </svg>
+                                {% else %}
+                                <svg class="w-4 h-4 text-red-600 dark:text-red-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                    <path fill-rule="evenodd" d="M2 12a10 10 0 1 1 20 0 10 10 0 0 1-20 0Zm7.7-3.7a1 1 0 0 0-1.4 1.4l2.3 2.3-2.3 2.3a1 1 0 1 0 1.4 1.4l2.3-2.3 2.3 2.3a1 1 0 0 0 1.4-1.4L13.4 12l2.3-2.3a1 1 0 0 0-1.4-1.4L12 10.6 9.7 8.3Z" clip-rule="evenodd"/>
+                                </svg>
+                                {% endif %}
+                            </div>
+                        </td>
+                        <!-- Edit -->
+                        <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <button id="dropdown-menu-button-{{ user.id }}" data-dropdown-toggle="dropdown-menu-{{ user.id }}" class="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100" type="button">
+                                <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" />
+                                </svg>
+                            </button>
+                            <div id="dropdown-menu-{{ user.id }}" class="hidden z-10 w-52 bg-white rounded divide-y divide-gray-100 shadow dark:divide-gray-600">
+                                <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdown-menu-{{ user.id }}-button">
+                                    <li>
+                                        <a href="javascript:void(0)" onclick="editUser('{{ user.id }}')" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Bearbeiten</a>
+                                    </li>
+                                    {% if not user.is_superuser %}
+                                    <li>
+                                        <a href="javascript:void(0)" onclick="editUserRights('{{ user.id }}')" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Nutzerrechte</a>
+                                    </li>
+                                    {% endif %}
+                                    <li>
+                                        <a href="javascript:void(0)" onclick="sendPasswordResetLink('{{ user.id }}')" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Passwort vergessen Link</a>
+                                    </li>
+                                </ul>
+                                <div class="py-1">
+                                    <a href="javascript:void(0)" onclick="deleteUser('{{ user.id }}')" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Löschen</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="hidden user-rights" id="user-rights-{{ user.id }}">
+                        <td colspan="1" class="px-4 py-3"></td>
+                        <td colspan="8" class="px-4 py-3">
+                            {% if user.is_superuser %}
+                            <span class="">Alle Rechte</span>
+                            {% else %}
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th class="py-1 px-2"></th>
+                                        {% for pharmacy in user|get_pharmacyrights:request.user %}
+                                        <th class="py-1 px-4 text-left">{{ pharmacy.name }}</th>
+                                        {% endfor %}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for userpremission in user|get_userrights %}
+                                    <tr>
+                                        <td class="py-1 px-2">{{ userpremission.view_display }}</td>
+                                        {% for pharmacy in user|get_pharmacyrights:request.user %}
+                                        <td class="py-1 px-4">
+                                            <div class="flex justify-start gap-2">
+                                                {% get_read_premission user userpremission.view pharmacy as read_permission %}
+                                                {% if read_permission %}
+                                                <span class="text-xs font-medium px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-300">
+                                                    Lesen
+                                                </span>
+                                                {% endif %}
+                                                {% get_write_premission user userpremission.view pharmacy as write_permission %}
+                                                {% if write_permission %}
+                                                <span class="text-xs font-medium px-2 py-0.5 rounded bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300">
+                                                    Schreiben
+                                                </span>
+                                                {% endif %}
+                                            </div>
+                                        </td>
+                                        {% endfor %}
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+        <nav class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4 border-gray-600 border-t" aria-label="Table navigation">
+            <ul class="inline-flex items-stretch -space-x-px">
+                {% with users.paginator.page_range|first as first_page %}
+                {% with 'page:'|concat_string:first_page as page_string %}
+                {% with updated_params=request.GET|add_get_parameter:page_string %}
+                <li>
+                    <a href="?{{ updated_params }}" class="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                        <span class="sr-only">Erste Seite</span>
+                        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" viewBox="0 0 12 10">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M5 1 1 5l4 4m6-8L7 5l4 4"/>
+                        </svg>
+                    </a>
+                </li>
+                {% endwith %}
+                {% endwith %}
+                {% endwith %}
+                {% for page_num in users.paginator.page_range|get_page_range:users.number %}
+                {% if users.number == page_num %}
+                <li>
+                    <a href="?{{ updated_params }}" aria-current="page" class="flex items-center justify-center text-sm z-10 py-2 px-3 leading-tight text-emerald-600 bg-emerald-50 border border-emerald-300 hover:bg-emerald-100 hover:text-emerald-700 dark:border-gray-700 dark:text-white">{{ page_num }}</a>
+                </li>
+                {% else %}
+                {% with 'page:'|concat_string:page_num as page_string %}
+                {% with updated_params=request.GET|add_get_parameter:page_string %}
+                <li>
+                    <a href="?{{ updated_params }}" class="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{ page_num }}</a>
+                </li>
+                {% endwith %}
+                {% endwith %}
+                {% endif %}
+                {% endfor %}
+                {% with users.paginator.page_range|last as last_page %}
+                {% with 'page:'|concat_string:last_page as page_string %}
+                {% with updated_params=request.GET|add_get_parameter:page_string %}
+                <li>
+                    <a href="?{{ updated_params }}" class="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                        <span class="sr-only">Letzte Seite</span>
+                        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" viewBox="0 0 12 10">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="m7 9 4-4-4-4M1 9l4-4-4-4"/>
+                        </svg>
+                    </a>
+                </li>
+                {% endwith %}
+                {% endwith %}
+                {% endwith %}
+            </ul>
+        </nav>
     </div>
 </section>
 
@@ -407,7 +405,7 @@
                         <!-- E-Mail/Benutername -->
                         <div class="mb-5">
                             <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">E-Mail/Benutzername</label>
-                            <input type="email" id="email" name="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5 dark:placeholder-gray-400 dark:text-white dark:focus:ring-emerald-500 dark:focus:border-emerald-500" placeholder="name@flowbite.com" required />
+                            <input type="email" id="email" name="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5 dark:placeholder-gray-400 dark:text-white dark:focus:ring-emerald-500 dark:focus:border-emerald-500" placeholder="name@flowbite.com" required />
                         </div>
                         <div class="hidden py-2 px-3 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:text-red-400" role="alert" name="userExistAlert">
                             Dieser Benutzer existiert bereits
@@ -415,20 +413,20 @@
                         <!-- Vorname -->
                         <div class="mb-5">
                             <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Vorname</label>
-                            <input type="text" id="first_name" name="firstName" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5 dark:placeholder-gray-400 dark:text-white dark:focus:ring-emerald-500 dark:focus:border-emerald-500" placeholder="Max" required />
+                            <input type="text" id="first_name" name="firstName" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5 dark:placeholder-gray-400 dark:text-white dark:focus:ring-emerald-500 dark:focus:border-emerald-500" placeholder="Max" required />
                         </div>
                         <!-- Nachname -->
                         <div class="mb-5">
                             <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nachname</label>
-                            <input type="text" id="last_name" name="lastName" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5 dark:placeholder-gray-400 dark:text-white dark:focus:ring-emerald-500 dark:focus:border-emerald-500" placeholder="Mustermann" required />
+                            <input type="text" id="last_name" name="lastName" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5 dark:placeholder-gray-400 dark:text-white dark:focus:ring-emerald-500 dark:focus:border-emerald-500" placeholder="Mustermann" required />
                         </div>
                 </div>
                 <!-- Modal footer -->
                 <div class="pb-6 px-6 flex justify-between">
-                    <button onclick="saveCreateUser()" type="button" class="text-white bg-emerald-600 hover:bg-emerald-700 focus:ring-4 focus:outline-none focus:ring-emerald-300 dark:focus:ring-emerald-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
+                    <button onclick="saveCreateUser()" type="button" class="text-white bg-emerald-600 hover:bg-emerald-700 focus:ring-4 focus:outline-none focus:ring-emerald-300 dark:focus:ring-emerald-800 font-medium rounded-full text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
                         Speichern
                     </button>
-                    <button onclick="hideModal('user-creation-modal')" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+                    <button onclick="hideModal('user-creation-modal')" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-full border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
                         Abbrechen
                     </button>
                 </div>

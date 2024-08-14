@@ -5,664 +5,561 @@
 
 {% block content %}
 
-
-<!-- STATISTICS - NICHT LÖSCHEN -->
-<!-- <div class="grid w-full grid-cols-1 gap-4 xl:grid-cols-2 2xl:grid-cols-3 px-3 pt-3 pb-0 sm:px-5 sm:pt-5">
-    <div class="items-center justify-between p-4 bg-white rounded-full shadow-sm sm:flex sm:p-6 dark:bg-gray-800" bis_skin_checked="1">
-        <div class="w-full" bis_skin_checked="1">
-            <h3 class="text-base font-normal text-gray-500 dark:text-gray-400">Offene Bestellungen</h3>
-            <span class="text-2xl font-bold leading-none text-gray-900 sm:text-3xl">16</span>
-            <p class="flex items-center text-base font-normal text-gray-500 dark:text-gray-400">
-                <span class="flex items-center mr-1.5 text-sm text-green-500 dark:text-green-400">
-                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <path clip-rule="evenodd" fill-rule="evenodd" d="M10 17a.75.75 0 01-.75-.75V5.612L5.29 9.77a.75.75 0 01-1.08-1.04l5.25-5.5a.75.75 0 011.08 0l5.25 5.5a.75.75 0 11-1.08 1.04l-3.96-4.158V16.25A.75.75 0 0110 17z"></path>
-                </svg>
-                12.5% 
-                </span>
-                Seit gestern
-            </p>
-        </div>
-        <div class="w-full" id="new-products-chart" style="min-height: 155px;" bis_skin_checked="1"><div id="apexcharts6imc4hf" class="apexcharts-canvas apexcharts6imc4hf apexcharts-theme-light" bis_skin_checked="1" style="width: 232px; height: 140px;"><svg id="SvgjsSvg1586" width="232" height="140" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev" class="apexcharts-svg" xmlns:data="ApexChartsNS" transform="translate(0, 0)" style="background: transparent;"><g id="SvgjsG1588" class="apexcharts-inner apexcharts-graphical" transform="translate(12, 30)"><defs id="SvgjsDefs1587"><linearGradient id="SvgjsLinearGradient1592" x1="0" y1="0" x2="0" y2="1"><stop id="SvgjsStop1593" stop-opacity="0.4" stop-color="rgba(216,227,240,0.4)" offset="0"></stop><stop id="SvgjsStop1594" stop-opacity="0.5" stop-color="rgba(190,209,230,0.5)" offset="1"></stop><stop id="SvgjsStop1595" stop-opacity="0.5" stop-color="rgba(190,209,230,0.5)" offset="1"></stop></linearGradient><clipPath id="gridRectMask6imc4hf"><rect id="SvgjsRect1597" width="219" height="83" x="-4.5" y="-2.5" rx="0" ry="0" opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0" fill="#fff"></rect></clipPath><clipPath id="forecastMask6imc4hf"></clipPath><clipPath id="nonForecastMask6imc4hf"></clipPath><clipPath id="gridRectMarkerMask6imc4hf"><rect id="SvgjsRect1598" width="214" height="82" x="-2" y="-2" rx="0" ry="0" opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0" fill="#fff"></rect></clipPath></defs><rect id="SvgjsRect1596" width="27" height="78" x="0" y="0" rx="0" ry="0" opacity="1" stroke-width="0" stroke-dasharray="3" fill="url(#SvgjsLinearGradient1592)" class="apexcharts-xcrosshairs" y2="78" filter="none" fill-opacity="0.9"></rect><g id="SvgjsG1617" class="apexcharts-xaxis" transform="translate(0, 0)"><g id="SvgjsG1618" class="apexcharts-xaxis-texts-g" transform="translate(0, 4)"></g></g><g id="SvgjsG1627" class="apexcharts-grid"><g id="SvgjsG1628" class="apexcharts-gridlines-horizontal" style="display: none;"><line id="SvgjsLine1630" x1="0" y1="0" x2="210" y2="0" stroke="#e0e0e0" stroke-dasharray="0" stroke-linecap="butt" class="apexcharts-gridline"></line><line id="SvgjsLine1631" x1="0" y1="19.5" x2="210" y2="19.5" stroke="#e0e0e0" stroke-dasharray="0" stroke-linecap="butt" class="apexcharts-gridline"></line><line id="SvgjsLine1632" x1="0" y1="39" x2="210" y2="39" stroke="#e0e0e0" stroke-dasharray="0" stroke-linecap="butt" class="apexcharts-gridline"></line><line id="SvgjsLine1633" x1="0" y1="58.5" x2="210" y2="58.5" stroke="#e0e0e0" stroke-dasharray="0" stroke-linecap="butt" class="apexcharts-gridline"></line><line id="SvgjsLine1634" x1="0" y1="78" x2="210" y2="78" stroke="#e0e0e0" stroke-dasharray="0" stroke-linecap="butt" class="apexcharts-gridline"></line></g><g id="SvgjsG1629" class="apexcharts-gridlines-vertical" style="display: none;"></g><line id="SvgjsLine1636" x1="0" y1="78" x2="210" y2="78" stroke="transparent" stroke-dasharray="0" stroke-linecap="butt"></line><line id="SvgjsLine1635" x1="0" y1="1" x2="0" y2="78" stroke="transparent" stroke-dasharray="0" stroke-linecap="butt"></line></g><g id="SvgjsG1599" class="apexcharts-bar-series apexcharts-plot-series"><g id="SvgjsG1600" class="apexcharts-series" rel="1" seriesName="Quantity" data:realIndex="0"><path id="SvgjsPath1604" d="M 1.5 78L 1.5 14.700000000000003Q 1.5 11.700000000000003 4.5 11.700000000000003L 20.5 11.700000000000003Q 23.5 11.700000000000003 23.5 14.700000000000003L 23.5 14.700000000000003L 23.5 78L 23.5 78z" fill="rgba(26,86,219,1)" fill-opacity="1" stroke="transparent" stroke-opacity="1" stroke-linecap="round" stroke-width="5" stroke-dasharray="0" class="apexcharts-bar-area" index="0" clip-path="url(#gridRectMask6imc4hf)" pathTo="M 1.5 78L 1.5 14.700000000000003Q 1.5 11.700000000000003 4.5 11.700000000000003L 20.5 11.700000000000003Q 23.5 11.700000000000003 23.5 14.700000000000003L 23.5 14.700000000000003L 23.5 78L 23.5 78z" pathFrom="M 1.5 78L 1.5 78L 23.5 78L 23.5 78L 23.5 78L 23.5 78L 23.5 78L 1.5 78" cy="11.700000000000003" cx="29" j="0" val="170" barHeight="66.3" barWidth="27"></path><path id="SvgjsPath1606" d="M 31.5 78L 31.5 10.800000000000011Q 31.5 7.800000000000011 34.5 7.800000000000011L 50.5 7.800000000000011Q 53.5 7.800000000000011 53.5 10.800000000000011L 53.5 10.800000000000011L 53.5 78L 53.5 78z" fill="rgba(26,86,219,1)" fill-opacity="1" stroke="transparent" stroke-opacity="1" stroke-linecap="round" stroke-width="5" stroke-dasharray="0" class="apexcharts-bar-area" index="0" clip-path="url(#gridRectMask6imc4hf)" pathTo="M 31.5 78L 31.5 10.800000000000011Q 31.5 7.800000000000011 34.5 7.800000000000011L 50.5 7.800000000000011Q 53.5 7.800000000000011 53.5 10.800000000000011L 53.5 10.800000000000011L 53.5 78L 53.5 78z" pathFrom="M 31.5 78L 31.5 78L 53.5 78L 53.5 78L 53.5 78L 53.5 78L 53.5 78L 31.5 78" cy="7.800000000000011" cx="59" j="1" val="180" barHeight="70.19999999999999" barWidth="27"></path><path id="SvgjsPath1608" d="M 61.5 78L 61.5 17.040000000000006Q 61.5 14.040000000000006 64.5 14.040000000000006L 80.5 14.040000000000006Q 83.5 14.040000000000006 83.5 17.040000000000006L 83.5 17.040000000000006L 83.5 78L 83.5 78z" fill="rgba(26,86,219,1)" fill-opacity="1" stroke="transparent" stroke-opacity="1" stroke-linecap="round" stroke-width="5" stroke-dasharray="0" class="apexcharts-bar-area" index="0" clip-path="url(#gridRectMask6imc4hf)" pathTo="M 61.5 78L 61.5 17.040000000000006Q 61.5 14.040000000000006 64.5 14.040000000000006L 80.5 14.040000000000006Q 83.5 14.040000000000006 83.5 17.040000000000006L 83.5 17.040000000000006L 83.5 78L 83.5 78z" pathFrom="M 61.5 78L 61.5 78L 83.5 78L 83.5 78L 83.5 78L 83.5 78L 83.5 78L 61.5 78" cy="14.040000000000006" cx="89" j="2" val="164" barHeight="63.959999999999994" barWidth="27"></path><path id="SvgjsPath1610" d="M 91.5 78L 91.5 24.450000000000003Q 91.5 21.450000000000003 94.5 21.450000000000003L 110.5 21.450000000000003Q 113.5 21.450000000000003 113.5 24.450000000000003L 113.5 24.450000000000003L 113.5 78L 113.5 78z" fill="rgba(26,86,219,1)" fill-opacity="1" stroke="transparent" stroke-opacity="1" stroke-linecap="round" stroke-width="5" stroke-dasharray="0" class="apexcharts-bar-area" index="0" clip-path="url(#gridRectMask6imc4hf)" pathTo="M 91.5 78L 91.5 24.450000000000003Q 91.5 21.450000000000003 94.5 21.450000000000003L 110.5 21.450000000000003Q 113.5 21.450000000000003 113.5 24.450000000000003L 113.5 24.450000000000003L 113.5 78L 113.5 78z" pathFrom="M 91.5 78L 91.5 78L 113.5 78L 113.5 78L 113.5 78L 113.5 78L 113.5 78L 91.5 78" cy="21.450000000000003" cx="119" j="3" val="145" barHeight="56.55" barWidth="27"></path><path id="SvgjsPath1612" d="M 121.5 78L 121.5 5.340000000000003Q 121.5 2.3400000000000034 124.5 2.3400000000000034L 140.5 2.3400000000000034Q 143.5 2.3400000000000034 143.5 5.340000000000003L 143.5 5.340000000000003L 143.5 78L 143.5 78z" fill="rgba(26,86,219,1)" fill-opacity="1" stroke="transparent" stroke-opacity="1" stroke-linecap="round" stroke-width="5" stroke-dasharray="0" class="apexcharts-bar-area" index="0" clip-path="url(#gridRectMask6imc4hf)" pathTo="M 121.5 78L 121.5 5.340000000000003Q 121.5 2.3400000000000034 124.5 2.3400000000000034L 140.5 2.3400000000000034Q 143.5 2.3400000000000034 143.5 5.340000000000003L 143.5 5.340000000000003L 143.5 78L 143.5 78z" pathFrom="M 121.5 78L 121.5 78L 143.5 78L 143.5 78L 143.5 78L 143.5 78L 143.5 78L 121.5 78" cy="2.3400000000000034" cx="149" j="4" val="194" barHeight="75.66" barWidth="27"></path><path id="SvgjsPath1614" d="M 151.5 78L 151.5 14.700000000000003Q 151.5 11.700000000000003 154.5 11.700000000000003L 170.5 11.700000000000003Q 173.5 11.700000000000003 173.5 14.700000000000003L 173.5 14.700000000000003L 173.5 78L 173.5 78z" fill="rgba(26,86,219,1)" fill-opacity="1" stroke="transparent" stroke-opacity="1" stroke-linecap="round" stroke-width="5" stroke-dasharray="0" class="apexcharts-bar-area" index="0" clip-path="url(#gridRectMask6imc4hf)" pathTo="M 151.5 78L 151.5 14.700000000000003Q 151.5 11.700000000000003 154.5 11.700000000000003L 170.5 11.700000000000003Q 173.5 11.700000000000003 173.5 14.700000000000003L 173.5 14.700000000000003L 173.5 78L 173.5 78z" pathFrom="M 151.5 78L 151.5 78L 173.5 78L 173.5 78L 173.5 78L 173.5 78L 173.5 78L 151.5 78" cy="11.700000000000003" cx="179" j="5" val="170" barHeight="66.3" barWidth="27"></path><path id="SvgjsPath1616" d="M 181.5 78L 181.5 20.550000000000004Q 181.5 17.550000000000004 184.5 17.550000000000004L 200.5 17.550000000000004Q 203.5 17.550000000000004 203.5 20.550000000000004L 203.5 20.550000000000004L 203.5 78L 203.5 78z" fill="rgba(26,86,219,1)" fill-opacity="1" stroke="transparent" stroke-opacity="1" stroke-linecap="round" stroke-width="5" stroke-dasharray="0" class="apexcharts-bar-area" index="0" clip-path="url(#gridRectMask6imc4hf)" pathTo="M 181.5 78L 181.5 20.550000000000004Q 181.5 17.550000000000004 184.5 17.550000000000004L 200.5 17.550000000000004Q 203.5 17.550000000000004 203.5 20.550000000000004L 203.5 20.550000000000004L 203.5 78L 203.5 78z" pathFrom="M 181.5 78L 181.5 78L 203.5 78L 203.5 78L 203.5 78L 203.5 78L 203.5 78L 181.5 78" cy="17.550000000000004" cx="209" j="6" val="155" barHeight="60.449999999999996" barWidth="27"></path><g id="SvgjsG1602" class="apexcharts-bar-goals-markers" style="pointer-events: none"><g id="SvgjsG1603" className="apexcharts-bar-goals-groups"></g><g id="SvgjsG1605" className="apexcharts-bar-goals-groups"></g><g id="SvgjsG1607" className="apexcharts-bar-goals-groups"></g><g id="SvgjsG1609" className="apexcharts-bar-goals-groups"></g><g id="SvgjsG1611" className="apexcharts-bar-goals-groups"></g><g id="SvgjsG1613" className="apexcharts-bar-goals-groups"></g><g id="SvgjsG1615" className="apexcharts-bar-goals-groups"></g></g></g><g id="SvgjsG1601" class="apexcharts-datalabels" data:realIndex="0"></g></g><line id="SvgjsLine1637" x1="0" y1="0" x2="210" y2="0" stroke="#b6b6b6" stroke-dasharray="0" stroke-width="1" stroke-linecap="butt" class="apexcharts-ycrosshairs"></line><line id="SvgjsLine1638" x1="0" y1="0" x2="210" y2="0" stroke-dasharray="0" stroke-width="0" stroke-linecap="butt" class="apexcharts-ycrosshairs-hidden"></line><g id="SvgjsG1639" class="apexcharts-yaxis-annotations"></g><g id="SvgjsG1640" class="apexcharts-xaxis-annotations"></g><g id="SvgjsG1641" class="apexcharts-point-annotations"></g></g><g id="SvgjsG1626" class="apexcharts-yaxis" rel="0" transform="translate(-18, 0)"></g><g id="SvgjsG1589" class="apexcharts-annotations"></g></svg><div class="apexcharts-legend" style="max-height: 70px;" bis_skin_checked="1"></div><div class="apexcharts-tooltip apexcharts-theme-light" bis_skin_checked="1"><div class="apexcharts-tooltip-title" bis_skin_checked="1" style="font-family: Inter, sans-serif; font-size: 14px;"></div><div class="apexcharts-tooltip-series-group" bis_skin_checked="1" style="order: 1;"><span class="apexcharts-tooltip-marker" style="background-color: rgb(26, 86, 219);"></span><div class="apexcharts-tooltip-text" bis_skin_checked="1" style="font-family: Inter, sans-serif; font-size: 14px;"><div class="apexcharts-tooltip-y-group" bis_skin_checked="1"><span class="apexcharts-tooltip-text-y-label"></span><span class="apexcharts-tooltip-text-y-value"></span></div><div class="apexcharts-tooltip-goals-group" bis_skin_checked="1"><span class="apexcharts-tooltip-text-goals-label"></span><span class="apexcharts-tooltip-text-goals-value"></span></div><div class="apexcharts-tooltip-z-group" bis_skin_checked="1"><span class="apexcharts-tooltip-text-z-label"></span><span class="apexcharts-tooltip-text-z-value"></span></div></div></div></div><div class="apexcharts-yaxistooltip apexcharts-yaxistooltip-0 apexcharts-yaxistooltip-left apexcharts-theme-light" bis_skin_checked="1"><div class="apexcharts-yaxistooltip-text" bis_skin_checked="1"></div></div></div></div>
-    </div>
-    <div class="items-center justify-between p-4 bg-white rounded-full shadow-sm sm:flex sm:p-6 dark:bg-gray-800" bis_skin_checked="1">
-        <div class="w-full" bis_skin_checked="1">
-            <h3 class="text-base font-normal text-gray-500 dark:text-gray-400">Ausstehende Lieferungen</h3>
-            <span class="text-2xl font-bold leading-none text-gray-900 sm:text-3xl">3</span>
-            <p class="flex items-center text-base font-normal text-gray-500 dark:text-gray-400">
-                <span class="flex items-center mr-1.5 text-sm text-green-500 dark:text-green-400">
-                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <path clip-rule="evenodd" fill-rule="evenodd" d="M10 17a.75.75 0 01-.75-.75V5.612L5.29 9.77a.75.75 0 01-1.08-1.04l5.25-5.5a.75.75 0 011.08 0l5.25 5.5a.75.75 0 11-1.08 1.04l-3.96-4.158V16.25A.75.75 0 0110 17z"></path>
-                </svg>
-                12.5% 
-                </span>
-                Seit gestern
-            </p>
-        </div>
-        <div class="w-full" id="new-products-chart" style="min-height: 155px;" bis_skin_checked="1"><div id="apexcharts6imc4hf" class="apexcharts-canvas apexcharts6imc4hf apexcharts-theme-light" bis_skin_checked="1" style="width: 232px; height: 140px;"><svg id="SvgjsSvg1586" width="232" height="140" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev" class="apexcharts-svg" xmlns:data="ApexChartsNS" transform="translate(0, 0)" style="background: transparent;"><g id="SvgjsG1588" class="apexcharts-inner apexcharts-graphical" transform="translate(12, 30)"><defs id="SvgjsDefs1587"><linearGradient id="SvgjsLinearGradient1592" x1="0" y1="0" x2="0" y2="1"><stop id="SvgjsStop1593" stop-opacity="0.4" stop-color="rgba(216,227,240,0.4)" offset="0"></stop><stop id="SvgjsStop1594" stop-opacity="0.5" stop-color="rgba(190,209,230,0.5)" offset="1"></stop><stop id="SvgjsStop1595" stop-opacity="0.5" stop-color="rgba(190,209,230,0.5)" offset="1"></stop></linearGradient><clipPath id="gridRectMask6imc4hf"><rect id="SvgjsRect1597" width="219" height="83" x="-4.5" y="-2.5" rx="0" ry="0" opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0" fill="#fff"></rect></clipPath><clipPath id="forecastMask6imc4hf"></clipPath><clipPath id="nonForecastMask6imc4hf"></clipPath><clipPath id="gridRectMarkerMask6imc4hf"><rect id="SvgjsRect1598" width="214" height="82" x="-2" y="-2" rx="0" ry="0" opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0" fill="#fff"></rect></clipPath></defs><rect id="SvgjsRect1596" width="27" height="78" x="0" y="0" rx="0" ry="0" opacity="1" stroke-width="0" stroke-dasharray="3" fill="url(#SvgjsLinearGradient1592)" class="apexcharts-xcrosshairs" y2="78" filter="none" fill-opacity="0.9"></rect><g id="SvgjsG1617" class="apexcharts-xaxis" transform="translate(0, 0)"><g id="SvgjsG1618" class="apexcharts-xaxis-texts-g" transform="translate(0, 4)"></g></g><g id="SvgjsG1627" class="apexcharts-grid"><g id="SvgjsG1628" class="apexcharts-gridlines-horizontal" style="display: none;"><line id="SvgjsLine1630" x1="0" y1="0" x2="210" y2="0" stroke="#e0e0e0" stroke-dasharray="0" stroke-linecap="butt" class="apexcharts-gridline"></line><line id="SvgjsLine1631" x1="0" y1="19.5" x2="210" y2="19.5" stroke="#e0e0e0" stroke-dasharray="0" stroke-linecap="butt" class="apexcharts-gridline"></line><line id="SvgjsLine1632" x1="0" y1="39" x2="210" y2="39" stroke="#e0e0e0" stroke-dasharray="0" stroke-linecap="butt" class="apexcharts-gridline"></line><line id="SvgjsLine1633" x1="0" y1="58.5" x2="210" y2="58.5" stroke="#e0e0e0" stroke-dasharray="0" stroke-linecap="butt" class="apexcharts-gridline"></line><line id="SvgjsLine1634" x1="0" y1="78" x2="210" y2="78" stroke="#e0e0e0" stroke-dasharray="0" stroke-linecap="butt" class="apexcharts-gridline"></line></g><g id="SvgjsG1629" class="apexcharts-gridlines-vertical" style="display: none;"></g><line id="SvgjsLine1636" x1="0" y1="78" x2="210" y2="78" stroke="transparent" stroke-dasharray="0" stroke-linecap="butt"></line><line id="SvgjsLine1635" x1="0" y1="1" x2="0" y2="78" stroke="transparent" stroke-dasharray="0" stroke-linecap="butt"></line></g><g id="SvgjsG1599" class="apexcharts-bar-series apexcharts-plot-series"><g id="SvgjsG1600" class="apexcharts-series" rel="1" seriesName="Quantity" data:realIndex="0"><path id="SvgjsPath1604" d="M 1.5 78L 1.5 14.700000000000003Q 1.5 11.700000000000003 4.5 11.700000000000003L 20.5 11.700000000000003Q 23.5 11.700000000000003 23.5 14.700000000000003L 23.5 14.700000000000003L 23.5 78L 23.5 78z" fill="rgba(26,86,219,1)" fill-opacity="1" stroke="transparent" stroke-opacity="1" stroke-linecap="round" stroke-width="5" stroke-dasharray="0" class="apexcharts-bar-area" index="0" clip-path="url(#gridRectMask6imc4hf)" pathTo="M 1.5 78L 1.5 14.700000000000003Q 1.5 11.700000000000003 4.5 11.700000000000003L 20.5 11.700000000000003Q 23.5 11.700000000000003 23.5 14.700000000000003L 23.5 14.700000000000003L 23.5 78L 23.5 78z" pathFrom="M 1.5 78L 1.5 78L 23.5 78L 23.5 78L 23.5 78L 23.5 78L 23.5 78L 1.5 78" cy="11.700000000000003" cx="29" j="0" val="170" barHeight="66.3" barWidth="27"></path><path id="SvgjsPath1606" d="M 31.5 78L 31.5 10.800000000000011Q 31.5 7.800000000000011 34.5 7.800000000000011L 50.5 7.800000000000011Q 53.5 7.800000000000011 53.5 10.800000000000011L 53.5 10.800000000000011L 53.5 78L 53.5 78z" fill="rgba(26,86,219,1)" fill-opacity="1" stroke="transparent" stroke-opacity="1" stroke-linecap="round" stroke-width="5" stroke-dasharray="0" class="apexcharts-bar-area" index="0" clip-path="url(#gridRectMask6imc4hf)" pathTo="M 31.5 78L 31.5 10.800000000000011Q 31.5 7.800000000000011 34.5 7.800000000000011L 50.5 7.800000000000011Q 53.5 7.800000000000011 53.5 10.800000000000011L 53.5 10.800000000000011L 53.5 78L 53.5 78z" pathFrom="M 31.5 78L 31.5 78L 53.5 78L 53.5 78L 53.5 78L 53.5 78L 53.5 78L 31.5 78" cy="7.800000000000011" cx="59" j="1" val="180" barHeight="70.19999999999999" barWidth="27"></path><path id="SvgjsPath1608" d="M 61.5 78L 61.5 17.040000000000006Q 61.5 14.040000000000006 64.5 14.040000000000006L 80.5 14.040000000000006Q 83.5 14.040000000000006 83.5 17.040000000000006L 83.5 17.040000000000006L 83.5 78L 83.5 78z" fill="rgba(26,86,219,1)" fill-opacity="1" stroke="transparent" stroke-opacity="1" stroke-linecap="round" stroke-width="5" stroke-dasharray="0" class="apexcharts-bar-area" index="0" clip-path="url(#gridRectMask6imc4hf)" pathTo="M 61.5 78L 61.5 17.040000000000006Q 61.5 14.040000000000006 64.5 14.040000000000006L 80.5 14.040000000000006Q 83.5 14.040000000000006 83.5 17.040000000000006L 83.5 17.040000000000006L 83.5 78L 83.5 78z" pathFrom="M 61.5 78L 61.5 78L 83.5 78L 83.5 78L 83.5 78L 83.5 78L 83.5 78L 61.5 78" cy="14.040000000000006" cx="89" j="2" val="164" barHeight="63.959999999999994" barWidth="27"></path><path id="SvgjsPath1610" d="M 91.5 78L 91.5 24.450000000000003Q 91.5 21.450000000000003 94.5 21.450000000000003L 110.5 21.450000000000003Q 113.5 21.450000000000003 113.5 24.450000000000003L 113.5 24.450000000000003L 113.5 78L 113.5 78z" fill="rgba(26,86,219,1)" fill-opacity="1" stroke="transparent" stroke-opacity="1" stroke-linecap="round" stroke-width="5" stroke-dasharray="0" class="apexcharts-bar-area" index="0" clip-path="url(#gridRectMask6imc4hf)" pathTo="M 91.5 78L 91.5 24.450000000000003Q 91.5 21.450000000000003 94.5 21.450000000000003L 110.5 21.450000000000003Q 113.5 21.450000000000003 113.5 24.450000000000003L 113.5 24.450000000000003L 113.5 78L 113.5 78z" pathFrom="M 91.5 78L 91.5 78L 113.5 78L 113.5 78L 113.5 78L 113.5 78L 113.5 78L 91.5 78" cy="21.450000000000003" cx="119" j="3" val="145" barHeight="56.55" barWidth="27"></path><path id="SvgjsPath1612" d="M 121.5 78L 121.5 5.340000000000003Q 121.5 2.3400000000000034 124.5 2.3400000000000034L 140.5 2.3400000000000034Q 143.5 2.3400000000000034 143.5 5.340000000000003L 143.5 5.340000000000003L 143.5 78L 143.5 78z" fill="rgba(26,86,219,1)" fill-opacity="1" stroke="transparent" stroke-opacity="1" stroke-linecap="round" stroke-width="5" stroke-dasharray="0" class="apexcharts-bar-area" index="0" clip-path="url(#gridRectMask6imc4hf)" pathTo="M 121.5 78L 121.5 5.340000000000003Q 121.5 2.3400000000000034 124.5 2.3400000000000034L 140.5 2.3400000000000034Q 143.5 2.3400000000000034 143.5 5.340000000000003L 143.5 5.340000000000003L 143.5 78L 143.5 78z" pathFrom="M 121.5 78L 121.5 78L 143.5 78L 143.5 78L 143.5 78L 143.5 78L 143.5 78L 121.5 78" cy="2.3400000000000034" cx="149" j="4" val="194" barHeight="75.66" barWidth="27"></path><path id="SvgjsPath1614" d="M 151.5 78L 151.5 14.700000000000003Q 151.5 11.700000000000003 154.5 11.700000000000003L 170.5 11.700000000000003Q 173.5 11.700000000000003 173.5 14.700000000000003L 173.5 14.700000000000003L 173.5 78L 173.5 78z" fill="rgba(26,86,219,1)" fill-opacity="1" stroke="transparent" stroke-opacity="1" stroke-linecap="round" stroke-width="5" stroke-dasharray="0" class="apexcharts-bar-area" index="0" clip-path="url(#gridRectMask6imc4hf)" pathTo="M 151.5 78L 151.5 14.700000000000003Q 151.5 11.700000000000003 154.5 11.700000000000003L 170.5 11.700000000000003Q 173.5 11.700000000000003 173.5 14.700000000000003L 173.5 14.700000000000003L 173.5 78L 173.5 78z" pathFrom="M 151.5 78L 151.5 78L 173.5 78L 173.5 78L 173.5 78L 173.5 78L 173.5 78L 151.5 78" cy="11.700000000000003" cx="179" j="5" val="170" barHeight="66.3" barWidth="27"></path><path id="SvgjsPath1616" d="M 181.5 78L 181.5 20.550000000000004Q 181.5 17.550000000000004 184.5 17.550000000000004L 200.5 17.550000000000004Q 203.5 17.550000000000004 203.5 20.550000000000004L 203.5 20.550000000000004L 203.5 78L 203.5 78z" fill="rgba(26,86,219,1)" fill-opacity="1" stroke="transparent" stroke-opacity="1" stroke-linecap="round" stroke-width="5" stroke-dasharray="0" class="apexcharts-bar-area" index="0" clip-path="url(#gridRectMask6imc4hf)" pathTo="M 181.5 78L 181.5 20.550000000000004Q 181.5 17.550000000000004 184.5 17.550000000000004L 200.5 17.550000000000004Q 203.5 17.550000000000004 203.5 20.550000000000004L 203.5 20.550000000000004L 203.5 78L 203.5 78z" pathFrom="M 181.5 78L 181.5 78L 203.5 78L 203.5 78L 203.5 78L 203.5 78L 203.5 78L 181.5 78" cy="17.550000000000004" cx="209" j="6" val="155" barHeight="60.449999999999996" barWidth="27"></path><g id="SvgjsG1602" class="apexcharts-bar-goals-markers" style="pointer-events: none"><g id="SvgjsG1603" className="apexcharts-bar-goals-groups"></g><g id="SvgjsG1605" className="apexcharts-bar-goals-groups"></g><g id="SvgjsG1607" className="apexcharts-bar-goals-groups"></g><g id="SvgjsG1609" className="apexcharts-bar-goals-groups"></g><g id="SvgjsG1611" className="apexcharts-bar-goals-groups"></g><g id="SvgjsG1613" className="apexcharts-bar-goals-groups"></g><g id="SvgjsG1615" className="apexcharts-bar-goals-groups"></g></g></g><g id="SvgjsG1601" class="apexcharts-datalabels" data:realIndex="0"></g></g><line id="SvgjsLine1637" x1="0" y1="0" x2="210" y2="0" stroke="#b6b6b6" stroke-dasharray="0" stroke-width="1" stroke-linecap="butt" class="apexcharts-ycrosshairs"></line><line id="SvgjsLine1638" x1="0" y1="0" x2="210" y2="0" stroke-dasharray="0" stroke-width="0" stroke-linecap="butt" class="apexcharts-ycrosshairs-hidden"></line><g id="SvgjsG1639" class="apexcharts-yaxis-annotations"></g><g id="SvgjsG1640" class="apexcharts-xaxis-annotations"></g><g id="SvgjsG1641" class="apexcharts-point-annotations"></g></g><g id="SvgjsG1626" class="apexcharts-yaxis" rel="0" transform="translate(-18, 0)"></g><g id="SvgjsG1589" class="apexcharts-annotations"></g></svg><div class="apexcharts-legend" style="max-height: 70px;" bis_skin_checked="1"></div><div class="apexcharts-tooltip apexcharts-theme-light" bis_skin_checked="1"><div class="apexcharts-tooltip-title" bis_skin_checked="1" style="font-family: Inter, sans-serif; font-size: 14px;"></div><div class="apexcharts-tooltip-series-group" bis_skin_checked="1" style="order: 1;"><span class="apexcharts-tooltip-marker" style="background-color: rgb(26, 86, 219);"></span><div class="apexcharts-tooltip-text" bis_skin_checked="1" style="font-family: Inter, sans-serif; font-size: 14px;"><div class="apexcharts-tooltip-y-group" bis_skin_checked="1"><span class="apexcharts-tooltip-text-y-label"></span><span class="apexcharts-tooltip-text-y-value"></span></div><div class="apexcharts-tooltip-goals-group" bis_skin_checked="1"><span class="apexcharts-tooltip-text-goals-label"></span><span class="apexcharts-tooltip-text-goals-value"></span></div><div class="apexcharts-tooltip-z-group" bis_skin_checked="1"><span class="apexcharts-tooltip-text-z-label"></span><span class="apexcharts-tooltip-text-z-value"></span></div></div></div></div><div class="apexcharts-yaxistooltip apexcharts-yaxistooltip-0 apexcharts-yaxistooltip-left apexcharts-theme-light" bis_skin_checked="1"><div class="apexcharts-yaxistooltip-text" bis_skin_checked="1"></div></div></div></div>
-    </div>
-    <div class="items-center justify-between p-4 bg-white rounded-full shadow-sm sm:flex sm:p-6 dark:bg-gray-800" bis_skin_checked="1">
-        <div class="w-full" bis_skin_checked="1">
-            <h3 class="text-base font-normal text-gray-500 dark:text-gray-400">Abgeschlossene Bestellungen</h3>
-            <span class="text-2xl font-bold leading-none text-gray-900 sm:text-3xl">16</span>
-            <p class="flex items-center text-base font-normal text-gray-500 dark:text-gray-400">
-                <span class="flex items-center mr-1.5 text-sm text-green-500 dark:text-green-400">
-                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <path clip-rule="evenodd" fill-rule="evenodd" d="M10 17a.75.75 0 01-.75-.75V5.612L5.29 9.77a.75.75 0 01-1.08-1.04l5.25-5.5a.75.75 0 011.08 0l5.25 5.5a.75.75 0 11-1.08 1.04l-3.96-4.158V16.25A.75.75 0 0110 17z"></path>
-                </svg>
-                12.5% 
-                </span>
-                Seit gestern
-            </p>
-        </div>
-        <div class="w-full" id="new-products-chart" style="min-height: 155px;" bis_skin_checked="1"><div id="apexcharts6imc4hf" class="apexcharts-canvas apexcharts6imc4hf apexcharts-theme-light" bis_skin_checked="1" style="width: 232px; height: 140px;"><svg id="SvgjsSvg1586" width="232" height="140" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev" class="apexcharts-svg" xmlns:data="ApexChartsNS" transform="translate(0, 0)" style="background: transparent;"><g id="SvgjsG1588" class="apexcharts-inner apexcharts-graphical" transform="translate(12, 30)"><defs id="SvgjsDefs1587"><linearGradient id="SvgjsLinearGradient1592" x1="0" y1="0" x2="0" y2="1"><stop id="SvgjsStop1593" stop-opacity="0.4" stop-color="rgba(216,227,240,0.4)" offset="0"></stop><stop id="SvgjsStop1594" stop-opacity="0.5" stop-color="rgba(190,209,230,0.5)" offset="1"></stop><stop id="SvgjsStop1595" stop-opacity="0.5" stop-color="rgba(190,209,230,0.5)" offset="1"></stop></linearGradient><clipPath id="gridRectMask6imc4hf"><rect id="SvgjsRect1597" width="219" height="83" x="-4.5" y="-2.5" rx="0" ry="0" opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0" fill="#fff"></rect></clipPath><clipPath id="forecastMask6imc4hf"></clipPath><clipPath id="nonForecastMask6imc4hf"></clipPath><clipPath id="gridRectMarkerMask6imc4hf"><rect id="SvgjsRect1598" width="214" height="82" x="-2" y="-2" rx="0" ry="0" opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0" fill="#fff"></rect></clipPath></defs><rect id="SvgjsRect1596" width="27" height="78" x="0" y="0" rx="0" ry="0" opacity="1" stroke-width="0" stroke-dasharray="3" fill="url(#SvgjsLinearGradient1592)" class="apexcharts-xcrosshairs" y2="78" filter="none" fill-opacity="0.9"></rect><g id="SvgjsG1617" class="apexcharts-xaxis" transform="translate(0, 0)"><g id="SvgjsG1618" class="apexcharts-xaxis-texts-g" transform="translate(0, 4)"></g></g><g id="SvgjsG1627" class="apexcharts-grid"><g id="SvgjsG1628" class="apexcharts-gridlines-horizontal" style="display: none;"><line id="SvgjsLine1630" x1="0" y1="0" x2="210" y2="0" stroke="#e0e0e0" stroke-dasharray="0" stroke-linecap="butt" class="apexcharts-gridline"></line><line id="SvgjsLine1631" x1="0" y1="19.5" x2="210" y2="19.5" stroke="#e0e0e0" stroke-dasharray="0" stroke-linecap="butt" class="apexcharts-gridline"></line><line id="SvgjsLine1632" x1="0" y1="39" x2="210" y2="39" stroke="#e0e0e0" stroke-dasharray="0" stroke-linecap="butt" class="apexcharts-gridline"></line><line id="SvgjsLine1633" x1="0" y1="58.5" x2="210" y2="58.5" stroke="#e0e0e0" stroke-dasharray="0" stroke-linecap="butt" class="apexcharts-gridline"></line><line id="SvgjsLine1634" x1="0" y1="78" x2="210" y2="78" stroke="#e0e0e0" stroke-dasharray="0" stroke-linecap="butt" class="apexcharts-gridline"></line></g><g id="SvgjsG1629" class="apexcharts-gridlines-vertical" style="display: none;"></g><line id="SvgjsLine1636" x1="0" y1="78" x2="210" y2="78" stroke="transparent" stroke-dasharray="0" stroke-linecap="butt"></line><line id="SvgjsLine1635" x1="0" y1="1" x2="0" y2="78" stroke="transparent" stroke-dasharray="0" stroke-linecap="butt"></line></g><g id="SvgjsG1599" class="apexcharts-bar-series apexcharts-plot-series"><g id="SvgjsG1600" class="apexcharts-series" rel="1" seriesName="Quantity" data:realIndex="0"><path id="SvgjsPath1604" d="M 1.5 78L 1.5 14.700000000000003Q 1.5 11.700000000000003 4.5 11.700000000000003L 20.5 11.700000000000003Q 23.5 11.700000000000003 23.5 14.700000000000003L 23.5 14.700000000000003L 23.5 78L 23.5 78z" fill="rgba(26,86,219,1)" fill-opacity="1" stroke="transparent" stroke-opacity="1" stroke-linecap="round" stroke-width="5" stroke-dasharray="0" class="apexcharts-bar-area" index="0" clip-path="url(#gridRectMask6imc4hf)" pathTo="M 1.5 78L 1.5 14.700000000000003Q 1.5 11.700000000000003 4.5 11.700000000000003L 20.5 11.700000000000003Q 23.5 11.700000000000003 23.5 14.700000000000003L 23.5 14.700000000000003L 23.5 78L 23.5 78z" pathFrom="M 1.5 78L 1.5 78L 23.5 78L 23.5 78L 23.5 78L 23.5 78L 23.5 78L 1.5 78" cy="11.700000000000003" cx="29" j="0" val="170" barHeight="66.3" barWidth="27"></path><path id="SvgjsPath1606" d="M 31.5 78L 31.5 10.800000000000011Q 31.5 7.800000000000011 34.5 7.800000000000011L 50.5 7.800000000000011Q 53.5 7.800000000000011 53.5 10.800000000000011L 53.5 10.800000000000011L 53.5 78L 53.5 78z" fill="rgba(26,86,219,1)" fill-opacity="1" stroke="transparent" stroke-opacity="1" stroke-linecap="round" stroke-width="5" stroke-dasharray="0" class="apexcharts-bar-area" index="0" clip-path="url(#gridRectMask6imc4hf)" pathTo="M 31.5 78L 31.5 10.800000000000011Q 31.5 7.800000000000011 34.5 7.800000000000011L 50.5 7.800000000000011Q 53.5 7.800000000000011 53.5 10.800000000000011L 53.5 10.800000000000011L 53.5 78L 53.5 78z" pathFrom="M 31.5 78L 31.5 78L 53.5 78L 53.5 78L 53.5 78L 53.5 78L 53.5 78L 31.5 78" cy="7.800000000000011" cx="59" j="1" val="180" barHeight="70.19999999999999" barWidth="27"></path><path id="SvgjsPath1608" d="M 61.5 78L 61.5 17.040000000000006Q 61.5 14.040000000000006 64.5 14.040000000000006L 80.5 14.040000000000006Q 83.5 14.040000000000006 83.5 17.040000000000006L 83.5 17.040000000000006L 83.5 78L 83.5 78z" fill="rgba(26,86,219,1)" fill-opacity="1" stroke="transparent" stroke-opacity="1" stroke-linecap="round" stroke-width="5" stroke-dasharray="0" class="apexcharts-bar-area" index="0" clip-path="url(#gridRectMask6imc4hf)" pathTo="M 61.5 78L 61.5 17.040000000000006Q 61.5 14.040000000000006 64.5 14.040000000000006L 80.5 14.040000000000006Q 83.5 14.040000000000006 83.5 17.040000000000006L 83.5 17.040000000000006L 83.5 78L 83.5 78z" pathFrom="M 61.5 78L 61.5 78L 83.5 78L 83.5 78L 83.5 78L 83.5 78L 83.5 78L 61.5 78" cy="14.040000000000006" cx="89" j="2" val="164" barHeight="63.959999999999994" barWidth="27"></path><path id="SvgjsPath1610" d="M 91.5 78L 91.5 24.450000000000003Q 91.5 21.450000000000003 94.5 21.450000000000003L 110.5 21.450000000000003Q 113.5 21.450000000000003 113.5 24.450000000000003L 113.5 24.450000000000003L 113.5 78L 113.5 78z" fill="rgba(26,86,219,1)" fill-opacity="1" stroke="transparent" stroke-opacity="1" stroke-linecap="round" stroke-width="5" stroke-dasharray="0" class="apexcharts-bar-area" index="0" clip-path="url(#gridRectMask6imc4hf)" pathTo="M 91.5 78L 91.5 24.450000000000003Q 91.5 21.450000000000003 94.5 21.450000000000003L 110.5 21.450000000000003Q 113.5 21.450000000000003 113.5 24.450000000000003L 113.5 24.450000000000003L 113.5 78L 113.5 78z" pathFrom="M 91.5 78L 91.5 78L 113.5 78L 113.5 78L 113.5 78L 113.5 78L 113.5 78L 91.5 78" cy="21.450000000000003" cx="119" j="3" val="145" barHeight="56.55" barWidth="27"></path><path id="SvgjsPath1612" d="M 121.5 78L 121.5 5.340000000000003Q 121.5 2.3400000000000034 124.5 2.3400000000000034L 140.5 2.3400000000000034Q 143.5 2.3400000000000034 143.5 5.340000000000003L 143.5 5.340000000000003L 143.5 78L 143.5 78z" fill="rgba(26,86,219,1)" fill-opacity="1" stroke="transparent" stroke-opacity="1" stroke-linecap="round" stroke-width="5" stroke-dasharray="0" class="apexcharts-bar-area" index="0" clip-path="url(#gridRectMask6imc4hf)" pathTo="M 121.5 78L 121.5 5.340000000000003Q 121.5 2.3400000000000034 124.5 2.3400000000000034L 140.5 2.3400000000000034Q 143.5 2.3400000000000034 143.5 5.340000000000003L 143.5 5.340000000000003L 143.5 78L 143.5 78z" pathFrom="M 121.5 78L 121.5 78L 143.5 78L 143.5 78L 143.5 78L 143.5 78L 143.5 78L 121.5 78" cy="2.3400000000000034" cx="149" j="4" val="194" barHeight="75.66" barWidth="27"></path><path id="SvgjsPath1614" d="M 151.5 78L 151.5 14.700000000000003Q 151.5 11.700000000000003 154.5 11.700000000000003L 170.5 11.700000000000003Q 173.5 11.700000000000003 173.5 14.700000000000003L 173.5 14.700000000000003L 173.5 78L 173.5 78z" fill="rgba(26,86,219,1)" fill-opacity="1" stroke="transparent" stroke-opacity="1" stroke-linecap="round" stroke-width="5" stroke-dasharray="0" class="apexcharts-bar-area" index="0" clip-path="url(#gridRectMask6imc4hf)" pathTo="M 151.5 78L 151.5 14.700000000000003Q 151.5 11.700000000000003 154.5 11.700000000000003L 170.5 11.700000000000003Q 173.5 11.700000000000003 173.5 14.700000000000003L 173.5 14.700000000000003L 173.5 78L 173.5 78z" pathFrom="M 151.5 78L 151.5 78L 173.5 78L 173.5 78L 173.5 78L 173.5 78L 173.5 78L 151.5 78" cy="11.700000000000003" cx="179" j="5" val="170" barHeight="66.3" barWidth="27"></path><path id="SvgjsPath1616" d="M 181.5 78L 181.5 20.550000000000004Q 181.5 17.550000000000004 184.5 17.550000000000004L 200.5 17.550000000000004Q 203.5 17.550000000000004 203.5 20.550000000000004L 203.5 20.550000000000004L 203.5 78L 203.5 78z" fill="rgba(26,86,219,1)" fill-opacity="1" stroke="transparent" stroke-opacity="1" stroke-linecap="round" stroke-width="5" stroke-dasharray="0" class="apexcharts-bar-area" index="0" clip-path="url(#gridRectMask6imc4hf)" pathTo="M 181.5 78L 181.5 20.550000000000004Q 181.5 17.550000000000004 184.5 17.550000000000004L 200.5 17.550000000000004Q 203.5 17.550000000000004 203.5 20.550000000000004L 203.5 20.550000000000004L 203.5 78L 203.5 78z" pathFrom="M 181.5 78L 181.5 78L 203.5 78L 203.5 78L 203.5 78L 203.5 78L 203.5 78L 181.5 78" cy="17.550000000000004" cx="209" j="6" val="155" barHeight="60.449999999999996" barWidth="27"></path><g id="SvgjsG1602" class="apexcharts-bar-goals-markers" style="pointer-events: none"><g id="SvgjsG1603" className="apexcharts-bar-goals-groups"></g><g id="SvgjsG1605" className="apexcharts-bar-goals-groups"></g><g id="SvgjsG1607" className="apexcharts-bar-goals-groups"></g><g id="SvgjsG1609" className="apexcharts-bar-goals-groups"></g><g id="SvgjsG1611" className="apexcharts-bar-goals-groups"></g><g id="SvgjsG1613" className="apexcharts-bar-goals-groups"></g><g id="SvgjsG1615" className="apexcharts-bar-goals-groups"></g></g></g><g id="SvgjsG1601" class="apexcharts-datalabels" data:realIndex="0"></g></g><line id="SvgjsLine1637" x1="0" y1="0" x2="210" y2="0" stroke="#b6b6b6" stroke-dasharray="0" stroke-width="1" stroke-linecap="butt" class="apexcharts-ycrosshairs"></line><line id="SvgjsLine1638" x1="0" y1="0" x2="210" y2="0" stroke-dasharray="0" stroke-width="0" stroke-linecap="butt" class="apexcharts-ycrosshairs-hidden"></line><g id="SvgjsG1639" class="apexcharts-yaxis-annotations"></g><g id="SvgjsG1640" class="apexcharts-xaxis-annotations"></g><g id="SvgjsG1641" class="apexcharts-point-annotations"></g></g><g id="SvgjsG1626" class="apexcharts-yaxis" rel="0" transform="translate(-18, 0)"></g><g id="SvgjsG1589" class="apexcharts-annotations"></g></svg><div class="apexcharts-legend" style="max-height: 70px;" bis_skin_checked="1"></div><div class="apexcharts-tooltip apexcharts-theme-light" bis_skin_checked="1"><div class="apexcharts-tooltip-title" bis_skin_checked="1" style="font-family: Inter, sans-serif; font-size: 14px;"></div><div class="apexcharts-tooltip-series-group" bis_skin_checked="1" style="order: 1;"><span class="apexcharts-tooltip-marker" style="background-color: rgb(26, 86, 219);"></span><div class="apexcharts-tooltip-text" bis_skin_checked="1" style="font-family: Inter, sans-serif; font-size: 14px;"><div class="apexcharts-tooltip-y-group" bis_skin_checked="1"><span class="apexcharts-tooltip-text-y-label"></span><span class="apexcharts-tooltip-text-y-value"></span></div><div class="apexcharts-tooltip-goals-group" bis_skin_checked="1"><span class="apexcharts-tooltip-text-goals-label"></span><span class="apexcharts-tooltip-text-goals-value"></span></div><div class="apexcharts-tooltip-z-group" bis_skin_checked="1"><span class="apexcharts-tooltip-text-z-label"></span><span class="apexcharts-tooltip-text-z-value"></span></div></div></div></div><div class="apexcharts-yaxistooltip apexcharts-yaxistooltip-0 apexcharts-yaxistooltip-left apexcharts-theme-light" bis_skin_checked="1"><div class="apexcharts-yaxistooltip-text" bis_skin_checked="1"></div></div></div></div>
-    </div>
-</div> -->
-
-
 <div role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium transition-opacity duration-300 bg-gray-900 rounded-full shadow-sm opacity-0 tooltip dark:bg-gray-700">\
     Tooltip content\
     <div class="tooltip-arrow" data-popper-arrow></div>\
 </div>
 
-<section class="bg-gray-50 p-3 sm:p-5 antialiased">
-        <div class="flex flex-col bg-white relative shadow-md sm:rounded-lg overflow-hidden" style="height: calc(100vh - 64px - 2.5rem);">
-            <div class="mb-4 border-b border-gray-200">
-                <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="default-styled-tab" data-tabs-toggle="#default-styled-tab-content" data-tabs-active-classes="text-purple-600 hover:text-purple-600 dark:text-purple-500 dark:hover:text-purple-500 border-purple-600 dark:border-purple-500" data-tabs-inactive-classes="dark:border-transparent text-gray-500 hover:text-gray-600 dark:text-gray-400 border-gray-100 hover:border-gray-300 dark:border-gray-700 dark:hover:text-gray-300" role="tablist">
-                    <li class="me-2" role="presentation">
-                        <a href="{% url 'dashboard_orders' %}" class="font-bold inline-block p-4 border-b-2" id="profile-styled-tab" data-tabs-target="#styled-profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Bestellungen</a>
+<section class="flex h-screen bg-white antialiased">
+    <div class="w-full mx-auto">
+        <div class="relative overflow-hidden">
+            <div class="px-4">
+                <div class="flex flex-col py-3 space-y-3 md:flex-row md:items-center md:justify-between md:space-y-0 md:space-x-4">
+                    <h4 class="font-mono text-xl font-bold dark:text-black">Bestellungen</h4>
+                </div>
+    
+                <!-- TABS -->
+                <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 dark:text-gray-400">
+                    <li class="me-2">
+                        <a href="{% url 'dashboard_orders' %}"  class="inline-block px-4 py-3 rounded-full hover:text-gray-900 hover:bg-gray-100">Bestellungen</a>
                     </li>
-                    <li class="me-2" role="presentation">
-                        <a href="{% url 'dashboard_products_all' %}" class="font-bold inline-block p-4 border-b-2 hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="dashboard-styled-tab" data-tabs-target="#styled-dashboard" type="button" role="tab" aria-controls="dashboard" aria-selected="false">Produkte</a>
+                    <li class="me-2">
+                        <a href="{% url 'dashboard_order_products' %}" class="inline-block px-4 py-3 hover:text-gray-900 hover:bg-gray-100 rounded-full" aria-current="page">Produkte</a>
                     </li>
-                    <li class="me-2" role="presentation">
-                        <a href="{% url 'dashboard_review_orders' %}" class="font-bold inline-block p-4 border-b-2 hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="settings-styled-tab" data-tabs-target="#styled-settings" type="button" role="tab" aria-controls="settings" aria-selected="false">Eingang</a>
-                    </li>
-                    <li role="presentation">
-                        <a href="{% url 'dashboard_product_requests' %}" class="font-bold inline-block p-4 border-b-2 hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="contacts-styled-tab" data-tabs-target="#styled-contacts" type="button" role="tab" aria-controls="contacts" aria-selected="false">Anfragen</a>
+                    <li class="me-2">
+                        <a href="{% url 'dashboard_review_orders' %}" class="inline-block px-4 py-3 bg-emerald-600 text-white rounded-full" aria-current="page">Eingang</a>
                     </li>
                 </ul>
-            </div>
-            <div class="flex flex-col md:items-start md:justify-between space-y-3 p-4">
-                <div class="flex-1 flex items-center space-x-2">
-                    <h5 class="font-semibold">Bestellungen</h5>
-                    <div class="font-medium text-gray-500 dark:text-gray-400">
-                        {{ orders.paginator.count }} Ergebnisse
-                    </div>
-                </div>
-                {% if request|check_get_parameters_exist:'search;search_invoice;search_product;status;online_recipe_status;recipe_status;payment_status;delivery_type;payment_type;customer_type' %}
-                <div class="flex-1 flex items-center border-gray-600 w-full filter-parameters">
-                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M5.05 3C3.291 3 2.352 5.024 3.51 6.317l5.422 6.059v4.874c0 .472.227.917.613 1.2l3.069 2.25c1.01.742 2.454.036 2.454-1.2v-7.124l5.422-6.059C21.647 5.024 20.708 3 18.95 3H5.05Z"/>
-                    </svg>
-                    <div class="flex-1 flex flex-wrap divide-x divide-gray-500 dark:divide-gray-400 w-full">
-                        {% if request|get_parameter:'search' %}
-                        <p class="text-gray-500 dark:text-gray-400 px-3 text-xs whitespace-nowrap">Suche: {{ request|get_parameter:'search' }}</p>
-                        {% endif %}
-                        {% if request|get_parameter:'search_invoice' %}
-                        <p class="text-gray-500 dark:text-gray-400 px-3 text-xs whitespace-nowrap">Rechnung: {{ request|get_parameter:'search_invoice' }}</p>
-                        {% endif %}
-                        {% if request|get_parameter:'search_product' %}
-                        <p class="text-gray-500 dark:text-gray-400 px-3 text-xs whitespace-nowrap">Produkt: {{ request|get_parameter:'search_product' }}</p>
-                        {% endif %}
-                        {% if request|get_parameter:'status' %}
-                        <p class="text-gray-500 dark:text-gray-400 px-3 text-xs whitespace-nowrap">Lieferstatus: {{ request|get_parameter:'status' }}</p>
-                        {% endif %}
-                        {% if request|get_parameter:'online_recipe_status' %}
-                        <p class="text-gray-500 dark:text-gray-400 px-3 text-xs whitespace-nowrap">(Online) Rezeptstatus: {{ request|get_parameter:'online_recipe_status' }}</p>
-                        {% endif %}
-                        {% if request|get_parameter:'recipe_status' %}
-                        <p class="text-gray-500 dark:text-gray-400 px-3 text-xs whitespace-nowrap">Original Rezeptstatus: {{ request|get_parameter:'recipe_status' }}</p>
-                        {% endif %}
-                        {% if request|get_parameter:'payment_status' %}
-                        <p class="text-gray-500 dark:text-gray-400 px-3 text-xs whitespace-nowrap">Bezahlstatus: {{ request|get_parameter:'payment_status' }}</p>
-                        {% endif %}
-                        {% if request|get_parameter:'delivery_type' %}
-                        <p class="text-gray-500 dark:text-gray-400 px-3 text-xs whitespace-nowrap">Versandart: {{ request|get_parameter:'delivery_type' }}</p>
-                        {% endif %}
-                        {% if request|get_parameter:'payment_type' %}
-                        <p class="text-gray-500 dark:text-gray-400 px-3 text-xs whitespace-nowrap">Zahlungsmethode: {{ request|get_parameter:'payment_type' }}</p>
-                        {% endif %}
-                        {% if request|get_parameter:'customer_type' %}
-                        <p class="text-gray-500 dark:text-gray-400 px-3 text-xs whitespace-nowrap">Rezeptart: {{ request|get_parameter:'customer_type' }}</p>
-                        {% endif %}
-                    </div>
-                    <button type="button" onclick="resetFilter()" class="flex items-center justify-center focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-4 py-2 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
-                        <svg class="w-4 h-4 text-gray-800 mr-1.5 -ml-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                            <path fill-rule="evenodd" d="M8.586 2.586A2 2 0 0 1 10 2h4a2 2 0 0 1 2 2v2h3a1 1 0 1 1 0 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8a1 1 0 0 1 0-2h3V4a2 2 0 0 1 .586-1.414ZM10 6h4V4h-4v2Zm1 4a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Zm4 0a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Z" clip-rule="evenodd"/>
-                        </svg>
-                        Filter löschen
-                    </button>
-                </div>
-                {% endif %}
-            </div>
-            <div class="flex flex-col md:flex-row mx-4 py-4 border-t dark:border-gray-700">
-                <!-- <div class="flex flex-col">
-                    <div class="flex flex-row">
-                        <div class="relative" style="min-width: 300px;">
-                            <div class="absolute inset-y-0 start-0 flex items-center ps-4 pointer-events-none">
-                                <svg class="h-3.5 w-3.5 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                                </svg>
+    
+                <div class="flex flex-col bg-white relative overflow-hidden" style="height: calc(100vh - 64px - 2.5rem);">
+                    <div class="flex flex-col md:items-start md:justify-between space-y-3 py-4">
+                        <div class="flex-1 flex items-center space-x-2">
+                            <div class="font-medium text-gray-500 dark:text-gray-400">
+                                {{ orders.paginator.count }} Ergebnisse
                             </div>
-                            <input type="text" id="searchOrderInput" class="bg-gray-50 border w-full border-gray-300 text-gray-900 text-sm rounded-full focus:ring-emerald-500 focus:border-emerald-500 block ps-10 p-2 dark:placeholder-gray-400 dark:focus:ring-emerald-500 dark:focus:border-emerald-500" placeholder="Bestellnummer, Name, E-Mail" required>
                         </div>
-                        <button type="button" onclick="searchOrder()" class="flex mr-2 items-center justify-center px-4 py-2 ms-2 text-sm font-medium text-white rounded-full bg-emerald-700 hover:bg-emerald-700 focus:ring-4 focus:ring-emerald-300 dark:bg-emerald-600 dark:hover:bg-emerald-700 focus:outline-none dark:focus:ring-emerald-800">
-                            <svg class="h-3.5 w-3.5 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                        {% if request|check_get_parameters_exist:'search;search_invoice;search_product;status;online_recipe_status;recipe_status;payment_status;delivery_type;payment_type;customer_type' %}
+                        <div class="flex-1 flex items-center border-gray-600 w-full filter-parameters">
+                            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M5.05 3C3.291 3 2.352 5.024 3.51 6.317l5.422 6.059v4.874c0 .472.227.917.613 1.2l3.069 2.25c1.01.742 2.454.036 2.454-1.2v-7.124l5.422-6.059C21.647 5.024 20.708 3 18.95 3H5.05Z"/>
                             </svg>
-                            Suchen
-                        </button>
-                    </div>
-                </div> -->
-                <div>
-                    <div class="flex">
-                        <label for="search-dropdown" class="mb-2 text-sm font-medium text-gray-900 sr-only">Your Email</label>
-                            <button id="searchDropdownButton" data-dropdown-toggle="searchDropdownCategories" class="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-white bg-gray-800 border border-gray-300 rounded-s-full hover:bg-gray-200 focus:ring-4 focus:outline-none dark:hover:bg-gray-600 dark:border-gray-600" type="button">
-                                <span>Alle Kategorien</span>
-                                <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
-                                </svg>
-                            </button>
-                        <div id="searchDropdownCategories" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-full shadow w-44 dark:bg-gray-700">
-                            <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdown-button">
-                                <li>
-                                    <button type="button" onclick="selectSearchCategory(this, 'search')" class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Alle Kategorien</button>
-                                </li>
-                                <li>
-                                    <button type="button" onclick="selectSearchCategory(this, 'search_invoice')" class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Rechnungsnummer</button>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="relative w-full">
-                            <input type="search" id="searchOrderInput" data-search-category="search" class="w-64 block p-2.5 z-20 text-sm text-gray-900 bg-gray-50 rounded-e-full border-s-gray-50 border-s-2 border border-gray-300 focus:ring-emerald-500 focus:border-emerald-500 dark:border-s-gray-700  dark:placeholder-gray-400 dark:focus:border-emerald-500" placeholder="Bestellnummer, Name, E-Mail..." required />
-                        </div>
-                        <button type="button" onclick="searchOrder()" class="flex mr-2 items-center justify-center px-4 py-2 ms-2 text-sm font-medium text-white rounded-full bg-emerald-700 hover:bg-emerald-700 focus:ring-4 focus:ring-emerald-300 dark:bg-emerald-600 dark:hover:bg-emerald-700 focus:outline-none dark:focus:ring-emerald-800">
-                            <svg class="h-3.5 w-3.5 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                            </svg>
-                            Suchen
-                        </button>
-                    </div>
-                </div>
-                <div class="ml-auto me-3 flex flex-row">
-                    <div class="relative searchProductContainer">
-                        <div class="absolute inset-y-0 start-0 flex items-center ps-4 pointer-events-none">
-                            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12.013 6.175 7.006 9.369l5.007 3.194-5.007 3.193L2 12.545l5.006-3.193L2 6.175l5.006-3.194 5.007 3.194ZM6.981 17.806l5.006-3.193 5.006 3.193L11.987 21l-5.006-3.194Z"/>
-                                <path d="m12.013 12.545 5.006-3.194-5.006-3.176 4.98-3.194L22 6.175l-5.007 3.194L22 12.562l-5.007 3.194-4.98-3.211Z"/>
-                            </svg>
-                        </div>
-                        <input type="text" dropdown-max-height="600" dropdown-width="400" data-search-type="global-search-product" class="h-full searchProductInput bg-gray-50 border w-full border-gray-300 text-gray-900 text-sm rounded-full focus:ring-emerald-500 focus:border-emerald-500 block ps-10 p-2 dark:placeholder-gray-400 dark:focus:ring-emerald-500 dark:focus:border-emerald-500" placeholder="Produktsuche" required>
-                    </div>
-                </div>
-                <!-- <div class="items-center block space-y-2 sm:space-y-0 sm:flex">
-                    <div class="flex items-center">
-                        <div id="statusFilterButtons" class="hidden w-full rounded-md shadow-sm md:w-auto lg:inline-flex md:flex-row">
-                            <button type="button" id="fastFilterAll" onclick="customFilter('', this)" class="{% if filterButton == 'fastFilterAll' or not filterButton %}active{% endif %} px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-t-lg md:rounded-tr-none md:rounded-l-lg hover:bg-gray-100 hover:text-emerald-700 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-emerald-500 dark:focus:text-white">
-                                Alle
-                            </button>
-                            <button type="button" id="fastFilterNotDelivered" onclick="customFilter('status=ordered,process', this)" class="{% if filterButton == 'fastFilterNotDelivered' %}active{% endif %} px-4 py-2 text-sm font-medium text-gray-900 bg-white border-gray-200 border-x md:border-x-0 md:border-t md:border-b hover:bg-gray-100 hover:text-emerald-700 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-emerald-500 dark:focus:text-white">
-                                Nicht versandt
-                            </button>
-                            <button type="button" id="fastFilterUnpaid" onclick="customFilter('payment_status=pending,at_pickup', this)" class="{% if filterButton == 'fastFilterUnpaid' %}active{% endif %} px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-gray-200 border-x md:border-x-0 md:border-l md:border-b hover:bg-gray-100 hover:text-emerald-700 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-emerald-500 dark:focus:text-white">
-                                Nicht bezahlt
-                            </button>
-                            <button type="button" id="fastFilterDelivered" onclick="customFilter('status=shipped', this)" class="{% if filterButton == 'fastFilterDelivered' %}active{% endif %} px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-b-lg md:rounded-bl-none md:rounded-r-lg hover:bg-gray-100 hover:text-emerald-700 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-emerald-500 dark:focus:text-white">
-                                Versandt
-                            </button>
-                        </div>
-                    </div>
-                </div> -->
-                <div class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
-                    <button id="filterDropdownButton" disabled data-dropdown-toggle="filterDropdown" class="h-full w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-emerald-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:hover:text-white dark:hover:bg-gray-700" type="button">
-                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-4 w-4 mr-1.5 -ml-1 text-gray-400" viewbox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z" clip-rule="evenodd" />
-                        </svg>
-                        Filtern
-                        <svg class="-mr-1 ml-1.5 w-5 h-5" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                            <path clip-rule="evenodd" fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                        </svg>
-                    </button>
-                    <div id="filterDropdown" class="z-10 hidden px-3 pt-1 bg-white rounded-full shadow w-80 right-0">
-                        <div id="accordion-flush" data-accordion="collapse" data-active-classes="text-black" data-inactive-classes="text-gray-500 dark:text-gray-400">
-                            <!-- Lieferstatus -->
-                            <h2 id="status-heading">
-                                <button type="button" class="flex items-center justify-between w-full py-2 px-1.5 text-sm font-medium text-left text-gray-500 border-b border-gray-200 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700" data-accordion-target="#status-body" aria-expanded="true" aria-controls="status-body">
-                                    <div>
-                                        <span class="mr-2">Lieferstatus</span>
-                                        {% if request|get_parameter:'status' %}
-                                        <span class="inline-flex items-center justify-center w-5 h-5 text-xs text-white bg-emerald-700 dark:bg-emerald-600 rounded-full">{{ request|get_parameter:'status'|tsplit:','|length }}</span>
-                                        {% endif %}
-                                    </div>
-                                    <svg aria-hidden="true" data-accordion-icon="" class="w-5 h-5 rotate-180 shrink-0" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                                    </svg>
-                                </button>
-                            </h2>
-                            <div id="status-body" class="hidden" aria-labelledby="status-heading">
-                                <div class="py-2 font-light border-b border-gray-200 dark:border-gray-600">
-                                    <ul class="space-y-2">
-                                        {% get_choices "OrderStatusChoices" as OrderStatusChoices %}
-                                        {% for item in OrderStatusChoices %}
-                                        <li class="flex items-center">
-                                            <input id="status-{{ item.0 }}" {% check_get_parameter request 'status' item.1 %} onchange="updateUrlParameters('status', '{{ item.1 }}')" type="checkbox" value="{{ item.0 }}" class="cursor-pointer w-4 h-4 bg-gray-100 border-gray-300 rounded text-emerald-600 focus:ring-emerald-500 dark:focus:ring-emerald-600 dark:ring-offset-gray-700 focus:ring-2 dark:border-gray-500">
-                                            <label for="status-{{ item.0 }}" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100 w-full cursor-pointer">{{ item.1 }}</label>
-                                        </li>
-                                        {% endfor %}
-                                    </ul>
-                                    <a href="javascript:void(0)" onclick="removeUrlParameters('status')" class="mt-2 flex items-center text-sm font-medium text-emerald-600 dark:text-emerald-500 hover:underline">Filterung aufheben</a>
-                                </div>
-                            </div>
-                            <!-- (Online) Rezeptstatus -->
-                            <h2 id="online-recipe-status-heading">
-                                <button type="button" class="flex items-center justify-between w-full py-2 px-1.5 text-sm font-medium text-left text-gray-500 border-b border-gray-200 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700" data-accordion-target="#online-recipe-status-body" aria-expanded="true" aria-controls="online-recipe-status-body">
-                                    <div>
-                                        <span class="mr-2">(Online) Rezeptstatus</span>
-                                        {% if request|get_parameter:'online_recipe_status' %}
-                                        <span class="inline-flex items-center justify-center w-5 h-5 text-xs text-white bg-emerald-700 dark:bg-emerald-600 rounded-full">{{ request|get_parameter:'online_recipe_status'|tsplit:','|length }}</span>
-                                        {% endif %}
-                                    </div>
-                                    <svg aria-hidden="true" data-accordion-icon="" class="w-5 h-5 rotate-180 shrink-0" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                                    </svg>
-                                </button>
-                            </h2>
-                            <div id="online-recipe-status-body" class="hidden" aria-labelledby="online-recipe-status-heading">
-                                <div class="py-2 font-light border-b border-gray-200 dark:border-gray-600">
-                                    <ul class="space-y-2">
-                                        {% get_choices "OnlineRecipeStatusChoices" as OnlineRecipeStatusChoices %}
-                                        {% for item in OnlineRecipeStatusChoices %}
-                                        <li class="flex items-center">
-                                            <input id="online-recipe-status-{{ item.0 }}" {% check_get_parameter request 'online_recipe_status' item.1 %} onchange="updateUrlParameters('online_recipe_status', '{{ item.1 }}')" type="checkbox" value="{{ item.0 }}" class="cursor-pointer w-4 h-4 bg-gray-100 border-gray-300 rounded text-emerald-600 focus:ring-emerald-500 dark:focus:ring-emerald-600 dark:ring-offset-gray-700 focus:ring-2 dark:border-gray-500">
-                                            <label for="online-recipe-status-{{ item.0 }}" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100 w-full cursor-pointer">{{ item.1 }}</label>
-                                        </li>
-                                        {% endfor %}
-                                    </ul>
-                                    <a href="javascript:void(0)" onclick="removeUrlParameters('online_recipe_status')" class="mt-2 flex items-center text-sm font-medium text-emerald-600 dark:text-emerald-500 hover:underline">Filterung aufheben</a>
-                                </div>
-                            </div>
-                            <!-- Original Rezeptstatus -->
-                            <h2 id="recipe-status-heading">
-                                <button type="button" class="flex items-center justify-between w-full py-2 px-1.5 text-sm font-medium text-left text-gray-500 border-b border-gray-200 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700" data-accordion-target="#recipe-status-body" aria-expanded="true" aria-controls="recipe-status-body">
-                                    <div>
-                                        <span class="mr-2">Original Rezeptstatus</span>
-                                        {% if request|get_parameter:'recipe_status' %}
-                                        <span class="inline-flex items-center justify-center w-5 h-5 text-xs text-white bg-emerald-700 dark:bg-emerald-600 rounded-full">{{ request|get_parameter:'recipe_status'|tsplit:','|length }}</span>
-                                        {% endif %}
-                                    </div>
-                                    <svg aria-hidden="true" data-accordion-icon="" class="w-5 h-5 rotate-180 shrink-0" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                                    </svg>
-                                </button>
-                            </h2>
-                            <div id="recipe-status-body" class="hidden" aria-labelledby="recipe-status-heading">
-                                <div class="py-2 font-light border-b border-gray-200 dark:border-gray-600">
-                                    <ul class="space-y-2">
-                                        {% get_choices "RecipeStatusChoices" as RecipeStatusChoices %}
-                                        {% for item in RecipeStatusChoices %}
-                                        <li class="flex items-center">
-                                            <input id="recipe-status-{{ item.0 }}" {% check_get_parameter request 'recipe_status' item.1 %} onchange="updateUrlParameters('recipe_status', '{{ item.1 }}')" type="checkbox" value="{{ item.0 }}" class="cursor-pointer w-4 h-4 bg-gray-100 border-gray-300 rounded text-emerald-600 focus:ring-emerald-500 dark:focus:ring-emerald-600 dark:ring-offset-gray-700 focus:ring-2 dark:border-gray-500">
-                                            <label for="recipe-status-{{ item.0 }}" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100 w-full cursor-pointer">{{ item.1 }}</label>
-                                        </li>
-                                        {% endfor %}
-                                    </ul>
-                                    <a href="javascript:void(0)" onclick="removeUrlParameters('recipe_status')" class="mt-2 flex items-center text-sm font-medium text-emerald-600 dark:text-emerald-500 hover:underline">Filterung aufheben</a>
-                                </div>
-                            </div>
-                            <!-- Bezahlstatus -->
-                            <h2 id="payment-status-heading">
-                                <button type="button" class="flex items-center justify-between w-full py-2 px-1.5 text-sm font-medium text-left text-gray-500 border-b border-gray-200 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700" data-accordion-target="#payment-status-body" aria-expanded="true" aria-controls="payment-status-body">
-                                    <div>
-                                        <span class="mr-2">Bezahlstatus</span>
-                                        {% if request|get_parameter:'payment_status' %}
-                                        <span class="inline-flex items-center justify-center w-5 h-5 text-xs text-white bg-emerald-700 dark:bg-emerald-600 rounded-full">{{ request|get_parameter:'payment_status'|tsplit:','|length }}</span>
-                                        {% endif %}
-                                    </div>
-                                    <svg aria-hidden="true" data-accordion-icon="" class="w-5 h-5 rotate-180 shrink-0" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                                    </svg>
-                                </button>
-                            </h2>
-                            <div id="payment-status-body" class="hidden" aria-labelledby="payment-status-heading">
-                                <div class="py-2 font-light border-b border-gray-200 dark:border-gray-600">
-                                    <ul class="space-y-2">
-                                        {% get_choices "PaymentStatusChoices" as PaymentStatusChoices %}
-                                        {% for item in PaymentStatusChoices %}
-                                        <li class="flex items-center">
-                                            <input id="payment-status-{{ item.0 }}" {% check_get_parameter request 'payment_status' item.1 %} onchange="updateUrlParameters('payment_status', '{{ item.1 }}')" type="checkbox" value="{{ item.0 }}" class="cursor-pointer w-4 h-4 bg-gray-100 border-gray-300 rounded text-emerald-600 focus:ring-emerald-500 dark:focus:ring-emerald-600 dark:ring-offset-gray-700 focus:ring-2 dark:border-gray-500">
-                                            <label for="payment-status-{{ item.0 }}" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100 w-full cursor-pointer">{{ item.1 }}</label>
-                                        </li>
-                                        {% endfor %}
-                                    </ul>
-                                    <a href="javascript:void(0)" onclick="removeUrlParameters('payment_status')" class="mt-2 flex items-center text-sm font-medium text-emerald-600 dark:text-emerald-500 hover:underline">Filterung aufheben</a>
-                                </div>
-                            </div>
-                            <!-- Versandart -->
-                            <h2 id="delivery-type-heading">
-                                <button type="button" class="flex items-center justify-between w-full py-2 px-1.5 text-sm font-medium text-left text-gray-500 border-b border-gray-200 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700" data-accordion-target="#delivery-type-body" aria-expanded="true" aria-controls="delivery-type-body">
-                                    <div>
-                                        <span class="mr-2">Versandart</span>
-                                        {% if request|get_parameter:'delivery_type' %}
-                                        <span class="inline-flex items-center justify-center w-5 h-5 text-xs text-white bg-emerald-700 dark:bg-emerald-600 rounded-full">{{ request|get_parameter:'delivery_type'|tsplit:','|length }}</span>
-                                        {% endif %}
-                                    </div>
-                                    <svg aria-hidden="true" data-accordion-icon="" class="w-5 h-5 rotate-180 shrink-0" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                                    </svg>
-                                </button>
-                            </h2>
-                            <div id="delivery-type-body" class="hidden" aria-labelledby="delivery-type-heading">
-                                <div class="py-2 font-light border-b border-gray-200 dark:border-gray-600">
-                                    <ul class="space-y-2">
-                                        {% get_choices "DeliveryTypeChoices" as DeliveryTypeChoices %}
-                                        {% for item in DeliveryTypeChoices %}
-                                        <li class="flex items-center">
-                                            <input id="delivery-type-{{ item.0 }}" {% check_get_parameter request 'delivery_type' item.1 %} onchange="updateUrlParameters('delivery_type', '{{ item.1 }}')" type="checkbox" value="{{ item.0 }}" class="cursor-pointer w-4 h-4 bg-gray-100 border-gray-300 rounded text-emerald-600 focus:ring-emerald-500 dark:focus:ring-emerald-600 dark:ring-offset-gray-700 focus:ring-2 dark:border-gray-500">
-                                            <label for="delivery-type-{{ item.0 }}" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100 w-full cursor-pointer">{{ item.1 }}</label>
-                                        </li>
-                                        {% endfor %}
-                                    </ul>
-                                    <a href="javascript:void(0)" onclick="removeUrlParameters('delivery_type')" class="mt-2 flex items-center text-sm font-medium text-emerald-600 dark:text-emerald-500 hover:underline">Filterung aufheben</a>
-                                </div>
-                            </div>
-                            <!-- Zahlungsmethode -->
-                            <h2 id="payment-type-heading">
-                                <button type="button" class="flex items-center justify-between w-full py-2 px-1.5 text-sm font-medium text-left text-gray-500 border-b border-gray-200 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700" data-accordion-target="#payment-type-body" aria-expanded="true" aria-controls="payment-type-body">
-                                    <div>
-                                        <span class="mr-2">Zahlungsmethode</span>
-                                        {% if request|get_parameter:'payment_type' %}
-                                        <span class="inline-flex items-center justify-center w-5 h-5 text-xs text-white bg-emerald-700 dark:bg-emerald-600 rounded-full">{{ request|get_parameter:'payment_type'|tsplit:','|length }}</span>
-                                        {% endif %}
-                                    </div>
-                                    <svg aria-hidden="true" data-accordion-icon="" class="w-5 h-5 rotate-180 shrink-0" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                                    </svg>
-                                </button>
-                            </h2>
-                            <div id="payment-type-body" class="hidden" aria-labelledby="payment-type-heading">
-                                <div class="py-2 font-light border-b border-gray-200 dark:border-gray-600">
-                                    <ul class="space-y-2">
-                                        {% get_choices "PaymentTypeChoices" as PaymentTypeChoices %}
-                                        {% for item in PaymentTypeChoices %}
-                                        <li class="flex items-center">
-                                            <input id="payment-type-{{ item.0 }}" {% check_get_parameter request 'payment_type' item.1 %} onchange="updateUrlParameters('payment_type', '{{ item.1 }}')" type="checkbox" value="{{ item.0 }}" class="cursor-pointer w-4 h-4 bg-gray-100 border-gray-300 rounded text-emerald-600 focus:ring-emerald-500 dark:focus:ring-emerald-600 dark:ring-offset-gray-700 focus:ring-2 dark:border-gray-500">
-                                            <label for="payment-type-{{ item.0 }}" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100 w-full cursor-pointer">{{ item.1 }}</label>
-                                        </li>
-                                        {% endfor %}
-                                    </ul>
-                                </div>
-                                <a href="javascript:void(0)" onclick="removeUrlParameters('payment_type')" class="mt-2 flex items-center text-sm font-medium text-emerald-600 dark:text-emerald-500 hover:underline">Filterung aufheben</a>
-                            </div>
-                            <!-- Rezeptart -->
-                            <h2 id="customer-type-heading">
-                                <button type="button" class="flex items-center justify-between w-full py-2 px-1.5 text-sm font-medium text-left text-gray-500 border-b border-gray-200 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700" data-accordion-target="#customer-type-body" aria-expanded="true" aria-controls="customer-type-body">
-                                    <div>
-                                        <span class="mr-2">Rezeptart</span>
-                                        {% if request|get_parameter:'customer_type' %}
-                                        <span class="inline-flex items-center justify-center w-5 h-5 text-xs text-white bg-emerald-700 dark:bg-emerald-600 rounded-full">{{ request|get_parameter:'customer_type'|tsplit:','|length }}</span>
-                                        {% endif %}
-                                    </div>
-                                    <svg aria-hidden="true" data-accordion-icon="" class="w-5 h-5 rotate-180 shrink-0" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                                    </svg>
-                                </button>
-                            </h2>
-                            <div id="customer-type-body" class="hidden" aria-labelledby="customer-type-heading">
-                                <div class="py-2 font-light border-b border-gray-200 dark:border-gray-600">
-                                    <ul class="space-y-2">
-                                        {% get_choices "CustomerTypeChoices" as CustomerTypeChoices %}
-                                        {% for item in CustomerTypeChoices %}
-                                        <li class="flex items-center">
-                                            <input id="customer-type-{{ item.0 }}" {% check_get_parameter request 'customer_type' item.1 %} onchange="updateUrlParameters('customer_type', '{{ item.1 }}')" type="checkbox" value="{{ item.0 }}" class="cursor-pointer w-4 h-4 bg-gray-100 border-gray-300 rounded text-emerald-600 focus:ring-emerald-500 dark:focus:ring-emerald-600 dark:ring-offset-gray-700 focus:ring-2 dark:border-gray-500">
-                                            <label for="customer-type-{{ item.0 }}" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100 w-full cursor-pointer">{{ item.1 }}</label>
-                                        </li>
-                                        {% endfor %}
-                                    </ul>
-                                    <a href="javascript:void(0)" onclick="removeUrlParameters('customer_type')" class="mt-2 flex items-center text-sm font-medium text-emerald-600 dark:text-emerald-500 hover:underline">Filterung aufheben</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Aktionen -->
-                    <div class="flex items-center space-x-3 w-full md:w-auto h-full">
-                        <button id="actionsDropdownButton" disabled data-dropdown-toggle="actionsDropdown" class="w-full h-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-emerald-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700" type="button">
-                            Aktionen
-                            <svg class="-mr-1 ml-1.5 w-5 h-5" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                <path clip-rule="evenodd" fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                            </svg>
-                        </button>
-                        <div id="actionsDropdown" class="hidden z-10 w-52 bg-white rounded divide-y divide-gray-100 shadow dark:divide-gray-600">
-                            <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="actionsDropdownButton">
-                                {% if request.user.is_superuser %}
-                                <li>
-                                    <a href="javascript:void(0)" onclick="updateAllDeliveryStatus()" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Lieferstatus updaten</a>
-                                </li>
+                            <div class="flex-1 flex flex-wrap divide-x divide-gray-500 dark:divide-gray-400 w-full">
+                                {% if request|get_parameter:'search' %}
+                                <p class="text-gray-500 dark:text-gray-400 px-3 text-xs whitespace-nowrap">Suche: {{ request|get_parameter:'search' }}</p>
                                 {% endif %}
-                                <li>
-                                    <a href="javascript:void(0)" onclick="sendOrderCreatedToCustomer()" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Link zur Bestellbestätigung senden</a>
-                                </li>
-                            </ul>
+                                {% if request|get_parameter:'search_invoice' %}
+                                <p class="text-gray-500 dark:text-gray-400 px-3 text-xs whitespace-nowrap">Rechnung: {{ request|get_parameter:'search_invoice' }}</p>
+                                {% endif %}
+                                {% if request|get_parameter:'search_product' %}
+                                <p class="text-gray-500 dark:text-gray-400 px-3 text-xs whitespace-nowrap">Produkt: {{ request|get_parameter:'search_product' }}</p>
+                                {% endif %}
+                                {% if request|get_parameter:'status' %}
+                                <p class="text-gray-500 dark:text-gray-400 px-3 text-xs whitespace-nowrap">Lieferstatus: {{ request|get_parameter:'status' }}</p>
+                                {% endif %}
+                                {% if request|get_parameter:'online_recipe_status' %}
+                                <p class="text-gray-500 dark:text-gray-400 px-3 text-xs whitespace-nowrap">(Online) Rezeptstatus: {{ request|get_parameter:'online_recipe_status' }}</p>
+                                {% endif %}
+                                {% if request|get_parameter:'recipe_status' %}
+                                <p class="text-gray-500 dark:text-gray-400 px-3 text-xs whitespace-nowrap">Original Rezeptstatus: {{ request|get_parameter:'recipe_status' }}</p>
+                                {% endif %}
+                                {% if request|get_parameter:'payment_status' %}
+                                <p class="text-gray-500 dark:text-gray-400 px-3 text-xs whitespace-nowrap">Bezahlstatus: {{ request|get_parameter:'payment_status' }}</p>
+                                {% endif %}
+                                {% if request|get_parameter:'delivery_type' %}
+                                <p class="text-gray-500 dark:text-gray-400 px-3 text-xs whitespace-nowrap">Versandart: {{ request|get_parameter:'delivery_type' }}</p>
+                                {% endif %}
+                                {% if request|get_parameter:'payment_type' %}
+                                <p class="text-gray-500 dark:text-gray-400 px-3 text-xs whitespace-nowrap">Zahlungsmethode: {{ request|get_parameter:'payment_type' }}</p>
+                                {% endif %}
+                                {% if request|get_parameter:'customer_type' %}
+                                <p class="text-gray-500 dark:text-gray-400 px-3 text-xs whitespace-nowrap">Rezeptart: {{ request|get_parameter:'customer_type' }}</p>
+                                {% endif %}
+                            </div>
+                            <button type="button" onclick="resetFilter()" class="flex items-center justify-center focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-4 py-2 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
+                                <svg class="w-4 h-4 text-gray-800 mr-1.5 -ml-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                    <path fill-rule="evenodd" d="M8.586 2.586A2 2 0 0 1 10 2h4a2 2 0 0 1 2 2v2h3a1 1 0 1 1 0 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8a1 1 0 0 1 0-2h3V4a2 2 0 0 1 .586-1.414ZM10 6h4V4h-4v2Zm1 4a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Zm4 0a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Z" clip-rule="evenodd"/>
+                                </svg>
+                                Filter löschen
+                            </button>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="flex flex-col md:flex-row py-4 border-t">
+                        <div>
+                            <div class="flex">
+                                <button id="searchDropdownButton" data-dropdown-toggle="searchDropdownCategories" class="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-white bg-gray-800 border border-gray-300 rounded-s-full hover:bg-gray-700 focus:ring-4 focus:outline-none" type="button">
+                                    <span>Alle Kategorien</span>
+                                    <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                                    </svg>
+                                </button>
+                                <div id="searchDropdownCategories" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-full shadow w-44 dark:bg-gray-700">
+                                    <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdown-button">
+                                        <li>
+                                            <button type="button" onclick="selectSearchCategory(this, 'search')" class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Alle Kategorien</button>
+                                        </li>
+                                        <li>
+                                            <button type="button" onclick="selectSearchCategory(this, 'search_invoice')" class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Rechnungsnummer</button>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="relative w-full">
+                                    <input type="search" id="searchOrderInput" data-search-category="search" class="w-64 block p-2.5 z-20 text-sm text-gray-900 bg-gray-50 rounded-e-full border-s-gray-50 border-s-2 border border-gray-300 focus:ring-emerald-500 focus:border-emerald-500 dark:border-s-gray-700  dark:placeholder-gray-400 dark:focus:border-emerald-500" placeholder="Bestellnummer, Name, E-Mail..." required />
+                                </div>
+                                <button type="button" onclick="searchOrder()" class="flex mr-2 items-center justify-center px-4 py-2 ms-2 text-sm font-medium text-white rounded-full bg-emerald-600 hover:bg-emerald-700 focus:ring-4 focus:ring-emerald-300 dark:bg-emerald-600 dark:hover:bg-emerald-700 focus:outline-none dark:focus:ring-emerald-800">
+                                    <svg class="h-3.5 w-3.5 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                                    </svg>
+                                    Suchen
+                                </button>
+                            </div>
+                        </div>
+                        <div class="ml-auto me-3 flex flex-row">
+                            <div class="relative searchProductContainer">
+                                <div class="absolute inset-y-0 start-0 flex items-center ps-4 pointer-events-none">
+                                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M12.013 6.175 7.006 9.369l5.007 3.194-5.007 3.193L2 12.545l5.006-3.193L2 6.175l5.006-3.194 5.007 3.194ZM6.981 17.806l5.006-3.193 5.006 3.193L11.987 21l-5.006-3.194Z"/>
+                                        <path d="m12.013 12.545 5.006-3.194-5.006-3.176 4.98-3.194L22 6.175l-5.007 3.194L22 12.562l-5.007 3.194-4.98-3.211Z"/>
+                                    </svg>
+                                </div>
+                                <input type="text" dropdown-max-height="600" dropdown-width="400" data-search-type="global-search-product" class="h-full searchProductInput bg-gray-50 border w-full border-gray-300 text-gray-900 text-sm rounded-full focus:ring-emerald-500 focus:border-emerald-500 block ps-10 p-2 dark:placeholder-gray-400 dark:focus:ring-emerald-500 dark:focus:border-emerald-500" placeholder="Produktsuche" required>
+                            </div>
+                        </div>
+                        <div class="text-gray-500 w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
+                            <button id="filterDropdownButton" disabled data-dropdown-toggle="filterDropdown" class="text-gray-500 h-full w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-emerald-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:hover:text-white dark:hover:bg-gray-700" type="button">
+                                <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="text-gray-500 h-4 w-4 mr-1.5 -ml-1 text-gray-400" viewbox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z" clip-rule="evenodd" />
+                                </svg>
+                                Filtern
+                                <svg class="-mr-1 ml-1.5 w-5 h-5" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                    <path clip-rule="evenodd" fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+                                </svg>
+                            </button>
+                            <div id="filterDropdown" class="z-10 hidden px-3 pt-1 bg-white rounded-full shadow w-80 right-0">
+                                <div id="accordion-flush" data-accordion="collapse" data-active-classes="text-black" data-inactive-classes="text-gray-500 dark:text-gray-400">
+                                    <!-- Lieferstatus -->
+                                    <h2 id="status-heading">
+                                        <button type="button" class="flex items-center justify-between w-full py-2 px-1.5 text-sm font-medium text-left text-gray-500 border-b border-gray-200 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700" data-accordion-target="#status-body" aria-expanded="true" aria-controls="status-body">
+                                            <div>
+                                                <span class="mr-2">Lieferstatus</span>
+                                                {% if request|get_parameter:'status' %}
+                                                <span class="inline-flex items-center justify-center w-5 h-5 text-xs text-white bg-emerald-700 dark:bg-emerald-600 rounded-full">{{ request|get_parameter:'status'|tsplit:','|length }}</span>
+                                                {% endif %}
+                                            </div>
+                                            <svg aria-hidden="true" data-accordion-icon="" class="w-5 h-5 rotate-180 shrink-0" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+                                            </svg>
+                                        </button>
+                                    </h2>
+                                    <div id="status-body" class="hidden" aria-labelledby="status-heading">
+                                        <div class="py-2 font-light border-b border-gray-200 dark:border-gray-600">
+                                            <ul class="space-y-2">
+                                                {% get_choices "OrderStatusChoices" as OrderStatusChoices %}
+                                                {% for item in OrderStatusChoices %}
+                                                <li class="flex items-center">
+                                                    <input id="status-{{ item.0 }}" {% check_get_parameter request 'status' item.1 %} onchange="updateUrlParameters('status', '{{ item.1 }}')" type="checkbox" value="{{ item.0 }}" class="cursor-pointer w-4 h-4 bg-gray-100 border-gray-300 rounded text-emerald-600 focus:ring-emerald-500 dark:focus:ring-emerald-600 dark:ring-offset-gray-700 focus:ring-2 dark:border-gray-500">
+                                                    <label for="status-{{ item.0 }}" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100 w-full cursor-pointer">{{ item.1 }}</label>
+                                                </li>
+                                                {% endfor %}
+                                            </ul>
+                                            <a href="javascript:void(0)" onclick="removeUrlParameters('status')" class="mt-2 flex items-center text-sm font-medium text-emerald-600 dark:text-emerald-500 hover:underline">Filterung aufheben</a>
+                                        </div>
+                                    </div>
+                                    <!-- (Online) Rezeptstatus -->
+                                    <h2 id="online-recipe-status-heading">
+                                        <button type="button" class="flex items-center justify-between w-full py-2 px-1.5 text-sm font-medium text-left text-gray-500 border-b border-gray-200 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700" data-accordion-target="#online-recipe-status-body" aria-expanded="true" aria-controls="online-recipe-status-body">
+                                            <div>
+                                                <span class="mr-2">(Online) Rezeptstatus</span>
+                                                {% if request|get_parameter:'online_recipe_status' %}
+                                                <span class="inline-flex items-center justify-center w-5 h-5 text-xs text-white bg-emerald-700 dark:bg-emerald-600 rounded-full">{{ request|get_parameter:'online_recipe_status'|tsplit:','|length }}</span>
+                                                {% endif %}
+                                            </div>
+                                            <svg aria-hidden="true" data-accordion-icon="" class="w-5 h-5 rotate-180 shrink-0" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+                                            </svg>
+                                        </button>
+                                    </h2>
+                                    <div id="online-recipe-status-body" class="hidden" aria-labelledby="online-recipe-status-heading">
+                                        <div class="py-2 font-light border-b border-gray-200 dark:border-gray-600">
+                                            <ul class="space-y-2">
+                                                {% get_choices "OnlineRecipeStatusChoices" as OnlineRecipeStatusChoices %}
+                                                {% for item in OnlineRecipeStatusChoices %}
+                                                <li class="flex items-center">
+                                                    <input id="online-recipe-status-{{ item.0 }}" {% check_get_parameter request 'online_recipe_status' item.1 %} onchange="updateUrlParameters('online_recipe_status', '{{ item.1 }}')" type="checkbox" value="{{ item.0 }}" class="cursor-pointer w-4 h-4 bg-gray-100 border-gray-300 rounded text-emerald-600 focus:ring-emerald-500 dark:focus:ring-emerald-600 dark:ring-offset-gray-700 focus:ring-2 dark:border-gray-500">
+                                                    <label for="online-recipe-status-{{ item.0 }}" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100 w-full cursor-pointer">{{ item.1 }}</label>
+                                                </li>
+                                                {% endfor %}
+                                            </ul>
+                                            <a href="javascript:void(0)" onclick="removeUrlParameters('online_recipe_status')" class="mt-2 flex items-center text-sm font-medium text-emerald-600 dark:text-emerald-500 hover:underline">Filterung aufheben</a>
+                                        </div>
+                                    </div>
+                                    <!-- Original Rezeptstatus -->
+                                    <h2 id="recipe-status-heading">
+                                        <button type="button" class="flex items-center justify-between w-full py-2 px-1.5 text-sm font-medium text-left text-gray-500 border-b border-gray-200 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700" data-accordion-target="#recipe-status-body" aria-expanded="true" aria-controls="recipe-status-body">
+                                            <div>
+                                                <span class="mr-2">Original Rezeptstatus</span>
+                                                {% if request|get_parameter:'recipe_status' %}
+                                                <span class="inline-flex items-center justify-center w-5 h-5 text-xs text-white bg-emerald-700 dark:bg-emerald-600 rounded-full">{{ request|get_parameter:'recipe_status'|tsplit:','|length }}</span>
+                                                {% endif %}
+                                            </div>
+                                            <svg aria-hidden="true" data-accordion-icon="" class="w-5 h-5 rotate-180 shrink-0" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+                                            </svg>
+                                        </button>
+                                    </h2>
+                                    <div id="recipe-status-body" class="hidden" aria-labelledby="recipe-status-heading">
+                                        <div class="py-2 font-light border-b border-gray-200 dark:border-gray-600">
+                                            <ul class="space-y-2">
+                                                {% get_choices "RecipeStatusChoices" as RecipeStatusChoices %}
+                                                {% for item in RecipeStatusChoices %}
+                                                <li class="flex items-center">
+                                                    <input id="recipe-status-{{ item.0 }}" {% check_get_parameter request 'recipe_status' item.1 %} onchange="updateUrlParameters('recipe_status', '{{ item.1 }}')" type="checkbox" value="{{ item.0 }}" class="cursor-pointer w-4 h-4 bg-gray-100 border-gray-300 rounded text-emerald-600 focus:ring-emerald-500 dark:focus:ring-emerald-600 dark:ring-offset-gray-700 focus:ring-2 dark:border-gray-500">
+                                                    <label for="recipe-status-{{ item.0 }}" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100 w-full cursor-pointer">{{ item.1 }}</label>
+                                                </li>
+                                                {% endfor %}
+                                            </ul>
+                                            <a href="javascript:void(0)" onclick="removeUrlParameters('recipe_status')" class="mt-2 flex items-center text-sm font-medium text-emerald-600 dark:text-emerald-500 hover:underline">Filterung aufheben</a>
+                                        </div>
+                                    </div>
+                                    <!-- Bezahlstatus -->
+                                    <h2 id="payment-status-heading">
+                                        <button type="button" class="flex items-center justify-between w-full py-2 px-1.5 text-sm font-medium text-left text-gray-500 border-b border-gray-200 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700" data-accordion-target="#payment-status-body" aria-expanded="true" aria-controls="payment-status-body">
+                                            <div>
+                                                <span class="mr-2">Bezahlstatus</span>
+                                                {% if request|get_parameter:'payment_status' %}
+                                                <span class="inline-flex items-center justify-center w-5 h-5 text-xs text-white bg-emerald-700 dark:bg-emerald-600 rounded-full">{{ request|get_parameter:'payment_status'|tsplit:','|length }}</span>
+                                                {% endif %}
+                                            </div>
+                                            <svg aria-hidden="true" data-accordion-icon="" class="w-5 h-5 rotate-180 shrink-0" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+                                            </svg>
+                                        </button>
+                                    </h2>
+                                    <div id="payment-status-body" class="hidden" aria-labelledby="payment-status-heading">
+                                        <div class="py-2 font-light border-b border-gray-200 dark:border-gray-600">
+                                            <ul class="space-y-2">
+                                                {% get_choices "PaymentStatusChoices" as PaymentStatusChoices %}
+                                                {% for item in PaymentStatusChoices %}
+                                                <li class="flex items-center">
+                                                    <input id="payment-status-{{ item.0 }}" {% check_get_parameter request 'payment_status' item.1 %} onchange="updateUrlParameters('payment_status', '{{ item.1 }}')" type="checkbox" value="{{ item.0 }}" class="cursor-pointer w-4 h-4 bg-gray-100 border-gray-300 rounded text-emerald-600 focus:ring-emerald-500 dark:focus:ring-emerald-600 dark:ring-offset-gray-700 focus:ring-2 dark:border-gray-500">
+                                                    <label for="payment-status-{{ item.0 }}" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100 w-full cursor-pointer">{{ item.1 }}</label>
+                                                </li>
+                                                {% endfor %}
+                                            </ul>
+                                            <a href="javascript:void(0)" onclick="removeUrlParameters('payment_status')" class="mt-2 flex items-center text-sm font-medium text-emerald-600 dark:text-emerald-500 hover:underline">Filterung aufheben</a>
+                                        </div>
+                                    </div>
+                                    <!-- Versandart -->
+                                    <h2 id="delivery-type-heading">
+                                        <button type="button" class="flex items-center justify-between w-full py-2 px-1.5 text-sm font-medium text-left text-gray-500 border-b border-gray-200 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700" data-accordion-target="#delivery-type-body" aria-expanded="true" aria-controls="delivery-type-body">
+                                            <div>
+                                                <span class="mr-2">Versandart</span>
+                                                {% if request|get_parameter:'delivery_type' %}
+                                                <span class="inline-flex items-center justify-center w-5 h-5 text-xs text-white bg-emerald-700 dark:bg-emerald-600 rounded-full">{{ request|get_parameter:'delivery_type'|tsplit:','|length }}</span>
+                                                {% endif %}
+                                            </div>
+                                            <svg aria-hidden="true" data-accordion-icon="" class="w-5 h-5 rotate-180 shrink-0" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+                                            </svg>
+                                        </button>
+                                    </h2>
+                                    <div id="delivery-type-body" class="hidden" aria-labelledby="delivery-type-heading">
+                                        <div class="py-2 font-light border-b border-gray-200 dark:border-gray-600">
+                                            <ul class="space-y-2">
+                                                {% get_choices "DeliveryTypeChoices" as DeliveryTypeChoices %}
+                                                {% for item in DeliveryTypeChoices %}
+                                                <li class="flex items-center">
+                                                    <input id="delivery-type-{{ item.0 }}" {% check_get_parameter request 'delivery_type' item.1 %} onchange="updateUrlParameters('delivery_type', '{{ item.1 }}')" type="checkbox" value="{{ item.0 }}" class="cursor-pointer w-4 h-4 bg-gray-100 border-gray-300 rounded text-emerald-600 focus:ring-emerald-500 dark:focus:ring-emerald-600 dark:ring-offset-gray-700 focus:ring-2 dark:border-gray-500">
+                                                    <label for="delivery-type-{{ item.0 }}" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100 w-full cursor-pointer">{{ item.1 }}</label>
+                                                </li>
+                                                {% endfor %}
+                                            </ul>
+                                            <a href="javascript:void(0)" onclick="removeUrlParameters('delivery_type')" class="mt-2 flex items-center text-sm font-medium text-emerald-600 dark:text-emerald-500 hover:underline">Filterung aufheben</a>
+                                        </div>
+                                    </div>
+                                    <!-- Zahlungsmethode -->
+                                    <h2 id="payment-type-heading">
+                                        <button type="button" class="flex items-center justify-between w-full py-2 px-1.5 text-sm font-medium text-left text-gray-500 border-b border-gray-200 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700" data-accordion-target="#payment-type-body" aria-expanded="true" aria-controls="payment-type-body">
+                                            <div>
+                                                <span class="mr-2">Zahlungsmethode</span>
+                                                {% if request|get_parameter:'payment_type' %}
+                                                <span class="inline-flex items-center justify-center w-5 h-5 text-xs text-white bg-emerald-700 dark:bg-emerald-600 rounded-full">{{ request|get_parameter:'payment_type'|tsplit:','|length }}</span>
+                                                {% endif %}
+                                            </div>
+                                            <svg aria-hidden="true" data-accordion-icon="" class="w-5 h-5 rotate-180 shrink-0" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+                                            </svg>
+                                        </button>
+                                    </h2>
+                                    <div id="payment-type-body" class="hidden" aria-labelledby="payment-type-heading">
+                                        <div class="py-2 font-light border-b border-gray-200 dark:border-gray-600">
+                                            <ul class="space-y-2">
+                                                {% get_choices "PaymentTypeChoices" as PaymentTypeChoices %}
+                                                {% for item in PaymentTypeChoices %}
+                                                <li class="flex items-center">
+                                                    <input id="payment-type-{{ item.0 }}" {% check_get_parameter request 'payment_type' item.1 %} onchange="updateUrlParameters('payment_type', '{{ item.1 }}')" type="checkbox" value="{{ item.0 }}" class="cursor-pointer w-4 h-4 bg-gray-100 border-gray-300 rounded text-emerald-600 focus:ring-emerald-500 dark:focus:ring-emerald-600 dark:ring-offset-gray-700 focus:ring-2 dark:border-gray-500">
+                                                    <label for="payment-type-{{ item.0 }}" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100 w-full cursor-pointer">{{ item.1 }}</label>
+                                                </li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                        <a href="javascript:void(0)" onclick="removeUrlParameters('payment_type')" class="mt-2 flex items-center text-sm font-medium text-emerald-600 dark:text-emerald-500 hover:underline">Filterung aufheben</a>
+                                    </div>
+                                    <!-- Rezeptart -->
+                                    <h2 id="customer-type-heading">
+                                        <button type="button" class="flex items-center justify-between w-full py-2 px-1.5 text-sm font-medium text-left text-gray-500 border-b border-gray-200 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700" data-accordion-target="#customer-type-body" aria-expanded="true" aria-controls="customer-type-body">
+                                            <div>
+                                                <span class="mr-2">Rezeptart</span>
+                                                {% if request|get_parameter:'customer_type' %}
+                                                <span class="inline-flex items-center justify-center w-5 h-5 text-xs text-white bg-emerald-700 dark:bg-emerald-600 rounded-full">{{ request|get_parameter:'customer_type'|tsplit:','|length }}</span>
+                                                {% endif %}
+                                            </div>
+                                            <svg aria-hidden="true" data-accordion-icon="" class="w-5 h-5 rotate-180 shrink-0" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+                                            </svg>
+                                        </button>
+                                    </h2>
+                                    <div id="customer-type-body" class="hidden" aria-labelledby="customer-type-heading">
+                                        <div class="py-2 font-light border-b border-gray-200 dark:border-gray-600">
+                                            <ul class="space-y-2">
+                                                {% get_choices "CustomerTypeChoices" as CustomerTypeChoices %}
+                                                {% for item in CustomerTypeChoices %}
+                                                <li class="flex items-center">
+                                                    <input id="customer-type-{{ item.0 }}" {% check_get_parameter request 'customer_type' item.1 %} onchange="updateUrlParameters('customer_type', '{{ item.1 }}')" type="checkbox" value="{{ item.0 }}" class="cursor-pointer w-4 h-4 bg-gray-100 border-gray-300 rounded text-emerald-600 focus:ring-emerald-500 dark:focus:ring-emerald-600 dark:ring-offset-gray-700 focus:ring-2 dark:border-gray-500">
+                                                    <label for="customer-type-{{ item.0 }}" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100 w-full cursor-pointer">{{ item.1 }}</label>
+                                                </li>
+                                                {% endfor %}
+                                            </ul>
+                                            <a href="javascript:void(0)" onclick="removeUrlParameters('customer_type')" class="mt-2 flex items-center text-sm font-medium text-emerald-600 dark:text-emerald-500 hover:underline">Filterung aufheben</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Aktionen -->
+                            <div class="flex items-center space-x-3 w-full md:w-auto h-full">
+                                <button id="actionsDropdownButton" disabled data-dropdown-toggle="actionsDropdown" class="w-full h-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-500 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-emerald-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700" type="button">
+                                    Aktionen
+                                    <svg class="-mr-1 ml-1.5 w-5 h-5" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                        <path clip-rule="evenodd" fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+                                    </svg>
+                                </button>
+                                <div id="actionsDropdown" class="hidden z-10 w-52 bg-white rounded divide-y divide-gray-100 shadow dark:divide-gray-600">
+                                    <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="actionsDropdownButton">
+                                        {% if request.user.is_superuser %}
+                                        <li>
+                                            <a href="javascript:void(0)" onclick="updateAllDeliveryStatus()" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Lieferstatus updaten</a>
+                                        </li>
+                                        {% endif %}
+                                        <li>
+                                            <a href="javascript:void(0)" onclick="sendOrderCreatedToCustomer()" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Link zur Bestellbestätigung senden</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div id="table-container" style="flex: 1" class="overflow-x-auto">
-                <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:text-gray-400" style="position: -webkit-sticky;position: sticky;top: 0;z-index: 1;">
-                        <tr>
-                            <th scope="col" class="p-4">
-                                <div class="flex items-center">
-                                    <input id="checkbox-all" type="checkbox" class="w-4 h-4 text-emerald-600 bg-gray-100 rounded border-gray-300 focus:ring-emerald-500 dark:focus:ring-emerald-600 dark:ring-offset-gray-800 focus:ring-2 dark:border-gray-600">
-                                    <label for="checkbox-all" class="sr-only">checkbox</label>
-                                </div>
-                            </th>
-                            <th scope="col" class="p-4">Kundenname</th>
-                            <th scope="col" class="p-4">Bestelldatum</th>
-                            <th scope="col" class="p-4">
-                                <div class="flex space-x-1 5 items-center">
-                                    <p>Rezeptart</p>
-                                    {% if request|get_parameter:'customer_type' %}
-                                    <div>
-                                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                                            <path d="M5.05 3C3.291 3 2.352 5.024 3.51 6.317l5.422 6.059v4.874c0 .472.227.917.613 1.2l3.069 2.25c1.01.742 2.454.036 2.454-1.2v-7.124l5.422-6.059C21.647 5.024 20.708 3 18.95 3H5.05Z"></path>
-                                        </svg>
-                                    </div>
-                                    {% endif %}
-                                </div>
-                            </th>
-                            <th scope="col" class="p-4">
-                                <div class="flex space-x-1 5 items-center">
-                                    <p>Zahlungsmethode</p>
-                                    {% if request|get_parameter:'payment_type' %}
-                                    <div>
-                                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                                            <path d="M5.05 3C3.291 3 2.352 5.024 3.51 6.317l5.422 6.059v4.874c0 .472.227.917.613 1.2l3.069 2.25c1.01.742 2.454.036 2.454-1.2v-7.124l5.422-6.059C21.647 5.024 20.708 3 18.95 3H5.05Z"></path>
-                                        </svg>
-                                    </div>
-                                    {% endif %}
-                                </div>
-                            </th>
-                            <th scope="col" class="p-4">
-                                <div class="flex space-x-1 5 items-center">
-                                    <p>Versandart</p>
-                                    {% if request|get_parameter:'delivery_type' %}
-                                    <div>
-                                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                                            <path d="M5.05 3C3.291 3 2.352 5.024 3.51 6.317l5.422 6.059v4.874c0 .472.227.917.613 1.2l3.069 2.25c1.01.742 2.454.036 2.454-1.2v-7.124l5.422-6.059C21.647 5.024 20.708 3 18.95 3H5.05Z"></path>
-                                        </svg>
-                                    </div>
-                                    {% endif %}
-                                </div>
-                            </th>
-                            <th scope="col" class="p-4">Bestellwert</th>
-                            <th scope="col" class="p-4">Rezeptnummer</th>
-                            <th scope="col" class="p-4">Artikelanzahl</th>
-                            <th scope="col" class="p-0 sticky right-0">
-                                <div class="p-4 bg-gray-50 flex h-full w-full" style="height: 64.5px;">
-                                    <span class="my-auto">Update</span>
-                                </div>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for order in orders %}
-                        <tr id="order-{{ order.id }}" data-order-id="{{ order.id }}" class="orders border-t *:hover:bg-gray-100 *:dark:hover:bg-gray-600 order {% if order.payment_status == 'overdue' %}overdue{% endif %} {% if order.status == 'started' %}order-started{% endif %}">
-                            <!-- Checkbox -->
-                            <td class="pl-4 pr-2 py-3 w-4 relative">
-                                <div class="flex items-center">
-                                    <input id="order-checkbox-{{ order.id }}" value="{{ order.id }}" type="checkbox" onclick="event.stopPropagation()" class="order-checkbox w-4 h-4 text-emerald-600 bg-gray-100 rounded border-gray-300 focus:ring-emerald-500 dark:focus:ring-emerald-600 dark:ring-offset-gray-800 focus:ring-2 dark:border-gray-600">
-                                    <label for="order-checkbox-{{ order.id }}" class="sr-only">checkbox</label>
-                                </div>
-                            </td>
-                            <!-- Kundeninformationen -->
-                            <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">
-                                <div hidden>
-                                    <div data-name="popover-content-{{ order.id }}">
-                                        <p class="text-gray-500 dark:text-gray-400" name="customerId">Kunden-Nr.: {{ order.customer.id }}</p>
-                                        <p class="text-gray-500 dark:text-gray-400">
-                                            <span name="street">{{ order.street }}</span> <span name="streetNumber">{{ order.street_number }}</span><br>
-                                            <span name="postalcode">{{ order.postalcode }}</span> <span name="city">{{ order.city }}</span>
-                                        </p>
-                                    </div>
-                                </div>
-                                <a id="customer{{ order.id }}" tabindex="0" class="btn btn-lg btn-danger flex" data-bs-trigger="focus" data-bs-placement="top" data-bs-custom-class="custom-popover" role="button" data-bs-toggle="popover" title="{{ order.first_name }} {{ order.last_name }}" >
-                                    <span name="customerName">{{ order.first_name }} {{ order.last_name }}</span>
-                                    <svg style="margin-top: 2px;" class="ml-3 mt-0 w-4 h-4 text-gray-400 hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9h2v5m-2 0h4M9.408 5.5h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                    <div id="table-container" style="flex: 1" class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:text-gray-400" style="position: -webkit-sticky;position: sticky;top: 0;z-index: 1;">
+                                <tr>
+                                    <th scope="col" class="p-4">
+                                        <div class="flex items-center">
+                                            <input id="checkbox-all" type="checkbox" class="w-4 h-4 text-emerald-600 bg-gray-100 rounded border-gray-300 focus:ring-emerald-500 dark:focus:ring-emerald-600 dark:ring-offset-gray-800 focus:ring-2 dark:border-gray-600">
+                                            <label for="checkbox-all" class="sr-only">checkbox</label>
+                                        </div>
+                                    </th>
+                                    <th scope="col" class="p-4">Kundenname</th>
+                                    <th scope="col" class="p-4">Bestelldatum</th>
+                                    <th scope="col" class="p-4">
+                                        <div class="flex space-x-1 5 items-center">
+                                            <p>Rezeptart</p>
+                                            {% if request|get_parameter:'customer_type' %}
+                                            <div>
+                                                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                                    <path d="M5.05 3C3.291 3 2.352 5.024 3.51 6.317l5.422 6.059v4.874c0 .472.227.917.613 1.2l3.069 2.25c1.01.742 2.454.036 2.454-1.2v-7.124l5.422-6.059C21.647 5.024 20.708 3 18.95 3H5.05Z"></path>
+                                                </svg>
+                                            </div>
+                                            {% endif %}
+                                        </div>
+                                    </th>
+                                    <th scope="col" class="p-4">
+                                        <div class="flex space-x-1 5 items-center">
+                                            <p>Zahlungsmethode</p>
+                                            {% if request|get_parameter:'payment_type' %}
+                                            <div>
+                                                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                                    <path d="M5.05 3C3.291 3 2.352 5.024 3.51 6.317l5.422 6.059v4.874c0 .472.227.917.613 1.2l3.069 2.25c1.01.742 2.454.036 2.454-1.2v-7.124l5.422-6.059C21.647 5.024 20.708 3 18.95 3H5.05Z"></path>
+                                                </svg>
+                                            </div>
+                                            {% endif %}
+                                        </div>
+                                    </th>
+                                    <th scope="col" class="p-4">
+                                        <div class="flex space-x-1 5 items-center">
+                                            <p>Versandart</p>
+                                            {% if request|get_parameter:'delivery_type' %}
+                                            <div>
+                                                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                                    <path d="M5.05 3C3.291 3 2.352 5.024 3.51 6.317l5.422 6.059v4.874c0 .472.227.917.613 1.2l3.069 2.25c1.01.742 2.454.036 2.454-1.2v-7.124l5.422-6.059C21.647 5.024 20.708 3 18.95 3H5.05Z"></path>
+                                                </svg>
+                                            </div>
+                                            {% endif %}
+                                        </div>
+                                    </th>
+                                    <th scope="col" class="p-4">Bestellwert</th>
+                                    <th scope="col" class="p-4">Rezeptnummer</th>
+                                    <th scope="col" class="p-4">Artikelanzahl</th>
+                                    <th scope="col" class="p-0 sticky right-0">
+                                        <div class="p-4 bg-gray-50 flex h-full w-full" style="height: 64.5px;">
+                                            <span class="my-auto">Update</span>
+                                        </div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for order in orders %}
+                                <tr id="order-{{ order.id }}" data-order-id="{{ order.id }}" class="orders border-t *:hover:bg-gray-100 *:dark:hover:bg-gray-600 order {% if order.payment_status == 'overdue' %}overdue{% endif %} {% if order.status == 'started' %}order-started{% endif %}">
+                                    <!-- Checkbox -->
+                                    <td class="pl-4 pr-2 py-3 w-4 relative">
+                                        <div class="flex items-center">
+                                            <input id="order-checkbox-{{ order.id }}" value="{{ order.id }}" type="checkbox" onclick="event.stopPropagation()" class="order-checkbox w-4 h-4 text-emerald-600 bg-gray-100 rounded border-gray-300 focus:ring-emerald-500 dark:focus:ring-emerald-600 dark:ring-offset-gray-800 focus:ring-2 dark:border-gray-600">
+                                            <label for="order-checkbox-{{ order.id }}" class="sr-only">checkbox</label>
+                                        </div>
+                                    </td>
+                                    <!-- Kundeninformationen -->
+                                    <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">
+                                        <div hidden>
+                                            <div data-name="popover-content-{{ order.id }}">
+                                                <p class="text-gray-500 dark:text-gray-400" name="customerId">Kunden-Nr.: {{ order.customer.id }}</p>
+                                                <p class="text-gray-500 dark:text-gray-400">
+                                                    <span name="street">{{ order.street }}</span> <span name="streetNumber">{{ order.street_number }}</span><br>
+                                                    <span name="postalcode">{{ order.postalcode }}</span> <span name="city">{{ order.city }}</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <a id="customer{{ order.id }}" tabindex="0" class="btn btn-lg btn-danger flex" data-bs-trigger="focus" data-bs-placement="top" data-bs-custom-class="custom-popover" role="button" data-bs-toggle="popover" title="{{ order.first_name }} {{ order.last_name }}" >
+                                            <span name="customerName">{{ order.first_name }} {{ order.last_name }}</span>
+                                            <svg style="margin-top: 2px;" class="ml-3 mt-0 w-4 h-4 text-gray-400 hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9h2v5m-2 0h4M9.408 5.5h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                                            </svg>
+                                        </a>
+                                    </td>
+                                    <!-- Bestellzeit -->
+                                    <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap" name="orderDate">{{ order.order_time|date:'d.m.Y' }}</td>
+                                    <!-- Rezeptart -->
+                                    <td class="px-4 py-3">
+                                        <span style="white-space: nowrap;"
+                                            class="text-xs font-medium px-2 py-0.5 rounded
+                                            {% if order.customer_type == 'self_payer' %}
+                                            bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-300
+                                            {% elif order.customer_type == 'insurance_patient' %}
+                                            bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-300
+                                            {% elif order.customer_type == 'insurance_patient_with_supplement' %}
+                                            bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-300
+                                            {% endif %}
+                                            "
+                                            value="{{ order.customer_type }}">
+                                                {{ order.get_customer_type_display }}
+                                        </span>
+                                    </td>
+                                    <!-- Bezahlmethode -->
+                                    <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">{{ order.get_payment_type_display }}</td>
+                                    <!-- Versandart -->
+                                    <td class="px-4 py-3">
+                                        <span style="white-space: nowrap;"
+                                            class="text-xs font-medium px-2 py-0.5 rounded
+                                            {% if order.delivery_type == 'pickup' %}
+                                            bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-300
+                                            {% elif order.delivery_type == 'dhl_standard' %}
+                                            bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300
+                                            {% elif order.delivery_type == 'go_express' %}
+                                            bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300
+                                            {% endif %}
+                                            "
+                                            value="{{ order.delivery_type }}">
+                                                {{ order.get_delivery_type_display }}
+                                        </span>
+                                    </td>
+                                    <!-- Betrag -->
+                                    <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap" name="total">{{ order.total|to_euro_decimal }} €</td>
+                                    <!-- Rezeptnummer -->
+                                    <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">
+                                        {% for recipe in order|get_recipes %}
+                                        <a href="{{ recipe.file.url }}" target="_blank">{{ recipe.number }}</a>
+                                        {% endfor %}
+                                    </td>
+                                    <!-- Anzahl produkte -->
+                                    <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap" name="orderAmount">{{ order|get_order_products|length }}</td>
+                                    <!-- Edit Button -->
+                                    <td class="p-0 font-medium text-gray-900 whitespace-nowrap sticky right-0 bg-white dark:bg-gray-800">
+                                        <div class="px-4 py-3">
+                                            <div class="flex items-center space-x-4">
+                                                <button type="button" onclick="getOrderDetails('{{ order.id }}')" id="createProductButton" class="flex items-center justify-center text-white bg-emerald-700 hover:bg-emerald-700 focus:ring-4 focus:ring-emerald-300 font-medium rounded-full text-sm px-4 py-2 dark:bg-emerald-600 dark:hover:bg-emerald-700 focus:outline-none dark:focus:ring-emerald-800">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 -ml-0.5" viewbox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                        <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
+                                                        <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" />
+                                                    </svg>
+                                                    Edit
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <nav class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4 border-gray-600 border-t" aria-label="Table navigation">
+                        <ul class="inline-flex items-stretch -space-x-px">
+                            {% with orders.paginator.page_range|first as first_page %}
+                            {% with 'page:'|concat_string:first_page as page_string %}
+                            {% with updated_params=request.GET|add_get_parameter:page_string %}
+                            <li>
+                                <a href="?{{ updated_params }}" class="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                                    <span class="sr-only">Erste Seite</span>
+                                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" viewBox="0 0 12 10">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M5 1 1 5l4 4m6-8L7 5l4 4"/>
                                     </svg>
                                 </a>
-                            </td>
-                            <!-- Bestellzeit -->
-                            <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap" name="orderDate">{{ order.order_time|date:'d.m.Y' }}</td>
-                            <!-- Rezeptart -->
-                            <td class="px-4 py-3">
-                                <span style="white-space: nowrap;"
-                                    class="text-xs font-medium px-2 py-0.5 rounded
-                                    {% if order.customer_type == 'self_payer' %}
-                                    bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-300
-                                    {% elif order.customer_type == 'insurance_patient' %}
-                                    bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-300
-                                    {% elif order.customer_type == 'insurance_patient_with_supplement' %}
-                                    bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-300
-                                    {% endif %}
-                                    "
-                                    value="{{ order.customer_type }}">
-                                        {{ order.get_customer_type_display }}
-                                </span>
-                            </td>
-                            <!-- Bezahlmethode -->
-                            <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">{{ order.get_payment_type_display }}</td>
-                            <!-- Versandart -->
-                            <td class="px-4 py-3">
-                                <span style="white-space: nowrap;"
-                                    class="text-xs font-medium px-2 py-0.5 rounded
-                                    {% if order.delivery_type == 'pickup' %}
-                                    bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-300
-                                    {% elif order.delivery_type == 'dhl_standard' %}
-                                    bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300
-                                    {% elif order.delivery_type == 'go_express' %}
-                                    bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300
-                                    {% endif %}
-                                    "
-                                    value="{{ order.delivery_type }}">
-                                        {{ order.get_delivery_type_display }}
-                                </span>
-                            </td>
-                            <!-- Betrag -->
-                            <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap" name="total">{{ order.total|to_euro_decimal }} €</td>
-                            <!-- Rezeptnummer -->
-                            <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">
-                                {% for recipe in order|get_recipes %}
-                                <a href="{{ recipe.file.url }}" target="_blank">{{ recipe.number }}</a>
-                                {% endfor %}
-                            </td>
-                            <!-- Anzahl produkte -->
-                            <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap" name="orderAmount">{{ order|get_order_products|length }}</td>
-                            <!-- Edit Button -->
-                            <td class="p-0 font-medium text-gray-900 whitespace-nowrap sticky right-0 bg-white dark:bg-gray-800">
-                                <div class="px-4 py-3">
-                                    <div class="flex items-center space-x-4">
-                                        <!-- <div>
-                                            <button id="actionsDropdownButton" data-dropdown-toggle="actionsDropdown" class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-emerald-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700" type="button">
-                                                Status
-                                                <svg class="-mr-1 ml-1.5 w-5 h-5" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                                    <path clip-rule="evenodd" fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                                                </svg>
-                                            </button>
-                                            <div id="actionsDropdown" class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:divide-gray-600">
-                                                <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="actionsDropdownButton">
-                                                    <li>
-                                                        <a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Mass Edit</a>
-                                                    </li>
-                                                </ul>
-                                                <div class="py-1">
-                                                    <a href="#" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete all</a>
-                                                </div>
-                                            </div>
-                                        </div> -->
-                                        <button type="button" onclick="getOrderDetails('{{ order.id }}')" id="createProductButton" class="flex items-center justify-center text-white bg-emerald-700 hover:bg-emerald-700 focus:ring-4 focus:ring-emerald-300 font-medium rounded-full text-sm px-4 py-2 dark:bg-emerald-600 dark:hover:bg-emerald-700 focus:outline-none dark:focus:ring-emerald-800">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 -ml-0.5" viewbox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                                <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
-                                                <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" />
-                                            </svg>
-                                            Edit
-                                        </button>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+                            </li>
+                            {% endwith %}
+                            {% endwith %}
+                            {% endwith %}
+                            {% for page_num in orders.paginator.page_range|get_page_range:orders.number %}
+                            {% if orders.number == page_num %}
+                            <li>
+                                <a href="?{{ updated_params }}" aria-current="page" class="flex items-center justify-center text-sm z-10 py-2 px-3 leading-tight text-emerald-600 bg-emerald-50 border border-emerald-300 hover:bg-emerald-100 hover:text-emerald-700 dark:border-gray-700">{{ page_num }}</a>
+                            </li>
+                            {% else %}
+                            {% with 'page:'|concat_string:page_num as page_string %}
+                            {% with updated_params=request.GET|add_get_parameter:page_string %}
+                            <li>
+                                <a href="?{{ updated_params }}" class="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{ page_num }}</a>
+                            </li>
+                            {% endwith %}
+                            {% endwith %}
+                            {% endif %}
+                            {% endfor %}
+                            {% with orders.paginator.page_range|last as last_page %}
+                            {% with 'page:'|concat_string:last_page as page_string %}
+                            {% with updated_params=request.GET|add_get_parameter:page_string %}
+                            <li>
+                                <a href="?{{ updated_params }}" class="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                                    <span class="sr-only">Letzte Seite</span>
+                                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" viewBox="0 0 12 10">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="m7 9 4-4-4-4M1 9l4-4-4-4"/>
+                                    </svg>
+                                </a>
+                            </li>
+                            {% endwith %}
+                            {% endwith %}
+                            {% endwith %}
+                        </ul>
+                    </nav>
+                </div>
             </div>
-            <nav class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4 border-gray-600 border-t" aria-label="Table navigation">
-                <ul class="inline-flex items-stretch -space-x-px">
-                    {% with orders.paginator.page_range|first as first_page %}
-                    {% with 'page:'|concat_string:first_page as page_string %}
-                    {% with updated_params=request.GET|add_get_parameter:page_string %}
-                    <li>
-                        <a href="?{{ updated_params }}" class="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                            <span class="sr-only">Erste Seite</span>
-                            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" viewBox="0 0 12 10">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M5 1 1 5l4 4m6-8L7 5l4 4"/>
-                            </svg>
-                        </a>
-                    </li>
-                    {% endwith %}
-                    {% endwith %}
-                    {% endwith %}
-                    {% for page_num in orders.paginator.page_range|get_page_range:orders.number %}
-                    {% if orders.number == page_num %}
-                    <li>
-                        <a href="?{{ updated_params }}" aria-current="page" class="flex items-center justify-center text-sm z-10 py-2 px-3 leading-tight text-emerald-600 bg-emerald-50 border border-emerald-300 hover:bg-emerald-100 hover:text-emerald-700 dark:border-gray-700">{{ page_num }}</a>
-                    </li>
-                    {% else %}
-                    {% with 'page:'|concat_string:page_num as page_string %}
-                    {% with updated_params=request.GET|add_get_parameter:page_string %}
-                    <li>
-                        <a href="?{{ updated_params }}" class="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{ page_num }}</a>
-                    </li>
-                    {% endwith %}
-                    {% endwith %}
-                    {% endif %}
-                    {% endfor %}
-                    {% with orders.paginator.page_range|last as last_page %}
-                    {% with 'page:'|concat_string:last_page as page_string %}
-                    {% with updated_params=request.GET|add_get_parameter:page_string %}
-                    <li>
-                        <a href="?{{ updated_params }}" class="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                            <span class="sr-only">Letzte Seite</span>
-                            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" viewBox="0 0 12 10">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="m7 9 4-4-4-4M1 9l4-4-4-4"/>
-                            </svg>
-                        </a>
-                    </li>
-                    {% endwith %}
-                    {% endwith %}
-                    {% endwith %}
-                </ul>
-            </nav>
         </div>
+    </div>
 </section>
 <!-- End block -->
 
@@ -1787,9 +1684,9 @@
 
 {% block scripts %}
 
-<script src="{% static '/app/js/cartProduct.js' %}?version=1.0.1"></script>
+<script src="{% static '/js/cartProduct.js' %}?version=1.0.1"></script>
 <!-- Search product -->
-<script src="{% static '/app/js/productSearch.js' %}?version=1.1" data-product-url="{% url 'request_product_datas' %}" data-pharmacy-id="{{ selected_pharmacy_id }}"></script>
+<script src="{% static '/js/productSearch.js' %}?version=1.1" data-product-url="{% url 'request_product_datas' %}" data-pharmacy-id="{{ selected_pharmacy_id }}"></script>
 
 <!-- Popup for Customer Name/Number/Address Popup -->
 <script data-orderids="{{ orders_dic }}">

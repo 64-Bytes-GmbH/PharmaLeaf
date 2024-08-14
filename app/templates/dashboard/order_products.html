@@ -5,404 +5,407 @@
 
 {% block content %}
 
-<section class="bg-gray-50 p-3 sm:p-5 antialiased">
-    <div class="">
-        <div class="flex flex-col bg-white relative shadow-md sm:rounded-lg overflow-hidden" style="height: calc(100vh - 64px - 2.5rem);">
-            <div class="flex flex-col md:items-start md:justify-between space-y-3 p-4">
-                <div class="flex-1 flex items-center space-x-2">
-                    <h5 class="font-semibold dark:text-white">Bestellungen</h5>
-                    <div class="font-medium text-gray-500 dark:text-gray-400">
-                        {{ orders.paginator.count }} Ergebnisse
-                    </div>
+<section class="flex h-screen bg-white antialiased">
+    <div class="w-full mx-auto">
+        <div class="relative overflow-hidden">
+            <div class="px-4">
+
+                <div class="flex flex-col py-3 space-y-3 md:flex-row md:items-center md:justify-between md:space-y-0 md:space-x-4">
+                    <h4 class="font-mono text-xl font-bold dark:text-black">Bestellungen</h4>
                 </div>
-                {% if request|check_get_parameters_exist:'search;manufacturer;supplier;status' %}
-                <div class="flex-1 flex items-center border-gray-600 w-full filter-parameters">
-                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M5.05 3C3.291 3 2.352 5.024 3.51 6.317l5.422 6.059v4.874c0 .472.227.917.613 1.2l3.069 2.25c1.01.742 2.454.036 2.454-1.2v-7.124l5.422-6.059C21.647 5.024 20.708 3 18.95 3H5.05Z"/>
-                    </svg>
-                    <div class="flex-1 flex flex-wrap divide-x divide-gray-500 dark:divide-gray-400 w-full">
-                        {% if request|get_parameter:'search' %}
-                        <p class="text-gray-500 dark:text-gray-400 px-3 text-xs whitespace-nowrap">Suche: {{ request|get_parameter:'search' }}</p>
-                        {% endif %}
-                        {% if request|get_parameter:'manufacturer' %}
-                        <p class="text-gray-500 dark:text-gray-400 px-3 text-xs whitespace-nowrap">Hersteller: {{ request|get_parameter:'manufacturer' }}</p>
-                        {% endif %}
-                        {% if request|get_parameter:'supplier' %}
-                        <p class="text-gray-500 dark:text-gray-400 px-3 text-xs whitespace-nowrap">Lieferant: {{ request|get_parameter:'supplier' }}</p>
-                        {% endif %}
-                        {% if request|get_parameter:'status' %}
-                        <p class="text-gray-500 dark:text-gray-400 px-3 text-xs whitespace-nowrap">Status: {{ request|get_parameter:'status' }}</p>
-                        {% endif %}
-                    </div>
-                    <button type="button" onclick="resetFilter()" class="flex items-center justify-center focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
-                        <svg class="w-4 h-4 text-gray-800 dark:text-white mr-1.5 -ml-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                            <path fill-rule="evenodd" d="M8.586 2.586A2 2 0 0 1 10 2h4a2 2 0 0 1 2 2v2h3a1 1 0 1 1 0 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8a1 1 0 0 1 0-2h3V4a2 2 0 0 1 .586-1.414ZM10 6h4V4h-4v2Zm1 4a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Zm4 0a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Z" clip-rule="evenodd"/>
-                        </svg>
-                        Filter löschen
-                    </button>
-                </div>
-                {% endif %}
-            </div>
-            <div class="flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-3 md:space-y-0 justify-between mx-4 py-4 border-t dark:border-gray-700">
-                <div class="flex flex-row">
-                    <div class="relative" style="min-width: 300px;">
-                        <div class="absolute inset-y-0 start-0 flex items-center ps-4 pointer-events-none">
-                            <svg class="h-3.5 w-3.5 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                            </svg>
-                        </div>
-                        <input type="text" id="searchOrderInput" class="bg-gray-50 border w-full border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block ps-10 p-2 dark:placeholder-gray-400 dark:text-white dark:focus:ring-emerald-500 dark:focus:border-emerald-500" placeholder="Bestellnummer, Name, E-Mail, Produkt" required>
-                    </div>
-                    <button type="button" onclick="searchOrder()" class="flex mr-2 items-center justify-center px-4 py-2 ms-2 text-sm font-medium text-white rounded-lg bg-emerald-700 hover:bg-emerald-700 focus:ring-4 focus:ring-emerald-300 dark:bg-emerald-600 dark:hover:bg-emerald-700 focus:outline-none dark:focus:ring-emerald-800">
-                        <svg class="h-3.5 w-3.5 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                        </svg>
-                        Suchen
-                    </button>
-                </div>
-                <!-- <div class="items-center block space-y-2 sm:space-y-0 sm:flex">
-                    <div class="flex items-center">
-                        <div id="statusFilterButtons" class="hidden w-full rounded-md shadow-sm md:w-auto lg:inline-flex md:flex-row">
-                            <button type="button" id="fastFilterAll" onclick="customFilter('', this)" class="{% if filterButton == 'fastFilterAll' or not filterButton %}active{% endif %} px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-t-lg md:rounded-tr-none md:rounded-l-lg hover:bg-gray-100 hover:text-emerald-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-emerald-500 dark:focus:text-white">
-                                Alle
-                            </button>
-                            <button type="button" id="fastFilterNotDelivered" onclick="customFilter('status=ordered,process', this)" class="{% if filterButton == 'fastFilterNotDelivered' %}active{% endif %} px-4 py-2 text-sm font-medium text-gray-900 bg-white border-gray-200 border-x md:border-x-0 md:border-t md:border-b hover:bg-gray-100 hover:text-emerald-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-emerald-500 dark:focus:text-white">
-                                Nicht versandt
-                            </button>
-                            <button type="button" id="fastFilterUnpaid" onclick="customFilter('payment_status=pending,at_pickup', this)" class="{% if filterButton == 'fastFilterUnpaid' %}active{% endif %} px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-gray-200 border-x md:border-x-0 md:border-l md:border-b hover:bg-gray-100 hover:text-emerald-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-emerald-500 dark:focus:text-white">
-                                Nicht bezahlt
-                            </button>
-                            <button type="button" id="fastFilterDelivered" onclick="customFilter('status=shipped', this)" class="{% if filterButton == 'fastFilterDelivered' %}active{% endif %} px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-b-lg md:rounded-bl-none md:rounded-r-lg hover:bg-gray-100 hover:text-emerald-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-emerald-500 dark:focus:text-white">
-                                Versandt
-                            </button>
-                        </div>
-                    </div>
-                </div> -->
-                <div class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
-                    <button type="button" id="createProductButton" class="flex items-center justify-center text-white bg-gray-900 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2 focus:outline-none dark:focus:ring-gray-800" disabled>
-                    <!-- <button type="button" id="createProductButton" data-modal-toggle="orderModal" class="flex items-center justify-center text-white bg-emerald-700 hover:bg-emerald-700 focus:ring-4 focus:ring-emerald-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-emerald-600 dark:hover:bg-emerald-700 focus:outline-none dark:focus:ring-emerald-800" disabled> -->
-                        <svg class="h-3.5 w-3.5 mr-1.5 -ml-1" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                            <path clip-rule="evenodd" fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
-                        </svg>
-                        Hinzufügen
-                    </button>
-                    <button id="filterDropdownButton" data-dropdown-toggle="filterDropdown" class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-emerald-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700" type="button">
-                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-4 w-4 mr-1.5 -ml-1 text-gray-400" viewbox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z" clip-rule="evenodd" />
-                        </svg>
-                        Filtern
-                        <svg class="-mr-1 ml-1.5 w-5 h-5" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                            <path clip-rule="evenodd" fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                        </svg>
-                    </button>
-                    <div id="filterDropdown" class="z-10 hidden px-3 pt-1 bg-white rounded-lg shadow w-80 right-0">
-                        <div id="accordion-flush" data-accordion="collapse" data-active-classes="text-black dark:text-white" data-inactive-classes="text-gray-500 dark:text-gray-400">
-                            <!-- Lieferant -->
-                            <h2 id="supplier-heading">
-                                <button type="button" class="flex items-center justify-between w-full py-2 px-1.5 text-sm font-medium text-left text-gray-500 border-b border-gray-200 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700" data-accordion-target="#supplier-body" aria-expanded="true" aria-controls="supplier-body">
-                                    <div>
-                                        <span class="mr-2">Lieferant</span>
-                                        {% if request|get_parameter:'supplier' %}
-                                        <span class="inline-flex items-center justify-center w-5 h-5 text-xs text-white bg-emerald-700 dark:bg-emerald-600 rounded-full">{{ request|get_parameter:'supplier'|tsplit:','|length }}</span>
-                                        {% endif %}
-                                    </div>
-                                    <svg aria-hidden="true" data-accordion-icon="" class="w-5 h-5 rotate-180 shrink-0" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                                    </svg>
-                                </button>
-                            </h2>
-                            <div id="supplier-body" class="hidden" aria-labelledby="supplier-heading">
-                                <div class="py-2 font-light border-b border-gray-200 dark:border-gray-600">
-                                    <ul class="space-y-2">
-                                        {% for item in suppliers %}
-                                        <li class="flex items-center">
-                                            <input id="supplier-filter-{{ item.id }}" {% check_get_parameter request 'supplier' item.name %} onchange="updateUrlParameters('supplier', '{{ item.name }}')" type="checkbox" value="{{ item.id }}" class="cursor-pointer w-4 h-4 bg-gray-100 border-gray-300 rounded text-emerald-600 focus:ring-emerald-500 dark:focus:ring-emerald-600 dark:ring-offset-gray-700 focus:ring-2 dark:border-gray-500">
-                                            <label for="supplier-filter-{{ item.id }}" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100 w-full cursor-pointer">{{ item.name }}</label>
-                                        </li>
-                                        {% endfor %}
-                                    </ul>
-                                    <a href="javascript:void(0)" onclick="removeUrlParameters('supplier')" class="mt-2 flex items-center text-sm font-medium text-emerald-600 dark:text-emerald-500 hover:underline">Filterung aufheben</a>
-                                </div>
-                            </div>
-                            <!-- Lieferstatus -->
-                            <h2 id="status-heading">
-                                <button type="button" class="flex items-center justify-between w-full py-2 px-1.5 text-sm font-medium text-left text-gray-500 border-b border-gray-200 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700" data-accordion-target="#status-body" aria-expanded="true" aria-controls="status-body">
-                                    <div>
-                                        <span class="mr-2">Lieferstatus</span>
-                                        {% if request|get_parameter:'status' %}
-                                        <span class="inline-flex items-center justify-center w-5 h-5 text-xs text-white bg-emerald-700 dark:bg-emerald-600 rounded-full">{{ request|get_parameter:'status'|tsplit:','|length }}</span>
-                                        {% endif %}
-                                    </div>
-                                    <svg aria-hidden="true" data-accordion-icon="" class="w-5 h-5 rotate-180 shrink-0" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                                    </svg>
-                                </button>
-                            </h2>
-                            <div id="status-body" class="hidden" aria-labelledby="status-heading">
-                                <div class="py-2 font-light border-b border-gray-200 dark:border-gray-600">
-                                    <ul class="space-y-2">
-                                        {% get_choices "OrderStatusChoices" as OrderStatusChoices %}
-                                        {% for item in OrderStatusChoices %}
-                                        <li class="flex items-center">
-                                            <input id="status-{{ item.0 }}" {% check_get_parameter request 'status' item.1 %} onchange="updateUrlParameters('status', '{{ item.1 }}')" type="checkbox" value="{{ item.0 }}" class="cursor-pointer w-4 h-4 bg-gray-100 border-gray-300 rounded text-emerald-600 focus:ring-emerald-500 dark:focus:ring-emerald-600 dark:ring-offset-gray-700 focus:ring-2 dark:border-gray-500">
-                                            <label for="status-{{ item.0 }}" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100 w-full cursor-pointer">{{ item.1 }}</label>
-                                        </li>
-                                        {% endfor %}
-                                    </ul>
-                                    <a href="javascript:void(0)" onclick="removeUrlParameters('status')" class="mt-2 flex items-center text-sm font-medium text-emerald-600 dark:text-emerald-500 hover:underline">Filterung aufheben</a>
-                                </div>
-                            </div>
-                            <!-- Hersteller -->
-                            <h2 id="manufacturer-heading">
-                                <button type="button" class="flex items-center justify-between w-full py-2 px-1.5 text-sm font-medium text-left text-gray-500 border-b border-gray-200 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700" data-accordion-target="#manufacturer-body" aria-expanded="true" aria-controls="manufacturer-body">
-                                    <div>
-                                        <span class="mr-2">Hersteller</span>
-                                        {% if request|get_parameter:'manufacturer' %}
-                                        <span class="inline-flex items-center justify-center w-5 h-5 text-xs text-white bg-emerald-700 dark:bg-emerald-600 rounded-full">{{ request|get_parameter:'status'|tsplit:','|length }}</span>
-                                        {% endif %}
-                                    </div>
-                                    <svg aria-hidden="true" data-accordion-icon="" class="w-5 h-5 rotate-180 shrink-0" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                                    </svg>
-                                </button>
-                            </h2>
-                            <div id="manufacturer-body" class="hidden" aria-labelledby="status-heading">
-                                <div class="py-2 font-light border-b border-gray-200 dark:border-gray-600">
-                                    <ul class="space-y-2">
-                                        {% for item in manufacturers %}
-                                        <li class="flex items-center">
-                                            <input id="manufacturer-filter-{{ item.id }}" {% check_get_parameter request 'manufacturer' item.name %} onchange="updateUrlParameters('manufacturer', '{{ item.name }}')" type="checkbox" value="{{ item.id }}" class="cursor-pointer w-4 h-4 bg-gray-100 border-gray-300 rounded text-emerald-600 focus:ring-emerald-500 dark:focus:ring-emerald-600 dark:ring-offset-gray-700 focus:ring-2 dark:border-gray-500">
-                                            <label for="manufacturer-filter-{{ item.id }}" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100 w-full cursor-pointer">{{ item.name }}</label>
-                                        </li>
-                                        {% endfor %}
-                                    </ul>
-                                    <a href="javascript:void(0)" onclick="removeUrlParameters('manufacturer')" class="mt-2 flex items-center text-sm font-medium text-emerald-600 dark:text-emerald-500 hover:underline">Filterung aufheben</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Actions -->
-                    <div class="flex items-center space-x-3 w-full md:w-auto">
-                        <button id="actionsDropdownButton" data-dropdown-toggle="actionsDropdown" class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-emerald-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700" type="button">
-                            Actions
-                            <svg class="-mr-1 ml-1.5 w-5 h-5" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                <path clip-rule="evenodd" fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                            </svg>
-                        </button>
-                        <div id="actionsDropdown" class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:divide-gray-600">
-                            <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="actionsDropdownButton">
-                                <li>
-                                    <a href="javascript:void()" onclick="exportAllToExcel()" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Excel Export</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div id="table-container" style="flex: 1" class="overflow-x-auto">
-                <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:text-gray-400" style="position: -webkit-sticky;position: sticky;top: 0;z-index: 1;">
-                        <tr>
-                            <th scope="col" class="p-4">
-                                <div class="flex items-center">
-                                    <input id="checkbox-all" type="checkbox" class="w-4 h-4 text-emerald-600 bg-gray-100 rounded border-gray-300 focus:ring-emerald-500 dark:focus:ring-emerald-600 dark:ring-offset-gray-800 focus:ring-2 dark:border-gray-600">
-                                    <label for="checkbox-all" class="sr-only">checkbox</label>
-                                </div>
-                            </th>
-                            <th scope="col" class="p-4">Bestellung</th>
-                            <th scope="col" class="p-4">Produktname</th>
-                            <th scope="col" class="p-4">Menge</th>
-                            <th scope="col" class="p-4">Produktnr.</th>
-                            <th scope="col" class="p-4">
-                                <div class="flex space-x-1 5 items-center">
-                                    <p>Hersteller</p>
-                                    {% if request|get_parameter:'manufacturer' %}
-                                    <div>
-                                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                                            <path d="M5.05 3C3.291 3 2.352 5.024 3.51 6.317l5.422 6.059v4.874c0 .472.227.917.613 1.2l3.069 2.25c1.01.742 2.454.036 2.454-1.2v-7.124l5.422-6.059C21.647 5.024 20.708 3 18.95 3H5.05Z"></path>
-                                        </svg>
-                                    </div>
-                                    {% endif %}
-                                </div>
-                            </th>
-                            <th scope="col" class="p-4">
-                                <div class="flex space-x-1 5 items-center">
-                                    <p>Lieferant</p>
-                                    {% if request|get_parameter:'supplier' %}
-                                    <div>
-                                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                                            <path d="M5.05 3C3.291 3 2.352 5.024 3.51 6.317l5.422 6.059v4.874c0 .472.227.917.613 1.2l3.069 2.25c1.01.742 2.454.036 2.454-1.2v-7.124l5.422-6.059C21.647 5.024 20.708 3 18.95 3H5.05Z"></path>
-                                        </svg>
-                                    </div>
-                                    {% endif %}
-                                </div>
-                            </th>
-                            <th scope="col" class="p-4">Bestelldatum</th>
-                            <th scope="col" class="p-4">
-                                <div class="flex space-x-1 5 items-center">
-                                    <p>Lieferstatus</p>
-                                    {% if request|get_parameter:'status' %}
-                                    <div>
-                                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                                            <path d="M5.05 3C3.291 3 2.352 5.024 3.51 6.317l5.422 6.059v4.874c0 .472.227.917.613 1.2l3.069 2.25c1.01.742 2.454.036 2.454-1.2v-7.124l5.422-6.059C21.647 5.024 20.708 3 18.95 3H5.05Z"></path>
-                                        </svg>
-                                    </div>
-                                    {% endif %}
-                                </div>
-                            </th>
-                            <th scope="col" class="p-4">
-                                <div class="flex space-x-1 5 items-center">
-                                    <p>(Online) Rezeptstatus</p>
-                                    {% if request|get_parameter:'online_recipe_status' %}
-                                    <div>
-                                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                                            <path d="M5.05 3C3.291 3 2.352 5.024 3.51 6.317l5.422 6.059v4.874c0 .472.227.917.613 1.2l3.069 2.25c1.01.742 2.454.036 2.454-1.2v-7.124l5.422-6.059C21.647 5.024 20.708 3 18.95 3H5.05Z"></path>
-                                        </svg>
-                                    </div>
-                                    {% endif %}
-                                </div>
-                            </th>
-                            <th scope="col" class="p-4">
-                                <div class="flex space-x-1 5 items-center">
-                                    <p>Original Rezeptstatus</p>
-                                    {% if request|get_parameter:'recipe_status' %}
-                                    <div>
-                                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                                            <path d="M5.05 3C3.291 3 2.352 5.024 3.51 6.317l5.422 6.059v4.874c0 .472.227.917.613 1.2l3.069 2.25c1.01.742 2.454.036 2.454-1.2v-7.124l5.422-6.059C21.647 5.024 20.708 3 18.95 3H5.05Z"></path>
-                                        </svg>
-                                    </div>
-                                    {% endif %}
-                                </div>
-                            </th>
-                            <th scope="col" class="p-4">
-                                <div class="flex space-x-1 5 items-center">
-                                    <p>Zahlungsstatus</p>
-                                    {% if request|get_parameter:'payment_status' %}
-                                    <div>
-                                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                                            <path d="M5.05 3C3.291 3 2.352 5.024 3.51 6.317l5.422 6.059v4.874c0 .472.227.917.613 1.2l3.069 2.25c1.01.742 2.454.036 2.454-1.2v-7.124l5.422-6.059C21.647 5.024 20.708 3 18.95 3H5.05Z"></path>
-                                        </svg>
-                                    </div>
-                                    {% endif %}
-                                </div>
-                            </th>
-                            <th scope="col" class="p-4">Rezeptnummer</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for order_product in order_products %}
-                        <tr data-order-product-id="{{ order_product.id }}" class="orders border-t *:hover:bg-gray-100 *:dark:hover:bg-gray-600 order_product" id="order-product-{{ order_product.id }}">
-                            <!-- Checkbox -->
-                            <td class="pl-4 pr-2 py-3 w-4">
-                                <div class="flex items-center">
-                                    <input id="checkbox-table-search-1" type="checkbox" onclick="event.stopPropagation()" class="w-4 h-4 text-emerald-600 bg-gray-100 rounded border-gray-300 focus:ring-emerald-500 dark:focus:ring-emerald-600 dark:ring-offset-gray-800 focus:ring-2 dark:border-gray-600">
-                                    <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
-                                </div>
-                            </td>
-                            <!-- Bestellnummer -->
-                            <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white" name="orderNumber">
-                                <a href="javascript:void(0)" class="text-emerald-600 dark:text-emerald-500">{{ order_product.order.number }}</a>
-                            </td>
-                            <!-- Artikelbezeichnung -->
-                            <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ order_product.product.name }}</td>
-                            <!-- Menge -->
-                            <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white text-right">{{ order_product.amount }} {% if order_product.product.form == 'flower' %}g{% else %}Einh.{% endif %}</td>
-                            <!-- Artikelnummer -->
-                            <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ order_product.product.number }}</td>
-                            <!-- Hersteller -->
-                            <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ order_product.product.manufacturer.name }}</td>
-                            <!-- Lieferant -->
-                            <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ order_product.product.supplier.name }}</td>
-                            <!-- Bestellzeit -->
-                            <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white" name="orderDate">{{ order_product.order.order_time|date:'d.m.Y' }}</td>
-                            <!-- Lieferstatus -->
-                            <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white status">
-                                <span class="flex items-center text-sm font-medium text-gray-900 dark:text-white me-3">
-                                    <span class="flex w-3 h-3 rounded-full me-1.5 flex-shrink-0 status-circle" value="{{ order_product.order.status }}"></span>
-                                    {{ order_product.order.get_status_display }}
-                                </span>
-                            </td>
-                            <!-- ONLINE Rezeptstatus -->
-                            <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white online_recipe_status">
-                                <span class="flex items-center text-sm font-medium text-gray-900 dark:text-white me-3">
-                                    <span class="flex w-3 h-3 rounded-full me-1.5 flex-shrink-0 status-circle" value="{{ order_product.order.online_recipe_status }}"></span>
-                                    {{ order_product.order.get_online_recipe_status_display }}
-                                </span>
-                            </td>
-                            <!-- ORIGINAL Rezeptstatus -->
-                            <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white recipe_status">
-                                <span class="flex items-center text-sm font-medium text-gray-900 dark:text-white me-3">
-                                    <span class="flex w-3 h-3 rounded-full me-1.5 flex-shrink-0 status-circle" value="{{ order_product.order.recipe_status }}"></span>
-                                    {{ order_product.order.get_recipe_status_display }}
-                                </span>
-                            </td>
-                            <!-- Zahlungsstatus -->
-                            <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white payment_status">
-                                <span class="flex items-center text-sm font-medium text-gray-900 dark:text-white me-3">
-                                    {% if order_product.order.payment_status in 'overdue' %}
-                                    <svg class="w-4 h-4 mr-2 text-red-700 dark:text-red-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 13V8m0 8h0m9-4a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
-                                    </svg>
-                                    {% else %}
-                                    <span class="flex w-3 h-3 rounded-full me-1.5 flex-shrink-0 status-circle" value="{{ order_product.order.payment_status }}"></span>
-                                    {% endif %}
-                                    {{ order_product.order.get_payment_status_display }}
-                                </span>
-                            </td>
-                            <!-- Rezeptnummer -->
-                            <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ order_product.recipe_file.number }}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-            <nav class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4 border-gray-600 border-t" aria-label="Table navigation">
-                <ul class="inline-flex items-stretch -space-x-px">
-                    {% with order_products.paginator.page_range|first as first_page %}
-                    {% with 'page:'|concat_string:first_page as page_string %}
-                    {% with updated_params=request.GET|add_get_parameter:page_string %}
-                    <li>
-                        <a href="?{{ updated_params }}" class="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                            <span class="sr-only">Erste Seite</span>
-                            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" viewBox="0 0 12 10">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M5 1 1 5l4 4m6-8L7 5l4 4"/>
-                            </svg>
-                        </a>
+
+                <!-- TABS -->
+                <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 dark:text-gray-400">
+                    <li class="me-2">
+                        <a href="{% url 'dashboard_orders' %}"  class="inline-block px-4 py-3 rounded-full hover:text-gray-900 hover:bg-gray-100">Bestellungen</a>
                     </li>
-                    {% endwith %}
-                    {% endwith %}
-                    {% endwith %}
-                    {% for page_num in order_products.paginator.page_range|get_page_range:order_products.number %}
-                    {% if order_products.number == page_num %}
-                    <li>
-                        <a href="?{{ updated_params }}" aria-current="page" class="flex items-center justify-center text-sm z-10 py-2 px-3 leading-tight text-emerald-600 bg-emerald-50 border border-emerald-300 hover:bg-emerald-100 hover:text-emerald-700 dark:border-gray-700 dark:text-white">{{ page_num }}</a>
+                    <li class="me-2">
+                        <a href="{% url 'dashboard_order_products' %}" class="inline-block px-4 py-3 bg-emerald-600 text-white rounded-full" aria-current="page">Produkte</a>
                     </li>
-                    {% else %}
-                    {% with 'page:'|concat_string:page_num as page_string %}
-                    {% with updated_params=request.GET|add_get_parameter:page_string %}
-                    <li>
-                        <a href="?{{ updated_params }}" class="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{ page_num }}</a>
+                    <li class="me-2">
+                        <a href="{% url 'dashboard_review_orders' %}" class="inline-block px-4 py-3 hover:text-gray-900 hover:bg-gray-100 rounded-full" aria-current="page">Eingang</a>
                     </li>
-                    {% endwith %}
-                    {% endwith %}
-                    {% endif %}
-                    {% endfor %}
-                    {% with order_products.paginator.page_range|last as last_page %}
-                    {% with 'page:'|concat_string:last_page as page_string %}
-                    {% with updated_params=request.GET|add_get_parameter:page_string %}
-                    <li>
-                        <a href="?{{ updated_params }}" class="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                            <span class="sr-only">Letzte Seite</span>
-                            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" viewBox="0 0 12 10">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="m7 9 4-4-4-4M1 9l4-4-4-4"/>
-                            </svg>
-                        </a>
-                    </li>
-                    {% endwith %}
-                    {% endwith %}
-                    {% endwith %}
                 </ul>
-            </nav>
+
+                <div class="flex flex-col bg-white relative overflow-hidden" style="height: calc(100vh - 64px - 2.5rem);">
+                    <div class="flex flex-col md:items-start md:justify-between space-y-3 py-4">
+                        <div class="flex-1 flex items-center space-x-2">
+                            <!-- <h5 class="font-semibold dark:text-white">Bestellungen</h5> -->
+                            <div class="font-medium text-gray-500 dark:text-gray-400">
+                                {% if orders.paginator.count %}{{ orders.paginator.count}}{% else %}0{% endif %} Ergebnisse
+                            </div>
+                        </div>
+                        {% if request|check_get_parameters_exist:'search;manufacturer;supplier;status' %}
+                        <div class="flex-1 flex items-center border-gray-600 w-full filter-parameters">
+                            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M5.05 3C3.291 3 2.352 5.024 3.51 6.317l5.422 6.059v4.874c0 .472.227.917.613 1.2l3.069 2.25c1.01.742 2.454.036 2.454-1.2v-7.124l5.422-6.059C21.647 5.024 20.708 3 18.95 3H5.05Z"/>
+                            </svg>
+                            <div class="flex-1 flex flex-wrap divide-x divide-gray-500 dark:divide-gray-400 w-full">
+                                {% if request|get_parameter:'search' %}
+                                <p class="text-gray-500 dark:text-gray-400 px-3 text-xs whitespace-nowrap">Suche: {{ request|get_parameter:'search' }}</p>
+                                {% endif %}
+                                {% if request|get_parameter:'manufacturer' %}
+                                <p class="text-gray-500 dark:text-gray-400 px-3 text-xs whitespace-nowrap">Hersteller: {{ request|get_parameter:'manufacturer' }}</p>
+                                {% endif %}
+                                {% if request|get_parameter:'supplier' %}
+                                <p class="text-gray-500 dark:text-gray-400 px-3 text-xs whitespace-nowrap">Lieferant: {{ request|get_parameter:'supplier' }}</p>
+                                {% endif %}
+                                {% if request|get_parameter:'status' %}
+                                <p class="text-gray-500 dark:text-gray-400 px-3 text-xs whitespace-nowrap">Status: {{ request|get_parameter:'status' }}</p>
+                                {% endif %}
+                            </div>
+                            <button type="button" onclick="resetFilter()" class="flex items-center justify-center focus:outline-none text-white bg-red-600 hover:bg-red-500 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
+                                <svg class="w-4 h-4 text-gray-800 dark:text-white mr-1.5 -ml-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                    <path fill-rule="evenodd" d="M8.586 2.586A2 2 0 0 1 10 2h4a2 2 0 0 1 2 2v2h3a1 1 0 1 1 0 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8a1 1 0 0 1 0-2h3V4a2 2 0 0 1 .586-1.414ZM10 6h4V4h-4v2Zm1 4a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Zm4 0a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Z" clip-rule="evenodd"/>
+                                </svg>
+                                Filter löschen
+                            </button>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-3 md:space-y-0 justify-between py-4 border-t dark:border-gray-700">
+                        <div class="flex flex-row">
+                            <div class="relative" style="min-width: 300px;">
+                                <div class="absolute inset-y-0 start-0 flex items-center ps-4 pointer-events-none">
+                                    <svg class="h-3.5 w-3.5 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                                    </svg>
+                                </div>
+                                <input type="text" id="searchOrderInput" class="bg-gray-50 border w-full border-gray-300 text-gray-900 text-sm rounded-full focus:ring-emerald-500 focus:border-emerald-500 block ps-10 p-2 dark:placeholder-gray-400 dark:text-white dark:focus:ring-emerald-500 dark:focus:border-emerald-500" placeholder="Bestellnummer, Name, E-Mail, Produkt" required>
+                            </div>
+                            <button type="button" onclick="searchOrder()" class="flex mr-2 items-center justify-center px-4 py-2 ms-2 text-sm font-medium text-white rounded-full bg-emerald-600 hover:bg-emerald-700 focus:ring-4 focus:ring-emerald-300 dark:bg-emerald-600 dark:hover:bg-emerald-700 focus:outline-none dark:focus:ring-emerald-800">
+                                <svg class="h-3.5 w-3.5 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                                </svg>
+                                Suchen
+                            </button>
+                        </div>
+                        <div class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
+                            <button type="button" id="createProductButton" class="flex items-center justify-center text-white bg-gray-300 focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-4 py-2 focus:outline-none dark:focus:ring-gray-800" disabled>
+                            <!-- <button type="button" id="createProductButton" data-modal-toggle="orderModal" class="flex items-center justify-center text-white bg-emerald-700 hover:bg-emerald-700 focus:ring-4 focus:ring-emerald-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-emerald-600 dark:hover:bg-emerald-700 focus:outline-none dark:focus:ring-emerald-800" disabled> -->
+                                <svg class="h-3.5 w-3.5 mr-1.5 -ml-1" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                    <path clip-rule="evenodd" fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
+                                </svg>
+                                Hinzufügen
+                            </button>
+                            <button id="filterDropdownButton" data-dropdown-toggle="filterDropdown" class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-500 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-emerald-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700" type="button">
+                                <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-4 w-4 mr-1.5 -ml-1 text-gray-500" viewbox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z" clip-rule="evenodd" />
+                                </svg>
+                                Filtern
+                                <svg class="-mr-1 ml-1.5 w-5 h-5" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                    <path clip-rule="evenodd" fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+                                </svg>
+                            </button>
+                            <div id="filterDropdown" class="z-10 hidden px-3 pt-1 bg-white rounded-lg shadow w-80 right-0">
+                                <div id="accordion-flush" data-accordion="collapse" data-active-classes="text-black dark:text-white" data-inactive-classes="text-gray-500 dark:text-gray-400">
+                                    <!-- Lieferant -->
+                                    <h2 id="supplier-heading">
+                                        <button type="button" class="flex items-center justify-between w-full py-2 px-1.5 text-sm font-medium text-left text-gray-500 border-b border-gray-200 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700" data-accordion-target="#supplier-body" aria-expanded="true" aria-controls="supplier-body">
+                                            <div>
+                                                <span class="mr-2">Lieferant</span>
+                                                {% if request|get_parameter:'supplier' %}
+                                                <span class="inline-flex items-center justify-center w-5 h-5 text-xs text-white bg-emerald-700 dark:bg-emerald-600 rounded-full">{{ request|get_parameter:'supplier'|tsplit:','|length }}</span>
+                                                {% endif %}
+                                            </div>
+                                            <svg aria-hidden="true" data-accordion-icon="" class="w-5 h-5 rotate-180 shrink-0" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+                                            </svg>
+                                        </button>
+                                    </h2>
+                                    <div id="supplier-body" class="hidden" aria-labelledby="supplier-heading">
+                                        <div class="py-2 font-light border-b border-gray-200 dark:border-gray-600">
+                                            <ul class="space-y-2">
+                                                {% for item in suppliers %}
+                                                <li class="flex items-center">
+                                                    <input id="supplier-filter-{{ item.id }}" {% check_get_parameter request 'supplier' item.name %} onchange="updateUrlParameters('supplier', '{{ item.name }}')" type="checkbox" value="{{ item.id }}" class="cursor-pointer w-4 h-4 bg-gray-100 border-gray-300 rounded text-emerald-600 focus:ring-emerald-500 dark:focus:ring-emerald-600 dark:ring-offset-gray-700 focus:ring-2 dark:border-gray-500">
+                                                    <label for="supplier-filter-{{ item.id }}" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100 w-full cursor-pointer">{{ item.name }}</label>
+                                                </li>
+                                                {% endfor %}
+                                            </ul>
+                                            <a href="javascript:void(0)" onclick="removeUrlParameters('supplier')" class="mt-2 flex items-center text-sm font-medium text-emerald-600 dark:text-emerald-500 hover:underline">Filterung aufheben</a>
+                                        </div>
+                                    </div>
+                                    <!-- Lieferstatus -->
+                                    <h2 id="status-heading">
+                                        <button type="button" class="flex items-center justify-between w-full py-2 px-1.5 text-sm font-medium text-left text-gray-500 border-b border-gray-200 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700" data-accordion-target="#status-body" aria-expanded="true" aria-controls="status-body">
+                                            <div>
+                                                <span class="mr-2">Lieferstatus</span>
+                                                {% if request|get_parameter:'status' %}
+                                                <span class="inline-flex items-center justify-center w-5 h-5 text-xs text-white bg-emerald-700 dark:bg-emerald-600 rounded-full">{{ request|get_parameter:'status'|tsplit:','|length }}</span>
+                                                {% endif %}
+                                            </div>
+                                            <svg aria-hidden="true" data-accordion-icon="" class="w-5 h-5 rotate-180 shrink-0" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+                                            </svg>
+                                        </button>
+                                    </h2>
+                                    <div id="status-body" class="hidden" aria-labelledby="status-heading">
+                                        <div class="py-2 font-light border-b border-gray-200 dark:border-gray-600">
+                                            <ul class="space-y-2">
+                                                {% get_choices "OrderStatusChoices" as OrderStatusChoices %}
+                                                {% for item in OrderStatusChoices %}
+                                                <li class="flex items-center">
+                                                    <input id="status-{{ item.0 }}" {% check_get_parameter request 'status' item.1 %} onchange="updateUrlParameters('status', '{{ item.1 }}')" type="checkbox" value="{{ item.0 }}" class="cursor-pointer w-4 h-4 bg-gray-100 border-gray-300 rounded text-emerald-600 focus:ring-emerald-500 dark:focus:ring-emerald-600 dark:ring-offset-gray-700 focus:ring-2 dark:border-gray-500">
+                                                    <label for="status-{{ item.0 }}" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100 w-full cursor-pointer">{{ item.1 }}</label>
+                                                </li>
+                                                {% endfor %}
+                                            </ul>
+                                            <a href="javascript:void(0)" onclick="removeUrlParameters('status')" class="mt-2 flex items-center text-sm font-medium text-emerald-600 dark:text-emerald-500 hover:underline">Filterung aufheben</a>
+                                        </div>
+                                    </div>
+                                    <!-- Hersteller -->
+                                    <h2 id="manufacturer-heading">
+                                        <button type="button" class="flex items-center justify-between w-full py-2 px-1.5 text-sm font-medium text-left text-gray-500 border-b border-gray-200 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700" data-accordion-target="#manufacturer-body" aria-expanded="true" aria-controls="manufacturer-body">
+                                            <div>
+                                                <span class="mr-2">Hersteller</span>
+                                                {% if request|get_parameter:'manufacturer' %}
+                                                <span class="inline-flex items-center justify-center w-5 h-5 text-xs text-white bg-emerald-700 dark:bg-emerald-600 rounded-full">{{ request|get_parameter:'status'|tsplit:','|length }}</span>
+                                                {% endif %}
+                                            </div>
+                                            <svg aria-hidden="true" data-accordion-icon="" class="w-5 h-5 rotate-180 shrink-0" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+                                            </svg>
+                                        </button>
+                                    </h2>
+                                    <div id="manufacturer-body" class="hidden" aria-labelledby="status-heading">
+                                        <div class="py-2 font-light border-b border-gray-200 dark:border-gray-600">
+                                            <ul class="space-y-2">
+                                                {% for item in manufacturers %}
+                                                <li class="flex items-center">
+                                                    <label for="manufacturer-filter-{{ item.id }}" class="ml-2 text-sm font-medium text-gray-900 w-full cursor-pointer">{{ item.name }}</label>
+                                                </li>
+                                                {% endfor %}
+                                            </ul>
+                                            <a href="javascript:void(0)" onclick="removeUrlParameters('manufacturer')" class="mt-2 flex items-center text-sm font-medium text-emerald-600 dark:text-emerald-500 hover:underline">Filterung aufheben</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Actions -->
+                            <div class="flex items-center space-x-3 w-full md:w-auto">
+                                <button id="actionsDropdownButton" data-dropdown-toggle="actionsDropdown" class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-500 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-emerald-700 focus:z-10 focus:ring-4 focus:ring-gray-200" type="button">
+                                    Aktionen
+                                    <svg class="-mr-1 ml-1.5 w-5 h-5" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                        <path clip-rule="evenodd" fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+                                    </svg>
+                                </button>
+                                <div id="actionsDropdown" class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:divide-gray-600">
+                                    <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="actionsDropdownButton">
+                                        <li>
+                                            <a href="javascript:void()" onclick="exportAllToExcel()" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Excel Export</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="table-container" style="flex: 1" class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:text-gray-400" style="position: -webkit-sticky;position: sticky;top: 0;z-index: 1;">
+                                <tr>
+                                    <th scope="col" class="p-4">
+                                        <div class="flex items-center">
+                                            <input id="checkbox-all" type="checkbox" class="w-4 h-4 text-emerald-600 bg-gray-100 rounded border-gray-300 focus:ring-emerald-500 dark:focus:ring-emerald-600 dark:ring-offset-gray-800 focus:ring-2 dark:border-gray-600">
+                                            <label for="checkbox-all" class="sr-only">checkbox</label>
+                                        </div>
+                                    </th>
+                                    <th scope="col" class="p-4">Bestellung</th>
+                                    <th scope="col" class="p-4">Produktname</th>
+                                    <th scope="col" class="p-4">Menge</th>
+                                    <th scope="col" class="p-4">Produktnr.</th>
+                                    <th scope="col" class="p-4">
+                                        <div class="flex space-x-1 5 items-center">
+                                            <p>Hersteller</p>
+                                            {% if request|get_parameter:'manufacturer' %}
+                                            <div>
+                                                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                                    <path d="M5.05 3C3.291 3 2.352 5.024 3.51 6.317l5.422 6.059v4.874c0 .472.227.917.613 1.2l3.069 2.25c1.01.742 2.454.036 2.454-1.2v-7.124l5.422-6.059C21.647 5.024 20.708 3 18.95 3H5.05Z"></path>
+                                                </svg>
+                                            </div>
+                                            {% endif %}
+                                        </div>
+                                    </th>
+                                    <th scope="col" class="p-4">
+                                        <div class="flex space-x-1 5 items-center">
+                                            <p>Lieferant</p>
+                                            {% if request|get_parameter:'supplier' %}
+                                            <div>
+                                                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                                    <path d="M5.05 3C3.291 3 2.352 5.024 3.51 6.317l5.422 6.059v4.874c0 .472.227.917.613 1.2l3.069 2.25c1.01.742 2.454.036 2.454-1.2v-7.124l5.422-6.059C21.647 5.024 20.708 3 18.95 3H5.05Z"></path>
+                                                </svg>
+                                            </div>
+                                            {% endif %}
+                                        </div>
+                                    </th>
+                                    <th scope="col" class="p-4">Bestelldatum</th>
+                                    <th scope="col" class="p-4">
+                                        <div class="flex space-x-1 5 items-center">
+                                            <p>Lieferstatus</p>
+                                            {% if request|get_parameter:'status' %}
+                                            <div>
+                                                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                                    <path d="M5.05 3C3.291 3 2.352 5.024 3.51 6.317l5.422 6.059v4.874c0 .472.227.917.613 1.2l3.069 2.25c1.01.742 2.454.036 2.454-1.2v-7.124l5.422-6.059C21.647 5.024 20.708 3 18.95 3H5.05Z"></path>
+                                                </svg>
+                                            </div>
+                                            {% endif %}
+                                        </div>
+                                    </th>
+                                    <th scope="col" class="p-4">
+                                        <div class="flex space-x-1 5 items-center">
+                                            <p>(Online) Rezeptstatus</p>
+                                            {% if request|get_parameter:'online_recipe_status' %}
+                                            <div>
+                                                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                                    <path d="M5.05 3C3.291 3 2.352 5.024 3.51 6.317l5.422 6.059v4.874c0 .472.227.917.613 1.2l3.069 2.25c1.01.742 2.454.036 2.454-1.2v-7.124l5.422-6.059C21.647 5.024 20.708 3 18.95 3H5.05Z"></path>
+                                                </svg>
+                                            </div>
+                                            {% endif %}
+                                        </div>
+                                    </th>
+                                    <th scope="col" class="p-4">
+                                        <div class="flex space-x-1 5 items-center">
+                                            <p>Original Rezeptstatus</p>
+                                            {% if request|get_parameter:'recipe_status' %}
+                                            <div>
+                                                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                                    <path d="M5.05 3C3.291 3 2.352 5.024 3.51 6.317l5.422 6.059v4.874c0 .472.227.917.613 1.2l3.069 2.25c1.01.742 2.454.036 2.454-1.2v-7.124l5.422-6.059C21.647 5.024 20.708 3 18.95 3H5.05Z"></path>
+                                                </svg>
+                                            </div>
+                                            {% endif %}
+                                        </div>
+                                    </th>
+                                    <th scope="col" class="p-4">
+                                        <div class="flex space-x-1 5 items-center">
+                                            <p>Zahlungsstatus</p>
+                                            {% if request|get_parameter:'payment_status' %}
+                                            <div>
+                                                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                                    <path d="M5.05 3C3.291 3 2.352 5.024 3.51 6.317l5.422 6.059v4.874c0 .472.227.917.613 1.2l3.069 2.25c1.01.742 2.454.036 2.454-1.2v-7.124l5.422-6.059C21.647 5.024 20.708 3 18.95 3H5.05Z"></path>
+                                                </svg>
+                                            </div>
+                                            {% endif %}
+                                        </div>
+                                    </th>
+                                    <th scope="col" class="p-4">Rezeptnummer</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for order_product in order_products %}
+                                <tr data-order-product-id="{{ order_product.id }}" class="orders border-t *:hover:bg-gray-100 *:dark:hover:bg-gray-600 order_product" id="order-product-{{ order_product.id }}">
+                                    <!-- Checkbox -->
+                                    <td class="pl-4 pr-2 py-3 w-4">
+                                        <div class="flex items-center">
+                                            <input id="checkbox-table-search-1" type="checkbox" onclick="event.stopPropagation()" class="w-4 h-4 text-emerald-600 bg-gray-100 rounded border-gray-300 focus:ring-emerald-500 dark:focus:ring-emerald-600 dark:ring-offset-gray-800 focus:ring-2 dark:border-gray-600">
+                                            <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
+                                        </div>
+                                    </td>
+                                    <!-- Bestellnummer -->
+                                    <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white" name="orderNumber">
+                                        <a href="javascript:void(0)" class="text-emerald-600 dark:text-emerald-500">{{ order_product.order.number }}</a>
+                                    </td>
+                                    <!-- Artikelbezeichnung -->
+                                    <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ order_product.product.name }}</td>
+                                    <!-- Menge -->
+                                    <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white text-right">{{ order_product.amount }} {% if order_product.product.form == 'flower' %}g{% else %}Einh.{% endif %}</td>
+                                    <!-- Artikelnummer -->
+                                    <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ order_product.product.number }}</td>
+                                    <!-- Hersteller -->
+                                    <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ order_product.product.manufacturer.name }}</td>
+                                    <!-- Lieferant -->
+                                    <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ order_product.product.supplier.name }}</td>
+                                    <!-- Bestellzeit -->
+                                    <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white" name="orderDate">{{ order_product.order.order_time|date:'d.m.Y' }}</td>
+                                    <!-- Lieferstatus -->
+                                    <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white status">
+                                        <span class="flex items-center text-sm font-medium text-gray-900 dark:text-white me-3">
+                                            <span class="flex w-3 h-3 rounded-full me-1.5 flex-shrink-0 status-circle" value="{{ order_product.order.status }}"></span>
+                                            {{ order_product.order.get_status_display }}
+                                        </span>
+                                    </td>
+                                    <!-- ONLINE Rezeptstatus -->
+                                    <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white online_recipe_status">
+                                        <span class="flex items-center text-sm font-medium text-gray-900 dark:text-white me-3">
+                                            <span class="flex w-3 h-3 rounded-full me-1.5 flex-shrink-0 status-circle" value="{{ order_product.order.online_recipe_status }}"></span>
+                                            {{ order_product.order.get_online_recipe_status_display }}
+                                        </span>
+                                    </td>
+                                    <!-- ORIGINAL Rezeptstatus -->
+                                    <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white recipe_status">
+                                        <span class="flex items-center text-sm font-medium text-gray-900 dark:text-white me-3">
+                                            <span class="flex w-3 h-3 rounded-full me-1.5 flex-shrink-0 status-circle" value="{{ order_product.order.recipe_status }}"></span>
+                                            {{ order_product.order.get_recipe_status_display }}
+                                        </span>
+                                    </td>
+                                    <!-- Zahlungsstatus -->
+                                    <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white payment_status">
+                                        <span class="flex items-center text-sm font-medium text-gray-900 dark:text-white me-3">
+                                            {% if order_product.order.payment_status in 'overdue' %}
+                                            <svg class="w-4 h-4 mr-2 text-red-700 dark:text-red-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 13V8m0 8h0m9-4a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                                            </svg>
+                                            {% else %}
+                                            <span class="flex w-3 h-3 rounded-full me-1.5 flex-shrink-0 status-circle" value="{{ order_product.order.payment_status }}"></span>
+                                            {% endif %}
+                                            {{ order_product.order.get_payment_status_display }}
+                                        </span>
+                                    </td>
+                                    <!-- Rezeptnummer -->
+                                    <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ order_product.recipe_file.number }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <nav class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4 border-gray-600 border-t" aria-label="Table navigation">
+                        <ul class="inline-flex items-stretch -space-x-px">
+                            {% with order_products.paginator.page_range|first as first_page %}
+                            {% with 'page:'|concat_string:first_page as page_string %}
+                            {% with updated_params=request.GET|add_get_parameter:page_string %}
+                            <li>
+                                <a href="?{{ updated_params }}" class="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                                    <span class="sr-only">Erste Seite</span>
+                                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" viewBox="0 0 12 10">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M5 1 1 5l4 4m6-8L7 5l4 4"/>
+                                    </svg>
+                                </a>
+                            </li>
+                            {% endwith %}
+                            {% endwith %}
+                            {% endwith %}
+                            {% for page_num in order_products.paginator.page_range|get_page_range:order_products.number %}
+                            {% if order_products.number == page_num %}
+                            <li>
+                                <a href="?{{ updated_params }}" aria-current="page" class="flex items-center justify-center text-sm z-10 py-2 px-3 leading-tight text-emerald-600 bg-emerald-50 border border-emerald-300 hover:bg-emerald-100 hover:text-emerald-700 dark:border-gray-700 dark:text-white">{{ page_num }}</a>
+                            </li>
+                            {% else %}
+                            {% with 'page:'|concat_string:page_num as page_string %}
+                            {% with updated_params=request.GET|add_get_parameter:page_string %}
+                            <li>
+                                <a href="?{{ updated_params }}" class="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{ page_num }}</a>
+                            </li>
+                            {% endwith %}
+                            {% endwith %}
+                            {% endif %}
+                            {% endfor %}
+                            {% with order_products.paginator.page_range|last as last_page %}
+                            {% with 'page:'|concat_string:last_page as page_string %}
+                            {% with updated_params=request.GET|add_get_parameter:page_string %}
+                            <li>
+                                <a href="?{{ updated_params }}" class="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                                    <span class="sr-only">Letzte Seite</span>
+                                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" viewBox="0 0 12 10">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="m7 9 4-4-4-4M1 9l4-4-4-4"/>
+                                    </svg>
+                                </a>
+                            </li>
+                            {% endwith %}
+                            {% endwith %}
+                            {% endwith %}
+                        </ul>
+                    </nav>
+                </div>
+            </div>
         </div>
     </div>
 </section>
@@ -507,7 +510,7 @@
 
 </script>
 
-<!-- Export all products to excel -->#
+<!-- Export all products to excel -->
 <script>
 
     const exportAllToExcel = () => {
