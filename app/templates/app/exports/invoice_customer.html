@@ -1,0 +1,458 @@
+﻿<!DOCTYPE html>
+{% load static extra_tags mathfilters %}
+<html lang="de-de" xmlns="https://www.w3.org/TR/2017/REC-html52-20171214/">
+<head>
+	<title>{{ invoice.invoice_number }}</title>
+	<style type="text/css">
+
+		@font-face {
+			font-family: 'font_family_light';
+			src: url("{{ font_family_light }}");
+		}
+
+		@font-face {
+			font-family: 'font_family_regular';
+			src: url("{{ font_family_regular }}");
+		}
+
+		@font-face {
+			font-family: 'font_family_bold';
+			src: url("{{ font_family_bold }}");
+		}
+
+		@page {
+
+			background-image: url("{{ layout }}");
+
+			@frame header_frame {
+				-pdf-frame-content: header_content;
+				left: 2.5cm;
+				top: 1cm;
+				right: 1.2cm;
+				height: 1cm;
+			}
+
+			@frame content_frame {
+				left: 2.5cm;
+				top: 5cm;
+				right: 1.2cm;
+			}
+
+			@frame footer_frame {
+				-pdf-frame-content: footer_content;
+				left: 2.5cm;
+				bottom: 0cm;
+				right: 1.2cm;
+				height: 4.4cm;
+			}
+		}
+
+		.wrapper {
+			font-family: 'font_family_regular';
+		}
+
+		.logo {
+			text-align: right;
+			margin-top: 30px;
+		}
+
+		.invoice-details {
+			color: #232640;
+			margin-bottom: 70px;
+			margin-top: 10px;
+		}
+		.invoice-recipe {
+			color: #232640;
+			margin-bottom: 40px;
+			font-size: 12px;
+		}
+
+			.invoice-details ul {
+				list-style-type: none;
+				margin: 0 0 0 -7px;
+			}
+
+			.invoice-details li {
+				margin: -5px 0;
+			}
+
+			.invoice-details td {
+				text-align: left;
+			}
+
+
+		.customer {
+			text-align: left;
+			padding-bottom: 0;
+			padding-top: 0;
+			font-size: 12px;
+		}
+
+		.firm {
+			text-align: left;
+			font-size: 9px;
+		}
+
+		.invoice li {
+			text-align: right;
+			font-size: 12px;
+		}
+
+		.invoice-title {
+			font-family: 'font_family_regular';
+			font-size: 16px;
+			padding: 0 0 5px 0;
+			margin: 0 0 20px -2px;
+		}
+
+		.details-table {
+			padding: 0;
+			margin: 0;
+		}
+
+		.details-border {
+			border-bottom-color: black;
+			border-bottom-style: solid;
+			border-bottom-width: 1px;
+			color: #fff;
+			margin-top: 0px;
+			font-size: 1px;
+		}
+
+		.details-doubleborder {
+			border-bottom-color: black;
+			border-bottom-style: solid;
+			border-bottom-width: 1px;
+			color: #fff;
+			margin-top: 0px;
+			font-size: 1px;
+			margin: 0 0 0 450px;
+		}
+
+		.details-header > th {
+			text-align: left;
+			font-family: 'font_family_regular';
+			font-size: 12px;
+		}
+
+		.details-details > td {
+			padding: 3px 0 0 0;
+			font-size: 12px;
+		}
+
+		.details-sum {
+			margin-top: 5px;
+			font-size: 12px;
+		}
+
+		.conditions {
+			margin-top: 50px
+		}
+
+			.conditions th {
+				text-align: left;
+				font-family: 'font_family_regular';
+				font-size: 13px;
+				padding-bottom: 5px;
+			}
+
+			.conditions tr {
+				font-size: 11px;
+			}
+
+		.comment-title {
+			font-family: 'font_family_regular';
+			font-size: 13px;
+			padding: 0;
+			margin: 50px 0 0 -2px;
+		}
+
+		.comment-border {
+			border-bottom-color: black;
+			border-bottom-style: solid;
+			border-bottom-width: 1px;
+			color: #fff;
+			margin-top: -5px;
+			font-size: 1px;
+		}
+
+		.comment-header1 {
+			font-size: 12px;
+			padding: 0;
+			margin: 10px 0 0 -2px;
+		}
+
+		.comment-header2 {
+			font-family: 'font_family_regular';
+			font-size: 13px;
+			padding: 0;
+			margin: 5px 0 5px -2px;
+		}
+
+		.comment {
+			font-size: 12px;
+			margin: 0
+		}
+
+		/*Header*/
+
+		.header {
+			font-family: 'font_family_regular';
+		}
+
+		/*Footer*/
+
+		.footer {
+			font-family: 'font_family_light';
+			line-height: 12px;
+		}
+
+		.footer table {
+			font-family: 'font_family_light';
+			font-size: 9px;
+			color: black;
+		}
+
+		.footer th {
+			text-align: left;
+			padding: 0;
+			padding: 0;
+		}
+
+		.footer td {
+			text-align: left;
+			padding: 0;
+		}
+	</style>
+</head>
+<body>
+
+	<div id="header_content" class="header">
+		<table>
+			<tr>
+				<th style="width: 50%; text-align: left">{{ invoice.invoice_number }}</th>
+				<th style="width: 50%; text-align: right">Seite <pdf:pagenumber> von <pdf:pagenumber> </th>
+			</tr>
+		</table>
+	</div>
+
+	<div class="wrapper">
+		<div>
+			<div class="invoice-details">
+				<table>
+					<tr>
+						<td style="width: auto">
+							<p class="firm">{{ invoice.own_company_name }} | {{ invoice.own_street }} {{ invoice.own_street_number }} | {{ invoice.own_postalcode }} {{ invoice.own_city }}</p>
+							<ul class="customer">
+								<li style="margin-bottom: 2px; margin-left: 7px">
+									<div style="font-family: font_family_regular;line-height: 10px;">{{ invoice.first_name }} {{ invoice.last_name }}</div>
+								</li>
+								<li>{{ invoice.street }} {{ invoice.street_number }}</li>
+								<li>{{ invoice.postalcode }} {{ invoice.city }}</li>
+							</ul>
+						</td>
+						<td style="width: 200px">
+							<table>
+								<tr>
+									<td style="vertical-align: top; text-align: left;"><strong>Rechnungs-Nr.</strong></td>
+									<td style="vertical-align: top; text-align: right;"><strong>{{ invoice.invoice_number }}</strong></td>
+								</tr>
+								<tr>
+									<td style="vertical-align: top; text-align: left;">Datum</td>
+									<td style="vertical-align: top; text-align: right;">{{ invoice.date|date:"d.m.Y" }}</td>
+								</tr>
+								<tr>
+									<td style="vertical-align: top; text-align: left;">Kunden-Nr.</td>
+									<td style="vertical-align: top; text-align: right;">{{ invoice.customer_number }}</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+			</div>
+
+			<div class="details">
+				<div class="invoice-title">{% if invoice.pro_forma_invoice %}Proformarechnung{% else %}Rechnung{% if invoice.status == 'canceled' %} (Storniert){% endif %}{% endif %} - {{ invoice.invoice_number }}</div>
+				<table class="details-table">
+					<tr class="details-header" style="background-color: #2c2c2c;">
+						<th style="width: 120px;padding-bottom: 0;padding-top: 4px; padding-left: 2px; color: #fff;">Produkt-Nr.</th>
+						<th style="width: 320px;padding-bottom: 0;padding-top: 4px;color: #fff;">Bezeichnung</th>
+						<th style="width: 80px; text-align: right;padding-bottom: 0;padding-top: 4px;color: #fff;">Menge</th>
+						<th style="width: 100px; text-align: right;padding-bottom: 0;padding-top: 4px;color: #fff;">Preis</th>
+						<th style="width: 100px; text-align: right;padding-bottom: 0;padding-top: 4px; padding-right: 2px;color: #fff;">Summe</th>
+					</tr>
+					<tr style="border-top: 1px solid black" class="details-header">
+						<th style="padding-top: 10px;"></th>
+						<th style="padding-top: 10px;"></th>
+						<th style="padding-top: 10px;"></th>
+						<th style="padding-top: 10px;"></th>
+						<th style="padding-top: 10px;"></th>
+						<th style="padding-top: 10px;"></th>
+					</tr>
+					{% for item in invoice_items %}
+					<tr class="details-details">
+						<td style="padding-top: 3px;padding-bottom: 3px;">{{ item.product_number }}</td>
+						<td style="padding-top: 3px;padding-bottom: 3px;">{{ item.product }}</td>
+						<td style="text-align: right; padding-top: 3px;padding-bottom: 3px;">{{ item.amount }}</td>
+						<td style="text-align: right; padding-top: 3px;padding-bottom: 3px;">{{ item.price|to_euro_decimal }} €</td>
+						<td style="text-align: right; padding-top: 3px;padding-bottom: 3px;">{{ item.total|to_euro_decimal }} €</td>
+					</tr>
+					{% endfor %}
+				</table>
+				<table class="details-sum">
+					{% if invoice.customer_type in "insurance_patient_with_supplement,insurance_patient" %}
+					<tr style="border-top: 1px solid black">
+						<td style="padding-top: 5px; font-weight: bold; ">Zuzahlung (Kunde)</td>
+						<td style="padding-top: 3px; text-align: right">{{ invoice.co_payment |to_euro_decimal }} €</td>
+					</tr>
+					{% if invoice.reminder_fee != 0 %}
+					<tr>
+						<td style="font-family: font_family_regular; font-weight: bold; ">Mahngebühr</td>
+						<td style="font-family: font_family_regular; text-align: right;">{{ invoice.reminder_fee|to_euro_decimal }} €</td>
+					</tr>
+					{% endif %}
+					<tr>
+						<td style="font-family: font_family_regular; font-weight: bold; border-bottom: 1px solid black; ">Versandkosten</td>
+						<td style="font-family: font_family_regular; text-align: right; border-bottom: 1px solid black">{{ invoice.delivery_costs|to_euro_decimal }} €</td>
+					</tr>
+					<tr>
+						<td style="font-family: font_family_bold; font-weight: bold; padding-top: 5px; ">SUMME</td>
+						<td style="font-family: font_family_bold; text-align: right; padding-top: 5px;">{{ invoice.amount_payable|to_euro_decimal }} €</td>
+					</tr>
+					{% else %}
+					<tr style="border-top: 1px solid black">
+						<td style="padding-top: 5px; font-weight: bold; ">Nettobetrag</td>
+						<td style="padding-top: 3px; text-align: right">{{ invoice.subtotal |to_euro_decimal }} €</td>
+					</tr>
+					<tr>
+						<td style="font-weight: bold; ">USt {{ invoice.tax_rate|mul:100|tround:0 }} %</td>
+						<td style="text-align: right">{{ invoice.tax_amount|to_euro_decimal }} €</td>
+					</tr>
+					{% if invoice.reminder_fee %}
+					<tr>
+						<td style="font-family: font_family_regular; font-weight: bold; ">Mahngebühr</td>
+						<td style="font-family: font_family_regular; text-align: right;">{{ invoice.reminder_fee|to_euro_decimal }} €</td>
+					</tr>
+					{% endif %}
+					{% if invoice.payment_fee %}
+					<tr>
+						<td style="font-family: font_family_regular; font-weight: bold; ">Gebühr Bezahlmethode</td>
+						<td style="font-family: font_family_regular; text-align: right;">{{ invoice.payment_fee|to_euro_decimal }} €</td>
+					</tr>
+					{% endif %}
+					{% if invoice.btm_fee %}
+					<tr>
+						<td style="font-family: font_family_regular; font-weight: bold; ">BTM-Gebühr</td>
+						<td style="font-family: font_family_regular; text-align: right;">{{ invoice.btm_fee|to_euro_decimal }} €</td>
+					</tr>
+					{% endif %}
+					<tr>
+						<td style="font-family: font_family_regular; font-weight: bold; border-bottom: 1px solid black; ">Versandkosten</td>
+						<td style="font-family: font_family_regular; text-align: right; border-bottom: 1px solid black">{{ invoice.delivery_costs|to_euro_decimal }} €</td>
+					</tr>
+					<tr>
+						<td style="font-family: font_family_bold; font-weight: bold; padding-top: 5px;  padding-bottom: 3px; ">SUMME</td>
+						<td style="font-family: font_family_bold; text-align: right; padding-top: 5px; padding-bottom: 3px">{{ invoice.amount_payable|to_euro_decimal }} €</td>
+					</tr>
+					{% endif %}
+					{% if invoice.already_paid %}
+					<tr>
+						<td style="font-family: font_family_regular; font-weight: bold;  padding-top: 5px; border-top: 1px solid black;">Bereits bezahlt</td>
+						<td style="font-family: font_family_regular; text-align: right; padding-top: 5px; border-top: 1px solid black;">- {{ invoice.already_paid|to_euro_decimal }} €</td>
+					</tr>
+					<tr>
+						<td style="font-family: font_family_bold; font-weight: bold; ">Offener Betrag</td>
+						<td style="font-family: font_family_bold; text-align: right;">{{ invoice.amount_payable|sub:invoice.already_paid|to_euro_decimal }} €</td>
+					</tr>
+					{% endif %}
+				</table>
+			</div>
+
+			<p style="margin-top: 50px; margin-bottom: 0" class="comment">
+				<b>Zahlungsart:</b> {{ invoice.get_payment_type_display }}
+			</p>
+
+			{% if invoice.pro_forma_invoice %}
+			{% if invoice.payment_type == 'prepayment' %}
+			<p style="margin-top: 10px; margin-bottom: 20px;" class="comment">
+				Die Zahlung ist sofort ab Rechnungsdatum fällig. <br/>
+				Bitte überweisen Sie den Rechnungsbetrag unter Angabe der Rechnungsnummer (<span style="font-family: font_family_bold; font-weight: bold;">{{ invoice.invoice_number }}</span>) auf das folgende Bankkonto:
+			</p>
+			{% elif invoice.payment_type == 'payment_by_invoice' %}
+			<p style="margin-top: 10px; margin-bottom: 20px;" class="comment">
+				Die Zahlung ist innerhalb der nächsten 14 Tage ab Rechnungsdatum fällig. <br/>
+				Bitte überweisen Sie den Rechnungsbetrag unter Angabe der Rechnungsnummer (<span style="font-family: font_family_bold; font-weight: bold;">{{ invoice.invoice_number }}</span>) auf das folgende Bankkonto:
+			</p>
+			{% endif %}
+			<div class="comment">
+				<table>
+					<tr>
+						<th style="width: 50px; text-align: left; font-family: font_family_bold; font-weight: bold; ">Bank:</th>
+						<th style="text-align: left; font-family: font_family_regular; font-weight: 100;">{{ invoice.order.pharmacy.bank_name }}</th>
+					</tr>	
+					<tr>
+						<th style="width: 50px; text-align: left; font-family: font_family_bold; font-weight: bold; ">IBAN:</th>
+						<th style="text-align: left; font-family: font_family_regular; font-weight: 100;">{{ invoice.order.pharmacy.bank_iban }}</th>
+					</tr>	
+					<tr>
+						<th style="width: 50px; text-align: left; font-family: font_family_bold; font-weight: bold; ">BIC:</th>
+						<th style="text-align: left; font-family: font_family_regular; font-weight: 100;">{{ invoice.order.pharmacy.bank_bic }}</th>
+					</tr>	
+				</table>
+			</div>
+			{% endif %}
+		</div>
+
+		<p style="margin-top: 20px; margin-bottom: 20px;" class="comment">
+			Sollten bei der Anwendung ihres Medikamentes Probleme auftreten, so wenden Sie sich bitte umgehend an Ihren behandelnden Arzt. Eine kostenfreie pharmazeutische Beratung in deutscher Sprache bieten wir Ihnen unter den unten aufgeführten Kontaktmöglichkeiten an.
+		</p>
+	</div>
+
+	<div id="footer_content" class="footer">
+		<table>
+			<tr>
+				<td style="padding-top: 10px;border-top: 1px solid black;">{{ invoice.order.pharmacy.name }}</td>
+				<td style="padding-top: 10px;border-top: 1px solid black;"><span>Leiter und verantwortlicher Apotheker:</span> {{ invoice.order.pharmacy.responsible_pharmacist }}</td>
+			</tr>
+			<tr>
+				<td>{{ invoice.order.pharmacy.street }} {{ invoice.order.pharmacy.street_number }}</td>
+				<td><span>Inhaltlich Verantwortlicher gemäß §6 MStDV:</span> {{ invoice.order.pharmacy.responsible_pharmacist }}</td>
+			</tr>
+			<tr>
+				<td>D-{{ invoice.order.pharmacy.postalcode }} {{ invoice.order.pharmacy.city }}</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>
+					<span>Registergericht:</span> {{ invoice.order.pharmacy.register_court }} -
+					<span>Registernummer:</span> {{ invoice.order.pharmacy.register_number }}
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<table>
+						<tdwidth: 50px;">Telefon:</td>
+						<td>{{ invoice.order.pharmacy.phonenumber }}</td>
+					</table>
+				</td>
+				<td><span>Zuständige Aufsichtsbehörde:</span> {{ invoice.order.pharmacy.responsible_supervicory_authority }}</td>
+			</tr>
+			<tr>
+				<td>
+					<table>
+						<tdwidth: 50px;">Mail:</td>
+						<td>{{ invoice.order.pharmacy.email }}</td>
+					</table>
+				</td>
+				<td><span>Zuständige Apothekerkammer:</span> {{ invoice.order.pharmacy.responsible_chamber }}</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><span>Umsatzsteuer-Identifikationsnummer gemäß; § 27 a Umsatzsteuergesetz:</span> {{ invoice.order.pharmacy.tax_idenfitication }}</td>
+			</tr>
+		</table>
+	</div>
+
+</body>
+</html>

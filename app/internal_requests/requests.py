@@ -109,7 +109,6 @@ def product_datas_v1(request):
                         'cbd_value': round(item.max_cbd_value * 100),
                         'status': status,
                         'status_display': status_display,
-                        'url': reverse('product', kwargs={'url_name': item.url_name}),
                         'available_amount': total_stock_amount - total_booked_amount,
                     })
 
@@ -340,9 +339,9 @@ def order_functions_v1(request):
                 'comment': order.comment,
                 'delFirstName': order.del_first_name,
                 'delLastName': order.del_last_name,
-                'postofficeDelivery': order.delivery_at_postoffice,
-                'delLockerId': order.locker_id,
-                'delPostnumber': order.postnumber,
+                # 'postofficeDelivery': order.delivery_at_postoffice,
+                # 'delLockerId': order.locker_id,
+                # 'delPostnumber': order.postnumber,
                 'delStreet': order.del_street,
                 'delStreetNumber': order.del_street_number,
                 'delPostalcode': order.del_postalcode,
