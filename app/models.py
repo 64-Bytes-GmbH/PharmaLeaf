@@ -139,6 +139,8 @@ class MainSettings(models.Model):
     # Brevo
     brevo_api_key = models.CharField(verbose_name='Brevo API Key', max_length=255, blank=True)
     brevo_base_url = models.CharField(verbose_name='Brevo Base Url', max_length=255, blank=True, default='https://api.brevo.com')
+    brevo_sender_email = models.CharField(verbose_name='Brevo Absender E-Mail', max_length=255, blank=True)
+    brevo_sender_name = models.CharField(verbose_name='Brevo Absender Name', max_length=255, blank=True)
 
     # E-Mail Eisntellungen
     error_mail = models.CharField(verbose_name='Error E-Mail', max_length=255, blank=True, default='info@higreen-apotheke.de')
