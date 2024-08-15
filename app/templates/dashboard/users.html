@@ -489,7 +489,7 @@
 
         $.ajax({
             type: 'POST',
-            url: '{% url "dashboard_users" %}',
+            url: '{% url "request_staff_user_functions" %}',
             data: {
                 'createUser': 'createUser',
                 'email': $emailInput.val(),
@@ -551,7 +551,7 @@
 
         $.ajax({
             type: 'POST',
-            url: '{% url "dashboard_users" %}',
+            url: '{% url "request_staff_user_functions" %}',
             traditional: true,
             data: {
                 'getUserRights': 'getUserRights',
@@ -618,7 +618,7 @@
 
         $.ajax({
             type: 'POST',
-            url: '{% url "dashboard_users" %}',
+            url: '{% url "request_staff_user_functions" %}',
             traditional: true,
             data: {
                 'saveUserRights': 'saveUserRights',
