@@ -155,7 +155,7 @@ button:disabled {
     background-color: #dc26264d;
 }
 .order.order-started td {
-    background-color: #5f2cf947;
+    background-color: #00694147;
 }
 .orders .show-products svg {
     transition: all 150ms linear;
