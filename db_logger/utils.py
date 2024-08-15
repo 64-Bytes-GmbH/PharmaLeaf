@@ -20,30 +20,31 @@ def send_error_mail(log_item):
 
     main_settings = MainSettings.objects.first()
 
-    subject = f'{ log_item.get_category_display().upper() } - { main_settings.mail_subject }'
+    if main_settings:
+        subject = f'{ log_item.get_category_display().upper() } - { main_settings.mail_subject }'
 
-    connection = get_connection(
-                    host = main_settings.error_mail_host,
-                    port = main_settings.error_mail_port,
-                    username = main_settings.error_mail,
-                    password = main_settings.error_mail_password,
-                    use_ssl = True,
-                )
+        connection = get_connection(
+                        host = main_settings.error_mail_host,
+                        port = main_settings.error_mail_port,
+                        username = main_settings.error_mail,
+                        password = main_settings.error_mail_password,
+                        use_ssl = True,
+                    )
 
-    connection_settings = {
-        'host': main_settings.error_mail_host,
-        'port': main_settings.error_mail_port,
-        'username': main_settings.error_mail,
-        'password': main_settings.error_mail_password,
-        'use_ssl': True,
-    }
+        connection_settings = {
+            'host': main_settings.error_mail_host,
+            'port': main_settings.error_mail_port,
+            'username': main_settings.error_mail,
+            'password': main_settings.error_mail_password,
+            'use_ssl': True,
+        }
 
-    message = f'Message:\n{ log_item.message }\n\nTrace Log:\n{ log_item.stack_trace }'
+        message = f'Message:\n{ log_item.message }\n\nTrace Log:\n{ log_item.stack_trace }'
 
-    to_mail_list = []
+        to_mail_list = []
 
-    for recipient in EmailRecipients.objects.all():
-        to_mail_list.append(recipient.email)
+        for recipient in EmailRecipients.objects.all():
+            to_mail_list.append(recipient.email)
 
     try:
         send_mail(subject, message, main_settings.error_mail, to_mail_list, connection=connection)
