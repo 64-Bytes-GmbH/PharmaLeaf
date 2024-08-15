@@ -1,6 +1,6 @@
 /* static/src/input.css */
 
-/* ! tailwindcss v3.4.10 | MIT License | https://tailwindcss.com */
+/* ! tailwindcss v3.4.6 | MIT License | https://tailwindcss.com */
 
 /*
 1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)
@@ -2269,11 +2269,6 @@ input:checked + .toggle-bg {
   border-inline-start-color: rgb(249 250 251 / var(--tw-border-opacity));
 }
 
-.\!bg-gray-50 {
-  --tw-bg-opacity: 1 !important;
-  background-color: rgb(249 250 251 / var(--tw-bg-opacity)) !important;
-}
-
 .\!bg-primary-600 {
   --tw-bg-opacity: 1 !important;
   background-color: rgb(98 98 98 / var(--tw-bg-opacity)) !important;
@@ -2444,11 +2439,6 @@ input:checked + .toggle-bg {
 .bg-yellow-50 {
   --tw-bg-opacity: 1;
   background-color: rgb(253 253 234 / var(--tw-bg-opacity));
-}
-
-.bg-emerald-300 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(110 231 183 / var(--tw-bg-opacity));
 }
 
 .bg-opacity-50 {
@@ -2927,11 +2917,6 @@ input:checked + .toggle-bg {
   color: rgb(114 59 19 / var(--tw-text-opacity));
 }
 
-.text-emerald-900 {
-  --tw-text-opacity: 1;
-  color: rgb(6 78 59 / var(--tw-text-opacity));
-}
-
 .antialiased {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -3388,11 +3373,6 @@ input:disabled {
   color: rgb(28 100 242 / var(--tw-text-opacity));
 }
 
-.hover\:text-emerald-600:hover {
-  --tw-text-opacity: 1;
-  color: rgb(5 150 105 / var(--tw-text-opacity));
-}
-
 .hover\:text-emerald-700:hover {
   --tw-text-opacity: 1;
   color: rgb(4 120 87 / var(--tw-text-opacity));
@@ -3647,11 +3627,6 @@ input:disabled {
   border-color: rgb(63 131 248 / var(--tw-border-opacity));
 }
 
-.dark\:border-gray-300:is(.dark *) {
-  --tw-border-opacity: 1;
-  border-color: rgb(209 213 219 / var(--tw-border-opacity));
-}
-
 .dark\:border-gray-400:is(.dark *) {
   --tw-border-opacity: 1;
   border-color: rgb(156 163 175 / var(--tw-border-opacity));
@@ -3699,11 +3674,6 @@ input:disabled {
 .dark\:border-s-gray-700:is(.dark *) {
   --tw-border-opacity: 1;
   border-inline-start-color: rgb(55 65 81 / var(--tw-border-opacity));
-}
-
-.dark\:\!bg-gray-700:is(.dark *) {
-  --tw-bg-opacity: 1 !important;
-  background-color: rgb(55 65 81 / var(--tw-bg-opacity)) !important;
 }
 
 .dark\:\!bg-primary-600:is(.dark *) {

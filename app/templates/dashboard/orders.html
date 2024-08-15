@@ -382,12 +382,13 @@
                                             <label for="checkbox-all" class="sr-only">checkbox</label>
                                         </div>
                                     </th>
-                                    <th scope="col" class="p-4">Bestellnummer</th>
-                                    <th scope="col" class="p-4">Kundenname</th>
-                                    <th scope="col" class="p-4">Bestelldatum</th>
+                                    <th scope="col" class="p-4">ID</th>
+                                    <th scope="col" class="p-4">Kunde</th>
+                                    <th scope="col" class="p-4">Datum</th>
+                                    <th scope="col" class="p-4">Bestellwert</th>
                                     <th scope="col" class="p-4">
                                         <div class="flex space-x-1 5 items-center">
-                                            <p>Lieferstatus</p>
+                                            <p>Versandstatus</p>
                                             {% if request|get_parameter:'status' %}
                                             <div>
                                                 <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
@@ -397,11 +398,11 @@
                                             {% endif %}
                                         </div>
                                     </th>
-                                    <th scope="col" class="p-4">Lieferdatum</th>
+                                    <th scope="col" class="p-4">Versanddatum</th>
                                     <th scope="col" class="p-4">
                                         <div class="flex space-x-1 5 items-center">
-                                            <p>(Online) Rezeptstatus</p>
-                                            {% if request|get_parameter:'online_recipe_status' %}
+                                            <p>Versandart</p>
+                                            {% if request|get_parameter:'delivery_type' %}
                                             <div>
                                                 <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                                                     <path d="M5.05 3C3.291 3 2.352 5.024 3.51 6.317l5.422 6.059v4.874c0 .472.227.917.613 1.2l3.069 2.25c1.01.742 2.454.036 2.454-1.2v-7.124l5.422-6.059C21.647 5.024 20.708 3 18.95 3H5.05Z"></path>
@@ -410,11 +411,10 @@
                                             {% endif %}
                                         </div>
                                     </th>
-                                    
                                     <th scope="col" class="p-4">
                                         <div class="flex space-x-1 5 items-center">
-                                            <p>Zahlungsstatus</p>
-                                            {% if request|get_parameter:'payment_status' %}
+                                            <p>Rezeptstatus</p>
+                                            {% if request|get_parameter:'online_recipe_status' %}
                                             <div>
                                                 <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                                                     <path d="M5.05 3C3.291 3 2.352 5.024 3.51 6.317l5.422 6.059v4.874c0 .472.227.917.613 1.2l3.069 2.25c1.01.742 2.454.036 2.454-1.2v-7.124l5.422-6.059C21.647 5.024 20.708 3 18.95 3H5.05Z"></path>
@@ -435,6 +435,19 @@
                                             {% endif %}
                                         </div>
                                     </th>
+                                    <th scope="col" class="p-4">Rezeptnummer</th>
+                                    <th scope="col" class="p-4">
+                                        <div class="flex space-x-1 5 items-center">
+                                            <p>Zahlungsstatus</p>
+                                            {% if request|get_parameter:'payment_status' %}
+                                            <div>
+                                                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                                    <path d="M5.05 3C3.291 3 2.352 5.024 3.51 6.317l5.422 6.059v4.874c0 .472.227.917.613 1.2l3.069 2.25c1.01.742 2.454.036 2.454-1.2v-7.124l5.422-6.059C21.647 5.024 20.708 3 18.95 3H5.05Z"></path>
+                                                </svg>
+                                            </div>
+                                            {% endif %}
+                                        </div>
+                                    </th>
                                     <th scope="col" class="p-4">
                                         <div class="flex space-x-1 5 items-center">
                                             <p>Zahlungsmethode</p>
@@ -447,20 +460,6 @@
                                             {% endif %}
                                         </div>
                                     </th>
-                                    <th scope="col" class="p-4">
-                                        <div class="flex space-x-1 5 items-center">
-                                            <p>Versandart</p>
-                                            {% if request|get_parameter:'delivery_type' %}
-                                            <div>
-                                                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                                                    <path d="M5.05 3C3.291 3 2.352 5.024 3.51 6.317l5.422 6.059v4.874c0 .472.227.917.613 1.2l3.069 2.25c1.01.742 2.454.036 2.454-1.2v-7.124l5.422-6.059C21.647 5.024 20.708 3 18.95 3H5.05Z"></path>
-                                                </svg>
-                                            </div>
-                                            {% endif %}
-                                        </div>
-                                    </th>
-                                    <th scope="col" class="p-4">Bestellwert</th>
-                                    <th scope="col" class="p-4">Rezeptnummer</th>
                                     <th scope="col" class="p-4">Artikelanzahl</th>
                                     <th scope="col" class="p-4">Angelegt von</th>
                                     <th scope="col" class="p-0 sticky right-0">
@@ -517,7 +516,9 @@
                                         </a>
                                     </td>
                                     <!-- Bestellzeit -->
-                                    <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap " name="orderDate">{{ order.order_time|date:'d.m.Y' }}{% if request.user.is_superuser %} - {{ order.order_time|date:'H:i' }}{% endif %}</td>
+                                    <td class="px-4 py-3 fontmedium text-gray-900 whitespace-nowrap " name="orderDate">{{ order.order_time|date:'d.m.Y' }}{% if request.user.is_superuser %} - {{ order.order_time|date:'H:i' }}{% endif %}</td>
+                                    <!-- Betrag -->
+                                    <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap " name="total">{{ order.total|to_euro_decimal }} €</td>
                                     <!-- Lieferstatus -->
                                     <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap ">
                                         <button id="status{{ order.id }}" data-dropdown-toggle="dropdownSendungsstatus{{ order.id }}" class="status flex justify-between items-center py-2 pr-4 pl-3 w-full font-medium text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-emerald-700 md:p-0 md:w-auto dark:text-gray-400 dark:hover:dark:focus:dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent">
@@ -548,6 +549,50 @@
                                         --
                                         {% endif %}
                                     </td>
+                                    <!-- Versandart -->
+                                    <td class="px-4 py-3">
+                                        <button id="deliveryType-{{ order.id }}" data-dropdown-toggle="dropdownDelvieryType{{ order.id }}" class="payment_status flex justify-between items-center py-2 pr-4 pl-3 w-full font-medium text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-emerald-700 md:p-0 md:w-auto dark:text-gray-400 dark:hover:dark:focus:dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent">
+                                            <span style="white-space: nowrap;"
+                                                class="text-xs font-medium px-2 py-0.5 rounded-full
+                                                {% if order.delivery_type == 'pickup' %}
+                                                bg-emerald-600 text-white
+                                                {% elif order.delivery_type == 'dhl_standard' %}
+                                                bg-yellow-100 text-yellow-800
+                                                {% elif order.delivery_type == 'go_express' %}
+                                                bg-red-100 text-red-800
+                                                {% endif %}
+                                                "
+                                                value="{{ order.delivery_type }}">
+                                                    {{ order.get_delivery_type_display }}
+                                            </span>
+                                            <svg class="ml-1 w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                                        </button>
+                                        <div id="dropdownDelvieryType{{ order.id }}" class="delivery_type z-20 w-44 font-normal bg-gray-700 rounded divide-y divide-gray-100 shadow dark:divide-gray-600 hidden"  bis_skin_checked="1" data-popper-placement="top">
+                                            <ul class="py-1 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
+                                                {% get_choices "DeliveryTypeChoices" as DeliveryTypeChoices %}
+                                                {% for item in DeliveryTypeChoices %}
+                                                {% if item.0|delivery_type_check_activated:order.pharmacy %}
+                                                <li>
+                                                    <a href="javascript:void(0)" value="{{ item.0 }}" onclick="changeDeliveryType('{{ order.id }}', '{{ item.0 }}', this)" class="flex py-2 px-3 hover:bg-gray-100 ">
+                                                        <span style="white-space: nowrap;"
+                                                        class="text-xs font-medium px-2 py-0.5 rounded-full
+                                                        {% if item.0 == 'pickup' %}
+                                                        bg-emerald-600 text-white
+                                                        {% elif item.0 == 'dhl_standard' %}
+                                                        bg-yellow-100 text-yellow-800
+                                                        {% elif item.0 == 'go_express' %}
+                                                        bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300
+                                                        {% endif %}
+                                                        ">
+                                                            {{ item.1 }}
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                                {% endif %}
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </td>
                                     <!-- ONLINE Rezeptstatus -->
                                     <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap ">
                                         <button id="online_recipe_status{{ order.id }}" data-dropdown-toggle="dropdownOnlineRezeptsstatus{{ order.id }}" class="online_recipe_status flex justify-between items-center py-2 pr-4 pl-3 w-full font-medium text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-emerald-700 md:p-0 md:w-auto dark:text-gray-400 dark:hover:dark:focus:dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent">
@@ -563,37 +608,6 @@
                                                         <div class="h-3 w-3 mt-1 rounded-full mr-2 status-circle" value="{{ item.0 }}"></div>{{ item.1 }} 
                                                     </a>
                                                 </li>
-                                                {% endfor %}
-                                            </ul>
-                                        </div>
-                                    </td>
-                                    <!-- Zahlungsstatus -->
-                                    <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap ">
-                                        <div class="d-flex">
-                                            <button id="payment_status{{ order.id }}" data-dropdown-toggle="dropdownZahlungsstatus{{ order.id }}" class="payment_status flex justify-between items-center py-2 pr-4 pl-3 w-full font-medium text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-emerald-700 md:p-0 md:w-auto dark:text-gray-400 dark:hover:dark:focus:dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent">
-                                                {% if order.payment_status in 'overdue' %}
-                                                <svg class="w-4 h-4 mr-2 text-red-700 dark:text-red-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 13V8m0 8h0m9-4a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
-                                                </svg>                                    
-                                                {% else %}
-                                                <div class="h-3 w-3 rounded-full mr-2 status-circle" value="{{ order.payment_status }}"></div>
-                                                {% endif %}
-                                                <span>{{ order.get_payment_status_display }}</span>
-                                                <svg class="ml-1 w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                                            </button>
-                                            {% if order.payed_on %}({{order.payed_on}}){% endif %}
-                                        </div>
-                                        <div id="dropdownZahlungsstatus{{ order.id }}" class="payment_status z-20 w-44 font-normal bg-gray-700 rounded divide-y divide-gray-100 shadow dark:divide-gray-600 hidden"  bis_skin_checked="1" data-popper-placement="top">
-                                            <ul class="py-1 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
-                                                {% get_choices "PaymentStatusChoices" as PaymentStatusChoices %}
-                                                {% for item in PaymentStatusChoices %}
-                                                {% if request.user.is_superuser or item.2 %}
-                                                <li>
-                                                    <a href="javascript:void(0)" name="payment_status" value="{{ item.0 }}" onclick="changeStatus(this, '{{ order.id }}')" class="flex py-2 px-3 hover:bg-gray-100 ">
-                                                        <div class="h-3 w-3 mt-1 rounded-full mr-2 status-circle" value="{{ item.0 }}"></div>{{ item.1 }} 
-                                                    </a>
-                                                </li>
-                                                {% endif %}
                                                 {% endfor %}
                                             </ul>
                                         </div>
@@ -640,45 +654,36 @@
                                             </ul>
                                         </div>
                                     </td>
-                                    <!-- Bezahlmethode -->
-                                    <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap ">{{ order.get_payment_type_display }}</td>
-                                    <!-- Versandart -->
-                                    <td class="px-4 py-3">
-                                        <button id="deliveryType-{{ order.id }}" data-dropdown-toggle="dropdownDelvieryType{{ order.id }}" class="payment_status flex justify-between items-center py-2 pr-4 pl-3 w-full font-medium text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-emerald-700 md:p-0 md:w-auto dark:text-gray-400 dark:hover:dark:focus:dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent">
-                                            <span style="white-space: nowrap;"
-                                                class="text-xs font-medium px-2 py-0.5 rounded-full
-                                                {% if order.delivery_type == 'pickup' %}
-                                                bg-emerald-600 text-white
-                                                {% elif order.delivery_type == 'dhl_standard' %}
-                                                bg-yellow-100 text-yellow-800
-                                                {% elif order.delivery_type == 'go_express' %}
-                                                bg-red-100 text-red-800
+                                    <!-- Rezeptnummer -->
+                                    <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap ">
+                                        {% for recipe in order|get_recipes %}
+                                        <a href="{{ recipe.file.url }}" target="_blank">{{ recipe.number }}</a>
+                                        {% endfor %}
+                                    </td>
+                                    <!-- Zahlungsstatus -->
+                                    <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap ">
+                                        <div class="d-flex">
+                                            <button id="payment_status{{ order.id }}" data-dropdown-toggle="dropdownZahlungsstatus{{ order.id }}" class="payment_status flex justify-between items-center py-2 pr-4 pl-3 w-full font-medium text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-emerald-700 md:p-0 md:w-auto dark:text-gray-400 dark:hover:dark:focus:dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent">
+                                                {% if order.payment_status in 'overdue' %}
+                                                <svg class="w-4 h-4 mr-2 text-red-700 dark:text-red-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 13V8m0 8h0m9-4a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                                                </svg>                                    
+                                                {% else %}
+                                                <div class="h-3 w-3 rounded-full mr-2 status-circle" value="{{ order.payment_status }}"></div>
                                                 {% endif %}
-                                                "
-                                                value="{{ order.delivery_type }}">
-                                                    {{ order.get_delivery_type_display }}
-                                            </span>
-                                            <svg class="ml-1 w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                                        </button>
-                                        <div id="dropdownDelvieryType{{ order.id }}" class="delivery_type z-20 w-44 font-normal bg-gray-700 rounded divide-y divide-gray-100 shadow dark:divide-gray-600 hidden"  bis_skin_checked="1" data-popper-placement="top">
+                                                <span>{{ order.get_payment_status_display }}</span>
+                                                <svg class="ml-1 w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                                            </button>
+                                            {% if order.payed_on %}({{order.payed_on}}){% endif %}
+                                        </div>
+                                        <div id="dropdownZahlungsstatus{{ order.id }}" class="payment_status z-20 w-44 font-normal bg-gray-700 rounded divide-y divide-gray-100 shadow dark:divide-gray-600 hidden"  bis_skin_checked="1" data-popper-placement="top">
                                             <ul class="py-1 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
-                                                {% get_choices "DeliveryTypeChoices" as DeliveryTypeChoices %}
-                                                {% for item in DeliveryTypeChoices %}
-                                                {% if item.0|delivery_type_check_activated:order.pharmacy %}
+                                                {% get_choices "PaymentStatusChoices" as PaymentStatusChoices %}
+                                                {% for item in PaymentStatusChoices %}
+                                                {% if request.user.is_superuser or item.2 %}
                                                 <li>
-                                                    <a href="javascript:void(0)" value="{{ item.0 }}" onclick="changeDeliveryType('{{ order.id }}', '{{ item.0 }}', this)" class="flex py-2 px-3 hover:bg-gray-100 ">
-                                                        <span style="white-space: nowrap;"
-                                                        class="text-xs font-medium px-2 py-0.5 rounded-full
-                                                        {% if item.0 == 'pickup' %}
-                                                        bg-emerald-600 text-white
-                                                        {% elif item.0 == 'dhl_standard' %}
-                                                        bg-yellow-100 text-yellow-800
-                                                        {% elif item.0 == 'go_express' %}
-                                                        bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300
-                                                        {% endif %}
-                                                        ">
-                                                            {{ item.1 }}
-                                                        </span>
+                                                    <a href="javascript:void(0)" name="payment_status" value="{{ item.0 }}" onclick="changeStatus(this, '{{ order.id }}')" class="flex py-2 px-3 hover:bg-gray-100 ">
+                                                        <div class="h-3 w-3 mt-1 rounded-full mr-2 status-circle" value="{{ item.0 }}"></div>{{ item.1 }} 
                                                     </a>
                                                 </li>
                                                 {% endif %}
@@ -686,14 +691,8 @@
                                             </ul>
                                         </div>
                                     </td>
-                                    <!-- Betrag -->
-                                    <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap " name="total">{{ order.total|to_euro_decimal }} €</td>
-                                    <!-- Rezeptnummer -->
-                                    <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap ">
-                                        {% for recipe in order|get_recipes %}
-                                        <a href="{{ recipe.file.url }}" target="_blank">{{ recipe.number }}</a>
-                                        {% endfor %}
-                                    </td>
+                                    <!-- Bezahlmethode -->
+                                    <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap ">{{ order.get_payment_type_display }}</td>
                                     <!-- Anzahl produkte -->
                                     <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap " name="orderAmount">{{ order|get_order_products|length }}</td>
                                     <!-- Angelegt von -->
