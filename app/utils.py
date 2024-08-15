@@ -1486,6 +1486,7 @@ def add_product_to_cart(order, product_id, amount, prepared=False, user_is_authe
         order_product.save()
 
         data = {
+            'object_not_exist': False,
             'avaliable': True,
             'created': created,
             'id': order_product.id,

@@ -1,6 +1,6 @@
 /* static/src/input.css */
 
-/* ! tailwindcss v3.4.6 | MIT License | https://tailwindcss.com */
+/* ! tailwindcss v3.4.10 | MIT License | https://tailwindcss.com */
 
 /*
 1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)
@@ -2269,6 +2269,11 @@ input:checked + .toggle-bg {
   border-inline-start-color: rgb(249 250 251 / var(--tw-border-opacity));
 }
 
+.\!bg-gray-50 {
+  --tw-bg-opacity: 1 !important;
+  background-color: rgb(249 250 251 / var(--tw-bg-opacity)) !important;
+}
+
 .\!bg-primary-600 {
   --tw-bg-opacity: 1 !important;
   background-color: rgb(98 98 98 / var(--tw-bg-opacity)) !important;
@@ -3383,6 +3388,11 @@ input:disabled {
   color: rgb(28 100 242 / var(--tw-text-opacity));
 }
 
+.hover\:text-emerald-600:hover {
+  --tw-text-opacity: 1;
+  color: rgb(5 150 105 / var(--tw-text-opacity));
+}
+
 .hover\:text-emerald-700:hover {
   --tw-text-opacity: 1;
   color: rgb(4 120 87 / var(--tw-text-opacity));
@@ -3689,6 +3699,11 @@ input:disabled {
 .dark\:border-s-gray-700:is(.dark *) {
   --tw-border-opacity: 1;
   border-inline-start-color: rgb(55 65 81 / var(--tw-border-opacity));
+}
+
+.dark\:\!bg-gray-700:is(.dark *) {
+  --tw-bg-opacity: 1 !important;
+  background-color: rgb(55 65 81 / var(--tw-bg-opacity)) !important;
 }
 
 .dark\:\!bg-primary-600:is(.dark *) {

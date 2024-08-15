@@ -1,5 +1,6 @@
 var scriptTag = document.querySelector('script[src*="productSearch.js"]')
 var productUrl = scriptTag.getAttribute('data-product-url')
+var pharmacyId = scriptTag.getAttribute('data-pharmacy-id')
 
 const $searchContainer = $('.searchProductContainer');
 var $dropdownDiv = $('.dropdownProductList');
@@ -37,6 +38,7 @@ function performSearch($input, searchType) {
         data: {
             'searchWord': 'searchWord',
             'search': searchWord,
+            'pharmacyId': pharmacyId,
         },
         success: (data) => {
 
@@ -57,7 +59,7 @@ function performSearch($input, searchType) {
             // Create dropdown div element if not exists else use existing element and empty it and set styles
             if ($('.dropdownProductList').length == 0) {
                 $dropdownDiv = $('<div>', {
-                    'class': 'dropdownProductList overflow-y-auto absolute bg-white divide-y divide-gray-100 rounded-lg shadow-xl dark:divide-gray-700',
+                    'class': 'dropdownProductList overflow-y-auto absolute bg-white divide-y divide-gray-100 rounded-lg shadow-xl dark:bg-gray-800 dark:divide-gray-700',
                     'aria-labelledby': 'dropdownNotificationButton',
                     'style': `top: ${top}px; left: ${left}px; width: ${width}px; max-height: ${maxInnerHeight}px; z-index: 1000;`
                 });
@@ -95,20 +97,21 @@ function performSearch($input, searchType) {
 }
 
 function getStatusClass(status) {
+    status = status.toString();
     if (status === '3' || status === '2') return 'text-green-500';
     if (status === '1') return 'text-yellow-500';
     return 'text-red-700 dark:text-red-500';
 }
 
 function createProductTemplate(item, status_class, searchType) {
-    return `<a href="javascript:void(0)" data-${searchType}="${item.name}" data-product-id=${item.id} class="flex px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700">
+    return `<a href="javascript:void(0)" data-${searchType}="${item.name}" data-product-id=${item.id} data-available-amount=${item.available_amount} class="flex px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700">
         <div class="w-full ps-3">
             <div class="flex flex-row mb-1">
                 <div class="text-sm font-semibold text-gray-900 dark:text-white">
                     ${item.name}
                 </div>
                 <div class="text-sm ml-auto font-semibold ${status_class} ${searchType === 'global-search-product' ? 'hidden' : ''}">
-                    ${item.status_display}
+                    ${item.available_amount > 0 ? `${item.available_amount} verfügbar` : item.status_display}
                 </div>
             </div>
             <div class="text-sm text-blue-600 dark:text-blue-400">
@@ -129,13 +132,16 @@ $(document).on('click', '[data-add-product-search]', function() {
 $(document).on('click', '[data-import-order-search-product]', function() {
 
     const product = $(this).data('import-order-search-product');
+    const availableAmount = $(this).data('available-amount') >= 0 ? $(this).data('available-amount') : 0;
 
     var index = document.getElementById('extractedOrderedProductList').children.length;
     
     const productListContainer = document.getElementById('extractedOrderedProductList');
 
+    const borderClasses = availableAmount > 0 ? 'border-gray-300 dark:border-gray-600' : 'border-red-500 dark:border-red-500'
+
     const productDiv = document.createElement('div')
-    productDiv.className = "imported-product-container bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+    productDiv.className = `imported-product-container bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700  dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 ${borderClasses}`
     productDiv.id = `orderProduct-${index}`
 
     // Inhalt für das Produkt-Div
@@ -145,11 +151,11 @@ $(document).on('click', '[data-import-order-search-product]', function() {
                 <label for="product-${index}" class="inline-flex items-center mb-2 text-sm font-medium text-gray-900 dark:text-white">
                     Produkt
                 </label>
-                <input id="product-${index}" name="product" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" value="${product}">
+                <input id="product-${index}" name="product" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" value="${product}">
             </div>
             <div class="mt-2" style="flex: 2">
-                <label for="productAmount-${index}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Menge</label>
-                <input type="number" name="productAmount" id="productAmount-${index}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" value="10">
+                <label for="productAmount-${index}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Menge (<span id="availableAmount-${index}">${availableAmount}</span> verfügbar)</label>
+                <input type="number" name="productAmount" id="productAmount-${index}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" value="10">
             </div>
             <div class="inline-flex rounded-md shadow-sm" role="group" style="flex: 1; height: 42px; margin-top: auto;">
                 <a href="javascript:void(0)" onclick="reduceAmountImportedProduct(${index})" type="button" class="inline-flex items-center px-4 py-2.5 text-sm font-medium text-gray-300 bg-transparent border border-gray-900 rounded-s-lg hover:bg-gray-900 hover:text-white focus:z-10 focus:ring-2 focus:ring-gray-500 focus:bg-gray-900 focus:text-white dark:border-white dark:text-white dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:bg-gray-700">

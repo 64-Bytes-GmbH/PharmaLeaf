@@ -1,0 +1,356 @@
+﻿<!DOCTYPE html>
+{% load static extra_tags mathfilters %}
+<html lang="de-de" xmlns="https://www.w3.org/TR/2017/REC-html52-20171214/">
+<head>
+	<title>{{ invoice.invoice_number }}</title>
+	<style type="text/css">
+
+		@font-face {
+			font-family: 'font_family_regular';
+			src: url("{{ font_family_regular }}");
+		}
+
+		@font-face {
+			font-family: 'font_family_bold';
+			src: url("{{ font_family_bold }}");
+		}
+
+		@page {
+
+			background-image: url("{{ layout }}");
+
+			@frame header_frame {
+				-pdf-frame-content: header_content;
+				left: 1cm;
+				top: 1cm;
+				right: 1.2cm;
+				height: 1cm;
+			}
+
+			@frame content_frame {
+				left: 2.5cm;
+				top: 5cm;
+				right: 1.2cm;
+			}
+
+			@frame footer_frame {
+				-pdf-frame-content: footer_content;
+				left: 0cm;
+				bottom: 10cm;
+				right: 0cm;
+				height: 2cm;
+			}
+		}
+
+		body {
+		}
+
+		.wrapper {
+			font-family: 'font_family_regular';
+		}
+
+		.logo {
+			text-align: right;
+			margin-top: 30px;
+		}
+
+		.invoice-details {
+			color: #232640;
+			margin-bottom: 70px;
+			margin-top: 10px;
+		}
+		.invoice-recipe {
+			color: #232640;
+			margin-bottom: 40px;
+			font-size: 12px;
+		}
+
+			.invoice-details table {
+			}
+
+			.invoice-details ul {
+				list-style-type: none;
+				margin: 0 0 0 -7px;
+			}
+
+			.invoice-details li {
+				margin: -5px 0;
+			}
+
+			.invoice-details td {
+				text-align: left;
+			}
+
+
+		.customer {
+			text-align: left;
+			padding-bottom: 0;
+			padding-top: 0;
+			font-size: 12px;
+		}
+
+		.firm {
+			text-align: left;
+			font-size: 9px;
+		}
+
+		.invoice li {
+			text-align: right;
+			font-size: 12px;
+		}
+
+		.invoice-title {
+			font-family: 'font_family_regular';
+			font-size: 16px;
+			padding: 0 0 5px 0;
+			margin: 0 0 20px -2px;
+		}
+
+		.details-table {
+			padding: 0;
+			margin: 0;
+		}
+
+		.details-border {
+			border-bottom-color: black;
+			border-bottom-style: solid;
+			border-bottom-width: 1px;
+			color: #fff;
+			margin-top: 0px;
+			font-size: 1px;
+		}
+
+		.details-doubleborder {
+			border-bottom-color: black;
+			border-bottom-style: solid;
+			border-bottom-width: 1px;
+			color: #fff;
+			margin-top: 0px;
+			font-size: 1px;
+			margin: 0 0 0 450px;
+		}
+
+		.details-header > th {
+			text-align: left;
+			font-family: 'font_family_regular';
+			font-size: 12px;
+		}
+
+		.details-details > td {
+			padding: 3px 0 0 0;
+			font-size: 12px;
+		}
+
+		.details-sum {
+			margin-top: 5px;
+			font-size: 12px;
+		}
+
+		.conditions {
+			margin-top: 50px
+		}
+
+			.conditions th {
+				text-align: left;
+				font-family: 'font_family_regular';
+				font-size: 13px;
+				padding-bottom: 5px;
+			}
+
+			.conditions tr {
+				font-size: 11px;
+			}
+
+		.comment-title {
+			font-family: 'font_family_regular';
+			font-size: 13px;
+			padding: 0;
+			margin: 50px 0 0 -2px;
+		}
+
+		.comment-border {
+			border-bottom-color: black;
+			border-bottom-style: solid;
+			border-bottom-width: 1px;
+			color: #fff;
+			margin-top: -5px;
+			font-size: 1px;
+		}
+
+		.comment-header1 {
+			font-size: 12px;
+			padding: 0;
+			margin: 10px 0 0 -2px;
+		}
+
+		.comment-header2 {
+			font-family: 'font_family_regular';
+			font-size: 13px;
+			padding: 0;
+			margin: 5px 0 5px -2px;
+		}
+
+		.comment {
+			font-size: 12px;
+			margin: 0
+		}
+
+		/*Header*/
+
+		.header {
+			font-family: 'font_family_regular';
+		}
+
+		/*Footer*/
+
+		.footer {
+			font-family: 'font_family_regular';
+		}
+
+		.footer table {
+			font-family: 'font_family_regular';
+			font-size: 9px;
+			color: white;
+		}
+
+		.footer th {
+			text-align: left;
+			padding: 0;
+			padding: 0;
+		}
+
+		.footer td {
+			text-align: left;
+			padding: 0;
+		}
+	</style>
+</head>
+<body>
+
+	<div id="header_content" class="header">
+		<table>
+			<tr>
+				<th style="width: 180px">{{ invoice.invoice_number }}</th>
+				<th style="text-align: right">Seite <pdf:pagenumber> von <pdf:pagenumber> </th>
+			</tr>
+		</table>
+	</div>
+
+	<div class='wrapper'>
+		<div>
+			<div class="invoice-details">
+				<table>
+					<tr>
+						<td style="width: auto">
+							<p class="firm">{{ invoice.own_company_name }} | {{ invoice.own_street }} {{ invoice.own_street_number }} | {{ invoice.own_postalcode }} {{ invoice.own_city }}</p>
+							<ul class="customer">
+								<li style="margin-bottom: 2px; margin-left: 7px">
+									<div style="font-family: font_family_regular;line-height: 10px;">{{ invoice.first_name }} {{ invoice.last_name }}</div>
+								</li>
+								<li>{{ invoice.street }} {{ invoice.street_number }}</li>
+								<li>{{ invoice.postalcode }} {{ invoice.city }}</li>
+							</ul>
+						</td>
+						<td style="width: 200px">
+							<table>
+								<tr>
+									<td style="vertical-align: top; text-align: right;">Rechnungsdatum</td>
+									<td style="vertical-align: top; text-align: right;">{{ invoice.date|date:"d.m.Y" }}</td>
+								</tr>
+								<tr>
+									<td style="vertical-align: top; text-align: right;">Rechnungsnummer</td>
+									<td style="vertical-align: top; text-align: right;">{{ invoice.invoice_number }}</td>
+								</tr>
+								<tr>
+									<td style="vertical-align: top; text-align: right;">Kunden-Nr.</td>
+									<td style="vertical-align: top; text-align: right;">{{ invoice.customer_number }}</td>
+								</tr>
+								<tr>
+									<td style="padding-top: 5px; color: #899A71; font-weight: bold; vertical-align: top; text-align: right;">Rezeptart:</td>
+									<td style="padding-top: 5px; vertical-align: top; text-align: right;">{{ invoice.get_customer_type_display }}</td>
+								</tr>
+								<tr>
+									<td style="color: #899A71; font-weight: bold; vertical-align: top; text-align: right;">Rezeptnummer:</td>
+									<td style="vertical-align: top; text-align: right;">{{ invoice.recipe_number }}</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+			</div>
+
+			<div class="details">
+				<div class="invoice-title">Rechnung{% if invoice.status == 'canceled' %} (Storniert){% endif %} - {{ invoice.invoice_number }}</div>
+				<table class="details-table">
+					<tr class="details-header">
+						<th style="width: 100px;padding-bottom: 3px;">Produkt-Nr.</th>
+						<th style="width: 240px;padding-bottom: 3px;">Bezeichnung</th>
+						<th style="width: 100px;padding-bottom: 3px;">Abgabeform</th>
+						<th style="width: 80px; text-align: right;padding-bottom: 3px;">Menge</th>
+						<th style="width: 100px; text-align: right;padding-bottom: 3px;">Preis</th>
+						<th style="width: 100px; text-align: right;padding-bottom: 3px;">Summe</th>
+					</tr>
+					<tr style="border-top: 1px solid black" class="details-header">
+						<th style="padding-top: 10px;"></th>
+						<th style="padding-top: 10px;"></th>
+						<th style="padding-top: 10px;"></th>
+						<th style="padding-top: 10px;"></th>
+						<th style="padding-top: 10px;"></th>
+						<th style="padding-top: 10px;"></th>
+					</tr>
+					{% for item in invoice_items %}
+					<tr class="details-details">
+						<td style="padding-top: 3px;padding-bottom: 3px;">{{ item.product_number }}</td>
+						<td style="padding-top: 3px;padding-bottom: 3px;">{{ item.product }}</td>
+						<td style="padding-top: 3px;padding-bottom: 3px;">{{ item.get_form_display }}</td>
+						<td style="text-align: right; padding-top: 3px;padding-bottom: 3px;">{{ item.amount }}</td>
+						<td style="text-align: right; padding-top: 3px;padding-bottom: 3px;">{{ item.price|to_euro_decimal }} €</td>
+						<td style="text-align: right; padding-top: 3px;padding-bottom: 3px;">{{ item.total|to_euro_decimal }} €</td>
+					</tr>
+					{% endfor %}
+				</table>
+				<table class="details-sum">
+					<tr style="border-top: 1px solid black">
+						<td style="width: 400px"></td>
+						<td style="padding-top: 5px; font-weight: bold; color: #899A71;">Nettobetrag</td>
+						<td style="padding-top: 3px; text-align: right">{{ invoice.subtotal |to_euro_decimal }} €</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td style="font-weight: bold; color: #899A71;">USt {{ invoice.tax_rate|mul:100|tround:0 }} %</td>
+						<td style="text-align: right">{{ invoice.tax_amount|to_euro_decimal }} €</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td style="font-family: font_family_regular; font-weight: bold; border-bottom: 1px solid black; color: #899A71;">Versandkosten</td>
+						<td style="font-family: font_family_regular; text-align: right; border-bottom: 1px solid black">{{ invoice.delivery_costs|to_euro_decimal }} €</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td style="font-family: font_family_bold; font-weight: bold; padding-top: 5px; color: #899A71;">Bruttobetrag</td>
+						<td style="font-family: font_family_bold; text-align: right; padding-top: 5px;">{{ invoice.total|to_euro_decimal }} €</td>
+					</tr>
+					{% if invoice.customer_type in "insurance_patient_with_supplement,insurance_patient" %}
+					<tr>
+						<td></td>
+						<td style="border-bottom: 1px solid black; font-size: 2px;  color: white;">-</td>
+						<td style="border-bottom: 1px solid black"></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td style="font-family: font_family_bold; font-weight: bold; padding-top: 5px; color: #899A71;">Zuzahlung (Kunde)</td>
+						<td style="font-family: font_family_bold; text-align: right; padding-top: 5px;">- {{ invoice.co_payment|to_euro_decimal }} €</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td style="font-family: font_family_bold; font-weight: bold; padding-top: 5px; color: #899A71;">Versicherungsbeteiligung</td>
+						<td style="font-family: font_family_bold; text-align: right; padding-top: 5px;">{{ invoice.insurance_participation|to_euro_decimal }} €</td>
+					</tr>
+					{% endif %}
+				</table>
+				
+			</div>
+		</div>
+	</div>
+</body>
+</html>
