@@ -29,7 +29,6 @@ from .tasks import task_update_delivery_status
 from .api.api_utils import chunks
 from .api.dhl import order_shipment_pick_up, dhl_create_label, dhl_cancel_label, dhl_check_status
 from .api.go_express import go_express_create_label, go_express_cancel_label, go_express_update_label, go_express_update_status, go_express_check_status
-from .api.brevo import brevo_send_test_mail, brevo_send_order_shipped
 
 from app.templatetags.extra_tags import fill_week_gaps, fill_month_gaps
 from django.shortcuts import redirect
@@ -114,85 +113,7 @@ def home(request): #!
 
     context = {}
 
-    context['faqs'] = FAQs.objects.filter(group__name='Häufig gestellte Fragen')
-    context['indications'] = CannabisIndications.objects.exclude(teaser='').exclude(teaser_source='').exclude(image__exact='')
-    context['genetics'] = Genetics.objects.all()
-    context['effects_content'] = CannabisEffects.objects.filter(main_page=True).order_by('position')
-    context['is_staff'] = request.user.is_staff
-
-    response = render(request, 'dashboard/index.html', context)
-
-    ###### Cookies #######
-    if request.method == 'POST':
-
-        if 'acceptCookies' in request.POST:
-
-            data = {}
-
-            cookies_type = request.POST.get('cookiesType')
-
-            if cookies_type == 'full':
-                set_cookie(response, 'full_cookies', 'Cookie to save if the cookies where already accepted in the past 30 days.', 30)
-                
-                data['cookies'] = 'full'
-
-            else:
-                set_cookie(response, 'mandatory_cookies', 'Cookie to save if the cookies where already accepted in the past 30 days.', 30)
-
-                data['cookies'] = 'mandatory'
-
-        if 'globalSearch' in request.POST:
-
-            data = {}
-
-            search_word = request.POST.get('search')
-
-            items = []
-
-            if search_word:
-
-                values = search_word.split(' ')
-                values = [value for value in values if value]
-
-                q_objects = Q()
-
-                for value in values:
-
-                    q_objects &= (
-                        Q(name__icontains=value) |
-                        Q(cultivar__name__icontains=value) |
-                        Q(genetics__name__icontains=value) |
-                        Q(manufacturer__name__icontains=value) |
-                        Q(main_terpene__name__icontains=value) |
-                        Q(main_terpene__terpene_effect__name__icontains=value)
-                    )
-
-                products = Products.objects.filter(active=True).filter(q_objects).distinct().order_by('-priority', '-status')
-
-                for item in products:
-
-                    product_image = ProductImages.objects.filter(product=item, main_image=True).first()
-
-                    items.append({
-                        'id': item.id,
-                        'name': item.name,
-                        'img': product_image.img.url if product_image else '',
-                        'cultivar': item.cultivar.name if item.cultivar else '',
-                        'genetics': item.genetics.name if item.genetics else '',
-                        'thc_value': round(item.thc_value * 100),
-                        'cbd_value': round(item.max_cbd_value * 100),
-                        'status': item.status,
-                        'url': reverse('product', kwargs={'url_name': item.url_name}),
-                    })
-
-            data['items'] = items
-
-            return HttpResponse(json.dumps(data), content_type='application/json')
-
-        if 'disableSpecialOfferModal' in request.POST:
-            set_cookie(response, 'special_offer_shown', 'Cookie for the special offer.', 1)
-
-    return response
+    return redirect(dashboard)
 
 def imprint(request): #!
     """ Impressum """
@@ -260,6 +181,56 @@ def payment(request): #!
 
     return render(request, 'app/payment.html', context)
 
+def order_overview(request):
+    """ Bestellung bestätigen """
+
+    context = {}
+
+    order = None
+
+    if 'order_id' in request.session:
+
+        try:
+            order = Orders.objects.get(id=request.session['order_id'])
+        except ObjectDoesNotExist:
+            order = None
+
+    context['order'] = order
+
+    return render(request, 'app/order_overview.html', context)
+
+def confirm_order(request, order_id, uidb64, token): #!
+    """ Bestellung bestätigen und Passwort setzen """
+
+    try:
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+        create_log(
+            reference='user - confirm_order',
+            message=f'User not found',
+            stack_trace=f'Order-ID: { order_id } | Token: { token } | uidb64: { uidb64 }',
+            category='error',
+            user='system'
+        )
+        user = None
+
+    if user is not None and account_activation_token.check_token(user, token):
+        
+        request.session['order_id'] = order_id
+
+        return redirect(order_overview, order_id=order_id)
+    
+    else:
+        create_log(
+            reference='user - confirm_order',
+            message=f'User not found - check_token',
+            stack_trace=f'Order-ID: { order_id}',
+            category='error',
+            user='system'
+        )
+
+    return redirect(home)
 
 ####################### Dashboard #######################
 def dashboard_login(request):
