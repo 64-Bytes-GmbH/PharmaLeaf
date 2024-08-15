@@ -95,7 +95,6 @@ def check_staff_user(function):
                 premissions = list(UserPremissions.objects.filter(user=request.user, read_premission=True, pharmacy=staff_user.selected_pharmacy).values_list('view', flat=True))
 
             if view_name in premissions or request.user.is_superuser:
-                print(view_name)
                 return function(request, *args, **kwargs)
             
             if len(premissions) != 0:

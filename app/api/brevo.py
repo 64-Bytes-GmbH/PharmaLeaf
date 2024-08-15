@@ -59,28 +59,25 @@ def brevo_send_activate_staff_user(user, reset_url):
                 'now': datetime.now().date().year,
                 'reset_url': reset_url,
                 'name': f'{user.first_name} {user.last_name}',
-                'params': {
-                    'now': datetime.now().date().year,
-                    'reset_url': reset_url,
-                    'name': f'{user.first_name} {user.last_name}',
-                    'pharmacy': {
-                        'name': pharmacy.name,
-                        'street': pharmacy.street,
-                        'street_number': pharmacy.street_number,
-                        'postalcode': pharmacy.postalcode,
-                        'city': pharmacy.city,
-                        'phonenumber': pharmacy.phonenumber,
-                        'responsible_pharmacist': pharmacy.responsible_pharmacist,
-                        'responsible_for_content': pharmacy.responsible_for_content,
-                        'register_court': pharmacy.register_court,
-                        'register_number': pharmacy.register_number,
-                        'responsible_supervicory_authority': pharmacy.responsible_supervicory_authority,
-                        'responsible_chamber': pharmacy.responsible_chamber,
-                        'tax_idenfitication': pharmacy.tax_idenfitication,
-                    }
-                },
+                'pharmacy': {
+                    'name': pharmacy.name,
+                    'street': pharmacy.street,
+                    'street_number': pharmacy.street_number,
+                    'postalcode': pharmacy.postalcode,
+                    'city': pharmacy.city,
+                    'phonenumber': pharmacy.phonenumber,
+                    'responsible_pharmacist': pharmacy.responsible_pharmacist,
+                    'responsible_for_content': pharmacy.responsible_for_content,
+                    'register_court': pharmacy.register_court,
+                    'register_number': pharmacy.register_number,
+                    'responsible_supervicory_authority': pharmacy.responsible_supervicory_authority,
+                    'responsible_chamber': pharmacy.responsible_chamber,
+                    'tax_idenfitication': pharmacy.tax_idenfitication,
+                }
             },
         }
+
+        print(payload)
 
         response = requests.post(url, headers=headers, data=json.dumps(payload))
 
