@@ -46,15 +46,15 @@ def send_error_mail(log_item):
         for recipient in EmailRecipients.objects.all():
             to_mail_list.append(recipient.email)
 
-    try:
-        send_mail(subject, message, main_settings.error_mail, to_mail_list, connection=connection)
-    except Exception as e:
+        try:
+            send_mail(subject, message, main_settings.error_mail, to_mail_list, connection=connection)
+        except Exception as e:
 
-        # Create log entry
-        log_entry = {
-            'reference': 'Mail Connection error',
-            'message': 'E-Mail could not be send',
-            'stack_trace': f'Conneciton settings: { connection_settings }: { e }',
-            'category': 'error'
-        }
-        create_log(**log_entry)
+            # Create log entry
+            log_entry = {
+                'reference': 'Mail Connection error',
+                'message': 'E-Mail could not be send',
+                'stack_trace': f'Conneciton settings: { connection_settings }: { e }',
+                'category': 'error'
+            }
+            create_log(**log_entry)
