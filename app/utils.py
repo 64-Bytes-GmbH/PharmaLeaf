@@ -29,7 +29,9 @@ from .choices import *
 from .tokens import account_activation_token
 from .api.dhl import dhl_check_status, dhl_check_bulk_status
 from .api.go_express import go_express_check_status
-from .api.brevo import brevo_send_order_shipped, brevo_send_activate_staff_user
+from .api.brevo import brevo_send_order_shipped, brevo_send_activate_staff_user, brevo_send_order_confirmation,\
+                        brevo_send_activate_user, brevo_send_reset_password, brevo_send_order_cancelled, brevo_send_pre_invoice,\
+                        brevo_send_invoice, brevo_send_new_order_created
 
 # Excel Datei Spalten und Zeilenweise auslesen
 #pylint: disable=too-many-arguments
@@ -2699,7 +2701,7 @@ def send_order_confirmation(order_id, request):
 
     if main_settings.mail_via_api:
 
-        return True
+        brevo_send_order_confirmation(order_id)
 
     else:
 
@@ -2794,42 +2796,49 @@ def send_order_confirmation(order_id, request):
 def send_new_order_created(order_id, request):
     """ Send new order to customer """
 
+    main_settings = MainSettings.objects.first()
     order = Orders.objects.get(id=order_id)
     user = order.customer.user
     email_settings = EmailSettings.objects.first()
     pharmacy = order.pharmacy
 
-    if email_settings and order.status in ['started']:
+    url = get_full_domain(request) + str(reverse('confirm_order', kwargs={'order_id': order_id, 'uidb64': urlsafe_base64_encode(force_bytes(user.pk)), 'token': account_activation_token.make_token(user)}))
 
-        logo_path = get_full_domain(request) + '/static/app/img/mail/logo.png'
-        banner_path = get_full_domain(request) + '/static/app/img/mail/titlebanner.png'
+    if main_settings.mail_via_api:
 
-        ##### Neue Bestellung senden #####
-        subject = f'Bestellung bei { order.pharmacy.name } bestätigen'
+        brevo_send_new_order_created(order_id, url)
 
-        connection = get_connection(
-            host = pharmacy.sending_mail_host,
-            port = pharmacy.sending_mail_port,
-            username = pharmacy.sending_mail,
-            password = pharmacy.sending_mail_password,
-            use_ssl = True,
-        )
+    else:
 
-        url = get_full_domain(request) + str(reverse('confirm_order', kwargs={'order_id': order_id, 'uidb64': urlsafe_base64_encode(force_bytes(user.pk)), 'token': account_activation_token.make_token(user)}))
+        if email_settings and order.status in ['started']:
 
-        message = render_to_string('mail/new_order_created.html', {
-            'main_settings': MainSettings.objects.first(),
-            'user': order.customer.user,
-            'logo_path': logo_path,
-            'banner_path': banner_path,
-            'order': order,
-            'pharmacy': order.pharmacy,
-            'confirm_order_url': url,
-        })
+            logo_path = get_full_domain(request) + '/static/app/img/mail/logo.png'
+            banner_path = get_full_domain(request) + '/static/app/img/mail/titlebanner.png'
 
-        to_mail_list = [order.email_address]
+            ##### Neue Bestellung senden #####
+            subject = f'Bestellung bei { order.pharmacy.name } bestätigen'
 
-        send_mail(subject, 'Bestellung bestätigen', order.pharmacy.email, to_mail_list, connection=connection, html_message=message)
+            connection = get_connection(
+                host = pharmacy.sending_mail_host,
+                port = pharmacy.sending_mail_port,
+                username = pharmacy.sending_mail,
+                password = pharmacy.sending_mail_password,
+                use_ssl = True,
+            )
+
+            message = render_to_string('mail/new_order_created.html', {
+                'main_settings': MainSettings.objects.first(),
+                'user': order.customer.user,
+                'logo_path': logo_path,
+                'banner_path': banner_path,
+                'order': order,
+                'pharmacy': order.pharmacy,
+                'confirm_order_url': url,
+            })
+
+            to_mail_list = [order.email_address]
+
+            send_mail(subject, 'Bestellung bestätigen', order.pharmacy.email, to_mail_list, connection=connection, html_message=message)
 
 def send_invoice_to_customer(invoice_id, request=None):
     """ Send inovice to customer """
@@ -2840,8 +2849,11 @@ def send_invoice_to_customer(invoice_id, request=None):
     pharmacy = invoice.order.pharmacy
 
     if main_settings.mail_via_api:
-
-        return True
+            
+        if invoice.pro_forma_invoice:
+            brevo_send_pre_invoice(invoice_id, invoice_file)
+        else:
+            brevo_send_invoice(invoice_id, request)
 
     else:
 
@@ -3080,8 +3092,8 @@ def send_order_status_shipped(order):
     pharmacy = order.pharmacy
 
     if main_settings.mail_via_api:
-        
-        return True
+
+        brevo_send_order_shipped(order.id)
 
     else:
 
@@ -3136,7 +3148,11 @@ def send_order_status_shipped(order):
 def send_order_status_cancelled(order):
     """ Send to customer, that order is shipped """
 
-    return True
+    main_settings = MainSettings.objects.first()
+
+    if main_settings.mail_via_api:
+        
+        brevo_send_order_cancelled(order)
 
 def send_product_request_customer(product_request):
     """ Produktanfrage an Kunden schicken """
