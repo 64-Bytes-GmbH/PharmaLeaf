@@ -65,7 +65,7 @@
 
         $.ajax({
             type: 'POST',
-            url: '{% url "dashboard_imports" %}',
+            url: '{% url "request_import_functions" %}',
             processData: false,  // Wichtig: Verhindert, dass jQuery die Daten verarbeitet
             contentType: false,
             traditional: true,
@@ -96,7 +96,7 @@
         
         $.ajax({
             type: 'POST',
-            url: '{% url "dashboard_imports" %}',
+            url: '{% url "request_import_functions" %}',
             traditional: true,
             headers: {
                 'X-Requested-With': 'XMLHttpRequest',
