@@ -21,7 +21,7 @@ env = environ.Env(
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 APP_DIR = BASE_DIR / 'app'
-STATIC_DIR = APP_DIR / 'static'
+STATIC_DIR = BASE_DIR / 'static'
 APP_STATIC_DIR = STATIC_DIR / 'app'
 FONTS_DIR = APP_STATIC_DIR / 'fonts'
 MEDIA_DIR = BASE_DIR / 'media'
