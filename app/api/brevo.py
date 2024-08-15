@@ -2,7 +2,7 @@ import requests
 import json
 from datetime import datetime
 
-from app.models import Orders, MainSettings, EmailTemplates, Invoices, OrderProducts
+from app.models import Orders, MainSettings, EmailTemplates, Invoices, OrderProducts, Pharmacies
 from db_logger.utils import create_log
 
 ######### Functions #########
@@ -78,6 +78,7 @@ def brevo_send_activate_user(user, reset_url):
     """ Send email to activate user """
 
     main_settings = MainSettings.objects.first()
+    pharmacy = Pharmacies.objects.first()
 
     try:
         email_template = EmailTemplates.objects.get(email_type='activate_user')
@@ -124,7 +125,22 @@ def brevo_send_activate_user(user, reset_url):
             'params': {
                 'now': datetime.now().date().year,
                 'reset_url': reset_url,
-                'name': f'{user.first_name} {user.last_name}'
+                'name': f'{user.first_name} {user.last_name}',
+                'pharmacy': {
+                    'name': pharmacy.name,
+                    'street': pharmacy.street,
+                    'street_number': pharmacy.street_number,
+                    'postalcode': pharmacy.postalcode,
+                    'city': pharmacy.city,
+                    'phonenumber': pharmacy.phonenumber,
+                    'responsible_pharmacist': pharmacy.responsible_pharmacist,
+                    'responsible_for_content': pharmacy.responsible_for_content,
+                    'register_court': pharmacy.register_court,
+                    'register_number': pharmacy.register_number,
+                    'responsible_supervicory_authority': pharmacy.responsible_supervicory_authority,
+                    'responsible_chamber': pharmacy.responsible_chamber,
+                    'tax_idenfitication': pharmacy.tax_idenfitication,
+                }
             },
         }
 
