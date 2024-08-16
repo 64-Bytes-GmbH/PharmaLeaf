@@ -53,9 +53,9 @@ def prepaid_envelope_upload(instance, filename):
             path = this.prepaid_envelope.path
             os.remove(path)
             
-        filename = '{}.{}'.format('Freiumschlag_higreen_apotheke', ext)
+        filename = '{}.{}'.format('Freiumschlag', ext)
     except Exception:
-        filename = '{}.{}'.format('Freiumschlag_higreen_apotheke', ext)
+        filename = '{}.{}'.format('Freiumschlag', ext)
 
     return os.path.join(upload_to, filename)
 
