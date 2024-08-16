@@ -1909,6 +1909,137 @@ def email_recipient_functions_v1(request):
 
     return HttpResponse(json.dumps(data), content_type='application/json')
 
+def user_order_functions_v1(request):
+    """ User order functions """
+
+    data = {}
+
+    if not request.user:
+        return HttpResponse(json.dumps({'error': 'No user'}), content_type='application/json')
+    
+    if request.method == 'POST':
+
+        if 'getOrderDetails' in request.POST:
+
+            order_id = request.POST.get('orderId')
+
+            order = Orders.objects.get(id=order_id)
+            order_products = OrderProducts.objects.filter(order=order)
+            order_recipes = OrderRecipes.objects.filter(order=order)
+            order_insurance_confirmations = OrderInsuranceConfirmation.objects.filter(order=order)
+
+            identification_files = IdentificationFiles.objects.filter(order=order)
+
+            ident_check_images = []
+            for item in identification_files:
+                ident_check_images.append(
+                    {
+                        'id': item.id,
+                        'id_number': item.id_number,
+                        'file': item.file.url if item.file else ''
+                    }
+                )
+
+            order_products_array = []
+            for order_product in order_products:
+
+                total_stock_amount = StockProducts.objects.filter(product=order_product.product, pharmacy=order_product.order.pharmacy).aggregate(total=Sum('amount'))['total'] or 0
+                total_booked_amount = OrderProducts.objects.filter(
+                    product=order_product.product,
+                    calculated_in_stock=False,
+                    order__ordered=True,
+                    order__pharmacy=order_product.order.pharmacy,
+                ).aggregate(total=Sum('amount'))['total'] or 0
+
+                available_amount = 0 if total_stock_amount - total_booked_amount <= 0 else total_stock_amount - total_booked_amount
+
+                amount_label = 'Menge (g)' if order_product.product.form == 'flower' else 'Anzahl'
+                amount_label = amount_label + f' (Verfügbar: {available_amount})'
+
+                order_products_array.append({
+                    'id': order_product.id,
+                    'productId': order_product.product.id,
+                    'name': order_product.product.name,
+                    'amount': order_product.amount,
+                    'amountLabel': amount_label,
+                    'prepared': order_product.prepared,
+                    'supplier': order_product.product.supplier.name,
+                    'form': order_product.product.get_form_display(),
+                    'total': custom_currency_format(order_product.total),
+                    'products': [{'id': item.product.id, 'name': item.product.name, 'thc': f'{round(item.product.thc_value * 100)} %', 'genetic': item.product.genetics.name if item.product.genetics else ''} for item in ProductPrices.objects.filter(active=True, pharmacy=order.pharmacy).order_by('product__name')],
+                    'preparedChoices': [{'value': False, 'name': 'unverändert'}, {'value': True, 'name': 'Zerkleinert'}],
+                    'thc': f"{round(order_product.product.thc_value * 100, 2)}%",
+                    'genetic': order_product.product.genetics.name if order_product.product.genetics else '',
+                    'isEnoughAvailable': True if available_amount >= order_product.amount else False,
+                })
+
+            delivery_button_status = False
+            if order.is_packed:
+                if order.payment_type == 'payment_by_invoice' and order.recipe_status == 'checked':
+                    delivery_button_status = True
+                elif order.payment_status == 'received' and order.recipe_status == 'checked':
+                    delivery_button_status = True
+
+            recipe_files = []
+            for recipe_file in order_recipes:
+                recipe_files.append({
+                    'id': recipe_file.id,
+                    'number': recipe_file.number,
+                    'url': recipe_file.file.url,
+                })
+
+            order_details = {
+                'id': order.id,
+                'orderNumber': order.number,
+                'orderDate': order.order_time.strftime('%d.%m.%Y | %H:%M Uhr'),
+                'orderAmount': custom_currency_format(order.total),
+                'recipeFiles': recipe_files,
+                'insuranceConfirmation': order_insurance_confirmations.first().file.name if order_insurance_confirmations else False,
+                'insuranceConfirmationURL': order_insurance_confirmations.first().file.url if order_insurance_confirmations else False,
+                'paymentType': order.payment_type,
+                'paymentStatus': order.payment_status,
+                'recipeStatus': order.recipe_status,
+                'orderStatus': order.status,
+                'deliveryButtonStatus': delivery_button_status,
+                'shipmentLabelType': order.get_shipment_label_type_display() if order.shipment_label_type else '',
+                'shipmentShipmentNo': order.shipment_shipment_no,
+                'pickUpButtonStatus': True if order.shipment_shipment_no and order.shipment_shipment_no != '' else False,
+                'pickUpStatus': True if order.shipment_pickup_order_uuid and order.shipment_pickup_order_uuid != '' else False,
+                'pickUpDate': order.shipment_pickup_date.strftime('%d.%m.%Y') if order.shipment_pickup_date else '',
+                'delivery_type': order.delivery_type,
+                'salutation': order.salutation,
+                'firstName': order.first_name,
+                'lastName': order.last_name,
+                'birthDate': order.birth_date.strftime('%d.%m.%Y') if order.birth_date else '',
+                'street': order.street,
+                'streetNumber': order.street_number,
+                'postalcode': order.postalcode,
+                'city': order.city,
+                'country': order.country,
+                'phonenumber': order.phone_number,
+                'email': order.email_address,
+                'comment': order.comment,
+                'delFirstName': order.del_first_name,
+                'delLastName': order.del_last_name,
+                'delStreet': order.del_street,
+                'delStreetNumber': order.del_street_number,
+                'delPostalcode': order.del_postalcode,
+                'delCity': order.del_city,
+                'delCountry': order.del_country,
+                'delComment': order.del_comment,
+                'orderProducts': order_products_array,
+                'healthInsuranceCompany': order.health_insurance_company,
+                'healthInsuranceContactPerson': order.health_insurance_contact_person,
+                'customerType': order.customer_type,
+                'ident_check_images': ident_check_images,
+                'identNumber': identification_files.first().id_number if identification_files.first() else '',
+                'isPacked': order.is_packed,
+            }
+
+            data['orderDetails'] = order_details
+
+        return HttpResponse(json.dumps(data), content_type='application/json')
+
 #pylint: disable=unused-argument
 def download_invoice_v1(request, invoice_id, invoice_type, datetime_now):
     """ Download invoice """

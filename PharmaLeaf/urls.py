@@ -37,6 +37,8 @@ urlpatterns = [
     path('Cookie-Informationen/', views.cookie_info, name='cookie_info'),
     path('Versand-Retouren/', views.shipping_and_retoures, name='shipping_and_retoures'),
     path('Zahlungsmethoden/', views.payment, name='payment'),
+    path('Bestellübersicht/', views.order_overview, name='order_overview'),
+    re_path(r'^Account/Passwort/(?P<order_id>\d+)/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z_\-]+)/$', views.confirm_order, name='confirm_order'),
 
     # Dashboard
     re_path(r'^Dashboard/Account/Aktivieren/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z_\-]+)/$', views.dashboard_activate_user, name='dashboard_activate_user'),

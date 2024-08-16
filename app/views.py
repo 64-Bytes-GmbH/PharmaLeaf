@@ -185,14 +185,14 @@ def order_overview(request):
 
     context = {}
 
-    order = None
+    order = Orders.objects.first()
 
-    if 'order_id' in request.session:
+    # if 'order_id' in request.session:
 
-        try:
-            order = Orders.objects.get(id=request.session['order_id'])
-        except ObjectDoesNotExist:
-            order = None
+    #     try:
+    #         order = Orders.objects.get(id=request.session['order_id'])
+    #     except ObjectDoesNotExist:
+    #         order = None
 
     context['order'] = order
 

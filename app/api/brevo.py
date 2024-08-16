@@ -77,8 +77,6 @@ def brevo_send_activate_staff_user(user, reset_url):
             },
         }
 
-        print(payload)
-
         response = requests.post(url, headers=headers, data=json.dumps(payload))
 
         if response.status_code not in [200, 201]:
@@ -241,7 +239,7 @@ def brevo_send_reset_password(user, reset_url):
             )
 
 ######### Order Mails #########
-def brevo_send_new_order_created(order_id, confirm_url, reject_url):
+def brevo_send_new_order_created(order_id, confirm_url):
     """ Send email to customer when order is shipped """
 
     main_settings = MainSettings.objects.first()
@@ -293,7 +291,6 @@ def brevo_send_new_order_created(order_id, confirm_url, reject_url):
             'params': {
                 'now': datetime.now().date().year,
                 'confirm_url': confirm_url,
-                'reject_url': reject_url,
                 'order': {
                     'name': f'{order.first_name} {order.last_name}',
                     'order_date': order.order_time.strftime('%d.%m.%Y'),

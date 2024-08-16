@@ -1,0 +1,80 @@
+/* static/src/input.css */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: 'IBMPlexSans';
+    src: url('../../fonts/IBMPlexSans-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'IBMPlexSansCondensed';
+    src: url('../../fonts/IBMPlexSansCondensed-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'IBMPlexSansCondensed';
+    src: url('../../fonts/IBMPlexSansCondensed-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'IBMPlexSansCondensed';
+    src: url('../../fonts/IBMPlexSansCondensed-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'IBMPlexSansCondensed';
+    src: url('../../fonts/IBMPlexSansCondensed-Thin.ttf') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'IBMPlexSans';
+    src: url('../../fonts/IBMPlexSans-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'IBMPlexSans';
+    src: url('../../fonts/IBMPlexSans-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'IBMPlexSans';
+    src: url('../../fonts/IBMPlexSans-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'IBMPlexSans';
+    src: url('../../fonts/IBMPlexSans-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'IBMPlexSans';
+    src: url('../../fonts/IBMPlexSans-Thin.ttf') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+}
+
+
+* {
+    font-family: IBMPlexSansCondensed;
+}
