@@ -567,7 +567,7 @@
                                             </span>
                                             <svg class="ml-1 w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
                                         </button>
-                                        <div id="dropdownDelvieryType{{ order.id }}" class="delivery_type z-20 w-44 font-normal bg-gray-700 rounded divide-y divide-gray-100 shadow dark:divide-gray-600 hidden"  bis_skin_checked="1" data-popper-placement="top">
+                                        <div id="dropdownDelvieryType{{ order.id }}" class="delivery_type z-20 w-44 font-normal bg-white rounded divide-y divide-gray-100 shadow dark:divide-gray-600 hidden"  bis_skin_checked="1" data-popper-placement="top">
                                             <ul class="py-1 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
                                                 {% get_choices "DeliveryTypeChoices" as DeliveryTypeChoices %}
                                                 {% for item in DeliveryTypeChoices %}
@@ -599,7 +599,7 @@
                                             <div class="h-3 w-3 rounded-full mr-2 status-circle" value="{{ order.online_recipe_status }}"></div><span>{{ order.get_online_recipe_status_display }}</span>
                                             <svg class="ml-1 w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
                                         </button>
-                                        <div id="dropdownOnlineRezeptsstatus{{ order.id }}" class="online_recipe_status z-20 w-44 font-normal bg-gray-700 rounded divide-y divide-gray-100 shadow dark:divide-gray-600 hidden"  bis_skin_checked="1" data-popper-placement="top">
+                                        <div id="dropdownOnlineRezeptsstatus{{ order.id }}" class="online_recipe_status z-20 w-44 font-normal bg-white rounded divide-y divide-gray-100 shadow dark:divide-gray-600 hidden"  bis_skin_checked="1" data-popper-placement="top">
                                             <ul class="py-1 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
                                                 {% get_choices "OnlineRecipeStatusChoices" as OnlineRecipeStatusChoices %}
                                                 {% for item in OnlineRecipeStatusChoices %}
@@ -630,7 +630,7 @@
                                             </span>
                                             <svg class="ml-1 w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
                                         </button>
-                                        <div id="dropdownCustomerType{{ order.id }}" class="customer_type z-20 w-56 font-normal bg-gray-700 rounded divide-y divide-gray-100 shadow dark:divide-gray-600 hidden"  bis_skin_checked="1" data-popper-placement="top">
+                                        <div id="dropdownCustomerType{{ order.id }}" class="customer_type z-20 w-56 font-normal bg-white rounded divide-y divide-gray-100 shadow dark:divide-gray-600 hidden"  bis_skin_checked="1" data-popper-placement="top">
                                             <ul class="py-1 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
                                                 {% get_choices "CustomerTypeChoices" as CustomerTypeChoices %}
                                                 {% for item in CustomerTypeChoices %}
@@ -676,7 +676,7 @@
                                             </button>
                                             {% if order.payed_on %}({{order.payed_on}}){% endif %}
                                         </div>
-                                        <div id="dropdownZahlungsstatus{{ order.id }}" class="payment_status z-20 w-44 font-normal bg-gray-700 rounded divide-y divide-gray-100 shadow dark:divide-gray-600 hidden"  bis_skin_checked="1" data-popper-placement="top">
+                                        <div id="dropdownZahlungsstatus{{ order.id }}" class="payment_status z-20 w-56 font-normal bg-white rounded divide-y divide-gray-100 shadow hidden"  bis_skin_checked="1" data-popper-placement="top">
                                             <ul class="py-1 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
                                                 {% get_choices "PaymentStatusChoices" as PaymentStatusChoices %}
                                                 {% for item in PaymentStatusChoices %}
@@ -1252,10 +1252,10 @@
     </div>
 </div>
 
-<div id="orderModal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] md:h-full">
+<div id="orderModal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden rounded-xl fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] md:h-full">
     <div class="relative w-full h-full md:h-auto" style="max-width: 75vw;max-height: 80vh;overflow-y: auto;">
         <!-- Modal content -->
-        <div class="relative p-4 bg-white shadow sm:p-5">
+        <div class="relative p-4 bg-white shadow sm:p-5 rounded-xl ">
             <!-- Modal header -->
             <div class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-400">
                 <h3 class="text-lg font-semibold text-gray-900 ">Bestellung (Detailansicht)</h3>
@@ -1273,7 +1273,7 @@
                 </h5> -->
                 <div class="grid gap-4 mb-5 sm:grid-cols-5">
                     <!-- Bestellnummer -->
-                    <div class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-emerald-500 dark:focus:border-emerald-500">
+                    <div class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-emerald-500 dark:focus:border-emerald-500">
                         <p class="mb-2 text-sm font-medium text-gray-900 ">
                             Bestellnummer
                         </p>
@@ -1282,7 +1282,7 @@
                         </span>
                     </div>
                     <!-- Rezeptnummer -->
-                    <div class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-emerald-500 dark:focus:border-emerald-500">
+                    <div class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-emerald-500 dark:focus:border-emerald-500">
                         <div>
                             <div class="flex flex-row space justify-between mb-3">
                                 <p class="mb-2 text-sm font-medium text-gray-900 ">
@@ -1312,7 +1312,7 @@
                         </div>
                     </div>
                     <!-- Bestelldatum -->
-                    <div class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-emerald-500 dark:focus:border-emerald-500">
+                    <div class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-emerald-500 dark:focus:border-emerald-500">
                         <p class="mb-2 text-sm font-medium text-gray-900 ">
                             Bestelldatum
                         </p>
@@ -1320,14 +1320,14 @@
                         </span>
                     </div>
                     <!-- Bestellsumme -->
-                    <div class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-emerald-500 dark:focus:border-emerald-500">
+                    <div class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-emerald-500 dark:focus:border-emerald-500">
                         <p class="mb-2 text-sm font-medium text-gray-900 ">
                             Bestellsumme
                         </p>
                         <span id="total" name="orderAmount" class="mb-4 text-sm font-medium text-gray-900 dark:text-gray-300"></span>
                     </div>
                     <!-- Versicherungsinfo -->
-                    <div class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-emerald-500 dark:focus:border-emerald-500">
+                    <div class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-emerald-600 focus:border-emerald-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-emerald-500 dark:focus:border-emerald-500">
                         <p class="mb-2 text-sm font-medium text-gray-900 ">
                             Versicherung
                         </p>
@@ -1534,7 +1534,7 @@
                                         </div>
                                         <div class="sm:col-span-2">
                                             <label for="comment" class="block mb-2 text-sm font-medium text-gray-900 ">Kommentar</label>
-                                            <textarea id="comment" name="comment" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-full border border-gray-300 focus:ring-emerald-500 focus:border-emerald-500 dark:placeholder-gray-400 dark:focus:ring-emerald-500 dark:focus:border-emerald-500" placeholder="Kommentar"></textarea>
+                                            <textarea id="comment" name="comment" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-xl border border-gray-300 focus:ring-emerald-500 focus:border-emerald-500 dark:placeholder-gray-400 dark:focus:ring-emerald-500 dark:focus:border-emerald-500" placeholder="Kommentar"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -1609,7 +1609,7 @@
                                         </div>
                                         <div class="sm:col-span-2">
                                             <label for="del_comment" class="block mb-2 text-sm font-medium text-gray-900 ">Kommentar</label>
-                                            <textarea id="del_comment" name="delComment" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-full border border-gray-300 focus:ring-emerald-500 focus:border-emerald-500 dark:placeholder-gray-400 dark:focus:ring-emerald-500 dark:focus:border-emerald-500" placeholder="Kommentar"></textarea>
+                                            <textarea id="del_comment" name="delComment" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-xl border border-gray-300 focus:ring-emerald-500 focus:border-emerald-500 dark:placeholder-gray-400 dark:focus:ring-emerald-500 dark:focus:border-emerald-500" placeholder="Kommentar"></textarea>
                                         </div>
                                     </div>
                                 </div>
