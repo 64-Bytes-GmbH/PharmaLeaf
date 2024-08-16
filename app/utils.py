@@ -2667,7 +2667,7 @@ def send_register_confirmation(request, user):
                 logo_path = get_full_domain(request) + '/static/app/img/mail/logo.png'
                 banner_path = get_full_domain(request) + '/static/app/img/mail/titlebanner.png'
 
-                subject = 'Registrierung bei Higreen'
+                subject = 'Registrierung bei der Dragonweed'
 
                 connection = get_connection(
                     host = email_settings.info_email_host,
@@ -2688,7 +2688,7 @@ def send_register_confirmation(request, user):
 
                 to_mail_list = [user.email]
 
-                send_mail(subject, 'Registrierung bei Higreen', email_settings.info_email, to_mail_list, connection=connection, html_message=message)
+                send_mail(subject, 'Registrierung bei der Dragonweed Apotheke', email_settings.info_email, to_mail_list, connection=connection, html_message=message)
 
 def send_order_confirmation(order_id, request):
     """ Send order confirmation to customer and pharmacy """
@@ -2791,7 +2791,7 @@ def send_order_confirmation(order_id, request):
 
             #     to_mail_list = [order.email_address]
 
-            #     send_mail(subject, 'Rezept einsenden', f'higreen! Apotheke <{ email_settings.info_email }>', to_mail_list, connection=connection, html_message=message)
+            #     send_mail(subject, 'Rezept einsenden', f'Dragonweed Apotheke <{ email_settings.info_email }>', to_mail_list, connection=connection, html_message=message)
 
 def send_new_order_created(order_id, request):
     """ Send new order to customer """
@@ -2950,7 +2950,7 @@ def send_reset_password_link(user, request):
                 logo_path = get_full_domain(request) + '/static/app/img/mail/logo.png'
                 banner_path = get_full_domain(request) + '/static/app/img/mail/titlebanner.png'
 
-                subject = 'higreen! Passwort zurücksetzen'
+                subject = 'Passwort zurücksetzen'
 
                 connection = get_connection(
                     host = email_settings.info_email_host,
@@ -2971,7 +2971,7 @@ def send_reset_password_link(user, request):
 
                 to_mail_list = [user.email]
 
-                send_mail(subject, 'higreen! Passwort zurücksetzen', email_settings.info_email, to_mail_list, connection=connection, html_message=message)
+                send_mail(subject, 'Passwort zurücksetzen', email_settings.info_email, to_mail_list, connection=connection, html_message=message)
 
 def send_user_delete_confirmation(user_name, user_email):
     """ Send delete confirmation to user """
@@ -3106,8 +3106,8 @@ def send_order_status_shipped(order):
             subject = f'Bestellung versendet - Bestell-Nr. { order.number }',
         )
 
-        logo_path = 'https://higreen.de/static/app/img/mail/logo.png'
-        banner_path = 'https://higreen.de/static/app/img/mail/titlebanner.png'
+        logo_path = 'https://pharmaleaf.dragonweed.de/static/app/img/mail/logo.png'
+        banner_path = 'https://pharmaleaf.dragonweed.de/static/app/img/mail/titlebanner.png'
 
         ##### Bestellbestätigung senden #####
         subject = f'Bestellung versendet - Bestell-Nr. { order.number }'
@@ -3127,7 +3127,7 @@ def send_order_status_shipped(order):
             'banner_path': banner_path,
             'order': order,
             'pharmacy': pharmacy,
-            'domain': 'https://higreen.de',
+            'domain': 'https://dragonweed.de',
         })
 
         email_log.message = message

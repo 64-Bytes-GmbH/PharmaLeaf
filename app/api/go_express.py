@@ -133,7 +133,8 @@ def go_express_create_label(order_id):
     
     headers = {
         "Content-Type": "application/json",
-        "User-Agent": "higreen-apotheke.de/1.0"
+        # TODO: User-Agent anpassen
+        # "User-Agent": "apotheke.de/1.0"
     }
 
     response = requests.post(pickup_url, auth=HTTPBasicAuth(username=username, password=password), json=payload, headers=headers)
@@ -307,7 +308,8 @@ def go_express_update_label(order_id):
 
     headers = {
         "Content-Type": "application/json",
-        "User-Agent": "higreen-apotheke.de/1.0"
+        # TODO: User-Agent anpassen
+        # "User-Agent": "apotheke.de/1.0"
     }
 
     response = requests.post(pickup_url, auth=HTTPBasicAuth(username=username, password=password), json=payload, headers=headers)
@@ -374,7 +376,8 @@ def go_express_update_status(order_id):
 
     headers = {
         "Content-Type": "application/json",
-        "User-Agent": "higreen-apotheke.de/1.0"
+        # TODO: User-Agent anpassen
+        # "User-Agent": "apotheke.de/1.0"
     }
 
     response = requests.post(pickup_url, auth=HTTPBasicAuth(username=username, password=password), json=payload, headers=headers)
@@ -439,7 +442,8 @@ def go_express_cancel_label(order_id):
 
     headers = {
         "Content-Type": "application/json",
-        "User-Agent": "higreen-apotheke.de/1.0"
+        # TODO: User-Agent anpassen
+        # "User-Agent": "apotheke.de/1.0"
     }
 
     response = requests.post(pickup_url, auth=HTTPBasicAuth(username=username, password=password), json=payload, headers=headers)
@@ -495,7 +499,8 @@ def go_express_check_status(order_id):
 
     headers = {
         "Content-Type": "application/json",
-        "User-Agent": "higreen-apotheke.de/1.0"
+        # TODO: User-Agent anpassen
+        # "User-Agent": "apotheke.de/1.0"
     }
     
     # Create get request

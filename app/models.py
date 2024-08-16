@@ -99,7 +99,7 @@ class MainSettings(models.Model):
     regnumber = models.CharField(verbose_name='Handelsregisternummer', max_length=255, blank=True)
     regcourt = models.CharField(verbose_name='Registergericht', max_length=255, blank=True)
 
-    domain = models.CharField(verbose_name='Domain', max_length=255, blank=True, default='higreen-apotheke.de')
+    domain = models.CharField(verbose_name='Domain', max_length=255, blank=True, default='dragonweed.de')
 
     # Logo
     logo = models.FileField(verbose_name='Logo', blank=True, upload_to=logo_upload)
@@ -143,7 +143,7 @@ class MainSettings(models.Model):
     brevo_sender_name = models.CharField(verbose_name='Brevo Absender Name', max_length=255, blank=True)
 
     # E-Mail Eisntellungen
-    error_mail = models.CharField(verbose_name='Error E-Mail', max_length=255, blank=True, default='info@higreen-apotheke.de')
+    error_mail = models.CharField(verbose_name='Error E-Mail', max_length=255, blank=True, default='versand@herzog-apotheke-geldern.de')
     error_mail_password = models.CharField(verbose_name='Error E-Mail Passwort', max_length=255, blank=True)
     error_mail_host = models.CharField(verbose_name='Error E-Mail Host', max_length=255, blank=True, default='smtp.strato.de')
     error_mail_port = models.CharField(verbose_name='Error E-Mail Port', max_length=255, blank=True, default='465')
