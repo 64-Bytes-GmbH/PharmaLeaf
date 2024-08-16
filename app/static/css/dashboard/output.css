@@ -3174,12 +3174,12 @@ input:checked + .toggle-bg {
   background-color: #059669;
 }
 
-.higreen-toast {
+.dragonweed-toast {
   transition: all 250ms ease-in-out;
   transform: translateX(-50%) translateY(-100px);
 }
 
-.higreen-toast.active {
+.dragonweed-toast.active {
   transform: translateX(-50%);
 }
 
