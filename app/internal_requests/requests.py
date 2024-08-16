@@ -1752,7 +1752,7 @@ def customer_functions_v1(request):
             order.status = 'started'
             order.save()
 
-            send_new_order_created(order.id, request)
+            # send_new_order_created(order.id, request)
 
         if 'activateForOrder' in request.POST:
 

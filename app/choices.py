@@ -144,7 +144,7 @@ PaymentTypeChoices = [
     ('payment_at_pickup', 'Zahlung bei Abholung'),
     ('prepayment', 'Vorkasse'),
     # ('online_payment', 'Online Zahlung'),
-    ('payment_by_invoice', 'Kauf auf Rechnung'),
+    # ('payment_by_invoice', 'Kauf auf Rechnung'),
     # ('paypal', 'PayPal'),
     # ('cc', 'Kreditkarte'),
     # ('applepay', 'ApplePay'),

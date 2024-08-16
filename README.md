@@ -1,7 +1,7 @@
 <!-- Install Markdown Preview Enhanced to view md in propper format, then cmd-k v or ctrl-k v-->
 
 
-##higreen! - Documentation
+##PharmaLeaf - Documentation
 #### Tailwind / Flowbite
 ```python
 # Install tailwindcss using NPM

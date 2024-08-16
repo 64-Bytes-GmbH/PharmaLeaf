@@ -471,7 +471,8 @@ def dhl_check_status(order_id):
 
     headers = {
         "Authorization": f"Basic {auth_key}",
-        "User-Agent": "higreen-apotheke.de/1.0"
+        # TODO: User-Agent anpassen
+        # "User-Agent": "apotheke.de/1.0"
     }
 
     parameters = {
@@ -587,7 +588,8 @@ def dhl_check_bulk_status(orders, pharmacy):
 
     headers = {
         "Authorization": f"Basic {auth_key}",
-        "User-Agent": "higreen-apotheke.de/1.0"
+        # TODO: User-Agent anpassen
+        "User-Agent": "apotheke.de/1.0"
     }
 
     orders = orders.filter(shipment_label_type='dhl_standard').exclude(shipment_shipment_no='')
