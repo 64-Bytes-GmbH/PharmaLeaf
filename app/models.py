@@ -1269,6 +1269,9 @@ class Orders(models.Model):
     email_address = models.EmailField(verbose_name='E-Mail Adresse', max_length=100, blank=True)
 
     # Lieferadresse
+    delivery_at_postoffice = models.BooleanField(verbose_name='DHL Lieferung an Postfiliale', default=False)
+    locker_id = models.CharField(verbose_name='DHL Packstationnummer', max_length=255, blank=True)
+    postnumber = models.CharField(verbose_name='DHL Postnummer', max_length=255, blank=True)
     del_first_name = models.CharField(verbose_name='Liefer Vorname', max_length=255, blank=True)
     del_last_name = models.CharField(verbose_name='Liefer Nachname', max_length=255, blank=True)
     del_street = models.CharField(verbose_name='Liefer Straße', max_length=255, blank=True)
