@@ -107,12 +107,14 @@ def product_datas_v1(request):
                         'genetics': item.genetics.name if item.genetics else '',
                         'thc_value': round(item.thc_value * 100),
                         'cbd_value': round(item.max_cbd_value * 100),
-                        'status': status,
+                        'status': str(status),
                         'status_display': status_display,
                         'available_amount': total_stock_amount - total_booked_amount,
                     })
 
-            data['items'] = items
+                sorted_items = sorted(items, key=lambda x: x['status'], reverse=True)
+
+            data['items'] = sorted_items
 
     return HttpResponse(json.dumps(data), content_type='application/json')
 
