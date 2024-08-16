@@ -3325,7 +3325,8 @@ def get_graph_token():
 def get_products_file():
     token = get_graph_token()
 
-    file_url = 'https://graph.microsoft.com/v1.0/sites/kineomed.sharepoint.com,315944ae-ba16-4349-81a5-2f08a764aafc,7f445818-a13c-4b92-a730-4c0849447d89/drive/root:/higreen_Backoffice_Customer%20Service/Stammdaten/Produktstammdaten.xlsx'
+    # TODO: Replace URL
+    file_url = 'replaceurl'
 
     headers = {
         'Authorization': token,
