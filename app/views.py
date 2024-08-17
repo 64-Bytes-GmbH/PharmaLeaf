@@ -218,6 +218,18 @@ def confirm_order(request, order_id, uidb64, token): #!
         
         request.session['order_id'] = order_id
 
+        order = Orders.objects.get(id=order_id)
+
+        if order.customer.user != user:
+            create_log(
+                reference='user - confirm_order',
+                message=f'User not found - check_token',
+                stack_trace=f'Order-ID: { order_id }',
+                category='error',
+                user='system'
+            )
+            return HttpResponseNotFound()
+
         return redirect(order_overview)
     
     else:
@@ -229,7 +241,7 @@ def confirm_order(request, order_id, uidb64, token): #!
             user='system'
         )
 
-    return redirect(home)
+    return HttpResponseNotFound()
 
 ####################### Dashboard #######################
 def dashboard_login(request):
