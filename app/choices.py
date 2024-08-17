@@ -367,6 +367,9 @@ EmailTypes = [
     ('new_recipe_order', 'Neue Rezeptbestellung'),
     ('order_shipped', 'Bestellung versandt'),
     ('activate_staff_user', 'Mitarbeiter aktivieren'),
+    ('payment_received', 'Zahlungseingang'),
+    ('pre_invoice', 'Vorabrechnung'),
+    ('order_confirmation', 'Bestellbestätigung'),
 ]
 
 StockActionChoices = [
