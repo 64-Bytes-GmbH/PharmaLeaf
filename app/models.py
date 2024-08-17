@@ -1280,7 +1280,7 @@ class Orders(models.Model):
     del_city = models.CharField(verbose_name='Liefer Stadt', max_length=255, blank=True)
     del_state = models.CharField(verbose_name='Liefer Bundesland', max_length=255, blank=True, choices=StateChoices)
     del_country = models.CharField(verbose_name='Liefer Land', max_length=255, blank=True, choices=CountryChoices)
-    del_comment = models.TextField(verbose_name='Kommentar zur Lieferadresse', max_length=1000, blank=True)
+    del_comment = models.TextField(verbose_name='Kommentar zur Lieferadresse', max_length=1000, blank=True, null=True)
 
     delivery_address_as_invoice = models.BooleanField(verbose_name='Lieferadresse = Rechnungsadresse', default=True)
 
@@ -1466,6 +1466,14 @@ class Orders(models.Model):
         if self.delivery_type == 'pickup':
             self.delivery_costs = 0
         elif self.delivery_type:
+
+            if self.payment_type == 'payment_at_pickup':
+
+                # Get first payment type without payment_at_pickup from PaymentTypesChoices
+                payment_types = [choice[0] for choice in PaymentTypeChoices if choice[0] != 'payment_at_pickup']
+
+                self.payment_type = payment_types[0]
+
             try:
                 delivery_type = DeliveryTypes.objects.get(name=self.delivery_type)
                 

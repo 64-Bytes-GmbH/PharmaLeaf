@@ -341,9 +341,9 @@ def order_functions_v1(request):
                 'comment': order.comment,
                 'delFirstName': order.del_first_name,
                 'delLastName': order.del_last_name,
-                # 'postofficeDelivery': order.delivery_at_postoffice,
-                # 'delLockerId': order.locker_id,
-                # 'delPostnumber': order.postnumber,
+                'postofficeDelivery': order.delivery_at_postoffice,
+                'delLockerId': order.locker_id,
+                'delPostnumber': order.postnumber,
                 'delStreet': order.del_street,
                 'delStreetNumber': order.del_street_number,
                 'delPostalcode': order.del_postalcode,
@@ -1754,7 +1754,7 @@ def customer_functions_v1(request):
             order.status = 'started'
             order.save()
 
-            # send_new_order_created(order.id, request)
+            send_new_order_created(order.id, request)
 
         if 'activateForOrder' in request.POST:
 
@@ -2008,7 +2008,7 @@ def user_order_functions_v1(request):
                 'pickUpButtonStatus': True if order.shipment_shipment_no and order.shipment_shipment_no != '' else False,
                 'pickUpStatus': True if order.shipment_pickup_order_uuid and order.shipment_pickup_order_uuid != '' else False,
                 'pickUpDate': order.shipment_pickup_date.strftime('%d.%m.%Y') if order.shipment_pickup_date else '',
-                'delivery_type': order.delivery_type,
+                'deliveryType': order.delivery_type,
                 'salutation': order.salutation,
                 'firstName': order.first_name,
                 'lastName': order.last_name,
@@ -2039,6 +2039,81 @@ def user_order_functions_v1(request):
             }
 
             data['orderDetails'] = order_details
+
+        if 'saveInvoiceDatas' in request.POST:
+
+            order_id = request.POST.get('orderId')
+            invoice_data = json.loads(request.POST.get('invoiceData'))
+
+            order = Orders.objects.get(id=order_id)
+
+            order.first_name = invoice_data.get('firstName')
+            order.last_name = invoice_data.get('lastName')
+            order.email_address = invoice_data.get('email')
+            order.phone_number = invoice_data.get('phonenumber')
+            order.street = invoice_data.get('street')
+            order.street_number = invoice_data.get('streetNumber')
+            order.postalcode = invoice_data.get('postalcode')
+            order.city = invoice_data.get('city')
+            order.country = invoice_data.get('country')
+            order.comment = invoice_data.get('comment')
+
+            order.save()
+
+        if 'saveDeliveryDatas' in request.POST:
+
+            order_id = request.POST.get('orderId')
+            deliver_data = json.loads(request.POST.get('deliveryData'))
+
+            order = Orders.objects.get(id=order_id)
+
+            order.delivery_type = deliver_data.get('deliveryType')
+            order.del_first_name = deliver_data.get('delFirstName')
+            order.del_last_name = deliver_data.get('delLastName')
+            order.del_street = deliver_data.get('delStreet')
+            order.del_street_number = deliver_data.get('delStreetNumber')
+            order.del_postalcode = deliver_data.get('delPostalcode')
+            order.del_city = deliver_data.get('delCity')
+            order.del_country = deliver_data.get('delCountry')
+            order.del_comment = deliver_data.get('delComment')
+
+            order.save()
+
+            data['deliveryType'] = order.get_delivery_type_display()
+
+        if 'savePaymentMethod' in request.POST:
+
+            order_id = request.POST.get('orderId')
+            payment_type = request.POST.get('paymentType')
+
+            order = Orders.objects.get(id=order_id)
+
+            order.payment_type = payment_type
+
+            order.save()
+
+            data['paymentType'] = order.get_payment_type_display()
+
+        if 'saveOrder' in request.POST:
+
+            order_id = request.POST.get('orderId')
+
+            order = Orders.objects.get(id=order_id)
+
+            order.status = 'ordered'
+            order.ordered = True
+            order.save()
+
+        if 'deleteOrder' in request.POST:
+
+            order_id = request.POST.get('orderId')
+
+            order = Orders.objects.get(id=order_id)
+
+            order.status = 'acceptance_refused'
+            order.save()
+
+            data['orderDeleted'] = True
 
         return HttpResponse(json.dumps(data), content_type='application/json')
 

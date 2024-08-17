@@ -187,12 +187,12 @@ def order_overview(request):
 
     order = Orders.objects.first()
 
-    # if 'order_id' in request.session:
+    if 'order_id' in request.session:
 
-    #     try:
-    #         order = Orders.objects.get(id=request.session['order_id'])
-    #     except ObjectDoesNotExist:
-    #         order = None
+        try:
+            order = Orders.objects.get(id=request.session['order_id'])
+        except ObjectDoesNotExist:
+            order = None
 
     context['order'] = order
 
@@ -218,7 +218,7 @@ def confirm_order(request, order_id, uidb64, token): #!
         
         request.session['order_id'] = order_id
 
-        return redirect(order_overview, order_id=order_id)
+        return redirect(order_overview)
     
     else:
         create_log(

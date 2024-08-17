@@ -359,6 +359,7 @@ EmailRecipientCategories = [
 
 EmailTypes = [
     ('new_order', 'Neue Bestellung'),
+    ('new_order_created', 'Neue Bestellung erstellt'),
     ('contact_request', 'Kontaktanfrage'),
     ('product_request', 'Produktanfrage'),
     ('error_message', 'Fehlermeldung'),

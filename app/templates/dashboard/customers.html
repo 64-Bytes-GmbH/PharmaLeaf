@@ -1587,13 +1587,20 @@
                                 
                 if (data.available_amount >= amount) {
                     amountInput.removeClass('border-red-500')
-                    amountInput.removeClass('')
+                    amountInput.removeClass('dark:border-red-500')
+                    amountInput.addClass('border-gray-300')
+                    amountInput.addClass('dark:border-gray-600')
+                } else {
                     amountInput.removeClass('border-gray-300')
-                    amountInput.removeClass('')
+                    amountInput.removeClass('dark:border-gray-600')
                     amountInput.addClass('border-red-500')
-                    amountInput.addClass('')
-                    amountInput.addClass('hidden')
+                    amountInput.addClass('dark:border-red-500')
                 }
+            },
+            error: () => {
+        
+                clearTimeout(timer);
+                $('.loading-screen').addClass('hidden')
                 toggleModal('alert-modal')
         
             }

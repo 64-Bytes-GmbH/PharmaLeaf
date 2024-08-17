@@ -1,6 +1,6 @@
 /* static/src/input.css */
 
-/* ! tailwindcss v3.4.6 | MIT License | https://tailwindcss.com */
+/* ! tailwindcss v3.4.10 | MIT License | https://tailwindcss.com */
 
 /*
 1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)
@@ -1417,10 +1417,6 @@ input:checked + .toggle-bg {
   margin-bottom: auto;
 }
 
-.-me-0\.5 {
-  margin-inline-end: -0.125rem;
-}
-
 .-ml-0\.5 {
   margin-left: -0.125rem;
 }
@@ -1613,6 +1609,10 @@ input:checked + .toggle-bg {
   margin-top: auto;
 }
 
+.mb-3\.5 {
+  margin-bottom: 0.875rem;
+}
+
 .block {
   display: block;
 }
@@ -1703,6 +1703,10 @@ input:checked + .toggle-bg {
 
 .h-screen {
   height: 100vh;
+}
+
+.h-modal {
+  height: calc(100% - 2rem);
 }
 
 .max-h-40 {
@@ -2013,10 +2017,6 @@ input:checked + .toggle-bg {
   justify-content: space-between;
 }
 
-.gap-1 {
-  gap: 0.25rem;
-}
-
 .gap-2 {
   gap: 0.5rem;
 }
@@ -2235,10 +2235,6 @@ input:checked + .toggle-bg {
   border-right-width: 1px;
 }
 
-.border-s-0 {
-  border-inline-start-width: 0px;
-}
-
 .border-s-2 {
   border-inline-start-width: 2px;
 }
@@ -2345,6 +2341,11 @@ input:checked + .toggle-bg {
 .border-s-gray-50 {
   --tw-border-opacity: 1;
   border-inline-start-color: rgb(249 250 251 / var(--tw-border-opacity));
+}
+
+.\!bg-gray-50 {
+  --tw-bg-opacity: 1 !important;
+  background-color: rgb(249 250 251 / var(--tw-bg-opacity)) !important;
 }
 
 .\!bg-primary-600 {
@@ -3035,6 +3036,10 @@ input:checked + .toggle-bg {
   opacity: 0.6;
 }
 
+.opacity-50 {
+  opacity: 0.5;
+}
+
 .shadow {
   --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
   --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
@@ -3297,6 +3302,10 @@ input:disabled {
   cursor: not-allowed;
 }
 
+.\*\:cursor-not-allowed > * {
+  cursor: not-allowed;
+}
+
 .after\:absolute::after {
   content: var(--tw-content);
   position: absolute;
@@ -3472,6 +3481,11 @@ input:disabled {
 .hover\:hover\:bg-red-800:hover:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(155 28 28 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-red-700:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(200 30 30 / var(--tw-bg-opacity));
 }
 
 .hover\:text-blue-600:hover {
@@ -3806,6 +3820,11 @@ input:disabled {
   border-inline-start-color: rgb(55 65 81 / var(--tw-border-opacity));
 }
 
+.dark\:\!bg-gray-700:is(.dark *) {
+  --tw-bg-opacity: 1 !important;
+  background-color: rgb(55 65 81 / var(--tw-bg-opacity)) !important;
+}
+
 .dark\:\!bg-primary-600:is(.dark *) {
   --tw-bg-opacity: 1 !important;
   background-color: rgb(98 98 98 / var(--tw-bg-opacity)) !important;
@@ -3922,6 +3941,16 @@ input:disabled {
 .dark\:bg-yellow-900:is(.dark *) {
   --tw-bg-opacity: 1;
   background-color: rgb(99 49 18 / var(--tw-bg-opacity));
+}
+
+.dark\:bg-red-500:is(.dark *) {
+  --tw-bg-opacity: 1;
+  background-color: rgb(240 82 82 / var(--tw-bg-opacity));
+}
+
+.dark\:bg-red-700:is(.dark *) {
+  --tw-bg-opacity: 1;
+  background-color: rgb(200 30 30 / var(--tw-bg-opacity));
 }
 
 .dark\:bg-opacity-80:is(.dark *) {
@@ -4061,6 +4090,11 @@ input:disabled {
 .dark\:text-yellow-500:is(.dark *) {
   --tw-text-opacity: 1;
   color: rgb(194 120 3 / var(--tw-text-opacity));
+}
+
+.dark\:text-green-400:is(.dark *) {
+  --tw-text-opacity: 1;
+  color: rgb(49 196 141 / var(--tw-text-opacity));
 }
 
 .dark\:placeholder-gray-400:is(.dark *)::-moz-placeholder {
