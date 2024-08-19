@@ -820,7 +820,7 @@ def order_functions_v1(request):
                 defaults={
                     'can_trigger_order': True,
                     'salutation': customerData['salutation'],
-                    'birth_date': formatted_birth_date,
+                    'birth_date': parsed_birth_date,
                     'street': customerData['street'],
                     'street_number': customerData['street_number'],
                     'postcode': customerData['postalcode'],
