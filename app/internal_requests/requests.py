@@ -2100,6 +2100,13 @@ def user_order_functions_v1(request):
 
             order = Orders.objects.get(id=order_id)
 
+            create_log(
+                reference='order',
+                message=f'Order { order.id } confirmed',
+                user=f'({ request.user.id }) { request.user.username }',
+                category='info',
+            )
+
             order.status = 'ordered'
             order.ordered = True
             order.save()
