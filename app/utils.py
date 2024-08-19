@@ -3152,7 +3152,7 @@ def send_order_status_cancelled(order):
 
     if main_settings.mail_via_api:
         
-        brevo_send_order_cancelled(order)
+        brevo_send_order_cancelled(order.id)
 
 def send_product_request_customer(product_request):
     """ Produktanfrage an Kunden schicken """
