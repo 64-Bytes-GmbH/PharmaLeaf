@@ -2334,7 +2334,7 @@ class Invoices(models.Model):
 
     # Rechnungsdetails
     invoice_number = models.CharField(verbose_name='Rechnungsnummer', max_length=255, blank=True)
-    date = models.DateField(verbose_name='Datum', default=timezone.now)
+    date_time = models.DateField(verbose_name='Datum', default=timezone.now)
     status = models.CharField(verbose_name='Status', max_length=255, choices=InvoiceStatus, blank=True, default='open')
     canceled = models.BooleanField(verbose_name='Storniert', default=False)
     cancellation_invoice = models.BooleanField(verbose_name='Stornorechnung', default=False)
@@ -2532,27 +2532,25 @@ def create_invoice(sender, instance, **kwargs):
     """ Calculate total after update """
     
     if instance.ordered:
-        if instance.online_recipe_status == 'checked' or \
-            instance.payment_type in ['paypal', 'applepay', 'cc', 'prepayment']:
 
-            try:
-                invoice, created = Invoices.objects.get_or_create(order=instance, cancellation_invoice=False, canceled=False)
-            except MultipleObjectsReturned:
-                Invoices.objects.filter(order=instance, cancellation_invoice=False, canceled=False).delete()
-                invoice = Invoices.objects.filter(order=instance, cancellation_invoice=False, canceled=False).last()
+        try:
+            invoice, created = Invoices.objects.get_or_create(order=instance, cancellation_invoice=False, canceled=False)
+        except MultipleObjectsReturned:
+            Invoices.objects.filter(order=instance, cancellation_invoice=False, canceled=False).delete()
+            invoice = Invoices.objects.filter(order=instance, cancellation_invoice=False, canceled=False).last()
 
-            if instance.payment_status == 'received':
-                invoice.pro_forma_invoice = False
-                invoice.status = 'paid'
-                invoice.save()
+        if instance.payment_status == 'received':
+            invoice.pro_forma_invoice = False
+            invoice.status = 'paid'
+            invoice.save()
 
-            elif instance.payment_type == 'prepayment':
-                invoice.pro_forma_invoice = True
-                invoice.save()
+        elif instance.payment_type == 'prepayment':
+            invoice.pro_forma_invoice = True
+            invoice.save()
 
-            elif instance.payment_type == 'payment_by_invoice':
-                invoice.pro_forma_invoice = True
-                invoice.save()
+        elif instance.payment_type == 'payment_by_invoice':
+            invoice.pro_forma_invoice = True
+            invoice.save()
 
     if instance.status == 'cancelled':
 

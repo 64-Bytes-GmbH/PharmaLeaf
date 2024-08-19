@@ -809,7 +809,7 @@
                                                 {% for invoice in order|get_invoices_by_order %}
                                                 <tr class="{% if invoice.status == 'canceled' %}opacity-60{% endif %}">
                                                     <td class="pr-4 py-1 text-left">{{ invoice.invoice_number }}</td>
-                                                    <td class="px-4 py-1 text-left">{{ invoice.date|date:"d.m.Y" }}</td>
+                                                    <td class="px-4 py-1 text-left">{{ invoice.date_time|date:"d.m.Y" }}</td>
                                                     <td class="px-4 py-1 text-right">{{ invoice.total|to_euro_decimal }} €</td>
                                                     <td class="pl-4 py-1 text-left">{{ invoice.get_status_display }}</td>
                                                 </tr>

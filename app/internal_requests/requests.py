@@ -32,7 +32,7 @@ from app.utils import sum_product_ordered_amount, custom_currency_format, check_
                         create_stock_product_log, create_package_log, import_products,\
                         import_terpene, import_product_prices, import_product_images, add_product_to_cart,\
                         send_activate_staff_user, generate_invoice_customer, generate_invoice_insurance,\
-                        export_order_products, confirm_created_order
+                        export_order_products, confirm_created_order, send_order_confirmation, send_invoice_to_customer
 from app.api.dhl import dhl_create_label, dhl_cancel_label, dhl_check_status, order_shipment_pick_up
 from app.api.go_express import go_express_create_label, go_express_cancel_label, go_express_check_status, go_express_update_label, go_express_update_status
 from app.tasks import task_update_delivery_status
@@ -2118,6 +2118,29 @@ def user_order_functions_v1(request):
             order.status = 'ordered'
             order.ordered = True
             order.save()
+
+            try:
+                send_order_confirmation(order.id, request)
+            except Exception as e:
+                create_log(
+                    reference='user_order_functions_v1- saveOrder',
+                    message=f'Order confirmation email not sent',
+                    user=f'({ request.user.id }) { request.user.username }',
+                    category='error',
+                    stack_trace=str(e)
+                )
+
+            try:
+                invoice = Invoices.objects.get(order=order, cancellation_invoice=False, canceled=False)
+                send_invoice_to_customer(invoice.id, request)
+            except Exception as e:
+                create_log(
+                    reference='user_order_functions_v1- saveOrder',
+                    message=f'Invoice not found in order confirm',
+                    user=f'({ request.user.id }) { request.user.username }',
+                    category='error',
+                    stack_trace=str(e)
+                )
 
         if 'deleteOrder' in request.POST:
 

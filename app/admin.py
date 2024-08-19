@@ -712,7 +712,7 @@ class InvoicesAdmin(admin.ModelAdmin):
     raw_id_fields = ['order']
     list_display = [
         'invoice_number',
-        'date',
+        'date_time',
         'total',
         'get_order_number',
         'status',
@@ -739,7 +739,7 @@ class InvoicesAdmin(admin.ModelAdmin):
     ordering = [
         '-id',
         '-invoice_number',
-        '-date',
+        '-date_time',
     ]
     actions = (
         _create_new_invoice,

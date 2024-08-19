@@ -1966,7 +1966,28 @@ def confirm_created_order(order_id, request):
     order.ordered = True
     order.save()
 
-    send_order_confirmation(order_id, request)
+    try:
+        send_order_confirmation(order.id, request)
+    except Exception as e:
+        create_log(
+            reference='user_order_functions_v1- saveOrder',
+            message=f'Order confirmation email not sent',
+            user=f'({ request.user.id }) { request.user.username }',
+            category='error',
+            stack_trace=str(e)
+        )
+
+    try:
+        invoice = Invoices.objects.get(order=order, cancellation_invoice=False, canceled=False)
+        send_invoice_to_customer(invoice.id, request)
+    except Exception as e:
+        create_log(
+            reference='user_order_functions_v1- saveOrder',
+            message=f'Invoice not found in order confirm',
+            user=f'({ request.user.id }) { request.user.username }',
+            category='error',
+            stack_trace=str(e)
+        )
 
 ######### Dashboard functions #########
 def dashboard_filter_orders(parameters, pharmacy):
