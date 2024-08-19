@@ -31,7 +31,7 @@ from app.utils import sum_product_ordered_amount, custom_currency_format, check_
                         create_stock_product_log, create_package_log, import_products,\
                         import_terpene, import_product_prices, import_product_images, add_product_to_cart,\
                         send_activate_staff_user, generate_invoice_customer, generate_invoice_insurance,\
-                        export_order_products
+                        export_order_products, confirm_created_order
 from app.api.dhl import dhl_create_label, dhl_cancel_label, dhl_check_status, order_shipment_pick_up
 from app.api.go_express import go_express_create_label, go_express_cancel_label, go_express_check_status, go_express_update_label, go_express_update_status
 from app.tasks import task_update_delivery_status
@@ -1220,6 +1220,15 @@ def order_functions_v1(request):
             html.write_pdf(response)
 
             return response
+
+        if 'confirmCreatedOrder' in request.POST:
+
+            order_ids = json.loads(request.POST.get('orderIds[]'))
+
+            print(order_ids)
+
+            for order_id in order_ids:
+                confirm_created_order(order_id, request)
 
         # Review Orders
         if 'deleteOrder' in request.POST:

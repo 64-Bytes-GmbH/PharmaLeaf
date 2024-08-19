@@ -367,6 +367,9 @@
                                         <li>
                                             <a href="javascript:void(0)" onclick="sendOrderCreatedToCustomer()" class="block py-2 px-4 hover:bg-gray-100 ">Link zur Bestellbestätigung senden</a>
                                         </li>
+                                        <li>
+                                            <a href="javascript:void(0)" onclick="confirmCreatedOrder()" class="block py-2 px-4 hover:bg-gray-100 ">Bestellung bestätigen</a>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -4962,6 +4965,45 @@
 
                 // Remove all checked checkboxes
                 $('.order-checkbox:checked').prop('checked', false)
+        
+            },
+            error: () => {
+            
+                $('.loading-screen').addClass('hidden')
+                toggleModal('alert-modal')
+        
+            }
+        })
+
+    }
+
+    const confirmCreatedOrder = () => {
+
+        const orderIds = $('.order-checkbox:checked').map(function() {
+            return $(this).val()
+        }).get()
+
+        if (orderIds.length === 0) {
+            showToast('warningToast', 'Bitte wählen Sie mindestens eine Bestellung aus.')
+            return false;
+        }
+
+        console.log(orderIds)
+
+        $('.loading-screen').removeClass('hidden')
+
+        $.ajax({
+            type: 'POST',
+            url: '{% url "request_order_functions" %}',
+            traditional: true,
+           data: {
+                'confirmCreatedOrder': 'confirmCreatedOrder',
+                'orderIds[]': JSON.stringify(orderIds),
+            },
+            success: (data) => {
+
+                $('.loading-screen').addClass('hidden')
+                location.reload()
         
             },
             error: () => {

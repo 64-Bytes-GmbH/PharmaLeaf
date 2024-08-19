@@ -21,7 +21,7 @@ from .utils import export_effect_content, export_indications_content,\
                     send_payment_reminder, send_last_payment_reminder, \
                     send_overdue_mail, update_order_prices, check_for_payment_reminder,\
                     send_order_confirmation, send_invoice_to_customer, send_new_order_created, \
-                    create_product_stock_items, export_orders
+                    create_product_stock_items, export_orders, confirm_created_order
 
 locale.setlocale(locale.LC_ALL, '')
 
@@ -165,6 +165,13 @@ def check_order_payment_reminder(modeladmin, request, queryset):
     for item in queryset:
         check_for_payment_reminder(item)
 check_order_payment_reminder.short_description = 'Auf Zahlungserinnerung prüfen'
+
+#pylint: disable=unused-argument
+def _confirm_order(modeladmin, request, queryset):
+    """ Confirm order """
+    for item in queryset:
+        confirm_created_order(item.id, request)
+_confirm_order.short_description = 'Bestellung bestätigen'
 
 #pylint: disable=unused-argument
 def send_order_payment_reminder(modeladmin, request, queryset):
@@ -536,7 +543,8 @@ class OrdersAdmin(ExtraButtonsMixin, admin.ModelAdmin):
         send_order_last_reminder,
         send_order_overdue_mail,
         check_order_payment_reminder,
-        _send_new_order_created
+        _send_new_order_created,
+        _confirm_order,
     )
 
     def get_customer_name(self, obj):

@@ -1958,6 +1958,16 @@ def block_customer(customer, till, reaseon):
     customer.blocked_reason = reaseon
     customer.save()
 
+def confirm_created_order(order_id, request):
+    """ Confirm created order """
+
+    order = Orders.objects.get(id=order_id)
+    order.status = 'ordered'
+    order.ordered = True
+    order.save()
+
+    send_order_confirmation(order_id, request)
+
 ######### Dashboard functions #########
 def dashboard_filter_orders(parameters, pharmacy):
     
