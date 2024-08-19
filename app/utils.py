@@ -2887,7 +2887,7 @@ def send_invoice_to_customer(invoice_id, request=None):
         if invoice.pro_forma_invoice:
             brevo_send_pre_invoice(invoice_id, invoice_file)
         else:
-            brevo_send_invoice(invoice_id, request)
+            brevo_send_invoice(invoice_id, invoice_file)
 
     else:
 
