@@ -38,7 +38,7 @@ urlpatterns = [
     path('Cookie-Informationen/', views.cookie_info, name='cookie_info'),
     path('Versand-Retouren/', views.shipping_and_retoures, name='shipping_and_retoures'),
     path('Zahlungsmethoden/', views.payment, name='payment'),
-    path('Bestellübersicht/', views.order_overview, name='order_overview'),
+    path('Bestellübersicht/<int:order_id>', views.order_overview, name='order_overview'),
     re_path(r'^Bestellung/Bestätigen/(?P<order_id>\d+)/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z_\-]+)/$', views.confirm_order, name='confirm_order'),
     re_path(r'^Account/Passwort/(?P<order_id>\d+)/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z_\-]+)/$', RedirectView.as_view(pattern_name='confirm_order', permanent=True)),
 

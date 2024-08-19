@@ -1,5 +1,5 @@
 {% extends "app/base.html" %}
-{% load static extra_tags %}
+{% load static extra_tags mathfilters %}
 
 {% block content %}
 <section class="bg-gray-100 min-h-screen py-8 antialiased dark:bg-gray-900 md:py-16">
@@ -108,7 +108,7 @@
                     </div>
 
                     <div class="w-20 shrink-0">
-                        <p class="text-base text-left text-md-right font-normal text-gray-900 dark:text-white">{{ order_product.price_per_unit|to_euro_decimal }} €</p>
+                        <p class="text-base text-left text-md-right font-normal text-gray-900 dark:text-white">{{ order_product.price|to_euro_decimal }} €</p>
                     </div>
 
                     <div class="w-14 shrink-0">

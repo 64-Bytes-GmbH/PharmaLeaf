@@ -180,19 +180,29 @@ def payment(request): #!
 
     return render(request, 'app/payment.html', context)
 
-def order_overview(request):
+def order_overview(request, order_id): #!
     """ Bestellung bestätigen """
 
     context = {}
 
     order = Orders.objects.first()
 
-    if 'order_id' in request.session:
+    try:
+        order = Orders.objects.get(id=order_id)
 
-        try:
-            order = Orders.objects.get(id=request.session['order_id'])
-        except ObjectDoesNotExist:
-            order = None
+        if order.customer.user != request.user:
+
+            create_log(
+                reference='user - order_overview',
+                message=f'User not same as order customer',
+                stack_trace=f'Order-ID: { order_id }',
+                category='error',
+                user='system'
+            )
+            return HttpResponseNotFound()
+    
+    except ObjectDoesNotExist:
+        return HttpResponseNotFound()
 
     context['order'] = order
 
@@ -215,6 +225,8 @@ def confirm_order(request, order_id, uidb64, token): #!
         user = None
 
     if user is not None and account_activation_token.check_token(user, token):
+
+        login(request, user)
         
         request.session['order_id'] = order_id
 
@@ -223,14 +235,14 @@ def confirm_order(request, order_id, uidb64, token): #!
         if order.customer.user != user:
             create_log(
                 reference='user - confirm_order',
-                message=f'User not found - check_token',
+                message=f'User not same as order customer',
                 stack_trace=f'Order-ID: { order_id }',
                 category='error',
                 user='system'
             )
             return HttpResponseNotFound()
 
-        return redirect(order_overview)
+        return redirect(order_overview, order_id=order_id)
     
     else:
         create_log(
