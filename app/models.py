@@ -2437,7 +2437,7 @@ class Invoices(models.Model):
             pharmacy_id = self.order.pharmacy.pharmacy_ext_id if self.order.pharmacy.pharmacy_ext_id else 000
 
             invoice_numbers = list(Invoices.objects
-                                   .filter(cancellation_invoice=False, date__year=date.year, order__pharmacy=self.order.pharmacy)
+                                   .filter(cancellation_invoice=False, date_time__year=date.year, order__pharmacy=self.order.pharmacy)
                                    .values_list('invoice_number', flat=True)
                                    .order_by('invoice_number')
                                 )
