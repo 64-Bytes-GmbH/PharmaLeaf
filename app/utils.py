@@ -1800,8 +1800,11 @@ def check_status_for_mail(order, status_name, old_status, new_status, request):
         if status_name == 'online_recipe_status':
 
             if new_status == 'checked' and order.payment_type in ('prepayment', 'payment_by_invoice'):
-                send_invoice_to_customer(Invoices.objects.get(order=order, cancellation_invoice=False, canceled=False).id, request)
-                # send_pre_invoice_to_customer(Invoices.objects.get(order=order, cancellation_invoice=False).id, request)
+                try:
+                    invoice = Invoices.objects.get(order=order, cancellation_invoice=False, canceled=False).id
+                    send_invoice_to_customer(invoice, request)
+                except invoice.DoesNotExist:
+                    pass
 
             if new_status == 'incorrect':
                 send_recipe_status_incorrect(order)
