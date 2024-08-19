@@ -688,6 +688,12 @@ def brevo_send_pre_invoice(invoice_id, invoice_file):
                 response.text
             )
 
+        else:
+
+            invoice = Invoices.objects.get(id=invoice_id)
+            invoice.send_to_customer = True
+            invoice.save()
+
 def brevo_send_invoice(invoice_id, invoice_file):
     """ Send invoice to customer """
 
