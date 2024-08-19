@@ -9,7 +9,8 @@ from io import BytesIO
 from django.conf import settings
 from weasyprint import HTML
 from xhtml2pdf.files import pisaFileObject
-from datetime import datetime, timezone, timedelta
+from datetime import datetime, timedelta
+from django.utils import timezone
 from django.db.models import Q, Sum
 from django.template.loader import render_to_string
 from django.shortcuts import redirect
@@ -1224,8 +1225,6 @@ def order_functions_v1(request):
         if 'confirmCreatedOrder' in request.POST:
 
             order_ids = json.loads(request.POST.get('orderIds[]'))
-
-            print(order_ids)
 
             for order_id in order_ids:
                 confirm_created_order(order_id, request)
