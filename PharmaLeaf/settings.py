@@ -124,7 +124,7 @@ SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
 X_FRAME_OPTIONS = 'DENY'
 #SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https') #Für GCP Load Balancer
-#CSRF_COOKIE_HTTPONLY = True # Benötigt Änderugen für AJAX Requests
+# CSRF_COOKIE_HTTPONLY = True # Benötigt Änderugen für AJAX Requests
 #SESSION_COOKIE_HTTPONLY = True
 
 ROOT_URLCONF = 'PharmaLeaf.urls'
@@ -252,6 +252,10 @@ COMPRESS_ENABLED = False
 # Cookie Einstellunge
 CSRF_COOKIE_SAMESITE = 'Lax'
 SESSION_COOKIE_SAMESITE = 'Lax'
+# CSRF_COOKIE_SAMESITE = True
+# SESSION_COOKIE_SAMESITE = True
+# CSRF_COOKIE_SAMESITE = 'none'
+# SESSION_COOKIE_SAMESITE = 'none'
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',

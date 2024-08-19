@@ -184,6 +184,7 @@
             </div>
             <!-- Modal body -->
             <form class="p-4 md:p-5" id="invoiceForm">
+                {% csrf_token %}
                 <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 mb-5">
 
                     <div>
@@ -580,7 +581,7 @@
                 toggleModal('billingInformationModal', { backdrop: 'static' })
             },
             error: () => {
-                // toggleModal('alert-modal')
+                showToast('wrongToast', 'Fehler beim Laden der Rechnungsdaten.')
             }
         })
 
@@ -873,7 +874,7 @@
                     showToast('successToast', 'Lieferdaten wurden erfolgreich gespeichert.')
                 },
                 error: () => {
-                    // toggleModal('alert-modal')
+                    showToast(errorToast, 'Ein Fehler ist aufgetreten.')
                 }
             })
         }
