@@ -210,7 +210,8 @@
                             <th scope="col" class="p-4">Produkt</th>
                             <th scope="col" class="p-4 w-36">ID</th>
                             <th scope="col" class="p-4">Lieferant</th>
-                            <th scope="col" class="p-4">Kultivar</th>
+                            <th scope="col" class="p-4">Kultivar</th>#
+                            <th scope="col" class="p-4">Genetik</th>
                             <th scope="col" class="p-4">Hersteller</th>
                             <th scope="col" class="p-4">Form</th>
                             <th scope="col" class="p-4 w-28">Lagermenge</th>
@@ -243,6 +244,8 @@
                             <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ product.product.manufacturer.name }}</td>
                             <!-- Kultivar -->
                             <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ product.product.cultivar.name }}</td>
+                            <!-- Genetik -->
+                            <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ product.product.genetics.name }}</td>
                             <!-- Lieferant -->
                             <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ product.product.supplier.name }}</td>
                             <!-- Form -->
