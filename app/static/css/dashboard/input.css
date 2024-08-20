@@ -126,7 +126,7 @@
     /* -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);  */
 }
 .modal-accordion-button[aria-expanded="true"] {
-    background-color: #4b5563 !important;
+    background-color: #97a5b8 !important;
 }
 #statusFilterButtons button.active {
     background-color: #059669;
