@@ -4,6 +4,7 @@ import os
 import re
 import mimetypes
 import uuid
+import binascii
 from datetime import datetime
 from django.utils import timezone
 from django.db import models
@@ -2833,3 +2834,21 @@ class StaffUser(models.Model):
 
     def __str__(self):
         return self.user.username
+
+def generate_key():
+    """ Generate API Key """
+    return binascii.hexlify(os.urandom(20)).decode()
+
+class APIKey(models.Model):
+    """ API Key """
+
+    class Meta:
+        """ Meta """
+        verbose_name = 'API Key'
+        verbose_name_plural = 'API Keys'
+
+    key = models.CharField(verbose_name='API Key', max_length=255, unique=True, editable=False, default=generate_key)
+    user = models.ForeignKey(User, verbose_name='Benutzer', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.user.username} - {self.key}'

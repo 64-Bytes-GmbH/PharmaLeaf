@@ -5,23 +5,23 @@
     "customer": {
       "type": "object",
       "properties": {
-        "firstname": { "type": "string" },
-        "lastname": { "type": "string" },
+        "first_name": { "type": "string" },
+        "last_name": { "type": "string" },
         "email": { "type": "string", "format": "email" },
-        "phone": { "type": "string" },
-        "birthDate": { "type": "string" },
-        "homeAddress": {
+        "phone_number": { "type": "string" },
+        "birth_date": { "type": "string" },
+        "home_address": {
           "type": "object",
           "properties": {
-            "streetName": { "type": "string" },
-            "houseNr": { "type": "string" },
-            "postalCode": { "type": "string" },
+            "street_name": { "type": "string" },
+            "house_number": { "type": "string" },
+            "postal_code": { "type": "string" },
             "city": { "type": "string" }
           },
-          "required": ["streetName", "houseNr", "postalCode", "city"]
+          "required": ["street_name", "house_number", "postal_code", "city"]
         }
       },
-      "required": ["firstname", "lastname", "email", "birthDate", "phone", "homeAddress"]
+      "required": ["first_name", "last_name", "email", "birth_date", "phone_number", "home_address"]
     },
     "products": {
       "type": "array",
@@ -31,22 +31,22 @@
           "id": { "type": "string" },
           "number": { "type": "string" },
           "name": { "type": "string" },
-          "quantity": { "type": "integer", "minimum": 0 },
+          "amount": { "type": "integer", "minimum": 0 },
           "price": { "type": "number", "minimum": 0 },
-          "crushed": { "type": "boolean" }
+          "squashed": { "type": "boolean" }
         },
-        "required": ["id", "quantity", "crushed"]
+        "required": ["id", "amount", "squashed"]
       },
       "minItems": 1
     },
     "pharmacy_id": { "type": "string" },
-    "prescriptionURL": { "type": "string", "format": "uri" },
-    "internalOrderId": { "type": "string" }
+    "recipe_url": { "type": "string", "format": "uri" },
+    "order_id": { "type": "string" }
   },
   "required": [
     "customer",
     "products",
     "pharmacy_id",
-    "prescriptionURL"
+    "recipe_url"
   ]
 }
