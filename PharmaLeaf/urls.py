@@ -18,7 +18,7 @@ from django.urls import path, re_path, include
 from django.conf.urls.static import static
 from django.conf import settings
 from app import views
-from app.endpoints import recipe_endpoint_v1, get_all_products_v1
+from app.endpoints import recipe_endpoint_v1, recipe_endpoint_v2, get_all_products_v1
 import object_tools
 from  django.conf.urls import url
 from django.views.generic.base import RedirectView
@@ -60,7 +60,8 @@ urlpatterns = [
     path('dashboard/settings/email_recipients', views.dashboard_email_recipients, name='dashboard_email_recipients'),
 
     # API Endpioints
-    path('orders/create/v1/prescription', recipe_endpoint_v1, name='recipe_endpint_v1'),
+    path('v1/order/create', recipe_endpoint_v1, name='recipe_endpint_v1'),
+    path('v2/order/create', recipe_endpoint_v2, name='recipe_endpint_v2'),
     path('retrieve/products/v1', get_all_products_v1, name='get_all_products_v1'),
 
     # Request Methods
