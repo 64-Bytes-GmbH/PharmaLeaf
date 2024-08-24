@@ -668,6 +668,9 @@ def brevo_send_pre_invoice(invoice_id, invoice_file):
                     'responsible_supervicory_authority': pharmacy.responsible_supervicory_authority,
                     'responsible_chamber': pharmacy.responsible_chamber,
                     'tax_idenfitication': pharmacy.tax_idenfitication,
+                    'bank_name': pharmacy.bank_name,
+                    'bank_iban': pharmacy.bank_iban,
+                    'bank_bic': pharmacy.bank_bic,
                 }
             },
             'attachment': [
