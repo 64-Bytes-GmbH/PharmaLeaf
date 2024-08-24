@@ -653,6 +653,8 @@ def brevo_send_pre_invoice(invoice_id, invoice_file):
                     'payment_type': invoice.order.payment_type,
                 },
                 'pharmacy': {
+                    'paypal_active': pharmacy.paypal_active,
+                    'paypal_email': pharmacy.paypal_email,
                     'name': pharmacy.name,
                     'street': pharmacy.street,
                     'street_number': pharmacy.street_number,

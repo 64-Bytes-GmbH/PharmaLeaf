@@ -376,12 +376,12 @@
 			{% if invoice.payment_type == 'prepayment' %}
 			<p style="margin-top: 10px; margin-bottom: 20px;" class="comment">
 				Die Zahlung ist sofort ab Rechnungsdatum fällig. <br/>
-				Bitte überweisen Sie den Rechnungsbetrag unter Angabe der Rechnungsnummer (<span style="font-family: font_family_bold; font-weight: bold;">{{ invoice.invoice_number }}</span>) auf das folgende Bankkonto:
+				Bitte überweisen Sie den Rechnungsbetrag unter Angabe der Rechnungsnummer (<span style="font-family: font_family_bold; font-weight: bold;">{{ invoice.invoice_number }}</span>) {% if invoice.order and invoice.order.pharmacy.paypal_active %} per <strong><span style="color:#08368B;">Pay</span><span style="color:#0874E1">Pal</span></strong> an {{ invoice.order.pharmacy.paypal_email }} oder {% endif %} auf das folgende Bankkonto:
 			</p>
 			{% elif invoice.payment_type == 'payment_by_invoice' %}
 			<p style="margin-top: 10px; margin-bottom: 20px;" class="comment">
 				Die Zahlung ist innerhalb der nächsten 14 Tage ab Rechnungsdatum fällig. <br/>
-				Bitte überweisen Sie den Rechnungsbetrag unter Angabe der Rechnungsnummer (<span style="font-family: font_family_bold; font-weight: bold;">{{ invoice.invoice_number }}</span>) auf das folgende Bankkonto:
+				Bitte überweisen Sie den Rechnungsbetrag unter Angabe der Rechnungsnummer (<span style="font-family: font_family_bold; font-weight: bold;">{{ invoice.invoice_number }}</span>) {% if invoice.order and invoice.order.pharmacy.paypal_active %} per <strong><span style="color:#08368B;">Pay</span><span style="color:#0874E1">Pal</span></strong> an {{ invoice.order.pharmacy.paypal_email }} oder {% endif %} auf das folgende Bankkonto:
 			</p>
 			{% endif %}
 			<div class="comment">
