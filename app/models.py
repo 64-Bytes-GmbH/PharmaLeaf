@@ -1769,7 +1769,7 @@ class OrderProducts(models.Model):
             ###### Kassenpatient ######
             if self.order.customer_type in ['insurance_patient_with_supplement', 'insurance_patient']:
                 
-                if not self.price and self.product != self.__original_product:
+                if not self.price or self.product != self.__original_product:
                     self.purchase_price = product_prices.purchase_price
                     self.price_surcharge = product_prices.price_surcharge
                     self.price_per_unit = product_prices.pirce_per_unit
@@ -1883,7 +1883,7 @@ class OrderProducts(models.Model):
             ###### Selbstzahler #####
             if self.order.customer_type in ['self_payer']:
 
-                if not self.price and self.product != self.__original_product:
+                if not self.price or self.product != self.__original_product:
                     self.purchase_price = product_prices.purchase_price
                     self.price_surcharge = product_prices.price_surcharge
                     self.price_per_unit = product_prices.pirce_per_unit
