@@ -1505,8 +1505,6 @@ def add_product_to_cart(order, product_id, amount, prepared=False, user_is_authe
             'total_value': order_product.total if user_is_authenticated else 0,
         }
 
-        print(data)
-
         # else:
 
         #     data = {
