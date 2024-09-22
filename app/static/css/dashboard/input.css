@@ -102,8 +102,8 @@
 #table-container::-webkit-scrollbar {
     /* width: 8px; */
     /* margin: 5px; */
-    height: 8px;
-    width: 8px;
+    height: 12px;
+    width: 12px;
     border: solid 3px transparent;
 }
 #orderModal > div::-webkit-scrollbar-track,

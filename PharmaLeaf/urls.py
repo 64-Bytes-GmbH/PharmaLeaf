@@ -54,6 +54,7 @@ urlpatterns = [
     path('dashboard/stock/products', views.dashboard_products_stock, name='dashboard_products_stock'),
     path('dashboard/stock/packages', views.dashboard_packages_stock, name='dashboard_packages_stock'),
     path('dashboard/imports', views.dashboard_imports, name='dashboard_imports'),
+    path('dashboard/invoices', views.dashboard_invoices, name='dashboard_invoices'),
     path('dashboard/data', views.dashboard_get_data, name='dashboard_get_data'),
     path('dashboard/customers', views.dashboard_customers, name='dashboard_customers'),
     path('dashboard/settings/users', views.dashboard_users, name='dashboard_users'),

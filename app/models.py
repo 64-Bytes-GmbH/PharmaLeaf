@@ -1384,6 +1384,7 @@ class Orders(models.Model):
             'birth_date': self.birth_date,
         }
 
+        self.__original_payment_status = self.payment_status
         self._original_data = {field: getattr(self, field) for field in relevant_fields}
 
     def save(self, *args, **kwargs):
@@ -1596,6 +1597,9 @@ class Orders(models.Model):
             self.online_recipe_status = 'checked'
 
         self.__original_ordered = self.ordered
+
+        if self.__original_payment_status != 'received' and self.payment_status == 'received':
+            self.payed_on = timezone.now()
 
         # Relevant fields for credit score check
         if self.pk:
@@ -2377,6 +2381,8 @@ class Invoices(models.Model):
     already_paid = models.FloatField(verbose_name='Bereits bezahlt', default=0)
     amount_payable = models.FloatField(verbose_name='Zu zahlender Betrag', default=0)
 
+    order_invoice = models.BooleanField(verbose_name='Bestellrechnung', default=True)
+
     def save(self, *args, **kwargs):
         """ Save definieren """
 
@@ -2400,7 +2406,7 @@ class Invoices(models.Model):
 
             self.recipe_number = ", ".join([recipe.number for recipe in OrderRecipes.objects.filter(order=self.order)])
             self.customer_type = self.order.customer_type
-            self.payment_type = self.order.payment_type
+            self.payment_type = self.order.payment_type if self.order_invoice else 'prepayment'
             self.first_name = self.order.first_name
             self.last_name = self.order.last_name
             self.street = self.order.street
@@ -2409,7 +2415,7 @@ class Invoices(models.Model):
             self.city = self.order.city
 
         ######## Beträge #######
-        if not self.total:
+        if not self.total and self.order_invoice:
             self.tax_rate = price_settings.tax_rate
             self.delivery_costs = self.order.delivery_costs
             self.discount = self.order.discount
@@ -2510,7 +2516,7 @@ class InvoiceItems(models.Model):
 def create_invoiceitems(sender, instance, created, **kwargs):
     """ Calculate total after update """
     
-    if created:
+    if created and instance.order_invoice:
 
         if not instance.cancellation_invoice:
             order_products = OrderProducts.objects.filter(order=instance.order)
@@ -2535,10 +2541,10 @@ def create_invoice(sender, instance, **kwargs):
     if instance.ordered:
 
         try:
-            invoice, created = Invoices.objects.get_or_create(order=instance, cancellation_invoice=False, canceled=False)
+            invoice, created = Invoices.objects.get_or_create(order=instance, cancellation_invoice=False, canceled=False, order_invoice=True)
         except MultipleObjectsReturned:
-            Invoices.objects.filter(order=instance, cancellation_invoice=False, canceled=False).delete()
-            invoice = Invoices.objects.filter(order=instance, cancellation_invoice=False, canceled=False).last()
+            Invoices.objects.filter(order=instance, cancellation_invoice=False, canceled=False, order_invoice=True).delete()
+            invoice = Invoices.objects.filter(order=instance, cancellation_invoice=False, canceled=False, order_invoice=True).last()
 
         if instance.payment_status == 'received':
             invoice.pro_forma_invoice = False

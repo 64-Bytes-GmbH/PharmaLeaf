@@ -23,7 +23,7 @@ from app.models import MainSettings, Products, ProductImages, ProductPrices,\
                         CancellationReasons, Invoices, Customers, User, StaffUser,\
                         PharmacyEmployees, PackedOrderedProducts, Packages, StandardFillingProtocolIds,\
                         FillProtocols, ProductThresholds, PackageManufacturers, UserPremissions,\
-                        EmailRecipients
+                        EmailRecipients, InvoiceItems
 from db_logger.utils import create_log
 from django.urls import reverse
 from app.utils import sum_product_ordered_amount, custom_currency_format, check_status_for_mail,\
@@ -180,9 +180,6 @@ def order_functions_v1(request):
 
             # Set status by status name
             setattr(order, status_name, new_status)
-
-            if status_name == 'payment_status' and new_status == 'received':
-                order.payed_on = timezone.now()
 
             if new_status == 'cancelled' and comment and comment != '':
                 order.cancellation_reason = CancellationReasons.objects.get(id=comment)
@@ -1243,6 +1240,79 @@ def order_functions_v1(request):
 
     return HttpResponse(json.dumps(data), content_type='application/json')
 
+def invoice_functions_v1(request):
+    """ Function for handling invoice management """
+
+    data = {}
+
+    try:
+        staff_user = StaffUser.objects.get(user=request.user)
+    except StaffUser.DoesNotExist:
+            
+        create_log(
+            reference='invoice_functions',
+            message='StaffUser not found',
+            user=f'({ request.user.id }) { request.user.username }',
+            category='error',
+        )
+
+    if request.method == 'POST':
+
+        if 'downloadInvoice' in request.POST:
+
+            invoice_id = request.POST.get('invoiceId')
+            invoice_type = request.POST.get('invoiceType')
+
+            invoice = Invoices.objects.get(id=invoice_id)
+
+            now = str(datetime.now().timestamp()).split('.', maxsplit=1)[0]
+
+            data['downloadLink'] = reverse('download_invoice', kwargs={'invoice_id':invoice.id, 'invoice_type': invoice_type, 'datetime_now': now})
+        
+        if 'saveNewInvoice' in request.POST:
+
+            order_number = request.POST.get('orderNumber')
+            invoice_items = json.loads(request.POST.get('invoiceItems'))
+
+            try:
+                order = Orders.objects.get(number=order_number)
+
+                invoice = Invoices.objects.create(order=order, cancellation_invoice=False, order_invoice=False, pro_forma_invoice=True, payment_type='prepayment')
+
+                for item in invoice_items:
+                    InvoiceItems.objects.create(
+                        invoice=invoice,
+                        product=item['itemDescription'],
+                        amount=int(item['amount']),
+                        price=float(item['price'].replace(',', '.')),
+                        total=round(float(item['price'].replace(',', '.')) * int(item['amount']), 2),
+                    )
+
+                # Get sum of invoice items total
+                invoice_items = InvoiceItems.objects.filter(invoice=invoice)
+
+                invoice.total = invoice_items.aggregate(Sum('total'))['total__sum']
+                invoice.amount_payable = invoice.total
+                invoice.tax_amount = round(invoice.total * invoice.tax_rate, 2)
+                invoice.subtotal = invoice.total - invoice.tax_amount
+                invoice.save()
+
+                order.payment_status = 'pending'
+                order.save()
+
+                send_invoice_to_customer(invoice.id, request)
+
+            except Orders.DoesNotExist:
+                data['orderNotFound'] = True
+
+        if 'sendInvoiceToCustomer' in request.POST:
+
+            invoice_id = request.POST.get('invoiceId')
+
+            send_invoice_to_customer(invoice_id, request)
+        
+        return HttpResponse(json.dumps(data), content_type='application/json')
+
 def products_stock_v1(request):
     """ Function for handling stock management """
 
@@ -1642,9 +1712,7 @@ def customer_functions_v1(request):
 
             available_amount = 0 if total_stock_amount - total_booked_amount < 0 else total_stock_amount - total_booked_amount
 
-            add_product_response = add_product_to_cart(order, request.POST.get('productId'), 1, False, True)
-
-            if not add_product_response['object_not_exist']:
+            try:
 
                 data['product'] = add_product_to_cart(order, request.POST.get('productId'), 1, False, True)
                 data['recipeFiles'] = [{'id': recipe.id, 'number': recipe.number} for recipe in recipe_files]
@@ -1657,7 +1725,7 @@ def customer_functions_v1(request):
                 data['preparedChoices'] = [{'value': False, 'name': 'unverändert'}, {'value': True, 'name': 'Zerkleinert'}]
                 data['available_amount'] = available_amount
 
-            else:
+            except Exception as e:
                 product_exist = False
 
             data['productExist'] = product_exist

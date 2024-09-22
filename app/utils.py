@@ -1505,6 +1505,8 @@ def add_product_to_cart(order, product_id, amount, prepared=False, user_is_authe
             'total_value': order_product.total if user_is_authenticated else 0,
         }
 
+        print(data)
+
         # else:
 
         #     data = {
@@ -1786,7 +1788,7 @@ def check_status_for_mail(order, status_name, old_status, new_status, request):
             if new_status == 'received':
                 send_payment_status_received(order, request)
                 try:
-                    invoice = Invoices.objects.get(order=order, cancellation_invoice=False, canceled=False)
+                    invoice = Invoices.objects.get(order=order, cancellation_invoice=False, canceled=False, order_invoice=True)
                     send_invoice_to_customer(invoice.id, request)
                 except ObjectDoesNotExist:
                     create_log(
@@ -1838,7 +1840,7 @@ def create_new_invoice(order):
     invoice = None
     
     try:
-        invoice = Invoices.objects.get(order=order, cancellation_invoice=False, canceled=False)
+        invoice = Invoices.objects.get(order=order, cancellation_invoice=False, canceled=False, order_invoice=True)
         invoice.canceled = True
         invoice.save()
 
@@ -1846,7 +1848,7 @@ def create_new_invoice(order):
     except ObjectDoesNotExist:
         pass
 
-    new_invoice = Invoices.objects.create(order=order)
+    new_invoice = Invoices.objects.create(order=order, order_invoice=True)
 
     if invoice:
         new_invoice.pro_forma_invoice = invoice.pro_forma_invoice
@@ -1887,6 +1889,7 @@ def create_cancelation_invoice(invoice):
         co_payment              = invoice.co_payment,
         insurance_participation = invoice.insurance_participation,
         amount_payable          = invoice.amount_payable,
+        order_invoice           = invoice.order_invoice,
     )
 
     for inovice_item in inovice_items:
@@ -2477,6 +2480,44 @@ def dashboard_filter_email_recipients(parameters, pharmacy):
         recipients = recipients.filter(q_objects).distinct()
 
     return recipients.filter(pharmacy=pharmacy).distinct()
+
+def dashboard_filter_invoices(parameters, pharmacy):
+    """ Filter invoices by parameters """
+
+    invoices = Invoices.objects.filter(cancellation_invoice=False, order__pharmacy=pharmacy).order_by('-date_time', '-id')
+
+    if 'status' in parameters:
+            
+        selected_statuses = []
+
+        for item in InvoiceStatus:
+            if item[1] in parameters.get('status').split(','):
+                selected_statuses.append(item[0])
+
+        invoices = invoices.filter(status__in=selected_statuses)
+
+    if 'search' in parameters:
+            
+        search_word = parameters.get('search')
+
+        values = search_word.split(' ')
+        values = [value for value in values if value]
+
+        q_objects = Q()
+
+        for value in values:
+
+            q_objects &= (
+                Q(invoice_number__icontains=value) |
+                Q(order__number__icontains=value) |
+                Q(order__customer__user__first_name__icontains=value) |
+                Q(order__customer__user__last_name__icontains=value) |
+                Q(order__customer__user__email__icontains=value)
+            )
+
+        invoices = invoices.filter(q_objects).distinct()
+
+    return invoices.distinct()
 
 def create_stock_product_log(stock_product, amount, action, reason, user='System'):
     """ Create stock product log """
@@ -3238,22 +3279,12 @@ def send_payment_reminder(order):
 def send_last_payment_reminder(order):
     """ Send last reminder """
 
-    if order.payment_status in ['invoice_reminder', 'last_reminder'] and \
-        order.customer_type == 'self_payer':
-
-        # Crate new invoice with reminder_fee
-        # if order.reminder_fee == 0 or not order.reminder_fee:
-        #     order.reminder_fee = PriceSettings.objects.first().reminder_fee
-        #     order.save()
-
-        #     create_new_invoice(order)
-
-        try:
-            invoice = Invoices.objects.get(order=order, cancellation_invoice=False, canceled=False)
-        except MultipleObjectsReturned:
-            invoice = Invoices.objects.filter(order=order, cancellation_invoice=False, canceled=False).last()
-        except ObjectDoesNotExist:
-            invoice = None
+    try:
+        invoice = Invoices.objects.get(order=order, cancellation_invoice=False, canceled=False, order_invoice=True)
+    except MultipleObjectsReturned:
+        invoice = Invoices.objects.filter(order=order, cancellation_invoice=False, canceled=False, order_invoice=True).last()
+    except ObjectDoesNotExist:
+        invoice = None
 
         if invoice:
 

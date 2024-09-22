@@ -14,7 +14,7 @@
     <div class="w-full mx-auto">
         <!-- Start coding here -->
         <div class="relative overflow-hidden">
-            <div class="px-4">
+            <div class="px-4 h-screen">
                 <div class="flex flex-col py-3 space-y-3 md:flex-row md:items-center md:justify-between md:space-y-0 md:space-x-4">
                     <h4 class="font-mono text-xl font-bold">Bestellungen</h4>
                 </div>
@@ -32,7 +32,7 @@
                     </li>
                 </ul>
 
-                <div class="flex flex-col bg-white relative overflow-hidden" style="height: calc(100vh - 64px - 2.5rem);">
+                <div class="flex flex-col bg-white relative overflow-hidden" style="height: calc(100vh - 56px - 2.5rem);">
                     <div class="flex flex-col md:items-start md:justify-between space-y-3 py-4">
                         <div class="flex-1 flex items-center space-x-2">
                             <div class="font-medium text-gray-500 dark:text-gray-400">
@@ -1423,7 +1423,7 @@
                                 <div>
                                     <button data-tooltip-target="disabledShippingLabel" onclick="generateDeliveryLabel()" name="dhlButton" disabled type="button" class="flex m-auto focus:outline-none bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-full text-sm px-5 py-2.5 dark:focus:ring-yellow-900">DHL Label generrieren</button>
                                     <button data-tooltip-target="disabledShippingLabel" onclick="generateDeliveryLabel()" name="goExpressButton" disabled type="button" class=" flex m-auto focus:outline-none bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-600 font-medium rounded-full text-sm px-5 py-2.5 dark:focus:ring-red-900">GO! Express generrieren</button>
-                                    <div id="disabledShippingLabel" role="tooltip" name="shippingButtonTooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium transition-opacity duration-300 bg-gray-900 rounded-full shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                                    <div id="disabledShippingLabel" role="tooltip" name="shippingButtonTooltip" class="absolute shadow-xl z-10 invisible inline-block px-3 py-2 text-sm font-medium transition-opacity duration-300 bg-gray-100 rounded-full shadow-sm opacity-0 tooltip dark:bg-gray-700">
                                         Original Rezeptstatus auf <strong>"Überprüft"</strong> setzen und Abfüllprotokoll erstellen.
                                         <div class="tooltip-arrow" data-popper-arrow></div>
                                     </div>
@@ -2213,7 +2213,7 @@
 <!-- Pop Up Modal for stornieren an order -->
 <div id="storno-popup-modal" data-modal-target="storno-popup-modal" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
     <div class="relative w-full max-w-md max-h-full">
-        <div class="relative bg-white rounded-full shadow dark:bg-gray-700">
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
             <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-full text-sm w-8 h-8 ml-auto inline-flex justify-center items-center " data-modal-hide="storno-popup-modal">
                 <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
@@ -2261,7 +2261,7 @@
 <!-- Pop Up Modal for create new invoice -->
 <div id="create-new-invoice-modal" data-modal-target="create-new-invoice-modal" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
     <div class="relative w-full max-w-md max-h-full">
-        <div class="relative bg-white rounded-full shadow dark:bg-gray-700">
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
             <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-full text-sm w-8 h-8 ml-auto inline-flex justify-center items-center " data-modal-hide="storno-popup-modal">
                 <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
@@ -2295,7 +2295,7 @@
 <!-- Pop Up Modal for comment order status = queries -->
 <div id="queries-popup-modal" data-modal-target="queries-popup-modal" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
     <div class="relative w-full max-w-md max-h-full">
-        <div class="relative bg-white rounded-full shadow dark:bg-gray-700">
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
             <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-full text-sm w-8 h-8 ml-auto inline-flex justify-center items-center " data-modal-hide="queries-popup-modal">
                 <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
@@ -2337,7 +2337,7 @@
 <!-- Pop Up Modal for comment order status = clarified -->
 <div id="clarified-popup-modal" data-modal-target="clarified-popup-modal" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
     <div class="relative w-full max-w-md max-h-full">
-        <div class="relative bg-white rounded-full shadow dark:bg-gray-700">
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
             <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-full text-sm w-8 h-8 ml-auto inline-flex justify-center items-center " data-modal-hide="queries-popup-modal">
                 <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
@@ -2379,7 +2379,7 @@
 <!-- Pop Up Modal for upload new recipe -->
 <div id="upload-recipe-popup-modal" data-modal-target="upload-recipe-popup-modal" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
     <div class="relative w-full max-w-md max-h-full">
-        <div class="relative bg-white rounded-full shadow dark:bg-gray-700">
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
             <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-full text-sm w-8 h-8 ml-auto inline-flex justify-center items-center " data-modal-hide="queries-popup-modal">
                 <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
@@ -2432,7 +2432,7 @@
 <!-- Pop Up Modal for create new invoice -->
 <div id="create-new-invoice-modal" data-modal-target="create-new-invoice-modal" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
     <div class="relative w-full max-w-md max-h-full">
-        <div class="relative bg-white rounded-full shadow dark:bg-gray-700">
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
             <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-full text-sm w-8 h-8 ml-auto inline-flex justify-center items-center " data-modal-hide="storno-popup-modal">
                 <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
@@ -2466,7 +2466,7 @@
 <!-- Pop Up Modal for payment_status = paid -->
 <div id="payment-status-received-modal" data-modal-target="create-new-invoice-modal" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
     <div class="relative w-full max-w-md max-h-full">
-        <div class="relative bg-white rounded-full shadow dark:bg-gray-700">
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
             <div class="pt-6 px-6 text-center">
                 <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 10h9.231M6 14h9.231M18 5.086A5.95 5.95 0 0 0 14.615 4c-3.738 0-6.769 3.582-6.769 8s3.031 8 6.769 8A5.94 5.94 0 0 0 18 18.916"/>
@@ -2494,7 +2494,7 @@
 <!-- Pop Up Modal for deleting a product from order -->
 <div id="product-delete-modal" data-modal-target="product-delete-modal" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
     <div class="relative w-full max-w-md max-h-full">
-        <div class="relative bg-white rounded-full shadow dark:bg-gray-700">
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
             <div class="p-6 text-center">
                 <input type="text" name="productId" hidden>
                 <input type="text" name="orderId" hidden>
@@ -2687,6 +2687,10 @@
         const orderId = $('#payment-status-received-modal input[name="orderId"]').val()
 
         changeStatusToBackend('payment_status', 'received', orderId, '')
+
+        hideModal('payment-status-received-modal')
+
+        showToast('successToast', 'Bestellung wurde als bezahlt markiert.')
 
     }
 
@@ -3337,7 +3341,7 @@
                 'X-Requested-With': 'XMLHttpRequest',
                 'X-CSRFToken': getCookie('csrftoken')
             },
-           data: {
+            data: {
                 'getOrderDetails': 'getOrderDetails',
                 'orderId': orderId,
             },
@@ -3418,7 +3422,7 @@
                     $('#orderDetailsForm [name="shipment_shipment_no"] span[name="labelNumber"]').html(orderDetails.shipmentShipmentNo)
 
                    dhlButton.html('\
-                       dHL Label herunterladen\
+                       DHL Label herunterladen\
                         <svg class="ml-2 w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">\
                             <path fill-rule="evenodd" d="M13 11.15V4a1 1 0 1 0-2 0v7.15L8.78 8.374a1 1 0 1 0-1.56 1.25l4 5a1 1 0 0 0 1.56 0l4-5a1 1 0 1 0-1.56-1.25L13 11.15Z" clip-rule="evenodd"/>\
                             <path fill-rule="evenodd" d="M9.657 15.874 7.358 13H5a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2h-2.358l-2.3 2.874a3 3 0 0 1-4.685 0ZM17 16a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2H17Z" clip-rule="evenodd"/>\
@@ -3434,7 +3438,7 @@
                     ')
                 } else {
                    dhlButton.html('\
-                       dHL Label generieren\
+                       DHL Label generieren\
                         <svg class="ml-2 w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">\
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5"/>\
                         </svg>\
@@ -4026,14 +4030,14 @@
                 'X-Requested-With': 'XMLHttpRequest',
                 'X-CSRFToken': getCookie('csrftoken')
             },
-           data: {
+            data: {
                 'addProduct': 'addProduct',
                 'orderId': orderIdInput.val(),
                 'productId': productId,
             },
             success: (data) => {
 
-                console.log(data)
+                console.log(data.product)
 
                 clearTimeout(timer);
                 $('.loading-screen').addClass('hidden')
@@ -4397,8 +4401,8 @@
                     $('#orderDetailsForm [name="shipment_shipment_no"] span[name="labelType"]').html(data.shipmentLabelTypeDisplay)
                     $('#orderDetailsForm [name="shipment_shipment_no"] span[name="labelNumber"]').html(data.shipmentShipmentNo)
 
-                   dhlButton.html('\
-                       dHL Label herunterladen\
+                    dhlButton.html('\
+                       DHL Label herunterladen\
                         <svg class="ml- 2w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">\
                             <path fill-rule="evenodd" d="M13 11.15V4a1 1 0 1 0-2 0v7.15L8.78 8.374a1 1 0 1 0-1.56 1.25l4 5a1 1 0 0 0 1.56 0l4-5a1 1 0 1 0-1.56-1.25L13 11.15Z" clip-rule="evenodd"/>\
                             <path fill-rule="evenodd" d="M9.657 15.874 7.358 13H5a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2h-2.358l-2.3 2.874a3 3 0 0 1-4.685 0ZM17 16a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2H17Z" clip-rule="evenodd"/>\
@@ -4562,7 +4566,7 @@
                     $('#orderDetailsForm [name="shipment_shipment_no"]').addClass('hidden')
 
                    dhlButton.html('\
-                       dHL Label generieren\
+                       DHL Label generieren\
                         <svg class="ml-2 w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">\
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5"/>\
                         </svg>\

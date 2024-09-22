@@ -1,0 +1,738 @@
+<!-- templates/index.html -->
+
+{% extends "dashboard/base.html" %}
+{% load static extra_tags %}
+
+{% block content %}
+<section class="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5 antialiased">
+    <div class="">
+        <div class="flex flex-col bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden" style="height: calc(100vh - 64px - 2.5rem);">
+            <div class="px-4 divide-y dark:divide-gray-700">
+                <div class="flex flex-col py-3 space-y-3 md:flex-row md:items-center md:justify-between md:space-y-0 md:space-x-4">
+                    <div class="flex items-center flex-1 space-x-4">
+                        <h5>
+                            <span class="text-gray-500">Rechnungen:</span>
+                            <span class="dark:text-white">{{ invoices.paginator.count }}</span>
+                        </h5>
+                    </div>
+                    <button type="button" id="createProductButton" onclick="createInvoice()" class="h-full flex items-center justify-center text-white bg-emerald-600 focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-4 py-2 hover:bg-emerald-700 focus:ring-4 focus:ring-emerald-300 dark:bg-emerald-600 dark:hover:bg-emerald-700 focus:outline-none dark:focus:ring-emerald-800">
+                        <svg class="h-3.5 w-3.5 mr-1.5 -ml-1" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path clip-rule="evenodd" fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
+                        </svg>
+                        Rechnung anlegen
+                    </button>
+                </div>
+                
+                <div class="flex flex-col items-stretch justify-between py-4 space-y-3 md:flex-row md:items-center md:space-y-0">
+                    
+                    <div class="flex flex-row">
+                        <div class="relative" style="min-width: 300px;">
+                            <div class="absolute inset-y-0 start-0 flex items-center ps-4 pointer-events-none">
+                                <svg class="h-3.5 w-3.5 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                                </svg>
+                            </div>
+                            <input type="text" id="searchInvoice" class="bg-gray-50 border w-full border-gray-300 text-gray-900 text-sm rounded-full focus:ring-blue-500 focus:border-blue-500 block ps-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Rechnungsnummer, Bestellnummer, Name" required>
+                        </div>
+                        <button type="button" onclick="searchInvoice()" class="flex mr-2 items-center justify-center px-4 py-2 ms-2 text-sm font-medium text-white rounded-full bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
+                            <svg class="h-3.5 w-3.5 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                            </svg>
+                            Suchen
+                        </button>
+                    </div>
+
+                    <div class="flex flex-row gap-2">
+                        <div class="flex flex-row">
+                            <button type="button" onclick="resetFilter()" class="flex items-center justify-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
+                                <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                                    <path d="M3.9 22.9C10.5 8.9 24.5 0 40 0H472c15.5 0 29.5 8.9 36.1 22.9s4.6 30.5-5.2 42.5L396.4 195.6C316.2 212.1 256 283 256 368c0 27.4 6.3 53.4 17.5 76.5c-1.6-.8-3.2-1.8-4.7-2.9l-64-48c-8.1-6-12.8-15.5-12.8-25.6V288.9L9 65.3C-.7 53.4-2.8 36.8 3.9 22.9zM432 224a144 144 0 1 1 0 288 144 144 0 1 1 0-288zm59.3 107.3c6.2-6.2 6.2-16.4 0-22.6s-16.4-6.2-22.6 0L432 345.4l-36.7-36.7c-6.2-6.2-16.4-6.2-22.6 0s-6.2 16.4 0 22.6L409.4 368l-36.7 36.7c-6.2 6.2-6.2 16.4 0 22.6s16.4 6.2 22.6 0L432 390.6l36.7 36.7c6.2 6.2 16.4 6.2 22.6 0s6.2-16.4 0-22.6L454.6 368l36.7-36.7z"/>
+                                </svg>
+                                Filter löschen
+                            </button>
+                        </div>
+
+                        <!-- Aktionen -->
+                        <div class="flex items-center space-x-3 w-full md:w-auto h-full">
+                            <button id="actionsDropdownButton" data-dropdown-toggle="actionsDropdown" class="w-full h-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" type="button">
+                                Aktionen
+                                <svg class="-mr-1 ml-1.5 w-5 h-5" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                    <path clip-rule="evenodd" fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+                                </svg>
+                            </button>
+                            <div id="actionsDropdown" class="hidden z-10 w-52 bg-white rounded divide-y divide-gray-100 shadow-xl dark:bg-gray-700 dark:divide-gray-600">
+                                <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="actionsDropdownButton">
+                                    {% if request.user.is_superuser %}
+                                    <!-- <li>
+                                        <a href="javascript:void(0)" onclick="updateDeliveryStatus()" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Lieferstatus updaten</a>
+                                    </li> -->
+                                    <!-- <li>
+                                        <a href="javascript:void(0)" onclick="updateAllDeliveryStatus()" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Alle Lieferstatus updaten</a>
+                                    </li> -->
+                                    {% endif %}
+                                    <li>
+                                        <a href="javascript:void(0)" data-modal-target="export-modal" onclick="openExportModal('xlsx')" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Exportieren (.xlsx)</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)" data-modal-target="export-modal" onclick="openExportModal('pdf')" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Exportieren (.pdf)</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="table-container" class="overflow-x-auto">
+                <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                            <th scope="col" class="p-4">
+                                <div class="flex items-center">
+                                    <input id="checkbox-all" type="checkbox" class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                    <label for="checkbox-all" class="sr-only">checkbox</label>
+                                </div>
+                            </th>
+                            <th scope="col" class="px-4 py-3">Rechnungsnummer</th>
+                            <th scope="col" class="px-4 py-3">Bestellnummer</th>
+                            <th scope="col" class="px-4 py-3">Datum</th>
+                            <th scope="col" class="px-4 py-3">Name</th>
+                            <th scope="col" class="px-4 py-3">Adresse</th>
+                            <th scope="col" class="px-4 py-3 whitespace-nowrap text-right">Summe (Brutto)</th>
+                            <th scope="col" class="px-4 py-3 whitespace-nowrap text-right">Zu zahlender Betrag</th>
+                            <th scope="col" class="px-4 py-3">Zahlungsmethode</th>
+                            <th scope="col" class="px-4 py-3">Status</th>
+                            <th scope="col" class="px-4 py-3"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for invoice in invoices %}
+                        <tr id="invoice-{{ invoice.id }}" class="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <!-- Checkbox -->
+                            <td class="w-4 px-4 py-3">
+                                <div class="flex items-center">
+                                    <input data-invoice-id="{{ invoice.id }}" type="checkbox" onclick="event.stopPropagation()" class="invoice-checkbox w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                </div>
+                            </td>
+                            <!-- Rechnungsnummer -->
+                            <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{ invoice.invoice_number }}
+                            </td>
+                            <!-- Bestellnummer -->
+                            <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <a class="text-primary-600 dark:text-primary-500" target="_blank" href="{% url 'dashboard_orders' %}?search={{ invoice.order.number }}">{{ invoice.order.number }}</a>
+                            </td>
+                            <!-- Datum -->
+                            <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{ invoice.date_time|date:"d.m.Y" }}
+                            </td>
+                            <!-- Name -->
+                            <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{ invoice.first_name }} {{ invoice.last_name }}
+                            </td>
+                            <!-- Adresse -->
+                            <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <div class="flex flex-col">
+                                    <span>{{ invoice.street }} {{ invoice.street_number }}</span>
+                                    <span>{{ invoice.postalcode }} {{ invoice.city }}</span>
+                                </div>
+                            </td>
+                            <!-- Summe (Brutto) -->
+                            <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white text-right">
+                                {{ invoice.total|to_euro_decimal }} €
+                            </td>
+                            <!-- Zu zahlender Betrag -->
+                            <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white text-right">
+                                {{ invoice.amount_payable|to_euro_decimal }} €
+                            </td>
+                            <!-- Zahlungsmethode -->
+                            <td class="px-4 py-2">
+                                <span
+                                class="text-xs font-medium px-2 py-0.5 rounded
+                                {% if invoice.payment_type in 'prepayment,payment_by_invoice' %}
+                                bg-primary-100 text-primary-800 dark:bg-primary-900 dark:text-primary-300
+                                {% elif invoice.payment_type in 'online_payment,paypal,cc,applepay' %}
+                                bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-300
+                                {% elif invoice.payment_type == 'payment_at_pickup' %}
+                                bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300
+                                {% endif %}
+                                "
+                                value="{{ invoice.payment_type }}">
+                                    {{ invoice.get_payment_type_display }}
+                                </span>
+                            </td>
+                            <!-- Status -->
+                            <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white status">
+                                <span class="flex items-center text-sm font-medium text-gray-900 dark:text-white me-3 invoice_status">
+                                    <span class="flex w-3 h-3 rounded-full me-1.5 flex-shrink-0 status-circle" value="{{ invoice.status }}"></span>
+                                    {{ invoice.get_status_display }}
+                                </span>
+                            </td>
+                            <!-- Edit -->
+                            <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <button id="dropdown-menu-button-{{ invoice.id }}" data-dropdown-toggle="dropdown-menu-{{ invoice.id }}" class="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100" type="button">
+                                    <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" />
+                                    </svg>
+                                </button>
+                                <div id="dropdown-menu-{{ invoice.id }}" class="hidden z-10 w-64 bg-white rounded divide-y divide-gray-100 shadow-2xl dark:bg-gray-700 dark:divide-gray-600">
+                                    <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdown-menu-{{ invoice.id }}-button">
+                                        <li>
+                                            <a href="javascript:void(0)" onclick="downloadInvoice('{{ invoice.id }}', 'customer')" class="flex flex-row justify-between py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                                Kundenrechnung
+                                                <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 13V4M7 14H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2m-1-5-4 5-4-5m9 8h.01"/>
+                                                </svg>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0)" onclick="downloadInvoice('{{ invoice.id }}', 'insurance')" class="flex flex-row justify-between py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                                Versicherungsrechnung
+                                                <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 13V4M7 14H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2m-1-5-4 5-4-5m9 8h.01"/>
+                                                </svg>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0)" onclick="sendInvoice('{{ invoice.id }}')" class="flex flex-row justify-between py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                                An Kunden senden
+                                                <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16v-5.5A3.5 3.5 0 0 0 7.5 7m3.5 9H4v-5.5A3.5 3.5 0 0 1 7.5 7m3.5 9v4M7.5 7H14m0 0V4h2.5M14 7v3m-3.5 6H20v-6a3 3 0 0 0-3-3m-2 9v4m-8-6.5h1"/>
+                                                </svg>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    {% if invoice.status != 'canceled' %}
+                                    <div class="py-1">
+                                        <a href="javascript:void(0)" onclick="cancelInvoice" class="flex flex-row justify-between py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                                            Stornieren
+                                            <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 9-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                                            </svg>                                              
+                                        </a>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            
+            <nav class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4 border-gray-600 dark:border-gray-600 border-t" aria-label="Table navigation">
+                <ul class="inline-flex items-stretch -space-x-px">
+                    {% with invoices.paginator.page_range|first as first_page %}
+                    {% with 'page:'|concat_string:first_page as page_string %}
+                    {% with updated_params=request.GET|add_get_parameter:page_string %}
+                    <li>
+                        <a href="?{{ updated_params }}" class="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                            <span class="sr-only">Erste Seite</span>
+                            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" viewBox="0 0 12 10">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M5 1 1 5l4 4m6-8L7 5l4 4"/>
+                            </svg>
+                        </a>
+                    </li>
+                    {% endwith %}
+                    {% endwith %}
+                    {% endwith %}
+                    {% for page_num in invoices.paginator.page_range|get_page_range:invoices.number %}
+                    {% if invoices.number == page_num %}
+                    <li>
+                        <a href="?{{ updated_params }}" aria-current="page" class="flex items-center justify-center text-sm z-10 py-2 px-3 leading-tight text-primary-600 bg-primary-50 border border-primary-300 hover:bg-primary-100 hover:text-primary-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">{{ page_num }}</a>
+                    </li>
+                    {% else %}
+                    {% with 'page:'|concat_string:page_num as page_string %}
+                    {% with updated_params=request.GET|add_get_parameter:page_string %}
+                    <li>
+                        <a href="?{{ updated_params }}" class="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{ page_num }}</a>
+                    </li>
+                    {% endwith %}
+                    {% endwith %}
+                    {% endif %}
+                    {% endfor %}
+                    {% with invoices.paginator.page_range|last as last_page %}
+                    {% with 'page:'|concat_string:last_page as page_string %}
+                    {% with updated_params=request.GET|add_get_parameter:page_string %}
+                    <li>
+                        <a href="?{{ updated_params }}" class="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                            <span class="sr-only">Letzte Seite</span>
+                            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" viewBox="0 0 12 10">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="m7 9 4-4-4-4M1 9l4-4-4-4"/>
+                            </svg>
+                        </a>
+                    </li>
+                    {% endwith %}
+                    {% endwith %}
+                    {% endwith %}
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<!-- Pop Up Modal to create invoice -->
+<div id="invoice-creation-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative p-4 w-full max-w-3xl max-h-full">
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <form id="invoiceCreationForm">
+                <!-- Modal header -->
+                <div class="flex items-center justify-between pt-6 px-6 rounded-t">
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                        Neue Rechnung anlegen
+                    </h3>
+                </div>
+                <!-- Modal body -->
+                <div class="p-6 space-y-4">
+                    <!-- Bestellung -->
+                    <div class="mb-5">
+                        <label for="orderNumber" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Bestellung (Nummer)</label>
+                        <input type="text" id="orderNumber" name="orderNumber" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Bestellnummer" required />
+                    </div>
+                    <div class="flex flex-row gap-4 w-full hidden">
+                        <!-- Vorname -->
+                        <div class="mb-5 w-full">
+                            <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Vorname</label>
+                            <input disabled type="text" id="first_name" name="firstName" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Max" required />
+                        </div>
+                        <!-- Nachname -->
+                        <div class="mb-5 w-full">
+                            <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nachname</label>
+                            <input disabled type="text" id="last_name" name="lastName" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Mustermann" required />
+                        </div>
+                    </div>
+                    <button type="button" onclick="addInvoiceElement()" class="h-full flex items-center justify-center text-white bg-emerald-600 focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-4 py-2 hover:bg-emerald-700 focus:ring-4 focus:ring-emerald-300 dark:bg-emerald-600 dark:hover:bg-emerald-700 focus:outline-none dark:focus:ring-emerald-800">
+                        <svg class="h-3.5 w-3.5 mr-1.5 -ml-1" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path clip-rule="evenodd" fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
+                        </svg>
+                        Element hinzufügen
+                    </button>
+                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Rechungselmente</label>
+                    <div class="flex flex-col gap-4 w-full invoice-items">
+                        <div class="flex flex-row gap-4 w-full invoice-item">
+                            <div class="w-full">
+                                <input type="text" name="itemDescription" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Bezeichnung" required />
+                            </div>
+                            <div>
+                                <input type="number" name="amount" class="text-right bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Menge" required />
+                            </div>
+                            <div>
+                                <div class="relative">
+                                    <input type="text" name="price" class="text-right bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full focus:ring-blue-500 focus:border-blue-500 block w-full pe-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0,00">
+                                    <div class="absolute inset-y-0 end-0 flex items-center pe-3.5 pointer-events-none">
+                                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 10h9.231M6 14h9.231M18 5.086A5.95 5.95 0 0 0 14.615 4c-3.738 0-6.769 3.582-6.769 8s3.031 8 6.769 8A5.94 5.94 0 0 0 18 18.916"/>
+                                        </svg>                                          
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="my-auto">
+                                <button type="button" onclick="removeElement(this)" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-full text-sm p-1.5 ml-auto mb-auto inline-flex dark:hover:bg-gray-600 dark:hover:text-white">
+                                    <svg class="w-5 h-5 text-red-700 dark:text-red-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal footer -->
+                <div class="pb-6 px-6 flex justify-between">
+                    <button type="button" onclick="saveNewInvoice()" class="h-full flex items-center justify-center text-white bg-emerald-600 focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-4 py-2 hover:bg-emerald-700 focus:ring-4 focus:ring-emerald-300 dark:bg-emerald-600 dark:hover:bg-emerald-700 focus:outline-none dark:focus:ring-emerald-800">
+                        Rechnung erstellen
+                    </button>
+                    <button onclick="hideModal('invoice-creation-modal')" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-full border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+                        Abbrechen
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal trigger download -->
+<div id="export-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative p-4 w-full max-w-md max-h-full">
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <!-- Modal header -->
+            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                    Rechnungen exportieren (<span name="exportTypeName"></span>)
+                </h3>
+                <button type="button" onclick="hideModal('export-modal')" class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+            <!-- Modal body -->
+            <div class="p-4 md:p-5">
+                <form class="space-y-4" id="exportForm">
+                    <input type="text" name="pharmacyId" value="{{ pharmacy.id }}" hidden>
+                    <input type="text" name="exportType" value="xlsx" hidden>
+                    <div>
+                        <label for="exportDateFrom" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Datum von</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+                                </svg>
+                            </div>
+                            <input datepicker datepicker-format="dd.mm.yyyy" type="text" id="exportDateFrom" name="dateFrom" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Datum von">
+                        </div>
+                    </div>
+                    <div>
+                        <label for="exportDateTill" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Datum bis</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+                                </svg>
+                            </div>
+                            <input datepicker datepicker-format="dd.mm.yyyy" type="text" id="exportDateTill" name="dateTill" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Datum bis">
+                        </div>
+                    </div>
+                    <button onclick="triggerExport()" type="button" class="w-full text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
+                        Exportieren
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div> 
+
+<!-- Success Modal -->
+<div id="download-success-modal" aria-hidden="true" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full bg-gray-900 bg-opacity-60">
+    <div class="relative w-full max-w-md max-h-full">
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <div class="p-6 text-center">
+                <svg class="mx-auto mb-4 w-12 h-12 text-green-500 dark:text-green-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.5 11.5 11 14l4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                </svg>                  
+                <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+                    Der Export wurde erfolgreich angestoßen. Sobald der Export fertig ist, steht die Datei zum Download im <a class="text-green-500 dark:text-green-500 underline" href="#">Downloadbereich</a> bereit.
+                </h3>
+                <button type="button" data-modal-target="download-success-modal" onclick="hideModal('download-success-modal')" class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                    Verstanden
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Success Modal Download -->
+<div id="invoice-success-modal" aria-hidden="true" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full bg-gray-900 bg-opacity-60">
+    <div class="relative w-full max-w-md max-h-full">
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <div class="p-6 text-center">
+                <svg class="mx-auto mb-4 w-12 h-12 text-green-500 dark:text-green-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 4h3c.6 0 1 .4 1 1v15c0 .6-.4 1-1 1H6a1 1 0 0 1-1-1V5c0-.6.4-1 1-1h3m0 3h6m-6 7 2 2 4-4m-5-9v4h4V3h-4Z"/>
+                </svg>
+                <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+                    Die Rechnung wurde erfolgreich angelegt und der Kunde hat eine E-Mail mit der Zahlungsaufforderung erhalten.
+                </h3>
+                <a href="{% url 'dashboard_invoices' %}" type="button" class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                    Verstanden
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<!-- Filter and Search -->
+<script data-baseUrl="{{ baseUrl }}">
+    
+    const filterDatas = document.currentScript.dataset
+
+    $('#searchInvoice').on('keydown', function(event) {
+        if (event.which === 13) { // 13 ist der KeyCode für 'Enter'
+            event.preventDefault(); // Verhindert das Standardverhalten
+            
+            searchInvoice();
+        }
+    });
+
+    const searchInvoice = () => {
+
+        let search_word = $('#searchInvoice').val()
+
+        if (search_word && search_word != '') {
+            
+            customFilter('search=' + search_word)
+
+        }
+        
+    }
+
+    const customFilter = (filterCriterias) => {
+
+        // Show all
+        if (!filterCriterias || filterCriterias == '') {
+            window.location.href = filterDatas.baseurl + '?page=1'
+        // Show by filter
+        } else {
+            window.location.href = filterDatas.baseurl + '?page=1&' + filterCriterias
+        }
+
+    }
+
+    const resetFilter = () => {
+        window.location.href = (filterDatas.baseurl + '?page=1')
+    }
+</script>
+
+<!-- Invoice functions -->
+<script>
+
+    const invoiceItemTemplate = '<div class="flex flex-row gap-4 w-full invoice-item">\
+                                    <div class="w-full">\
+                                        <input type="text" name="itemDescription" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Bezeichnung" required />\
+                                    </div>\
+                                    <div>\
+                                        <input type="number" name="amount" class="text-right bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Menge" required />\
+                                    </div>\
+                                    <div>\
+                                        <div class="relative">\
+                                            <input type="text" name="price" class="text-right bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pe-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0,00">\
+                                            <div class="absolute inset-y-0 end-0 flex items-center pe-3.5 pointer-events-none">\
+                                                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">\
+                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 10h9.231M6 14h9.231M18 5.086A5.95 5.95 0 0 0 14.615 4c-3.738 0-6.769 3.582-6.769 8s3.031 8 6.769 8A5.94 5.94 0 0 0 18 18.916"/>\
+                                                </svg>\
+                                            </div>\
+                                        </div>\
+                                    </div>\
+                                    <div class="my-auto">\
+                                        <button type="button" onclick="removeElement(this)" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto mb-auto inline-flex dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="orderModal">\
+                                            <svg class="w-5 h-5 text-red-700 dark:text-red-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">\
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>\
+                                            </svg>\
+                                        </button>\
+                                    </div>\
+                                </div>'
+
+    const downloadInvoice = (invoiceId, invoiceType) => {
+
+        $.ajax({
+            type: 'POST',
+            url: '{% url "request_invoice_functions" %}',
+            traditional: true,
+            data: {
+                'downloadInvoice': 'downloadInvoice',
+                'invoiceId': invoiceId,
+                'invoiceType': invoiceType,
+            },
+            success: (data) => {
+                
+                window.open(data.downloadLink, '_blank')
+        
+            },
+            error: () => {
+
+                $('.loading-screen').addClass('hidden')
+                toggleModal('alert-modal')
+        
+            }
+        })
+
+    }
+
+    const createInvoice = () => {
+        
+        toggleModal('invoice-creation-modal', {backdrop: 'static'})
+
+    }
+
+    const addInvoiceElement = () => {
+        $('.invoice-items').append(invoiceItemTemplate)
+    }
+
+    const removeElement = (element) => {
+        $(element).closest('.invoice-item').remove()
+    }
+
+    $(document).on('keydown', '#invoiceCreationForm input[name="price"]', function(e) {
+        var key = e.keyCode || e.which;
+        var keyChar = String.fromCharCode(key);
+        var regex = /[0-9]|,/;
+        var value = $(this).val();
+
+        // Allow: backspace, delete, tab, escape, enter
+        if ($.inArray(key, [46, 8, 9, 27, 13]) !== -1 ||
+            // Allow: Ctrl+A, Command+A
+            (key == 65 && (e.ctrlKey === true || e.metaKey === true)) || 
+            // Allow: home, end, left, right, down, up
+            (key >= 35 && key <= 40) ||
+            // Allow: numpad numbers
+            (key >= 96 && key <= 105) ||
+            // Allow: comma key, but only if there isn't already a comma
+            ((key === 188 || key === 110) && value.indexOf(',') === -1)) {
+            // let it happen, don't do anything
+            return;
+        }
+
+        // Ensure that it is a number and stop the keypress
+        if (!regex.test(keyChar) || (keyChar === ',' && value.indexOf(',') !== -1)) {
+            e.preventDefault();
+        }
+    });
+
+    const sendInvoice = (invoiceId) => {
+
+        $.ajax({
+            type: 'POST',
+            url: '{% url "request_invoice_functions" %}',
+            traditional: true,
+            data: {
+                'sendInvoiceToCustomer': 'sendInvoiceToCustomer',
+                'invoiceId': invoiceId,
+            },
+            success: (data) => {
+                
+                showToast('successToast', 'Rechnung wurde erfolgreich an den Kunden gesendet.')
+        
+            },
+            error: () => {
+
+                $('.loading-screen').addClass('hidden')
+                toggleModal('alert-modal')
+        
+            }
+        })
+
+    }
+
+</script>
+
+<!-- Save new Invoice -->
+<script>
+
+    const saveNewInvoice = () => {
+
+        $('#invoiceCreationForm input').removeClass('input-error')
+
+        let orderNumber = $('#orderNumber').val()
+        let items = []
+
+        errorFields = []
+
+        // Check if order number is filled
+        if (orderNumber == '') {
+            $('#orderNumber').addClass('input-error')
+            errorFields.push($('#orderNumber'))
+        }
+
+        $('.invoice-item').each(function() {
+            let itemDescription = $(this).find('input[name="itemDescription"]')
+            let amount = $(this).find('input[name="amount"]')
+            let price = $(this).find('input[name="price"]')
+
+            // Check if all fields are filled
+            if (itemDescription.val() == '') {
+                itemDescription.addClass('input-error')
+                errorFields.push(itemDescription)
+            }
+            if (amount.val() == '') {
+                amount.addClass('input-error')
+                errorFields.push(amount)
+            }
+            if (price.val() == '') {
+                price.addClass('input-error')
+                errorFields.push(price)
+            }
+
+            items.push({
+                'itemDescription': itemDescription.val(),
+                'amount': amount.val(),
+                'price': price.val()
+            })
+        })
+
+        if (errorFields.length > 0) {
+            return
+        }
+
+        $('.loading-screen').removeClass('hidden')
+
+        $.ajax({
+            type: 'POST',
+            url: '{% url "request_invoice_functions" %}',
+            traditional: true,
+            data: {
+                'saveNewInvoice': 'saveNewInvoice',
+                'orderNumber': orderNumber,
+                'invoiceItems': JSON.stringify(items)
+            },
+            success: (data) => {
+                
+                $('.loading-screen').addClass('hidden')
+                hideModal('invoice-creation-modal')
+                toggleModal('invoice-success-modal')
+        
+            },
+            error: () => {
+
+                $('.loading-screen').addClass('hidden')
+                toggleModal('alert-modal')
+        
+            }
+        })
+
+    }
+
+</script>
+
+<!-- Export functions -->
+<script>
+
+    const pharmacyId = $('input[name="pharmacyId"]', '#exportForm')
+    const exportType = $('input[name="exportType"]', '#exportForm')
+    const exportDateFrom = $('input[name="dateFrom"]', '#exportForm')
+    const exportDateTill = $('input[name="dateTill"]', '#exportForm')
+
+    const openExportModal = (eType) => {
+        $('#export-modal span[name="exportTypeName"]').text(eType)
+        exportType.val(eType)
+        toggleModal('export-modal')
+    }
+
+    const triggerExport = () => {
+
+        $('.loading-screen').removeClass('hidden')
+
+        $.ajax({
+            type: 'POST',
+            url: '{% url "request_invoice_functions" %}',
+            traditional: true,
+            data: {
+                'triggerExport': 'triggerExport',
+                'pharmacyId': pharmacyId.val(),
+                'exportType': exportType.val(),
+                'dateFrom': exportDateFrom.val(),
+                'dateTill': exportDateTill.val()
+            },
+            success: (data) => {
+                
+                $('.loading-screen').addClass('hidden')
+
+                hideModal('export-modal')
+                toggleModal('download-success-modal')
+        
+            },
+            error: () => {
+
+                $('.loading-screen').addClass('hidden')
+                toggleModal('alert-modal')
+        
+            }
+        })
+
+    }
+
+</script>
+
+{% endblock %}

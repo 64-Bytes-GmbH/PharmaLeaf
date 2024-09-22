@@ -285,6 +285,7 @@ HealthInsuranceChoices = [
 DashboardViewsChoices = [
     ('dashboard', 'Dashboard'),
     ('dashboard_orders', 'Bestellungen'),
+    ('dashbaord_invoices', 'Rechnungen'),
     ('dashboard_order_products', 'Bestellprodukte'),
     ('dashboard_review_orders', 'Bestelleingang'),
     ('dashboard_imports', 'Imports'),

@@ -736,6 +736,48 @@ def dashboard_products_all(request):
     return render(request, 'dashboard/products/index.html', context)
 
 @check_staff_user
+def dashboard_invoices(request):
+    """ Dashboard Rechnungen """
+
+    try:
+        staff_user = StaffUser.objects.get(user=request.user)
+    except ObjectDoesNotExist:
+
+        create_log(
+            reference='dashboard_review_orders',
+            message='StaffUser not found',
+            user=f'({ request.user.id }) { request.user.username }',
+            category='error',
+        )
+
+        return redirect(home)
+
+    context = {}
+
+    invoices = Invoices.objects.filter(cancellation_invoice=False, order__pharmacy=staff_user.selected_pharmacy).order_by('-date_time', '-id')
+
+    if request.method == 'GET':
+
+        # Seite
+        page_number = request.GET.get('page', 1)
+
+        # Suche
+        search_value = request.GET.get('search', '')
+
+        invoices = dashboard_filter_invoices(request.GET, staff_user.selected_pharmacy)
+        
+        paginator = Paginator(invoices, 20)
+        page_invoices = paginator.get_page(page_number)
+        
+        context['page'] = page_number
+        context['search'] = search_value
+        context['invoices'] = page_invoices
+
+    context['pharmacy'] = staff_user.selected_pharmacy
+
+    return render(request, 'dashboard/invoices.html', context)
+
+@check_staff_user
 def dashboard_product_requests(request):
     """ Dashboard Produktanfragen """
 
