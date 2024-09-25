@@ -21,7 +21,7 @@ from .utils import export_effect_content, export_indications_content,\
                     send_payment_reminder, send_last_payment_reminder, \
                     send_overdue_mail, update_order_prices, check_for_payment_reminder,\
                     send_order_confirmation, send_invoice_to_customer, send_new_order_created, \
-                    create_product_stock_items, export_orders, confirm_created_order
+                    create_product_stock_items, export_orders, confirm_created_order, send_order_ready_for_pickup
 
 locale.setlocale(locale.LC_ALL, '')
 
@@ -232,6 +232,13 @@ def _send_email_again(modeladmin, request, queryset):
             item.sent_success = True
             item.save()
 _send_email_again.short_description = 'E-Mail erneut senden'
+
+#pylint: disable=unused-argument
+def _send_order_ready_for_pickup(modeladmin, request, queryset):
+    """ Send order ready for pickup """
+    for item in queryset:
+        send_order_ready_for_pickup(item)
+_send_order_ready_for_pickup.short_description = 'Abholbereit E-Mail senden'
 
 ######## Admin ########
 class TerpeneAdmin(admin.ModelAdmin):
@@ -545,6 +552,7 @@ class OrdersAdmin(ExtraButtonsMixin, admin.ModelAdmin):
         check_order_payment_reminder,
         _send_new_order_created,
         _confirm_order,
+        _send_order_ready_for_pickup,
     )
 
     def get_customer_name(self, obj):

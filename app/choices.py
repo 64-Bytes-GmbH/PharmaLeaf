@@ -367,6 +367,7 @@ EmailTypes = [
     ('payment_reminder', 'Zahlungserinnerung'),
     ('new_recipe_order', 'Neue Rezeptbestellung'),
     ('order_shipped', 'Bestellung versandt'),
+    ('ready_for_pickup', 'Bestellung abholbereit'),
     ('activate_staff_user', 'Mitarbeiter aktivieren'),
     ('payment_received', 'Zahlungseingang'),
     ('pre_invoice', 'Vorabrechnung'),

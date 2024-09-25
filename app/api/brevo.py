@@ -2,7 +2,7 @@ import requests
 import json
 from datetime import datetime
 
-from app.models import Orders, MainSettings, EmailTemplates, Invoices, OrderProducts, Pharmacies
+from app.models import Orders, MainSettings, EmailTemplates, Invoices, OrderProducts, Pharmacies, OpeningHours
 from db_logger.utils import create_log
 
 ######### Functions #########
@@ -326,7 +326,6 @@ def brevo_send_new_order_created(order_id, confirm_url):
                 response.text
             )
 
-
 def brevo_send_order_confirmation(order_id):
     """ Send email to customer when order is shipped """
 
@@ -435,6 +434,7 @@ def brevo_send_order_shipped(order_id):
 
     main_settings = MainSettings.objects.first()
     order = Orders.objects.get(id=order_id)
+    pharmacy = order.pharmacy
 
     try:
         email_template = EmailTemplates.objects.get(email_type='order_shipped')
@@ -486,6 +486,21 @@ def brevo_send_order_shipped(order_id):
                     'delivery_type': order.get_delivery_type_display(),
                     'shipment_no': order.shipment_shipment_no,
                 },
+                'pharmacy': {
+                    'name': pharmacy.name,
+                    'street': pharmacy.street,
+                    'street_number': pharmacy.street_number,
+                    'postalcode': pharmacy.postalcode,
+                    'city': pharmacy.city,
+                    'phonenumber': pharmacy.phonenumber,
+                    'responsible_pharmacist': pharmacy.responsible_pharmacist,
+                    'responsible_for_content': pharmacy.responsible_for_content,
+                    'register_court': pharmacy.register_court,
+                    'register_number': pharmacy.register_number,
+                    'responsible_supervicory_authority': pharmacy.responsible_supervicory_authority,
+                    'responsible_chamber': pharmacy.responsible_chamber,
+                    'tax_idenfitication': pharmacy.tax_idenfitication,
+                }
             },
         }
 
@@ -495,6 +510,115 @@ def brevo_send_order_shipped(order_id):
 
             create_log(
                 'brevo_send_order_shipped',
+                f'Error sending email to customer {order.email_address} for order {order.number}',
+                'error',
+                'System',
+                response.text
+            )
+
+def brevo_order_ready_for_pickup(order_id):
+    """ Send email to customer when order is ready for pickup """
+
+    main_settings = MainSettings.objects.first()
+    order = Orders.objects.get(id=order_id)
+    pharmacy = order.pharmacy
+
+    opening_hours = OpeningHours.objects.filter(pharmacy=pharmacy)
+
+    # Create opening hours array
+    opening_hours_dict = {}
+
+    for opening_hour in opening_hours:
+        if opening_hour.get_day_display() not in opening_hours_dict:
+            opening_hours_dict[opening_hour.get_day_display()] = {
+                'time': [],
+                'closed': False
+            }
+
+        opening_hours_dict[opening_hour.get_day_display()]['time'].append(f"{opening_hour.from_time.strftime('%H:%M')} - {opening_hour.to_time.strftime('%H:%M')} Uhr")
+        opening_hours_dict[opening_hour.get_day_display()]['closed'] = opening_hour.closed
+
+    opening_hours = []
+
+    for key, value in opening_hours_dict.items():
+
+        opening_hours.append({
+            'day': key,
+            'time': ', '.join(value['time']) if not value['closed'] else 'geschlossen',
+        })
+
+    try:
+        email_template = EmailTemplates.objects.get(email_type='ready_for_pickup')
+    except EmailTemplates.DoesNotExist:
+        create_log(
+            'brevo_ready_for_pickup',
+            f'Error sending email to customer {order.email_address} for order {order.number}',
+            'error',
+            'System',
+            'Email template not found'
+        )
+        return
+
+    if main_settings.brevo_api_key and main_settings.brevo_base_url:
+
+        api_key = main_settings.brevo_api_key
+            
+        url = f'{main_settings.brevo_base_url}/v3/smtp/email'
+
+        headers = {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'api-key': api_key,
+        }
+
+        payload = {
+            'sender': {
+                'email': main_settings.brevo_sender_email,
+                'name': main_settings.brevo_sender_name
+            },
+            'replyTo': {
+                'email': main_settings.brevo_sender_email,
+                'name': main_settings.brevo_sender_name
+            },
+            'subject': email_template.subject,
+            'templateId': email_template.template_id,
+            'to':[  
+                {
+                    'email': order.email_address,
+                    'name': f'{order.first_name} {order.last_name}'
+                }
+            ],
+            'params': {
+                'now': datetime.now().date().year,
+                'order': {
+                    'name': f'{order.first_name} {order.last_name}',
+                    'number': order.number,
+                },
+                'pharmacy': {
+                    'name': pharmacy.name,
+                    'street': pharmacy.street,
+                    'street_number': pharmacy.street_number,
+                    'postalcode': pharmacy.postalcode,
+                    'city': pharmacy.city,
+                    'phonenumber': pharmacy.phonenumber,
+                    'responsible_pharmacist': pharmacy.responsible_pharmacist,
+                    'responsible_for_content': pharmacy.responsible_for_content,
+                    'register_court': pharmacy.register_court,
+                    'register_number': pharmacy.register_number,
+                    'responsible_supervicory_authority': pharmacy.responsible_supervicory_authority,
+                    'responsible_chamber': pharmacy.responsible_chamber,
+                    'tax_idenfitication': pharmacy.tax_idenfitication,
+                    'opening_times': opening_hours,
+                }
+            },
+        }
+
+        response = requests.post(url, headers=headers, data=json.dumps(payload))
+
+        if response.status_code not in [200, 201]:
+                
+            create_log(
+                'brevo_ready_for_pickup',
                 f'Error sending email to customer {order.email_address} for order {order.number}',
                 'error',
                 'System',

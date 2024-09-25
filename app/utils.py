@@ -31,7 +31,7 @@ from .api.dhl import dhl_check_status, dhl_check_bulk_status
 from .api.go_express import go_express_check_status
 from .api.brevo import brevo_send_order_shipped, brevo_send_activate_staff_user, brevo_send_order_confirmation,\
                         brevo_send_activate_user, brevo_send_reset_password, brevo_send_order_cancelled, brevo_send_pre_invoice,\
-                        brevo_send_invoice, brevo_send_new_order_created
+                        brevo_send_invoice, brevo_send_new_order_created, brevo_order_ready_for_pickup
 
 # Excel Datei Spalten und Zeilenweise auslesen
 #pylint: disable=too-many-arguments
@@ -3121,41 +3121,9 @@ def send_order_ready_for_pickup(order, request=None):
     """ Send mail to customer, that order is ready for pickup """
 
     main_settings = MainSettings.objects.first()
-    pharmacy = order.pharmacy
 
-    if not main_settings.mail_via_api:
-
-        email_settings = EmailSettings.objects.first()
-
-        if email_settings and request:
-
-            logo_path = get_full_domain(request) + '/static/app/img/mail/logo.png'
-            banner_path = get_full_domain(request) + '/static/app/img/mail/titlebanner.png'
-
-            ##### Bestellbestätigung senden #####
-            subject = f'Bestellung abholbereit - Bestell-Nr. { order.number }'
-
-            connection = get_connection(
-                host = pharmacy.sending_mail_host,
-                port = pharmacy.sending_mail_port,
-                username = pharmacy.sending_mail,
-                password = pharmacy.sending_mail_password,
-                use_ssl = True,
-            )
-
-            message = render_to_string('mail/order_ready_for_pickup.html', {
-                'main_settings': main_settings,
-                'user': order.customer.user,
-                'logo_path': logo_path,
-                'banner_path': banner_path,
-                'order': order,
-                'pharmacy': pharmacy,
-                'domain': get_full_domain(request),
-            })
-
-            to_mail_list = [order.email_address]
-
-            send_mail(subject, 'Bestellung abholbereit', pharmacy.sending_mail, to_mail_list, connection=connection, html_message=message)
+    if main_settings.mail_via_api:
+        brevo_order_ready_for_pickup(order.id)
 
 def send_order_status_shipped(order):
     """ Send to customer, that order is shipped """
