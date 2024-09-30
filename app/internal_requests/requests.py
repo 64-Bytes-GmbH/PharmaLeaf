@@ -875,7 +875,7 @@ def order_functions_v1(request):
                     if product_price.status == '0' or product_price.status == '1':
                         data['productStatus'].append({
                             'productName': product_obj.name,
-                            'status': product_obj.status,
+                            'status': product_price.status,
                         })
                     
                     total_stock_amount = StockProducts.objects.filter(product=product_obj, pharmacy=order.pharmacy).aggregate(total=Sum('amount'))['total'] or 0
