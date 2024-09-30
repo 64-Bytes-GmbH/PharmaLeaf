@@ -724,7 +724,7 @@ def brevo_send_pre_invoice(invoice_id, invoice_file):
     except EmailTemplates.DoesNotExist:
         create_log(
             'brevo_send_pre_invoice',
-            f'Error sending email to customer {invoice.order.email_address} for invoice {invoice.number}',
+            f'Error sending email to customer {invoice.order.email_address} for invoice {invoice.invoice_number}',
             'error',
             'System',
             'Email template not found'
@@ -811,7 +811,7 @@ def brevo_send_pre_invoice(invoice_id, invoice_file):
                     
             create_log(
                 'brevo_send_pre_invoice',
-                f'Error sending email to customer {invoice.order.email_address} for invoice {invoice.number}',
+                f'Error sending email to customer {invoice.order.email_address} for invoice {invoice.invoice_number}',
                 'error',
                 'System',
                 response.text
@@ -835,7 +835,7 @@ def brevo_send_invoice(invoice_id, invoice_file):
     except EmailTemplates.DoesNotExist:
         create_log(
             'brevo_send_invoice',
-            f'Error sending email to customer {invoice.order.email_address} for invoice {invoice.number}',
+            f'Error sending email to customer {invoice.order.email_address} for invoice {invoice.invoice_number}',
             'error',
             'System',
             'Email template not found'
@@ -917,7 +917,7 @@ def brevo_send_invoice(invoice_id, invoice_file):
                     
             create_log(
                 'brevo_send_invoice',
-                f'Error sending email to customer {invoice.order.email_address} for invoice {invoice.number}',
+                f'Error sending email to customer {invoice.order.email_address} for invoice {invoice.invoice_number}',
                 'error',
                 'System',
                 response.text
