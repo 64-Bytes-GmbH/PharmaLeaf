@@ -1353,7 +1353,7 @@
                         </button>
                     </h2>
                     <div id="update-product-accordion-collapse-body-1" class="hidden" aria-labelledby="update-product-accordion-collapse-heading-1">
-                        <div class="py-4 border-gray-200 sm:py-5 dark:border-gray-700 grid gap-4 mb-5 sm:grid-cols-3">
+                        <div class="py-4 border-gray-200 sm:py-5 dark:border-gray-700 grid gap-4 mb-5 sm:grid-cols-4">
                             <div>
                                 <label for="zahlungsstatus" class="inline-flex items-center mb-2 text-sm font-medium text-gray-900 ">
                                     Zahlungsstatus
@@ -1385,6 +1385,18 @@
                                     {% for item in OrderStatusChoices %}
                                     <option value="{{ item.0 }}" {% if not item.2 %}hidden{% endif %}>{{ item.1 }}</option>
                                     {% endfor %}
+                                </select>
+                                <div name="statusAlert" class="px-3 py-2 mt-3 text-sm text-yellow-800 rounded-full bg-yellow-50 dark:text-yellow-300" role="alert">
+                                    <span class="font-medium">Bitte erstellen Sie zuerst ein <strong>Versandlabel</strong> bevor Sie den Status auf "Versendet" setzen.
+                                </div>
+                            </div>
+                            <div>
+                                <label for="freeDelivery" class="inline-flex items-center mb-2 text-sm font-medium text-gray-900 ">
+                                    Kostenlose Lieferung
+                                </label>
+                                <select id="freeDelivery" name="freeDelivery" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-emerald-500 dark:focus:border-emerald-500">
+                                    <option value="false" selected>Nein</option>
+                                    <option value="true">Ja</option>
                                 </select>
                                 <div name="statusAlert" class="px-3 py-2 mt-3 text-sm text-yellow-800 rounded-full bg-yellow-50 dark:text-yellow-300" role="alert">
                                     <span class="font-medium">Bitte erstellen Sie zuerst ein <strong>Versandlabel</strong> bevor Sie den Status auf "Versendet" setzen.
@@ -3286,6 +3298,7 @@
     const paymentStatus = $('select[name=paymentStatus]', '#orderDetailsForm')
     const recipeStatus = $('select[name=recipeStatus]', '#orderDetailsForm')
     const orderStatus = $('select[name=orderStatus]', '#orderDetailsForm')
+    const freeDelivery = $('select[name=freeDelivery]', '#orderDetailsForm')
     const cancelDeliveryLabelButton = $('button[name=cancelDeliveryLabelButton]', '#orderDetailsForm')
     const dhlButton = $('button[name=dhlButton]', '#orderDetailsForm')
     const goExpressButton = $('button[name=goExpressButton]', '#orderDetailsForm')
@@ -3395,6 +3408,7 @@
                 paymentStatus.val(orderDetails.paymentStatus)
                 recipeStatus.val(orderDetails.recipeStatus)
                 orderStatus.val(orderDetails.orderStatus)
+                freeDelivery.val(orderDetails.freeDelivery.toString())
 
                 // Sendugnsnummer
                 if (orderDetails.shipmentShipmentNo) {
@@ -3404,10 +3418,9 @@
 
                 // Delivery Buttons
                 cancelDeliveryLabelButton.addClass('hidden')
-               dhlButton.addClass('hidden')
+                dhlButton.addClass('hidden')
                 goExpressButton.addClass('hidden')
                 pickUpButton.addClass('hidden')
-
 
                 $('#orderDetailsForm [name="shipment_shipment_no"]').addClass('hidden')
                 
@@ -3437,7 +3450,7 @@
                         </svg>\
                     ')
                 } else {
-                   dhlButton.html('\
+                    dhlButton.html('\
                        DHL Label generieren\
                         <svg class="ml-2 w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">\
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5"/>\
@@ -3537,16 +3550,16 @@
                 comment.val(orderDetails.comment)
 
                 // Lieferdaten
-               delFirstName.val(orderDetails.delFirstName)
-               delLastName.val(orderDetails.delLastName)
-               delLockerId.val(orderDetails.delLockerId)
-               delPostnumber.val(orderDetails.delPostnumber)
-               delStreet.val(orderDetails.delStreet)
-               delStreetNumber.val(orderDetails.delStreetNumber)
-               delPostalcode.val(orderDetails.delPostalcode)
-               delCity.val(orderDetails.delCity)
-               delCountry.val(orderDetails.delCountry)
-               delComment.val(orderDetails.delComment)
+                delFirstName.val(orderDetails.delFirstName)
+                delLastName.val(orderDetails.delLastName)
+                delLockerId.val(orderDetails.delLockerId)
+                delPostnumber.val(orderDetails.delPostnumber)
+                delStreet.val(orderDetails.delStreet)
+                delStreetNumber.val(orderDetails.delStreetNumber)
+                delPostalcode.val(orderDetails.delPostalcode)
+                delCity.val(orderDetails.delCity)
+                delCountry.val(orderDetails.delCountry)
+                delComment.val(orderDetails.delComment)
 
                 // Lieferung an Postfiliale
                 postofficeDelivery.prop('checked', orderDetails.postofficeDelivery)
@@ -3900,6 +3913,7 @@
            dataFields.append('paymentStatus', paymentStatus.val())
            dataFields.append('recipeStatus', recipeStatus.val())
            dataFields.append('orderStatus', orderStatus.val())
+           dataFields.append('freeDelivery', freeDelivery.val())
 
             $.ajax({
                 type: 'POST',
@@ -3911,7 +3925,7 @@
                     'X-Requested-With': 'XMLHttpRequest',
                     'X-CSRFToken': getCookie('csrftoken')
                 },
-               data: dataFields,
+                data: dataFields,
                 success: (data) => {
 
                     let orderDetails = data.orderDetails

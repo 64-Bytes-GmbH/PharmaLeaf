@@ -1309,6 +1309,7 @@ class Orders(models.Model):
     delivery_type = models.CharField(verbose_name='Liefertyp', max_length=255, choices=DeliveryTypeChoices, blank=True)
     delivery_costs = models.FloatField(verbose_name='Lieferkosten', default=0)
     intern_delivery_costs = models.FloatField(verbose_name='Interne Lieferkosten', default=0)
+    free_delivery = models.BooleanField(verbose_name='Kostenlose Lieferung', default=False)
 
     # Payment Fee
     payment_fee = models.FloatField(verbose_name='Bearbeitungsgebühr Bezahlmethode', default=0)
@@ -1495,6 +1496,9 @@ class Orders(models.Model):
 
             except ObjectDoesNotExist:
                 self.delivery_costs = 0
+
+        if self.free_delivery:
+            self.delivery_costs = 0
 
         # Paymenttype
         self.payment_fee = 2.5 if self.payment_type == 'payment_by_invoice' else 0

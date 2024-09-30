@@ -318,6 +318,7 @@ def order_functions_v1(request):
                 'paymentStatus': order.payment_status,
                 'recipeStatus': order.recipe_status,
                 'orderStatus': order.status,
+                'freeDelivery': order.free_delivery,
                 'deliveryButtonStatus': delivery_button_status,
                 'shipmentLabelType': order.get_shipment_label_type_display() if order.shipment_label_type else '',
                 'shipmentShipmentNo': order.shipment_shipment_no,
@@ -370,6 +371,7 @@ def order_functions_v1(request):
             payment_status = request.POST.get('paymentStatus')
             recipe_status = request.POST.get('recipeStatus')
             order_status = request.POST.get('orderStatus')
+            free_delivery = request.POST.get('freeDelivery')
 
             order = Orders.objects.get(id=order_id)
 
@@ -476,6 +478,10 @@ def order_functions_v1(request):
             if order.del_comment != delivery_data.get('delComment'):
                 changes.append('delComment')
             order.del_comment = delivery_data.get('delComment')
+
+            if order.free_delivery != free_delivery:
+                changes.append('freeDelivery')
+            order.free_delivery = True if free_delivery == 'true' else False
 
             # Order status
             if order.payment_status != payment_status:

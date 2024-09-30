@@ -195,7 +195,7 @@ def order_overview(request, order_id): #!
             create_log(
                 reference='user - order_overview',
                 message=f'User not same as order customer',
-                stack_trace=f'Order-ID: { order_id }',
+                stack_trace=f'Order-ID: { order_id } - User: { request.user }',
                 category='error',
                 user='system'
             )
