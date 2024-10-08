@@ -87,4 +87,4 @@ def cj_check_overdue():
 
 def cj_check_delivery_status():
     """ Lieferstatus überprüfen """
-    task_update_delivery_status()
+    task_update_delivery_status.delay()
