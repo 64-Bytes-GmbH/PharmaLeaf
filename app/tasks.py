@@ -1,7 +1,7 @@
 # app/tasks.py
 from celery import shared_task
 from .models import Orders, Pharmacies
-from .utils import go_express_check_status, dhl_check_bulk_status, send_order_status_shipped
+from .utils import dhl_check_bulk_status, send_order_status_shipped
 from db_logger.utils import create_log
 
 @shared_task
