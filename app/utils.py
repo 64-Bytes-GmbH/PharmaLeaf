@@ -1799,13 +1799,6 @@ def check_status_for_mail(order, status_name, old_status, new_status, request):
         # New Online Recipe status
         if status_name == 'online_recipe_status':
 
-            if new_status == 'checked' and order.payment_type in ('prepayment', 'payment_by_invoice'):
-                try:
-                    invoice = Invoices.objects.get(order=order, cancellation_invoice=False, canceled=False).id
-                    send_invoice_to_customer(invoice, request)
-                except invoice.DoesNotExist:
-                    pass
-
             if new_status == 'incorrect':
                 send_recipe_status_incorrect(order)
 
@@ -2983,17 +2976,6 @@ def send_invoice_to_customer(invoice_id, request=None):
 
     invoice.send_to_customer = True
     invoice.save()
-
-def send_pre_invoice_to_customer(invoice_id, request):
-    """ Send pro forma inovice to customer """
-
-    main_settings = MainSettings.objects.first()
-
-    if main_settings.mail_via_api:
-        return True
-
-    else:
-        send_invoice_to_customer(invoice_id, request)
 
 def send_receipe_confirmation(order_id):
     """ Send receipe confirmation to customer """
