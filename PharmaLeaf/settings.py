@@ -153,7 +153,7 @@ CRONJOBS = [
     ('0 6 * * *', 'app.cron_jobs.cj_send_payment_reminder'),
     ('0 6 * * *', 'app.cron_jobs.cj_send_last_payment_reminder'),
     ('0 6 * * *', 'app.cron_jobs.cj_check_overdue'),
-    ('0 14,20 * * *', 'app.cron_jobs.cj_check_delivery_status'),
+    ('0 8-22 * * *', 'app.cron_jobs.cj_check_delivery_status'),
 ]
 
 SERIALIZATION_MODULES = {

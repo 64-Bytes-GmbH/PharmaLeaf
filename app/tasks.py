@@ -31,23 +31,6 @@ def task_update_delivery_status():
             user='System'
         )
 
-        # GO-Express
-        go_express_orders = orders.filter(shipment_label_type='go_express')
-
-        if go_express_orders.count() > 0:
-            create_log(
-                reference='update_delivery_status',
-                message=f'Check delivery status for GO-Express for {go_express_orders.count()} orders',
-                category='task',
-                user='System'
-            )
-
-            for order in go_express_orders:
-                go_express_response = go_express_check_status(order.id)
-
-                if go_express_response and 'send_mail' in go_express_response and go_express_response['send_email']:
-                    send_order_status_shipped(order)
-
         # DHL
         dhl_orders = orders.filter(shipment_label_type='dhl_standard')
 
