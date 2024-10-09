@@ -885,9 +885,9 @@ class ProductPrices(models.Model):
         if not self.pirce_per_unit:
             self.pirce_per_unit = self.purchase_price
 
-        if self.price_surcharge and self.self_payer_selling_price:
+        if self.purchase_price and self.self_payer_selling_price_brutto:
+            self.self_payer_selling_price = round(self.self_payer_selling_price_brutto / (1 + PriceSettings.objects.first().tax_rate), 4)
             self.price_surcharge = round((self.self_payer_selling_price - self.purchase_price) / self.purchase_price, 4)
-            self.self_payer_selling_price_brutto = round(self.self_payer_selling_price * (1 + PriceSettings.objects.first().tax_rate), 2)
 
         return super().save(*args, **kwargs)
 
