@@ -448,12 +448,22 @@ def get_all_products_v1(request):
                 'id': product.id,
                 'number': product.number,
                 'name': product.name,
+                'description': product.description,
+                'cultiviar': product.cultivar.name,
+                'country': product.country_of_origin.name,
+                'thc_value': product.thc_value,
+                'cbd_value': product.max_cbd_value,
+                'genetic': product.genetics.name,
+                'manufacturer': product.manufacturer.name,
+                'supplier': product.supplier.name,
                 'price': round(product.self_payer_selling_price_brutto * 100),
                 'form': product.form,
+                'terpene': [terpene.name for terpene in product.main_terpene.all()],
                 'status': {
                     'value': product.status,
                     'label': product.get_status_display(),
                 },
+                'avaliable_amount': 0,
                 'active': product.active,
             })
 
