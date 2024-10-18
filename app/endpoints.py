@@ -448,11 +448,14 @@ def get_all_products_v1(request):
             try:
                 product_price = ProductPrices.objects.filter(product=product).first()
 
+                if product_price:
+                    status_display = "Nicht verfügbar" if product_price.status == 0 else "Verfügbar"
+
                 products_array.append({
                     'id': product.id,
                     'number': product.number,
                     'name': product.name,
-                    'description': product.description,
+                    # 'description': product.description,
                     'cultiviar': product.cultivar.name if product.cultivar else None,
                     'country': product.country_of_origin.name if product.country_of_origin else None,
                     'thc_value': product.thc_value,
@@ -465,7 +468,7 @@ def get_all_products_v1(request):
                     'terpene': [terpene.name for terpene in product.main_terpene.all()],
                     'status': {
                         'value': product_price.status if product_price else None,
-                        'label': product_price.get_status_display() if product_price else None,
+                        'label': status_display if product_price else None,
                     },
                     'avaliable_amount': 0,
                     'active': product_price.active if product_price else False,
