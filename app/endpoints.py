@@ -439,6 +439,22 @@ def get_all_products_v1(request):
 
         products = Products.objects.all()
 
+        create_log(
+            reference='get_all_products_v1',
+            message='TEST LOG',
+            stack_trace=list(products.values('id')),
+            user=request.user,
+            category='error',
+        )
+
+        create_log(
+            reference='get_all_products_v1',
+            message='TEST LOG',
+            stack_trace=list(products.values('id', 'name')),
+            user=request.user,
+            category='error',
+        )
+
         data = {}
 
         products_array = []
