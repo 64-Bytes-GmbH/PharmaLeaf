@@ -455,7 +455,6 @@ def get_all_products_v1(request):
                     'id': product.id,
                     'number': product.number,
                     'name': product.name,
-                    # 'description': product.description,
                     'cultiviar': product.cultivar.name if product.cultivar else None,
                     'country': product.country_of_origin.name if product.country_of_origin else None,
                     'thc_value': product.thc_value,
