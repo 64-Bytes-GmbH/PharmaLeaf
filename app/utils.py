@@ -1988,7 +1988,7 @@ def dashboard_filter_orders(parameters, pharmacy):
     
     """ Filter order by parameters """
 
-    orders = Orders.objects.filter(Q(ordered=True) | Q(status='started') | Q(status='acceptance_refused'))).order_by('-order_time')
+    orders = Orders.objects.filter(Q(ordered=True) | Q(status='started') | Q(status='acceptance_refused')).order_by('-order_time')
 
     if 'status' in parameters:
 
