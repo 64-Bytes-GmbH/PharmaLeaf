@@ -482,6 +482,7 @@ def get_all_products_v1(request):
             message='Error HTTP-GET: Get all products',
             stack_trace=str(e),
             user=request.user,
+            category='error',
         )
 
         return Response({'status': 'Error', 'message': 'Internal Server Error'}, status=500)
