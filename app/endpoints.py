@@ -439,52 +439,46 @@ def get_all_products_v1(request):
 
         products = Products.objects.all()
 
-        create_log(
-            reference='get_all_products_v1',
-            message='TEST LOG',
-            stack_trace=list(products.values('id')),
-            user=request.user,
-            category='error',
-        )
-
-        create_log(
-            reference='get_all_products_v1',
-            message='TEST LOG',
-            stack_trace=list(products.values('id', 'name')),
-            user=request.user,
-            category='error',
-        )
-
         data = {}
 
         products_array = []
 
         for product in products:
 
-            product_price = ProductPrices.objects.filter(product=product).first()
+            try:
+                product_price = ProductPrices.objects.filter(product=product).first()
 
-            products_array.append({
-                'id': product.id,
-                'number': product.number,
-                'name': product.name,
-                'description': product.description,
-                'cultiviar': product.cultivar.name,
-                'country': product.country_of_origin.name,
-                'thc_value': product.thc_value,
-                'cbd_value': product.max_cbd_value,
-                'genetic': product.genetics.name,
-                'manufacturer': product.manufacturer.name,
-                'supplier': product.supplier.name,
-                'price': round(product_price.self_payer_selling_price_brutto * 100),
-                'form': product.form,
-                'terpene': [terpene.name for terpene in product.main_terpene.all()],
-                'status': {
-                    'value': product_price.status,
-                    'label': product_price.get_status_display(),
-                },
-                'avaliable_amount': 0,
-                'active': product_price.active,
-            })
+                products_array.append({
+                    'id': product.id,
+                    'number': product.number,
+                    'name': product.name,
+                    'description': product.description,
+                    'cultiviar': product.cultivar.name if product.cultivar else None,
+                    'country': product.country_of_origin.name if product.country_of_origin else None,
+                    'thc_value': product.thc_value,
+                    'cbd_value': product.max_cbd_value,
+                    'genetic': product.genetics.name if product.genetics else None,
+                    'manufacturer': product.manufacturer.name if product.manufacturer else None,
+                    'supplier': product.supplier.name if product.supplier else None,
+                    'price': round(product_price.self_payer_selling_price_brutto * 100) if product_price else None,
+                    'form': product.form,
+                    'terpene': [terpene.name for terpene in product.main_terpene.all()],
+                    'status': {
+                        'value': product_price.status if product_price else None,
+                        'label': product_price.get_status_display() if product_price else None,
+                    },
+                    'avaliable_amount': 0,
+                    'active': product_price.active if product_price else False,
+                })
+            
+            except Exception as product_error:
+                create_log(
+                    reference='get_all_products_v1',
+                    message=f'Error processing product ID {product.id} / {product.name}: {str(product_error)}',
+                    stack_trace=str(product_error),
+                    user=request.user,
+                    category='error',
+                )
 
         data['status']  = 'Success'
         data['products'] = products_array
