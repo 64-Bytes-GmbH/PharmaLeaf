@@ -240,6 +240,14 @@ def _send_order_ready_for_pickup(modeladmin, request, queryset):
         send_order_ready_for_pickup(item)
 _send_order_ready_for_pickup.short_description = 'Abholbereit E-Mail senden'
 
+#pylint: disable=unused-argument
+def _set_on_ordered(modeladmin, request, queryset):
+    """ Set on ordered """
+    for item in queryset:
+        item.ordered = True
+        item.save()
+_set_on_ordered.short_description = 'Auf Bestellt setzen'
+
 ######## Admin ########
 class TerpeneAdmin(admin.ModelAdmin):
     """ Admin Terpene """
@@ -553,6 +561,7 @@ class OrdersAdmin(ExtraButtonsMixin, admin.ModelAdmin):
         _send_new_order_created,
         _confirm_order,
         _send_order_ready_for_pickup,
+        _set_on_ordered,
     )
 
     def get_customer_name(self, obj):

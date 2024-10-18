@@ -1534,6 +1534,9 @@ class Orders(models.Model):
             # Zu Zahlender Betrag
             self.amount_payable = self.total
 
+        if self.status in ['ordered', 'product_changed', 'process', 'process_waiting', 'queries', 'clarified', 'payment_change', 'ready_to_ship', 'ready_for_pickup', 'shipped', 'acceptance_refused', 'delivery_not_possible', 'picked_up', 'delivered']:
+            self.ordered = True
+
         if self.ordered:
 
             if self.customer and not self.__original_ordered:
