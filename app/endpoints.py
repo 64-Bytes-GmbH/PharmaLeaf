@@ -15,7 +15,7 @@ from django.contrib.auth.models import User
 from django.conf import settings
 from django.core.files.base import ContentFile
 
-from app.models import Pharmacies, Customers, Orders, OrderProducts, Products, OrderRecipes, APIKey, PZNAmounts
+from app.models import Pharmacies, Customers, Orders, OrderProducts, Products, OrderRecipes, APIKey, PZNAmounts, ProductPrices
 from db_logger.utils import create_log
 
 def api_key_required(view_func):
@@ -444,6 +444,9 @@ def get_all_products_v1(request):
         products_array = []
 
         for product in products:
+
+            product_price = ProductPrices.objects.filter(product=product).first()
+
             products_array.append({
                 'id': product.id,
                 'number': product.number,
@@ -456,15 +459,15 @@ def get_all_products_v1(request):
                 'genetic': product.genetics.name,
                 'manufacturer': product.manufacturer.name,
                 'supplier': product.supplier.name,
-                'price': round(product.self_payer_selling_price_brutto * 100),
+                'price': round(product_price.self_payer_selling_price_brutto * 100),
                 'form': product.form,
                 'terpene': [terpene.name for terpene in product.main_terpene.all()],
                 'status': {
-                    'value': product.status,
-                    'label': product.get_status_display(),
+                    'value': product_price.status,
+                    'label': product_price.get_status_display(),
                 },
                 'avaliable_amount': 0,
-                'active': product.active,
+                'active': product_price.active,
             })
 
         data['status']  = 'Success'
@@ -472,6 +475,13 @@ def get_all_products_v1(request):
 
         return Response(data, status=200)
 
-    except:
+    except Exception as e:
+
+        create_log(
+            reference='get_all_products_v1',
+            message='Error HTTP-GET: Get all products',
+            stack_trace=str(e),
+            user=request.user,
+        )
 
         return Response({'status': 'Error', 'message': 'Internal Server Error'}, status=500)
