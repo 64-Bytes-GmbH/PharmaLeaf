@@ -449,7 +449,7 @@ def get_all_products_v1(request):
                 product_price = ProductPrices.objects.filter(product=product).first()
 
                 if product_price:
-                    status_display = "Nicht verfügbar" if product_price.status == 0 else "Verfügbar"
+                    status_display = "Nicht verfügbar" if product_price.status == "0" else "Verfügbar"
 
                 products_array.append({
                     'id': product.id,
